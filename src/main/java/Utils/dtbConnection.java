@@ -1,4 +1,4 @@
-package DAO;
+package Utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +15,11 @@ public class dtbConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        if (connection == null) {
+            System.err.println("BadConnecting");
+        } else {
+            System.out.println("Goodboiz");
+        }
         return connection;
     }
     public static void closeConnection(Connection c) {
