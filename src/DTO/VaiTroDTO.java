@@ -1,13 +1,13 @@
 package DTO;
 
-public class VaiTro {
+public class VaiTroDTO {
     private String maVT;
     private String tenVT;
 
-    public VaiTro() {
+    public VaiTroDTO() {
 
     }
-    public VaiTro(String maVT, String tenVT) {
+    public VaiTroDTO(String maVT, String tenVT) {
         this.maVT = maVT;
         this.tenVT = tenVT;
     }

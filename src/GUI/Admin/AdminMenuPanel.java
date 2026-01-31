@@ -1,4 +1,4 @@
-package Admin;
+package GUI.Admin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
