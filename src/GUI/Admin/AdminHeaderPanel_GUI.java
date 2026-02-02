@@ -2,8 +2,8 @@ package GUI.Admin;
 import javax.swing.*;
 import java.awt.*;
 
-public class AdminHeaderPanel extends JPanel {
-    public AdminHeaderPanel() {
+public class AdminHeaderPanel_GUI extends JPanel {
+    public AdminHeaderPanel_GUI() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setPreferredSize(new Dimension(0, 80));
         setBackground(Color.WHITE);
@@ -26,7 +26,7 @@ public class AdminHeaderPanel extends JPanel {
         );
 
 
-        ImageIcon adminIcon = new ImageIcon(getClass().getResource("/Image/admin-icon.png"));
+        ImageIcon adminIcon = new ImageIcon(getClass().getResource("/GUI/Image/admin-icon.png"));
         Image adminImg = adminIcon.getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
         ImageIcon adminScaled = new ImageIcon(adminImg);
         JButton btnAccount = new JButton(adminScaled);

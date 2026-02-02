@@ -1,14 +1,14 @@
 package DTO;
 
-public class TaiKhoaDTO {
+public class TaiKhoa_DTO {
     private String tenDangNhap;
     private String passWord;
     private String maKH;
 
-    public TaiKhoaDTO() {
+    public TaiKhoa_DTO() {
 
     }
-    public TaiKhoaDTO(String tenDangNhap, String passWord, String maKH) {
+    public TaiKhoa_DTO(String tenDangNhap, String passWord, String maKH) {
         this.tenDangNhap = tenDangNhap;
         this.passWord = passWord;
         this.maKH = maKH;
@@ -24,5 +24,17 @@ public class TaiKhoaDTO {
 
     public String getPassWord() {
         return passWord;
+    }
+
+    public void setTenDangNhap(String tenDangNhap) {
+        this.tenDangNhap = tenDangNhap;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
 }

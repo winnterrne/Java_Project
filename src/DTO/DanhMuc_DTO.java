@@ -1,13 +1,13 @@
 package DTO;
 
-public class DanhMucDTO {
+public class DanhMuc_DTO {
     private String maDM;
     private String tenDM;
 
-    public DanhMucDTO() {
+    public DanhMuc_DTO() {
 
     }
-    public DanhMucDTO(String maDM, String tenDM) {
+    public DanhMuc_DTO(String maDM, String tenDM) {
         this.maDM = maDM;
         this.tenDM = tenDM;
     }
@@ -27,4 +27,6 @@ public class DanhMucDTO {
     public void setTenDM(String tenDM) {
         this.tenDM = tenDM;
     }
+
+
 }

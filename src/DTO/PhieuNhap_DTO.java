@@ -1,19 +1,18 @@
 package DTO;
 
-import javax.crypto.Cipher;
 import java.time.LocalDate;
 
-public class PhieuNhapDTO {
+public class PhieuNhap_DTO {
     private String maPhieuNhap;
     private LocalDate ngayNhapHang;
     private double tongTien;
     private String maNCC;
     private String maNV;
 
-    public PhieuNhapDTO() {
+    public PhieuNhap_DTO() {
 
     }
-    public PhieuNhapDTO(String maPhieuNhap, LocalDate ngayNhapHang, double tongTien, String maNCC, String maNV) {
+    public PhieuNhap_DTO(String maPhieuNhap, LocalDate ngayNhapHang, double tongTien, String maNCC, String maNV) {
         this.maPhieuNhap = maPhieuNhap;
         this.ngayNhapHang = ngayNhapHang;
         this.tongTien = tongTien;
@@ -39,5 +38,25 @@ public class PhieuNhapDTO {
 
     public String getMaNV() {
         return maNV;
+    }
+
+    public void setMaPhieuNhap(String maPhieuNhap) {
+        this.maPhieuNhap = maPhieuNhap;
+    }
+
+    public void setNgayNhapHang(LocalDate ngayNhapHang) {
+        this.ngayNhapHang = ngayNhapHang;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 }
