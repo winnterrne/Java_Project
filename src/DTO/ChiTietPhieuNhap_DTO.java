@@ -2,7 +2,7 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class ChiTietPhieuNhapDTO {
+public class ChiTietPhieuNhap_DTO {
     private String maPhieuNhap;
     private String maSP;
     private int soLuong;
@@ -11,10 +11,10 @@ public class ChiTietPhieuNhapDTO {
     private LocalDate hanSuDung;
     private LocalDate ngaySanXuat;
 
-    public ChiTietPhieuNhapDTO() {
+    public ChiTietPhieuNhap_DTO() {
 
     }
-    public ChiTietPhieuNhapDTO(String maPhieuNhap, String maSP, int soLuong, double giaNhap, LocalDate ngayNhap, LocalDate hanSuDung, LocalDate ngaySanXuat) {
+    public ChiTietPhieuNhap_DTO(String maPhieuNhap, String maSP, int soLuong, double giaNhap, LocalDate ngayNhap, LocalDate hanSuDung, LocalDate ngaySanXuat) {
         this.maPhieuNhap = maPhieuNhap;
         this.maSP = maSP;
         this.soLuong = soLuong;
@@ -50,5 +50,33 @@ public class ChiTietPhieuNhapDTO {
 
     public LocalDate getNgaySanXuat() {
         return ngaySanXuat;
+    }
+
+    public void setMaPhieuNhap(String maPhieuNhap) {
+        this.maPhieuNhap = maPhieuNhap;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public void setGiaNhap(double giaNhap) {
+        this.giaNhap = giaNhap;
+    }
+
+    public void setNgayNhap(LocalDate ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
+
+    public void setHanSuDung(LocalDate hanSuDung) {
+        this.hanSuDung = hanSuDung;
+    }
+
+    public void setNgaySanXuat(LocalDate ngaySanXuat) {
+        this.ngaySanXuat = ngaySanXuat;
     }
 }

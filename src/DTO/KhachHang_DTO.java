@@ -1,6 +1,6 @@
 package DTO;
 
-public class KhachHangDTO {
+public class KhachHang_DTO {
     private String maKH;
     private String hoTenKH;
     private String soDT;
@@ -8,10 +8,10 @@ public class KhachHangDTO {
     private String email;
     private double diemTichLuy;
 
-    public KhachHangDTO() {
+    public KhachHang_DTO() {
 
     }
-    public KhachHangDTO(String maKH, String hoTenKH, String soDT, String diaChi, String email, double diemTichLuy) {
+    public KhachHang_DTO(String maKH, String hoTenKH, String soDT, String diaChi, String email, double diemTichLuy) {
         this.maKH = maKH;
         this.hoTenKH = hoTenKH;
         this.soDT = soDT;
@@ -42,5 +42,29 @@ public class KhachHangDTO {
 
     public double getDiemTichLuy() {
         return diemTichLuy;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public void setHoTenKH(String hoTenKH) {
+        this.hoTenKH = hoTenKH;
+    }
+
+    public void setSoDT(String soDT) {
+        this.soDT = soDT;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDiemTichLuy(double diemTichLuy) {
+        this.diemTichLuy = diemTichLuy;
     }
 }

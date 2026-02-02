@@ -2,16 +2,16 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class ChiTietPhieuTraDTO {
+public class ChiTietPhieuTra_DTO {
     private String maPhieuTra;
     private String maSP;
     private LocalDate ngayTra;
     private int soLuongTra;
 
-    public ChiTietPhieuTraDTO() {
+    public ChiTietPhieuTra_DTO() {
 
     }
-    public ChiTietPhieuTraDTO(String maPhieuTra, String maSP, LocalDate ngayTra, int soLuongTra) {
+    public ChiTietPhieuTra_DTO(String maPhieuTra, String maSP, LocalDate ngayTra, int soLuongTra) {
         this.maPhieuTra = maPhieuTra;
         this.maSP = maSP;
         this.ngayTra = ngayTra;
@@ -32,5 +32,21 @@ public class ChiTietPhieuTraDTO {
 
     public int getSoLuongTra() {
         return soLuongTra;
+    }
+
+    public void setMaPhieuTra(String maPhieuTra) {
+        this.maPhieuTra = maPhieuTra;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public void setNgayTra(LocalDate ngayTra) {
+        this.ngayTra = ngayTra;
+    }
+
+    public void setSoLuongTra(int soLuongTra) {
+        this.soLuongTra = soLuongTra;
     }
 }

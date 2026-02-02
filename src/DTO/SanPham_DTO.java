@@ -1,6 +1,6 @@
 package DTO;
 
-public class SanPhamDTO {
+public class SanPham_DTO {
     private String maSP;
     private String tenSP;
     private String moTa;
@@ -9,10 +9,10 @@ public class SanPhamDTO {
     private int soLuongTon;
     private String maDM;
 
-    public SanPhamDTO() {
+    public SanPham_DTO() {
 
     }
-    public SanPhamDTO(String maSP, String tenSP, String moTa, double giaBan, double donVi, int soLuongTon, String maDM) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, double donVi, int soLuongTon, String maDM) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
@@ -77,4 +77,5 @@ public class SanPhamDTO {
     public void setMaDM(String maDM) {
         this.maDM = maDM;
     }
+
 }

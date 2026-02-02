@@ -1,14 +1,13 @@
 package GUI.Admin;
 import javax.swing.*;
 import java.awt.*;
-import java.util.jar.JarEntry;
 
-public class LoginForm extends JFrame{
+public class LoginForm_GUI extends JFrame{
     JLabel lbtaiKhoan, lbmatKhau, lbforgotPass, lbtitle, lbImage;
     JTextField txtaiKhoan, txmatKhau;
     JPanel panelForm, panelImage;
     JButton btnLogin, btnSignUp;
-    public LoginForm() {
+    public LoginForm_GUI() {
         intGui();
     }
     public void intGui() {
@@ -71,7 +70,7 @@ public class LoginForm extends JFrame{
         panelImage = new JPanel(new BorderLayout());
         panelImage.setBackground(Color.white);
 
-        ImageIcon icon = new ImageIcon(LoginForm.class.getResource("/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
+        ImageIcon icon = new ImageIcon(LoginForm_GUI.class.getResource("/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
         lbImage = new JLabel(icon);
         lbImage.setHorizontalAlignment(JLabel.CENTER);
         panelImage.add(lbImage,BorderLayout.CENTER);
@@ -105,6 +104,6 @@ public class LoginForm extends JFrame{
     }
 
     public static void main(String[] args) {
-        new LoginForm();
+        new LoginForm_GUI();
     }
 }

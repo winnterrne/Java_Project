@@ -2,7 +2,7 @@ package DTO;
 
 import java.time.LocalDate;
 
-public class NhanVienDTO {
+public class NhanVien_DTO {
     private String maNV;
     private String hoTenNV;
     private String chucVu;
@@ -12,10 +12,10 @@ public class NhanVienDTO {
     private String diaChi;
     private String email;
 
-    public NhanVienDTO() {
+    public NhanVien_DTO() {
 
     }
-    public NhanVienDTO(String maNV, String hoTenNV, String chucVu, double luong, LocalDate ngayvaolam, String soDT, String diaChi, String email) {
+    public NhanVien_DTO(String maNV, String hoTenNV, String chucVu, double luong, LocalDate ngayvaolam, String soDT, String diaChi, String email) {
         this.maNV = maNV;
         this.hoTenNV = hoTenNV;
         this.chucVu = chucVu;
@@ -56,5 +56,37 @@ public class NhanVienDTO {
 
     public String getChucVu() {
         return chucVu;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+
+    public void setHoTenNV(String hoTenNV) {
+        this.hoTenNV = hoTenNV;
+    }
+
+    public void setChucVu(String chucVu) {
+        this.chucVu = chucVu;
+    }
+
+    public void setLuong(double luong) {
+        this.luong = luong;
+    }
+
+    public void setNgayvaolam(LocalDate ngayvaolam) {
+        this.ngayvaolam = ngayvaolam;
+    }
+
+    public void setSoDT(String soDT) {
+        this.soDT = soDT;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

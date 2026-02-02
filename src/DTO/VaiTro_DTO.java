@@ -1,13 +1,13 @@
 package DTO;
 
-public class VaiTroDTO {
+public class VaiTro_DTO {
     private String maVT;
     private String tenVT;
 
-    public VaiTroDTO() {
+    public VaiTro_DTO() {
 
     }
-    public VaiTroDTO(String maVT, String tenVT) {
+    public VaiTro_DTO(String maVT, String tenVT) {
         this.maVT = maVT;
         this.tenVT = tenVT;
     }
@@ -18,6 +18,14 @@ public class VaiTroDTO {
 
     public String getTenVT() {
         return tenVT;
+    }
+
+    public void setMaVT(String maVT) {
+        this.maVT = maVT;
+    }
+
+    public void setTenVT(String tenVT) {
+        this.tenVT = tenVT;
     }
 }
 
