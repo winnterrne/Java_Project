@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class dtbConnection {
+public class databaseConnection {
     public static Connection getConnection() {
         Connection connection = null;
         final String url = "jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/project_java";
