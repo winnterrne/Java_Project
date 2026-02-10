@@ -5,8 +5,8 @@ import java.sql.Connection;
 
 public class main {
     public static void main(String[] args) {
-        //Connection connect = dtbConnection.getConnection();
-        //new AdminFrame();
+//        Connection connect = databaseConnection.getConnection();
+        new AdminFrame();
         new LoginForm();
     }
 }
