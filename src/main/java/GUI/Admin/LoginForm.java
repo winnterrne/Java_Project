@@ -1,13 +1,12 @@
 package GUI.Admin;
 import javax.swing.*;
 import java.awt.*;
-import java.util.jar.JarEntry;
 
 public class LoginForm extends JFrame{
-    JLabel lbtaiKhoan, lbmatKhau, lbforgotPass, lbtitle, lbImage;
+    JLabel lbtaiKhoan, lbmatKhau, lbtitle, lbImage;
     JTextField txtaiKhoan, txmatKhau;
     JPanel panelForm, panelImage;
-    JButton btnLogin, btnSignUp;
+    JButton btnLogin, btnSignUp, btnForgotPass;
     public LoginForm() {
         intGui();
     }
@@ -24,7 +23,7 @@ public class LoginForm extends JFrame{
         panelForm.add(Box.createVerticalStrut(80));
 
         // SIGN IN / LOGIN
-        lbtitle = new JLabel("LOGIN");
+        lbtitle = new JLabel("Welcom to my shop");
         lbtitle.setFont(new Font("Arial",Font.BOLD,36));
         lbtitle.setForeground(new Color(0,102,204));
         lbtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -38,11 +37,13 @@ public class LoginForm extends JFrame{
         panelForm.add(createFiled("Password",new JPasswordField()));
         panelForm.add(Box.createVerticalStrut(8));
 
-        lbforgotPass = new JLabel("Forgot your password ?");
-        lbforgotPass.setForeground(new Color(0,102,204));
-        lbforgotPass.setFont(new Font("Arial",Font.PLAIN,13));
-        lbforgotPass.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panelForm.add(lbforgotPass);
+        btnForgotPass = new JButton("Forgot password ?");
+        btnForgotPass.setMaximumSize(new Dimension(160, 30));
+        btnForgotPass.setForeground(new Color(0,102,204));
+        btnForgotPass.setFont(new Font("Arial",Font.PLAIN,13));
+        btnForgotPass.setBackground(Color.white);
+        btnForgotPass.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelForm.add(btnForgotPass);
 
         panelForm.add(Box.createVerticalStrut(60));
 
@@ -102,4 +103,9 @@ public class LoginForm extends JFrame{
 
         return panel;
     }
+
+    public static void main(String[] args) {
+        new LoginForm();
+    }
+
 }

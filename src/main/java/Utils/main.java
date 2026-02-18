@@ -5,7 +5,7 @@ import java.sql.Connection;
 
 public class main {
     public static void main(String[] args) {
-//        Connection connect = databaseConnection.getConnection();
+//       Connection connect = databaseConnection.getConnection();
         new AdminFrame();
         new LoginForm();
     }
