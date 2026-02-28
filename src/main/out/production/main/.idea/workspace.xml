@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="de7d624b-eaad-4518-a7d8-e6f40634be4f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/GUI/NhapGUI/ChiTietPhieuNhapGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/NhapGUI/NhaCungCapGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/NhapGUI/PhieuNhapGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Admin/AdminContetnPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Admin/AdminContentPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Admin/AdminFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Admin/AdminFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Admin/AdminHeaderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Admin/AdminHeaderPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Admin/AdminMenuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Admin/AdminMenuPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Admin/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Admin/LoginForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/admin-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/admin-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/desktop.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/desktop.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/images.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/images.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/mini-mart-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/mini-mart-2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/mini-mart-logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/mini-mart-logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/mini-mart.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/mini-mart.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/user.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/user.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="3A4ndphAabuYWugm4iJmYMm8ibk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/DoAnLapTrinhJava/Java_Project/src/main/java",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="de7d624b-eaad-4518-a7d8-e6f40634be4f" name="Changes" comment="" />
+      <created>1771860803041</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771860803041</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -13,7 +13,7 @@ public class AdminMenuPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(220, 0));
 
-        ImageIcon logo = new ImageIcon(getClass().getResource("/GUI/Image/images.jpeg"));
+        ImageIcon logo = new ImageIcon(getClass().getResource("/Image/images.jpeg"));
         Image img = logo.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel lbLogo = new JLabel(new ImageIcon(img));
         lbLogo.setAlignmentX(CENTER_ALIGNMENT);
