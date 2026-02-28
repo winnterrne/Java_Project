@@ -8,6 +8,8 @@ public class SanPham_DTO {
     private double donVi;
     private int soLuongTon;
     private String maDM;
+    private String maKhuyenMai;
+    private String viTri;
 
     public SanPham_DTO() {
 
@@ -76,6 +78,22 @@ public class SanPham_DTO {
 
     public void setMaDM(String maDM) {
         this.maDM = maDM;
+    }
+
+    public String getMaKhuyenMai() {
+        return maKhuyenMai;
+    }
+
+    public void setMaKhuyenMai(String maKhuyenMai) {
+        this.maKhuyenMai = maKhuyenMai;
+    }
+
+    public String getViTri() {
+        return viTri;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
     }
 
 }
