@@ -6,6 +6,7 @@ import DAO.ChiTietPhieuNhap_DAO;
 import DAO.PhieuNhap_DAO;
 import DTO.ChiTietPhieuNhap_DTO;
 import DTO.PhieuNhap_DTO;
+import Utils.ExportPDF;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -36,7 +37,7 @@ public class ChiTietPhieuNhapGUI extends JFrame {
 
     ChiTietPhieuNhap_BUS ctpnBUS =  new ChiTietPhieuNhap_BUS();
     ChiTietPhieuNhap_DAO ctpnDAO = new ChiTietPhieuNhap_DAO();
-
+    ExportPDF exportPDF = new ExportPDF();
     public ChiTietPhieuNhapGUI(String maPN) {
         this.maPN = maPN;
         this.pnDTO = pnDAO.getPhieuNhapbyMaPN(maPN);
@@ -122,6 +123,29 @@ public class ChiTietPhieuNhapGUI extends JFrame {
         pTongTien.add(lTinhTongTien);
         botPanel.add(pTongTien);
         btnXuatPDF = new JButton("Xuất PDF");
+        btnXuatPDF.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            int result = chooser.showSaveDialog(null);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+                String path = chooser.getSelectedFile().getAbsolutePath();
+                if (!path.endsWith(".pdf")) {
+                    path += ".pdf";
+                }
+
+                exportPDF.export(
+                        maPN,
+                        tenNCC,
+                        pnDTO.getNgayNhapHang().toString(),
+                        lTinhTongTien.getText(),
+                        tbSanPham,
+                        path
+                );
+
+                JOptionPane.showMessageDialog(null, "Xuất PDF thành công!");
+            }
+        });
         botPanel.add(btnXuatPDF);
 
         add(topPanel, BorderLayout.NORTH);
