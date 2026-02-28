@@ -2,9 +2,11 @@ package GUI.NhapGUI;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.FileChooserUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.rmi.server.ExportException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Locale;
 import BUS.PhieuNhap_BUS;
 import DAO.PhieuNhap_DAO;
 import DTO.PhieuNhap_DTO;
+import Utils.EportExcel;
 import com.toedter.calendar.JDateChooser;
 
 public class PhieuNhapGUI extends JFrame {
@@ -27,6 +30,8 @@ public class PhieuNhapGUI extends JFrame {
 
     PhieuNhap_BUS pnBUS = new PhieuNhap_BUS();
     PhieuNhap_DAO pnDAO = new PhieuNhap_DAO();
+
+    EportExcel ep = new EportExcel();
     public PhieuNhapGUI() {
         initGUI();
         loadPhieuNhap();
@@ -65,7 +70,8 @@ public class PhieuNhapGUI extends JFrame {
 
         btnXemCTPN = new JButton("Xem Chi Tiết");
         pChucNang.add(btnXemCTPN);
-        pChucNang.add(createButton("Xuất Excel"));
+        btnXuatExcel = new JButton("Xuất Excel");
+        pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Chức Năng"));
 
@@ -254,6 +260,24 @@ public class PhieuNhapGUI extends JFrame {
             }
             String maPN = tbPhieuNhap.getValueAt(selectedRow, 1).toString();
             new ChiTietPhieuNhapGUI(maPN).setVisible(true);
+        });
+
+        btnXuatExcel.addActionListener(e -> {
+           JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Chọn nơi lưu file");
+
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+                if (!filePath.endsWith(".xlsx")) {
+                    filePath += ".xlsx";
+                }
+
+                ArrayList<PhieuNhap_DTO> list = pnBUS.getAllPhieuNhap();
+                ep.exportTableToExcel(tbPhieuNhap, filePath);
+            }
         });
 
     }
