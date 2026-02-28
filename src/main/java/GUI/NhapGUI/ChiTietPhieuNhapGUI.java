@@ -133,10 +133,6 @@ public class ChiTietPhieuNhapGUI extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public JLabel createLabel(String text) {
-        JLabel lblNewLabel = new JLabel(text);
-        return lblNewLabel;
-    }
 
     public JPanel createPanel(String txt1, String txt2)  {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));

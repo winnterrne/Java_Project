@@ -128,11 +128,6 @@ public class PhieuNhapGUI extends JFrame {
 
     }
 
-    public JButton createButton(String nameButton) {
-        JButton button = new JButton(nameButton);
-        return button;
-    }
-
     public JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         return label;
@@ -276,7 +271,7 @@ public class PhieuNhapGUI extends JFrame {
                 }
 
                 ArrayList<PhieuNhap_DTO> list = pnBUS.getAllPhieuNhap();
-                ep.exportTableToExcel(tbPhieuNhap, filePath);
+                ep.exportTablePNToExcel(tbPhieuNhap, filePath);
             }
         });
 

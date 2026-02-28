@@ -16,7 +16,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class EportExcel {
-    public static void exportTableToExcel(JTable table, String filePath) {
+    public static void exportTablePNToExcel(JTable table, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("DanhSachPhieuNhap");
 
@@ -51,6 +51,48 @@ public class EportExcel {
             }
         }
 
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+            JOptionPane.showMessageDialog(null, "Xuất Excel thành công!");
+            File file = new File(filePath);
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(file);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi xuất Excel!");
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void exportTableNCCToExcel(JTable table, String filePath) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("DanhSachNhaCungCap");
+
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(table.getColumnName(i));
+        }
+
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Row row = sheet.createRow(i + 1);
+            for (int j = 0; j < table.getColumnCount(); j++) {
+                Object value = table.getValueAt(i, j);
+                Cell cell = row.createCell(j);
+                if (value != null) {
+                    cell.setCellValue(value.toString());
+                    } else {
+                        cell.setCellValue(value.toString());
+                    }
+                }
+            }
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
             JOptionPane.showMessageDialog(null, "Xuất Excel thành công!");

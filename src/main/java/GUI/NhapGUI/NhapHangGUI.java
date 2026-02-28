@@ -207,20 +207,15 @@ public class NhapHangGUI extends JFrame {
 
         rbgbc.gridx = 0;
         rbgbc.gridy = 0;
-        btnNhapExcel = new JButton("Nhập Excel");
-        rbPanel.add(btnNhapExcel, rbgbc);
-
-        rbgbc.gridx = 1;
-        rbgbc.gridy = 0;
         btnSuaSL = new JButton("Sửa số lượng");
         rbPanel.add(btnSuaSL, rbgbc);
 
-        rbgbc.gridx = 2;
+        rbgbc.gridx = 1;
         rbgbc.gridy = 0;
         btnXoaSP = new JButton("Xóa sản phẩm");
         rbPanel.add(btnXoaSP, rbgbc);
 
-        rbgbc.gridx = 1;
+        rbgbc.gridx = 0;
         rbgbc.gridy = 1;
         pTinhTongTien = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         lTongTien = new JLabel("Tổng tiền: ");
@@ -233,7 +228,7 @@ public class NhapHangGUI extends JFrame {
         rbPanel.add(pTinhTongTien, rbgbc);
 
         rbgbc.gridx = 1;
-        rbgbc.gridy = 2;
+        rbgbc.gridy = 1;
         btnNhapHang = new JButton("Nhập hàng");
         rbPanel.add(btnNhapHang, rbgbc);
 

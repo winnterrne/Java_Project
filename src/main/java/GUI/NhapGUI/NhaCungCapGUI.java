@@ -2,6 +2,8 @@ package GUI.NhapGUI;
 
 import BUS.NhaCungCap_BUS;
 import DTO.NhaCungCap_DTO;
+import DTO.PhieuNhap_DTO;
+import Utils.EportExcel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -22,7 +24,7 @@ public class NhaCungCapGUI extends JFrame {
     DefaultTableModel dtmNCC;
     JScrollPane spNCC;
     NhaCungCap_BUS nccBUS = new NhaCungCap_BUS();
-
+    EportExcel export = new EportExcel();
     public NhaCungCapGUI() {
         initGUI();
         loadTableNCC();
@@ -59,7 +61,8 @@ public class NhaCungCapGUI extends JFrame {
         btnSua = new JButton("Sửa");
         pChucNang.add(btnSua);
 
-        pChucNang.add(createButton("Xuất Excel"));
+        btnXuatExcel = new JButton("Xuất Excel");
+        pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Chức Năng"));
 
@@ -93,11 +96,6 @@ public class NhaCungCapGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public JButton createButton(String nameButton) {
-        JButton button = new JButton(nameButton);
-        return button;
     }
 
     public void loadTableNCC() {
@@ -185,8 +183,24 @@ public class NhaCungCapGUI extends JFrame {
             String email =  tbNCC.getValueAt(row, 4).toString();
             NhaCungCap_DTO nccDTO  = new NhaCungCap_DTO(maNCC, tenNCC, soDT, diaChi, email);
             new SuaNhaCungCapGUI(nccDTO, this).setVisible(true);
+        });
 
+        btnXuatExcel.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Chọn nơi lưu file");
 
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+                if (!filePath.endsWith(".xlsx")) {
+                    filePath += ".xlsx";
+                }
+
+                ArrayList<NhaCungCap_DTO> list = nccBUS.getAllNhaCungCap();
+                export.exportTableNCCToExcel(tbNCC, filePath);
+            }
         });
     }
 
