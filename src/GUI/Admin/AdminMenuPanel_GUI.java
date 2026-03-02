@@ -1,4 +1,5 @@
 package GUI.Admin;
+import javax.security.auth.login.CredentialException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -7,9 +8,10 @@ import java.awt.event.MouseEvent;
 
 public class AdminMenuPanel_GUI extends JPanel {
     private JButton activeButton = null;
+    private AdminContetnPanel_GUI panel;
 
-
-    public AdminMenuPanel_GUI() {
+    public AdminMenuPanel_GUI(AdminContetnPanel_GUI contentpanel) {
+        panel = contentpanel;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(220, 0));
 
@@ -23,30 +25,36 @@ public class AdminMenuPanel_GUI extends JPanel {
         setBackground(new Color(0x121929));
         add(Box.createVerticalStrut(20));
 
-        add(createMenuButton(" Quản lý sản phẩm"));
+        add(createMenuButton(" Quản lý sản phẩm",AdminContetnPanel_GUI.CARD_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý danh mục sản phẩm"));
+        add(createMenuButton("Quản lý danh mục sản phẩm",AdminContetnPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý nhân viên"));
+        add(createMenuButton("Quản lý tài khoản",AdminContetnPanel_GUI.CARD_TAI_KHOAN));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý khách hàng"));
+
+        add(createMenuButton("Quản lý nhập hàng",AdminContetnPanel_GUI.CARD_NHAP_HANG));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý nhập / trả hàng"));
+        add(createMenuButton("Quản lý hóa đơn",AdminContetnPanel_GUI.CARD_HOA_DON));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý hóa đơn"));
+        add(createMenuButton("Thống kê và báo cáo",AdminContetnPanel_GUI.CARD_THONG_KE));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Thống kê và báo cáo"));
+        add(createMenuButton("Quản lý nhà cung cấp",AdminContetnPanel_GUI.CARD_NHA_CUNG_CAP));
         add(Box.createVerticalStrut(10));
 
+        add(createMenuButton("Quản lý phiếu nhập",AdminContetnPanel_GUI.CARD_PHIEU_NHAP));
+        add(Box.createVerticalStrut(10));
+
+        add(createMenuButton("Quản lý bán hàng",AdminContetnPanel_GUI.CARD_BAN_HANG));
+        add(Box.createVerticalStrut(10));
     }
 
-    private JButton createMenuButton(String text) {
+    private JButton createMenuButton(String text,String cardName) {
         JButton btn = new JButton(text);
 
         Color normal  = new Color(0x121929);
@@ -74,6 +82,7 @@ public class AdminMenuPanel_GUI extends JPanel {
             btn.setBackground(active);
             btn.setForeground(new Color(0x1D4ED8));
             activeButton = btn;
+            panel.showManHinh(cardName);
         });
 
         btn.addMouseListener(new MouseAdapter() {
@@ -91,8 +100,6 @@ public class AdminMenuPanel_GUI extends JPanel {
                     btn.setBackground(new Color(0xAEAEAF));
                 }
             }
-
-
         });
 
         return btn;

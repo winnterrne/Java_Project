@@ -1,5 +1,6 @@
 package DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class ChiTietPhieuNhap_DTO {
@@ -44,39 +45,26 @@ public class ChiTietPhieuNhap_DTO {
         return ngayNhap;
     }
 
+    public Date getNgayNhapToDate() {
+        Date ngayNhapDate = Date.valueOf(ngayNhap);
+        return  ngayNhapDate;
+    }
+
     public LocalDate getHanSuDung() {
         return hanSuDung;
+    }
+
+    public Date getHanSuDungToDate() {
+        Date HSD =  Date.valueOf(ngayNhap);
+        return HSD;
     }
 
     public LocalDate getNgaySanXuat() {
         return ngaySanXuat;
     }
 
-    public void setMaPhieuNhap(String maPhieuNhap) {
-        this.maPhieuNhap = maPhieuNhap;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
-
-    public void setGiaNhap(double giaNhap) {
-        this.giaNhap = giaNhap;
-    }
-
-    public void setNgayNhap(LocalDate ngayNhap) {
-        this.ngayNhap = ngayNhap;
-    }
-
-    public void setHanSuDung(LocalDate hanSuDung) {
-        this.hanSuDung = hanSuDung;
-    }
-
-    public void setNgaySanXuat(LocalDate ngaySanXuat) {
-        this.ngaySanXuat = ngaySanXuat;
+    public Date getNgaySanXuatToDate() {
+        Date ngaySanXuatDate = Date.valueOf(ngaySanXuat);
+        return ngaySanXuatDate;
     }
 }

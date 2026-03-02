@@ -5,15 +5,17 @@ public class ChiTietHoaDon_DTO {
     private String maSP;
     private int soLuong;
     private double thanhTien;
+    private float donGia;
 
     public ChiTietHoaDon_DTO() {
 
     }
-    public ChiTietHoaDon_DTO(String maHD, String maSP, int soLuong, double thanhTien) {
+    public ChiTietHoaDon_DTO(String maHD, String maSP, int soLuong, double thanhTien, float donGia) {
         this.maHD = maHD;
         this.maSP = maSP;
         this.soLuong = soLuong;
         this.thanhTien = thanhTien;
+        this.donGia = donGia;
     }
     public String getMaHD() {
         return maHD;
@@ -31,11 +33,11 @@ public class ChiTietHoaDon_DTO {
         this.maSP = maSP;
     }
 
-    public int getSoLuong() {
+    public int getSoLuongMua() {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) {
+    public void setSoLuongMua(int soLuong) {
         this.soLuong = soLuong;
     }
 
@@ -45,5 +47,13 @@ public class ChiTietHoaDon_DTO {
 
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
+    }
+
+    public float getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(float donGia) {
+        this.donGia = donGia;
     }
 }

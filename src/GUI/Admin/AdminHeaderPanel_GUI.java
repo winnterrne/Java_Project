@@ -5,7 +5,7 @@ import java.awt.*;
 public class AdminHeaderPanel_GUI extends JPanel {
     public AdminHeaderPanel_GUI() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        setPreferredSize(new Dimension(0, 80));
+        setPreferredSize(new Dimension(0, 50));
         setBackground(Color.WHITE);
 
         int fontHeader = 0x235EF8;
