@@ -3,6 +3,7 @@ package DTO;
 public class DanhMuc_DTO {
     private String maDM;
     private String tenDM;
+    private int soLuongSP;
 
     public DanhMuc_DTO() {
 
@@ -28,5 +29,11 @@ public class DanhMuc_DTO {
         this.tenDM = tenDM;
     }
 
+    public int getSoLuongSP() {
+        return soLuongSP;
+    }
 
+    public void setSoLuongSP(int soLuongSP) {
+        this.soLuongSP = soLuongSP;
+    }
 }

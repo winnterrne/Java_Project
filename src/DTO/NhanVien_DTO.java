@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class NhanVien_DTO {
     private String maNV;
     private String hoTenNV;
-    private String chucVu;
+    private String maChucVu;
     private double luong;
     private LocalDate ngayvaolam;
     private String soDT;
@@ -15,10 +15,10 @@ public class NhanVien_DTO {
     public NhanVien_DTO() {
 
     }
-    public NhanVien_DTO(String maNV, String hoTenNV, String chucVu, double luong, LocalDate ngayvaolam, String soDT, String diaChi, String email) {
+    public NhanVien_DTO(String maNV, String hoTenNV, String maChucVu, double luong, LocalDate ngayvaolam, String soDT, String diaChi, String email) {
         this.maNV = maNV;
         this.hoTenNV = hoTenNV;
-        this.chucVu = chucVu;
+        this.maChucVu = maChucVu;
         this.luong = luong;
         this.ngayvaolam = ngayvaolam;
         this.soDT = soDT;
@@ -54,8 +54,8 @@ public class NhanVien_DTO {
         return soDT;
     }
 
-    public String getChucVu() {
-        return chucVu;
+    public String getMaChucVu() {
+        return maChucVu;
     }
 
     public void setMaNV(String maNV) {
@@ -66,8 +66,8 @@ public class NhanVien_DTO {
         this.hoTenNV = hoTenNV;
     }
 
-    public void setChucVu(String chucVu) {
-        this.chucVu = chucVu;
+    public void setMaChucVu(String maChucVu) {
+        this.maChucVu = maChucVu;
     }
 
     public void setLuong(double luong) {
