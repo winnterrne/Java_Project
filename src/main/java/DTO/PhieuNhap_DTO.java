@@ -59,8 +59,4 @@ public class PhieuNhap_DTO {
     public void setMaNV(String maNV) {
         this.maNV = maNV;
     }
-
-    public String toString() {
-        return maPhieuNhap;
-    }
 }

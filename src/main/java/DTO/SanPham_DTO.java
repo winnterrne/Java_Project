@@ -7,23 +7,21 @@ public class SanPham_DTO {
     private double giaBan;
     private String donVi;
     private int soLuongTon;
-    private String maDM;
-    private String maKhuyenMai;
+    private String maKM;
     private String viTri;
-    private String Path;
-    private byte trangThai;
-
+    private String maDM;
+    private String Path = "/GUI/Images/images.jpeg";
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, byte trangThai) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon,String Path ,String maDM) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
         this.giaBan = giaBan;
         this.donVi = donVi;
-        this.trangThai = trangThai;
         this.soLuongTon = soLuongTon;
+        this.Path = Path;
         this.maDM = maDM;
     }
 
@@ -37,10 +35,6 @@ public class SanPham_DTO {
 
     public String getMoTa() {
         return moTa;
-    }
-
-    public double getGiaBan() {
-        return giaBan;
     }
 
     public String getDonVi() {
@@ -71,6 +65,10 @@ public class SanPham_DTO {
         this.giaBan = giaBan;
     }
 
+    public double getGiaBan() {
+        return this.giaBan;
+    }
+
     public void setSoLuongTon(int soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
@@ -84,11 +82,11 @@ public class SanPham_DTO {
     }
 
     public String getMaKhuyenMai() {
-        return maKhuyenMai;
+        return maKM;
     }
 
-    public void setMaKhuyenMai(String maKhuyenMai) {
-        this.maKhuyenMai = maKhuyenMai;
+    public void setMaKhuyenMai(String maKM) {
+        this.maKM = maKM;
     }
 
     public String getViTri() {
@@ -99,19 +97,19 @@ public class SanPham_DTO {
         this.viTri = viTri;
     }
 
+    public String getMaKM() {
+        return maKM;
+    }
+
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
+
     public String getPath() {
         return Path;
     }
 
     public void setPath(String path) {
         Path = path;
-    }
-
-    public byte getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(byte trangThai) {
-        this.trangThai = trangThai;
     }
 }

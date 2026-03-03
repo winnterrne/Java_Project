@@ -4,15 +4,13 @@ public class DanhMuc_DTO {
     private String maDM;
     private String tenDM;
     private int soLuongSP;
-    private byte trangThai;
 
     public DanhMuc_DTO() {
 
     }
-    public DanhMuc_DTO(String maDM, String tenDM, byte trangThai) {
+    public DanhMuc_DTO(String maDM, String tenDM) {
         this.maDM = maDM;
         this.tenDM = tenDM;
-        this.trangThai = trangThai;
     }
 
     public String getMaDM() {
@@ -37,13 +35,5 @@ public class DanhMuc_DTO {
 
     public void setSoLuongSP(int soLuongSP) {
         this.soLuongSP = soLuongSP;
-    }
-
-    public byte getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(byte trangThai) {
-        this.trangThai = trangThai;
     }
 }
