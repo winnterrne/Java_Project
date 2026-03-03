@@ -1,4 +1,4 @@
-package BUS;
+/*package BUS;
 
 import DTO.ChiTietHoaDon_DTO;
 import DTO.SanPham_DTO;
@@ -42,3 +42,4 @@ public class TaoHoaDon {
         gioHang.add(dto);
     }
 }
+ */

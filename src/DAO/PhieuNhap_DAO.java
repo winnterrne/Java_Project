@@ -18,7 +18,7 @@ import java.util.Locale;
 public class PhieuNhap_DAO {
     public ArrayList<PhieuNhap_DTO> getAllPhieuNhap() {
         ArrayList<PhieuNhap_DTO> list = new ArrayList<>();
-        String sql =  "SELECT * FROM PHIEUNHAP";
+        String sql =  "SELECT * FROM PhieuNhap";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -26,11 +26,11 @@ public class PhieuNhap_DAO {
 
             while(rs.next()) {
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(
-                        rs.getString("MaPN"),
-                        rs.getDate("NgayNhapHang").toLocalDate(),
-                        rs.getDouble("TongTien"),
-                        rs.getString("MaNCC"),
-                        rs.getString("MaNV")
+                        rs.getString("maPhieuNhap"),
+                        rs.getDate("ngayNhapHang").toLocalDate(),
+                        rs.getDouble("tongTien"),
+                        rs.getString("maNCC"),
+                        rs.getString("maNV")
                 );
                 list.add(pn);
             }
@@ -42,17 +42,17 @@ public class PhieuNhap_DAO {
 
     public String getTenNCCByMaPN(String maPN) {
         String tenNCC = "";
-        String sql = "SELECT ncc.TenNCC " +
-                "FROM PHIEUNHAP pn " +
-                "JOIN NHACUNGCAP ncc ON pn.MaNCC = ncc.MaNCC " +
-                "WHERE pn.MaPN = ?";
+        String sql = "SELECT ncc.tenNCC " +
+                "FROM PhieuNhap pn " +
+                "JOIN NhaCungCap ncc ON pn.maNCC = ncc.maNCC " +
+                "WHERE pn.maPhieuNhap = ?";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maPN);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    tenNCC = rs.getString("TenNCC");
+                    tenNCC = rs.getString("tenNCC");
                 }
             }
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class PhieuNhap_DAO {
     }
 
     public boolean delete(String maPN) {
-        String sql = "DELETE FROM PHIEUNHAP WHERE MaPhieuNhap = ?";
+        String sql = "DELETE FROM PhieuNhap WHERE maPhieuNhap = ?";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -75,7 +75,7 @@ public class PhieuNhap_DAO {
     }
 
     public boolean deletePhieuNhap(String maPN) {
-        String sql = "DELETE FROM PHIEUNHAP WHERE MaPN = ?";
+        String sql = "DELETE FROM PhieuNhap WHERE maPhieuNhap = ?";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -91,7 +91,7 @@ public class PhieuNhap_DAO {
 
     public PhieuNhap_DTO getPhieuNhapbyMaPN(String maPN) {
         PhieuNhap_DTO pn = null;
-        String sql = "SELECT * FROM PHIEUNHAP WHERE MaPN = ?";
+        String sql = "SELECT * FROM PhieuNhap WHERE maPhieuNhap = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -99,11 +99,11 @@ public class PhieuNhap_DAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     pn = new PhieuNhap_DTO(
-                            rs.getString("MaPN"),
-                            rs.getDate("NgayNhapHang").toLocalDate(),
-                            rs.getDouble("TongTien"),
-                            rs.getString("MaNCC"),
-                            rs.getString("MaNV")
+                            rs.getString("maPhieuNhap"),
+                            rs.getDate("ngayNhapHang").toLocalDate(),
+                            rs.getDouble("tongTien"),
+                            rs.getString("maNCC"),
+                            rs.getString("maNV")
                     );
                 }
             }
@@ -119,9 +119,9 @@ public class PhieuNhap_DAO {
             Connection con = databaseConnection.getConnection();
             String sql = """
                     SELECT pn.*
-                    FROM PHIEUNHAP pn
-                    JOIN NHACUNGCAP ncc on pn.MaNCC = ncc.MaNCC
-                    WHERE pn.MaPN LIKE ? OR ncc.TenNCC LIKE ?
+                    FROM PhieuNhap pn
+                    JOIN NhaCungCap ncc on pn.maNCC = ncc.maNCC
+                    WHERE pn.maPhieuNhap LIKE ? OR ncc.tenNCC LIKE ?
                     """;
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + keyword + "%");
@@ -130,11 +130,11 @@ public class PhieuNhap_DAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(
-                        rs.getString("MaPN"),
-                        rs.getDate("NgayNhapHang").toLocalDate(),
-                        rs.getDouble("TongTien"),
-                        rs.getString("MaNCC"),
-                        rs.getString("MaNV")
+                        rs.getString("maPhieuNhap"),
+                        rs.getDate("ngayNhapHang").toLocalDate(),
+                        rs.getDouble("tongTien"),
+                        rs.getString("maNCC"),
+                        rs.getString("maNV")
                 );
                 list.add(pn);
             }
@@ -155,8 +155,8 @@ public class PhieuNhap_DAO {
         try {
             Connection con = databaseConnection.getConnection();
             String sql = """
-                        SELECT pn.* FROM PHIEUNHAP pn
-                        JOIN NHACUNGCAP ncc on pn.MaNCC = ncc.MaNCC
+                        SELECT pn.* FROM PhieuNhap pn
+                        JOIN NhaCungCap ncc on pn.maNCC = ncc.maNCC
                         WHERE 1 = 1
                         """;
 
@@ -164,21 +164,21 @@ public class PhieuNhap_DAO {
 
             // Tìm theo mã
             if (!keyword.trim().isEmpty()) {
-                sql += " AND (pn.MaPN LIKE ? or ncc.TenNCC LIKE ?)";
+                sql += " AND (pn.maPhieuNhap LIKE ? or ncc.tenNCC LIKE ?)";
                 danhSachThamSo.add("%" + keyword + "%");
                 danhSachThamSo.add("%" + keyword + "%");
             }
 
             // Lọc ngày
             if (tuNgay != null && denNgay != null) {
-                sql += " AND NgayNhapHang BETWEEN ? AND ?";
+                sql += " AND ngayNhapHang BETWEEN ? AND ?";
                 danhSachThamSo.add(new Date(tuNgay.getTime()));
                 danhSachThamSo.add(new Date(denNgay.getTime()));
             }
 
             // Lọc giá
             if (giaTu != null && giaDen != null) {
-                sql += " AND TongTien BETWEEN ? AND ?";
+                sql += " AND tongTien BETWEEN ? AND ?";
                 danhSachThamSo.add(giaTu);
                 danhSachThamSo.add(giaDen);
             }
@@ -194,11 +194,11 @@ public class PhieuNhap_DAO {
 
             while (rs.next()) {
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(
-                        rs.getString("MaPN"),
-                        rs.getDate("NgayNhapHang").toLocalDate(),
-                        rs.getDouble("TongTien"),
-                        rs.getString("MaNCC"),
-                        rs.getString("MaNV")
+                        rs.getString("maPhieuNhap"),
+                        rs.getDate("ngayNhapHang").toLocalDate(),
+                        rs.getDouble("tongTien"),
+                        rs.getString("maNCC"),
+                        rs.getString("maNV")
 
                 );
                 list.add(pn);
@@ -211,7 +211,7 @@ public class PhieuNhap_DAO {
     }
 
     public String getMaPNLonNhat() {
-        String sql = "SELECT Max(MaPN) FROM PHIEUNHAP";
+        String sql = "SELECT Max(maPhieuNhap) FROM PhieuNhap";
 
         try {
             Connection con = databaseConnection.getConnection();
@@ -227,7 +227,7 @@ public class PhieuNhap_DAO {
     }
 
     public boolean themPhieuNhapVaChiTiet(PhieuNhap_DTO pn, ArrayList<ChiTietPhieuNhap_DTO> listCT) {
-        String sqlPN = "INSERT INTO PHIEUNHAP(MaPN, NgayNhapHang, TongTien, MaNCC, MaNV) VALUES (?, ?, ?, ?, ?)";
+        String sqlPN = "INSERT INTO PhieuNhap(maPhieuNhap, ngayNhapHang, tongTien, maNCC, maNV) VALUES (?, ?, ?, ?, ?)";
 
         try {
             Connection con = databaseConnection.getConnection();
@@ -244,7 +244,7 @@ public class PhieuNhap_DAO {
 
             psPN.executeUpdate();
 
-            String sqlCT = "INSERT INTO CHITIETPHIEUNHAP(MaPN, MaSP, SoLuong, GiaNhap, NgayNhap, HanSuDung, NgaySanXuat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sqlCT = "INSERT INTO ChiTietPhieuNhap(maPhieuNhap, maSP, soLuong, giaNhap, ngayNhap, hanSuDung, ngaySanXuat) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement psCT = con.prepareStatement(sqlCT);
 
             for(ChiTietPhieuNhap_DTO ct : listCT) {
@@ -277,7 +277,7 @@ public class PhieuNhap_DAO {
     }
 
     public boolean suaPhieuNhapVaChiTiet(PhieuNhap_DTO pn, ArrayList<ChiTietPhieuNhap_DTO> listCT) {
-        String sqlPN = "UPDATE PHIEUNHAP SET NgayNhapHang=?, TongTien = ?,  MaNCC = ?, MaNV = ? WHERE MaPN = ?";
+        String sqlPN = "UPDATE PhieuNhap SET ngayNhapHang=?, tongTien = ?,  maNCC = ?, maNV = ? WHERE maPhieuNhap = ?";
 
         try {
             Connection con = databaseConnection.getConnection();
@@ -291,12 +291,12 @@ public class PhieuNhap_DAO {
 
             psPN.executeUpdate();
 
-            String sqlDelete = "DELETE FROM CHITIETPHIEUNHAP WHERE MaPN=?";
+            String sqlDelete = "DELETE FROM ChiTietPhieuNhap WHERE maPhieuNhap=?";
             PreparedStatement psDel = con.prepareStatement(sqlDelete);
             psDel.setString(1, pn.getMaPhieuNhap());
             psDel.executeUpdate();
 
-            String sqlInsert = "INSERT INTO CHITIETPHIEUNHAP(MaPN, MaSP, SoLuong, GiaNhap, NgayNhap, HanSuDung, NgaySanXuat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO ChiTietPhieuNhap(maPhieuNhap, maSP, soLuong, giaNhap, ngayNhap, hanSuDung, ngaySanXuat) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement psCT = con.prepareStatement(sqlInsert);
             for(ChiTietPhieuNhap_DTO ct : listCT) {
                 psCT.setString(1, ct.getMaPhieuNhap());

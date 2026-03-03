@@ -25,21 +25,21 @@ public class DanhMuc_DAO {
 
     public ArrayList<DanhMuc_DTO> getAllDanhMuc() {
         ArrayList<DanhMuc_DTO> list = new ArrayList<>();
-        String sql ="SELECT dm.MaDM, " +
-                "       dm.TenDM, " +
-                "       COUNT(sp.MaSP) AS SoLuongSanPham " +
+        String sql ="SELECT dm.maDM, " +
+                "       dm.tenDM, " +
+                "       COUNT(sp.maSP) AS soLuongSP " +
                 "FROM DanhMuc dm " +
-                "LEFT JOIN SanPham sp ON dm.MaDM = sp.MaDM " +
-                "GROUP BY dm.MaDM, dm.TenDM " +
-                "ORDER BY dm.MaDM";
+                "LEFT JOIN SanPham sp ON dm.maDM = sp.maDM " +
+                "GROUP BY dm.maDM, dm.tenDM " +
+                "ORDER BY dm.maDM";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 DanhMuc_DTO dm = new DanhMuc_DTO();
-                dm.setMaDM(rs.getString("MaDM"));
-                dm.setTenDM(rs.getString("TenDM"));
-                dm.setSoLuongSP(rs.getInt("SoLuongSanPham"));
+                dm.setMaDM(rs.getString("maDM"));
+                dm.setTenDM(rs.getString("tenDM"));
+                dm.setSoLuongSP(rs.getInt("soLuongSP"));
                 list.add(dm);
             }
         } catch (SQLException e) {
@@ -49,15 +49,15 @@ public class DanhMuc_DAO {
     }
 
     public DanhMuc_DTO getDanhMucByMaDM(String maDM) {
-        String sql = "SELECT MaDM, TenDM FROM DanhMuc WHERE MaDM = ?";
+        String sql = "SELECT maDM, tenDM FROM DanhMuc WHERE maDM = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maDM);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 DanhMuc_DTO dm = new DanhMuc_DTO();
-                dm.setMaDM(rs.getString("MaDM"));
-                dm.setTenDM(rs.getString("TenDM"));
+                dm.setMaDM(rs.getString("maDM"));
+                dm.setTenDM(rs.getString("tenDM"));
                 return dm;
             }
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class DanhMuc_DAO {
             return false;
         }
 
-        String sql = "INSERT INTO DanhMuc (MaDM, TenDM) VALUES (?, ?)";
+        String sql = "INSERT INTO DanhMuc (maDM, tenDM) VALUES (?, ?)";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, dm.getMaDM());
@@ -85,7 +85,7 @@ public class DanhMuc_DAO {
     }
 
     public boolean isTenDMExists(String tenDM) {
-        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE TenDM = ?";
+        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE tenDM = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, tenDM);
@@ -98,7 +98,7 @@ public class DanhMuc_DAO {
     }
 
     public boolean updateDanhMuc(DanhMuc_DTO dm) {
-        String sql = "UPDATE DanhMuc SET TenDM = ? WHERE MaDM = ?";
+        String sql = "UPDATE DanhMuc SET tenDM = ? WHERE maDM = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, dm.getTenDM());
@@ -111,8 +111,8 @@ public class DanhMuc_DAO {
     }
 
     public boolean deleteDanhMuc(String maDM) {
-        String checkSQL = "SELECT COUNT(*) FROM SanPham WHERE MaDM = ?";
-        String deleteSQL = "DELETE FROM DanhMuc WHERE MaDM = ?";
+        String checkSQL = "SELECT COUNT(*) FROM SanPham WHERE maDM = ?";
+        String deleteSQL = "DELETE FROM DanhMuc WHERE maDM = ?";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement check = con.prepareStatement(checkSQL);
@@ -135,7 +135,7 @@ public class DanhMuc_DAO {
     }
 
     public boolean isMaDMExists(String maDM) {
-        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE MaDM = ?";
+        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE maDM = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maDM);

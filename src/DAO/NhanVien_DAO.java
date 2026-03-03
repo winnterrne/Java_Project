@@ -45,13 +45,13 @@ public class NhanVien_DAO {
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()) {
                     NhanVien_DTO nvdto = new NhanVien_DTO();
-                    nvdto.setMaNV(rs.getString("manhanvien"));
-                    nvdto.setHoTenNV(rs.getString("hovaten"));
+                    nvdto.setMaNV(rs.getString("maNV"));
+                    nvdto.setHoTenNV(rs.getString("hoTenNV"));
                     nvdto.setLuong(rs.getDouble("luong"));
-                    nvdto.setSoDT(rs.getString("sodienthoai"));
+                    nvdto.setSoDT(rs.getString("soDT"));
                     nvdto.setEmail(rs.getString("email"));
-                    nvdto.setDiaChi(rs.getString("diachi"));
-                    nvdto.setMaChucVu(rs.getString("machucvu"));
+                    nvdto.setDiaChi(rs.getString("diaChi"));
+                    nvdto.setMaChucVu(rs.getString("maCV"));
                     list.add(nvdto);
                 }
             }catch (Exception e) {
@@ -66,7 +66,7 @@ public class NhanVien_DAO {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * from NhanVien where manhanvien=?";
+                String sql = "SELECT * from NhanVien where maNV=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,manhanvien);
                 ResultSet rs = ps.executeQuery();
@@ -82,14 +82,14 @@ public class NhanVien_DAO {
     public NhanVien_DTO getNhanVienByMa(String manhanvien) {
         if(openConnection()) {
             try {
-                String sql = "SELECT * from NhanVien where manhanvien=?";
+                String sql = "SELECT * from NhanVien where maNV=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,manhanvien);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()) {
                     NhanVien_DTO nvdto = new NhanVien_DTO();
-                    nvdto.setMaNV(rs.getString("manhanvien"));
-                    nvdto.setHoTenNV(rs.getString("hovaten"));
+                    nvdto.setMaNV(rs.getString("maNV"));
+                    nvdto.setHoTenNV(rs.getString("hoTenNV"));
                     return nvdto;
                 }
             }catch (Exception e) {

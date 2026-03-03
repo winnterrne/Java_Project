@@ -53,8 +53,8 @@ public class TaiKhoan_DAO {
                     tk.setMaVaiTro(rs.getString("mavaitro"));
                     tk.setEmail(rs.getString("email"));
                     tk.setTrangThai(rs.getBoolean("trangthai"));
-                    tk.setMaNV(rs.getString("manhanvien"));
-                    tk.setMaKH(rs.getString("makhachhang"));
+                    tk.setMaNV(rs.getString("maNV"));
+                    tk.setMaKH(rs.getString("maKH"));
                     list.add(tk);
                 }
             }catch (Exception e) {
@@ -69,13 +69,13 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if (openConnection()) {
             try {
-                String sql = "SELECT tk.mataikhoan, nv.hovaten, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.manhanvien = nv.manhanvien";
+                String sql = "SELECT tk.mataikhoan, nv.hoTenNV, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.maNV = nv.maNV";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     TaiKhoan_DTO tk = new TaiKhoan_DTO();
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setHoTen(rs.getString("hovaten"));
+                    tk.setHoTen(rs.getString("hoTenNV"));
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setEmail(rs.getString("email"));
                     tk.setMaVaiTro(rs.getString("mavaitro"));
@@ -147,7 +147,7 @@ public class TaiKhoan_DAO {
     public boolean addTaiKhoan(TaiKhoan_DTO taikhoan) {
         if(openConnection()) {
             try {
-                String sql = "INSERT INTO TaiKhoan(mataikhoan, tendangnhap, matkhau, mavaitro, email, trangthai, manhanvien)" + "VALUES(?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO TaiKhoan(mataikhoan, tendangnhap, matkhau, mavaitro, email, trangthai, maNV)" + "VALUES(?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,taikhoan.getMaTK());
                 ps.setString(2,taikhoan.getTenDangNhap());
@@ -319,14 +319,14 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if(openConnection()) {
             try {
-                String sql =  "SELECT tk.mataikhoan, nv.hovaten, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.manhanvien = nv.manhanvien where tk.tendangnhap LIKE?";
+                String sql =  "SELECT tk.mataikhoan, nv.hoTenNV, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.maNV = nv.maNV where tk.tendangnhap LIKE?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + name + "%");
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()) {
                     TaiKhoan_DTO tk = new TaiKhoan_DTO();
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setHoTen(rs.getString("hovaten"));
+                    tk.setHoTen(rs.getString("hoTenNV"));
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setEmail(rs.getString("email"));
                     tk.setMaVaiTro(rs.getString("mavaitro"));

@@ -11,17 +11,17 @@ import java.util.ArrayList;
 public class NhaCungCap_DAO {
     public ArrayList<NhaCungCap_DTO> getAllNhaCungCap() {
         ArrayList<NhaCungCap_DTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM NHACUNGCAP";
+        String sql = "SELECT * FROM NhaCungCap";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()) {
             while(rs.next()) {
                 NhaCungCap_DTO ncc = new NhaCungCap_DTO(
-                        rs.getString("MaNCC"),
-                        rs.getString("TenNCC"),
-                        rs.getString("SoDienThoai"),
-                        rs.getString("DiaChi"),
-                        rs.getString("Email")
+                        rs.getString("maNCC"),
+                        rs.getString("tenNCC"),
+                        rs.getString("soDT"),
+                        rs.getString("diaChi"),
+                        rs.getString("email")
                 );
                 list.add(ncc);
             }
@@ -32,7 +32,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean addNhaCungCap(NhaCungCap_DTO ncc) {
-        String sql = "INSERT INTO NHACUNGCAP (MaNCC, TenNCC, SoDienThoai, DiaChi, Email) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO NhaCungCap (maNCC, tenNCC, soDT, diaChi, email) VALUES (?, ?, ?, ?, ?)";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -49,7 +49,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean isDuplicateMaNCC(String maNCC) {
-        String sql = "SELECT COUNT(*) FROM NHACUNGCAP WHERE MaNCC = ?";
+        String sql = "SELECT COUNT(*) FROM NhaCungCap WHERE maNCC = ?";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maNCC);
@@ -65,7 +65,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean deleteNhaCungCap(String maNCC) {
-        String sql = "DELETE FROM NHACUNGCAP WHERE MaNCC = ?";
+        String sql = "DELETE FROM NhaCungCap WHERE maNCC = ?";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maNCC);
@@ -77,7 +77,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean updateNhaCungCap(NhaCungCap_DTO ncc) {
-        String sql = "UPDATE NHACUNGCAP SET TenNCC = ?, SoDienThoai = ?, DiaChi = ?, Email = ? WHERE MaNCC = ?";
+        String sql = "UPDATE NhaCungCap SET tenNCC = ?, soDT = ?, diaChi = ?, email = ? WHERE maNCC = ?";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -94,14 +94,14 @@ public class NhaCungCap_DAO {
     }
 
     public String getTenNhaCungCapByMaNCC(String maNCC) {
-        String sql = "SELECT TenNCC FROM NHACUNGCAP WHERE MaNCC = ?";
+        String sql = "SELECT tenNCC FROM NhaCungCap WHERE maNCC = ?";
         String tenNCC = "";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maNCC);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                tenNCC = rs.getString("TenNCC");
+                tenNCC = rs.getString("tenNCC");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,18 +113,18 @@ public class NhaCungCap_DAO {
         ArrayList<NhaCungCap_DTO> list = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM NHACUNGCAP WHERE TenNCC LIKE ?";
+            String sql = "SELECT * FROM NhaCungCap WHERE tenNCC LIKE ?";
             Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,"%" + keyword + "%");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 NhaCungCap_DTO ncc = new NhaCungCap_DTO(
-                        rs.getString("MaNCC"),
-                        rs.getString("TenNCC"),
-                        rs.getString("SoDienThoai"),
-                        rs.getString("DiaChi"),
-                        rs.getString("Email")
+                        rs.getString("maNCC"),
+                        rs.getString("tenNCC"),
+                        rs.getString("soDT"),
+                        rs.getString("diaChi"),
+                        rs.getString("email")
                 );
                 list.add(ncc);
             }

@@ -13,4 +13,11 @@ public class ChiTietPhieuNhap_BUS {
     public ArrayList<ChiTietPhieuNhap_DTO> getChiTietPhieuNhapByMaPN(String maPN) {
         return ctpnDAO.getChiTietPhieuNhapByMaPN(maPN);
     }
+    public String getTenSPByMaSP(String maSP) {
+        return ctpnDAO.getTenSPByMaSP(maSP);
+    }
+
+    public int getSoLuongTonByMaSP(String maSP) {
+        return  ctpnDAO.getSoLuongTonByMaSP(maSP);
+    }
 }
