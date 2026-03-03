@@ -8,6 +8,7 @@ public class ChiTietPhieuTra_DTO {
     private LocalDate ngayTra;
     private int soLuongTra;
 
+
     public ChiTietPhieuTra_DTO() {
 
     }

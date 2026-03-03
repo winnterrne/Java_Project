@@ -1,4 +1,4 @@
-package GUI.Inbound_Returns; //source root: folder java
+package GUI.Inbound_Returns;
 import BUS.ChiTietPhieuNhap_BUS;
 import BUS.NhaCungCap_BUS;
 import BUS.PhieuNhap_BUS;
@@ -68,7 +68,6 @@ public class NhapHangGUI extends JPanel {
         searchgbc.gridx = 0;
         searchgbc.gridy = 0;
         searchgbc.gridwidth = 1;
-        searchgbc.gridheight = 1;
         searchgbc.insets = new Insets(5, 5, 5, 5);
         tfTimKiem = new JTextField(20);
         pSearch.add(tfTimKiem, searchgbc);
@@ -91,11 +90,12 @@ public class NhapHangGUI extends JPanel {
         lgbc.fill = GridBagConstraints.BOTH;
         lgbc.gridx = 0;
         lgbc.gridy = 0;
+        lgbc.gridheight = 1;
         lPanel.add(pSearch, lgbc);
 
         lgbc.gridx = 0;
         lgbc.gridy = 1;
-        lgbc.gridwidth = 1;
+        lgbc.weighty = 1.0;
         lgbc.insets = new Insets(5, 5, 5, 5);
         String spCol[] = {"Mã SP", "Tên SP", "Đơn giá", "Số lượng"};
         modelSanPham = new DefaultTableModel(spCol, 0) {
@@ -111,7 +111,6 @@ public class NhapHangGUI extends JPanel {
         colTenSP.setMinWidth(200);
         spSanPham = new JScrollPane(tbSanPham);
         lPanel.add(spSanPham, lgbc);
-
 
         lbPanel = new JPanel(new GridBagLayout());
         GridBagConstraints lbgbc =  new GridBagConstraints();
@@ -134,8 +133,9 @@ public class NhapHangGUI extends JPanel {
 
         lgbc.gridx = 0;
         lgbc.gridy = 2;
+        lgbc.weighty = 0;
+        lgbc.insets = new Insets(25, 0, 25, 0);
         lPanel.add(lbPanel, lgbc);
-
 
         rPanel = new JPanel(new GridBagLayout());
         GridBagConstraints rgbc =  new GridBagConstraints();
@@ -181,6 +181,7 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridy = 3;
         rgbc.insets = new Insets(5, 5, 5, 5);
         rgbc.gridwidth = 2;
+        rgbc.weighty = 1.0;
         String chiTietCol[] = {"STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá"};
         modelChiTiet = new DefaultTableModel(chiTietCol, 0) {
             @Override
@@ -238,8 +239,8 @@ public class NhapHangGUI extends JPanel {
 
         rgbc.gridx = 0;
         rgbc.gridy = 4;
+        rgbc.weighty = 0;
         rPanel.add(rbPanel, rgbc);
-
 
         add(lPanel);
         add(rPanel);

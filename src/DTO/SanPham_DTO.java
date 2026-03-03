@@ -7,21 +7,21 @@ public class SanPham_DTO {
     private double giaBan;
     private String donVi;
     private int soLuongTon;
-    private String maKM;
-    private String viTri;
     private String maDM;
+    private String maKhuyenMai;
+    private String viTri;
     private String Path;
+
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon,String Path ,String maDM) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
         this.giaBan = giaBan;
         this.donVi = donVi;
         this.soLuongTon = soLuongTon;
-        this.Path = Path;
         this.maDM = maDM;
     }
 
@@ -35,6 +35,10 @@ public class SanPham_DTO {
 
     public String getMoTa() {
         return moTa;
+    }
+
+    public double getGiaBan() {
+        return giaBan;
     }
 
     public String getDonVi() {
@@ -65,10 +69,6 @@ public class SanPham_DTO {
         this.giaBan = giaBan;
     }
 
-    public double getGiaBan() {
-        return this.giaBan;
-    }
-
     public void setSoLuongTon(int soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
@@ -82,11 +82,11 @@ public class SanPham_DTO {
     }
 
     public String getMaKhuyenMai() {
-        return maKM;
+        return maKhuyenMai;
     }
 
-    public void setMaKhuyenMai(String maKM) {
-        this.maKM = maKM;
+    public void setMaKhuyenMai(String maKhuyenMai) {
+        this.maKhuyenMai = maKhuyenMai;
     }
 
     public String getViTri() {
@@ -95,14 +95,6 @@ public class SanPham_DTO {
 
     public void setViTri(String viTri) {
         this.viTri = viTri;
-    }
-
-    public String getMaKM() {
-        return maKM;
-    }
-
-    public void setMaKM(String maKM) {
-        this.maKM = maKM;
     }
 
     public String getPath() {

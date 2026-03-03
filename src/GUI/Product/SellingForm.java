@@ -1,4 +1,4 @@
-package GUI.Product;
+/*package GUI.Product;
 
 import BUS.ChiTietHoaDon_BUS;
 import BUS.TaoHoaDon;
@@ -338,3 +338,4 @@ public class SellingForm extends JPanel {
         return "No Image";
     }
 }
+*/

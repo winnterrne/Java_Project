@@ -1,4 +1,4 @@
-package GUI.Product;
+/*package GUI.Product;
 
 import BUS.ChiTietHoaDon_BUS;
 import BUS.HoaDon_BUS;
@@ -157,3 +157,4 @@ public class ThanhToanGUI extends JPanel {
         lblPhaiTra.setText(tienFormat);
     }
 }
+ */
