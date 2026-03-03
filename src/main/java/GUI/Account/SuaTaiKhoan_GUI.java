@@ -20,7 +20,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
     TaiKhoan_GUI tkparent;
     int i;
     public SuaTaiKhoan_GUI(Frame frame, DefaultTableModel tm, int i, String matk, String tendn, String email, String vaitro, String trangthai) {
-        super(frame,"Sửa tài khoản",true);
+        super(frame,"Sua tai khoan",true);
         initGui();
         this.tm = tm;
         this.i = i;
@@ -33,7 +33,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
     }
 
     public void initGui() {
-        setTitle("Thêm tài khoản");
+        setTitle("Them tai khoan");
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -47,7 +47,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.insets = new Insets(0, 0, 10, 0);
 
         topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        lbTitle = new JLabel("Sửa tài khoản");
+        lbTitle = new JLabel("Sua Tai Khoan");
         lbTitle.setFont(new Font("Times New Roman", Font.BOLD, 32));
         topPanel.setBackground(Color.BLUE);
         lbTitle.setForeground(Color.white);
@@ -64,7 +64,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
 
         // Mã Tai Khoan
         gbc.gridx = 0; gbc.gridy = 1;
-        add(createLabel("Mã tài khoản"), gbc);
+        add(createLabel("Mã tai khoan"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaTaiKhoan = new JTextField(20);
@@ -74,7 +74,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         // Tên Tai Khoan
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Tên tài khoản"), gbc);
+        add(createLabel("Tên tai khoan"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 2;
         tfTenTaiKhoan = new JTextField(20);
@@ -94,7 +94,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         // Vai tro
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Vai Trò"), gbc);
+        add(createLabel("Vai tro"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4;
         tfVaiTro = new JTextField(20);
@@ -104,7 +104,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         // trang thai
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Trạng thái"),gbc);
+        add(createLabel("Trang thai"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 5;
         tfTrangThai = new JTextField(20);
@@ -114,7 +114,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         // ma nhanvien
         gbc.gridx = 0; gbc.gridy = 6;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Mã nhân viên"),gbc);
+        add(createLabel("Ma nhan vien"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 6;
         tfMaNhanVien = new JTextField(20);
@@ -148,7 +148,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         tm.setValueAt(tfEmail.getText(),i,3);
         tm.setValueAt(tfVaiTro.getText(),i,4);
         tm.setValueAt(tfTrangThai.getText(),i,5);
-        JOptionPane.showMessageDialog(this,"Đã sửa thành công");
+        JOptionPane.showMessageDialog(this,"Da sua thanh cong");
         dispose();
     }
 }

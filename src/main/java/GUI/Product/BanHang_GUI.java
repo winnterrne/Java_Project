@@ -1,11 +1,9 @@
 package GUI.Product;
 
 import BUS.HoaDon_BUS;
-import BUS.KhachHang_BUS;
 import BUS.SanPham_BUS;
 import DTO.ChiTietHoaDon_DTO;
 import DTO.HoaDon_DTO;
-import DTO.KhachHang_DTO;
 import DTO.SanPham_DTO;
 
 import javax.swing.*;
@@ -24,22 +22,14 @@ public class BanHang_GUI extends JPanel {
     JButton timBtn, xoaGioBtn;
     JLabel lblTotalValue;
     HoaDon_BUS hoaDonBus = new HoaDon_BUS();
-    SanPham_BUS spBus = new SanPham_BUS();
+    SanPham_BUS sp = new  SanPham_BUS();
 
     // Dữ liệu cho 2 bảng
-    ArrayList<SanPham_DTO> danhSachKhoHang = spBus.getAllSanPham();
+    ArrayList<SanPham_DTO> danhSachKhoHang = sp.getAllSanPham();
     ArrayList<ChiTietHoaDon_DTO> gioHang = new ArrayList<>();
-
-    // Các biến Model & Cột (Đưa lên toàn cục để truy cập từ Event)
-    DefaultTableModel modelLeft;
-    DefaultTableModel modelRight;
-    Vector<String> columnsLeft = new Vector<>(Arrays.asList("Ảnh SP", "Mã SP", "Tên SP", "Đơn giá", "Tồn kho"));
-    Vector<String> columnsRight = new Vector<>(Arrays.asList("Ảnh", "Mã SP", "Tên SP", "SL", "Đơn giá", "Thành tiền"));
 
     // CÁC BIẾN CHO CARDLAYOUT
     CardLayout cardLayout;
-
-    private ThanhToanGUI ttG;
     JPanel cardPanel;
     public static final String CARD_BAN_HANG = "ManHinhBanHang";
     public static final String CARD_THANH_TOAN = "ManHinhThanhToan";
@@ -64,7 +54,8 @@ public class BanHang_GUI extends JPanel {
         searchPanel.add(timBtn, BorderLayout.EAST);
         leftPanel.add(searchPanel, BorderLayout.NORTH);
 
-        modelLeft = new DefaultTableModel(renderKhoHang(danhSachKhoHang), columnsLeft) {
+        Vector<String> columnsLeft = new Vector<>(Arrays.asList("Ảnh SP", "Mã SP", "Tên SP", "Đơn giá", "Tồn kho"));
+        DefaultTableModel modelLeft = new DefaultTableModel(renderKhoHang(danhSachKhoHang), columnsLeft) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -77,7 +68,6 @@ public class BanHang_GUI extends JPanel {
         };
         JTable tableLeft = new JTable(modelLeft);
         capNhatKichThuocBang(tableLeft);
-        tableLeft.getTableHeader().setReorderingAllowed(false);
         leftPanel.add(new JScrollPane(tableLeft), BorderLayout.CENTER);
 
         // ---------------------------------------------------------
@@ -86,6 +76,7 @@ public class BanHang_GUI extends JPanel {
         JPanel rightPanel = new JPanel(new BorderLayout(5, 5));
         rightPanel.setBorder(BorderFactory.createTitledBorder("Giỏ hàng"));
 
+        // --- A. THÔNG TIN KHÁCH HÀNG (Phía trên cùng) ---
         JPanel infoPanel = new JPanel(new GridLayout(3, 2, 5, 10));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
         infoPanel.add(new JLabel("Số điện thoại KH:"));
@@ -99,9 +90,12 @@ public class BanHang_GUI extends JPanel {
         infoPanel.add(diaChiKH);
         rightPanel.add(infoPanel, BorderLayout.NORTH);
 
-        JPanel tableWrapperPanel = new JPanel(new BorderLayout(0, 5));
+        // --- B. BẢNG GIỎ HÀNG VÀ NÚT XÓA GIỎ (Nằm ở giữa) ---
 
-        modelRight = new DefaultTableModel(renderGioHang(gioHang), columnsRight) {
+        JPanel tableWrapperPanel = new JPanel(new BorderLayout(0, 5)); // Panel bọc bảng và nút xóa
+
+        Vector<String> columnsRight = new Vector<>(Arrays.asList("Ảnh", "Mã SP", "Tên SP", "SL", "Đơn giá", "Thành tiền"));
+        DefaultTableModel modelRight = new DefaultTableModel(renderGioHang(gioHang), columnsRight) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return column == 3;
@@ -113,13 +107,13 @@ public class BanHang_GUI extends JPanel {
             }
         };
         JTable tableRight = new JTable(modelRight);
-        tableRight.getTableHeader().setReorderingAllowed(false);
         capNhatKichThuocBang(tableRight);
 
         JScrollPane scrollPaneRight = new JScrollPane(tableRight);
         scrollPaneRight.setBorder(BorderFactory.createTitledBorder("Danh sách sản phẩm:"));
-        tableWrapperPanel.add(scrollPaneRight, BorderLayout.CENTER);
+        tableWrapperPanel.add(scrollPaneRight, BorderLayout.CENTER); // Đưa bảng vào giữa
 
+        // Nút Xóa giỏ nằm ngay dưới đuôi bảng
         JPanel pnlClearCart = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         pnlClearCart.setBorder(BorderFactory.createEmptyBorder(5, 0, 15, 0));
         xoaGioBtn = new JButton("Xóa giỏ");
@@ -129,99 +123,57 @@ public class BanHang_GUI extends JPanel {
         pnlClearCart.add(xoaGioBtn);
 
         tableWrapperPanel.add(pnlClearCart, BorderLayout.SOUTH);
+
         rightPanel.add(tableWrapperPanel, BorderLayout.CENTER);
 
+
         JPanel checkoutPanel = new JPanel(new BorderLayout(0, 10));
+        checkoutPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY)); // Kẻ 1 đường line mỏng phân cách
         checkoutPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 0, 0, Color.LIGHT_GRAY),
                 BorderFactory.createEmptyBorder(10, 5, 5, 5)
         ));
 
+
         JPanel pnlPrices = new JPanel(new GridLayout(2, 2, 10, 5));
+
+        JLabel kmLbl = new JLabel("Khuyến mãi giảm: ", SwingConstants.RIGHT);
+        kmLbl.setFont(new Font("Arial", Font.PLAIN, 14));
+        JLabel lblKhuyenMaiValue = new JLabel("0 đ", SwingConstants.RIGHT);
+        lblKhuyenMaiValue.setFont(new Font("Arial", Font.BOLD, 14));
+        lblKhuyenMaiValue.setForeground(Color.RED);
 
         JLabel ttLbl = new JLabel("Tổng thanh toán: ", SwingConstants.RIGHT);
         ttLbl.setFont(new Font("Arial", Font.BOLD, 16));
-        String totalCost = Double.toString(hoaDonBus.tinhTien(gioHang));
-        lblTotalValue = new JLabel(totalCost, SwingConstants.RIGHT);
+        lblTotalValue = new JLabel("0 đ", SwingConstants.RIGHT);
         lblTotalValue.setFont(new Font("Arial", Font.BOLD, 18));
         lblTotalValue.setForeground(Color.RED);
 
+        pnlPrices.add(kmLbl);
+        pnlPrices.add(lblKhuyenMaiValue);
         pnlPrices.add(ttLbl);
         pnlPrices.add(lblTotalValue);
 
         checkoutPanel.add(pnlPrices, BorderLayout.CENTER);
+
 
         JButton btnCheckout = new JButton("THANH TOÁN");
         btnCheckout.setPreferredSize(new Dimension(0, 55));
         btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
         btnCheckout.setBackground(new Color(40, 167, 69));
         btnCheckout.setForeground(Color.WHITE);
-        btnCheckout.addActionListener(e -> {
-                    chuyenManHinh(CARD_THANH_TOAN);
-                }
-        );
+        btnCheckout.addActionListener(e -> chuyenManHinh(CARD_THANH_TOAN));
 
         checkoutPanel.add(btnCheckout, BorderLayout.SOUTH);
+
         rightPanel.add(checkoutPanel, BorderLayout.SOUTH);
 
-        // --- CÁC SỰ KIỆN LẮNG NGHE (LISTENERS) ---
 
-        timBtn.addActionListener(e -> {
-            // Lấy chữ và tự động cắt khoảng trắng dư thừa ở hai đầu
-            String text = timTxt.getText().trim();
-
-            // Nếu ô tìm kiếm trống, tải lại toàn bộ danh sách sản phẩm
-            if (text.isEmpty()) {
-                danhSachKhoHang.clear();
-                ArrayList<SanPham_DTO> tatCaSP = spBus.getAllSanPham();
-                if (tatCaSP != null) {
-                    danhSachKhoHang.addAll(tatCaSP);
-                }
-            } else {
-                // Có nhập chữ -> Tiến hành tìm kiếm
-                ArrayList<SanPham_DTO> dsSanPham = spBus.timSanPhamTheoTen(text);
-                SanPham_DTO sanPham2 = spBus.getSanPhamByMaSP(text);
-
-                danhSachKhoHang.clear();
-
-                // Ưu tiên: Nếu gõ đúng mã SP thì hiện 1 cái đó thôi
-                if (sanPham2 != null) {
-                    danhSachKhoHang.add(sanPham2);
-                }
-                // Nếu gõ không ra mã SP, thì dò theo tên
-                else if (dsSanPham != null && !dsSanPham.isEmpty()) {
-                    danhSachKhoHang.addAll(dsSanPham);
-                }
-                // Báo lỗi cho người dùng biết nếu không tìm thấy gì
-                else {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm nào khớp với: " + text, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-
-            // Cập nhật lại giao diện bảng Kho hàng
-            modelLeft.setDataVector(renderKhoHang(danhSachKhoHang), columnsLeft);
-            capNhatKichThuocBang(tableLeft);
-        });
-
-        tableLeft.addMouseListener(new MouseAdapter() {
+        timBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-                    int row = tableLeft.rowAtPoint(e.getPoint());
-                    if (row >= 0 && row < tableLeft.getRowCount()) {
-                        tableLeft.setRowSelectionInterval(row, row);
-
-                        // Lấy sản phẩm từ danh sách đang hiển thị thay vì chọc xuống bảng
-                        SanPham_DTO spDuocChon = danhSachKhoHang.get(row);
-
-                        // Gọi hàm thêm vào giỏ đã viết ở BUS
-                        hoaDonBus.themVaoGioHang(gioHang, spDuocChon, 1);
-
-                        // Cập nhật GUI
-                        modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
-                        updateTongTien(Double.toString(hoaDonBus.tinhTien(gioHang)));
-                        capNhatKichThuocBang(tableRight);
-                    }
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    JOptionPane.showMessageDialog(null, "Bạn vừa click vào nút tìm kiếm! " + timTxt.getText());
                 }
             }
         });
@@ -232,14 +184,26 @@ public class BanHang_GUI extends JPanel {
                 if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
                     int row = tableRight.rowAtPoint(e.getPoint());
                     if (row >= 0 && row < gioHang.size()) {
-                        String maSPCanXoa = gioHang.get(row).getMaSP();
-
-                        // Xóa sản phẩm khỏi mảng giỏ hàng
-                        gioHang.removeIf(cthd -> cthd.getMaSP().equals(maSPCanXoa));
-
-                        // Cập nhật GUI
+                        gioHang.remove(row);
                         modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
-                        updateTongTien(Double.toString(hoaDonBus.tinhTien(gioHang)));
+                        SanPham_DTO spDuocChon = danhSachKhoHang.get(row);
+                        capNhatKichThuocBang(tableRight);
+                        hoaDonBus.tinhTien(gioHang, spDuocChon, -1);
+                    }
+                }
+            }
+        });
+
+        tableLeft.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+                    int row = tableLeft.rowAtPoint(e.getPoint());
+                    if (row >= 0 && row < tableLeft.getRowCount()) {
+                        tableLeft.setRowSelectionInterval(row, row);
+                        SanPham_DTO spDuocChon = danhSachKhoHang.get(row);
+                        hoaDonBus.tinhTien(gioHang, spDuocChon, 1);
+                        modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
                         capNhatKichThuocBang(tableRight);
                     }
                 }
@@ -247,63 +211,39 @@ public class BanHang_GUI extends JPanel {
         });
 
         modelRight.addTableModelListener(new TableModelListener() {
-            boolean isUpdating = false; // Cờ chặn vòng lặp vô hạn
-
             @Override
             public void tableChanged(TableModelEvent e) {
-                if (isUpdating) return;
-
                 if (e.getType() == TableModelEvent.UPDATE && e.getColumn() == 3) {
                     int row = e.getFirstRow();
                     try {
-                        isUpdating = true; // Bật cờ khóa
                         int soLuongMoi = Integer.parseInt(modelRight.getValueAt(row, 3).toString());
-                        ChiTietHoaDon_DTO cthd = gioHang.get(row);
-
                         if (soLuongMoi <= 0) {
                             JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0!");
-                            modelRight.setValueAt(cthd.getSoLuongMua(), row, 3); // Trả lại số cũ
-                        } else {
-                            // Tính toán lại khoảng chênh lệch và cập nhật
-                            int chenhLech = soLuongMoi - cthd.getSoLuongMua();
-                            SanPham_DTO sanPham = spBus.getSanPhamByMaSP(cthd.getMaSP());
-                            hoaDonBus.capNhatGioHang(gioHang, sanPham, chenhLech);
-
-                            // Cập nhật GUI
-                            modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
-                            updateTongTien(Double.toString(hoaDonBus.tinhTien(gioHang)));
-                            capNhatKichThuocBang(tableRight);
+                            modelRight.setValueAt(1, row, 3);
+                            return;
                         }
+                        ChiTietHoaDon_DTO cthd = gioHang.get(row);
+                        SanPham_BUS spB = new SanPham_BUS();
+                        SanPham_DTO sanPham = spB.getSanPhamByMaSP(cthd.getMaSP());
+                        modelRight.setValueAt(cthd.getThanhTien(), row, 5);
+                        updateTongTien(Double.toString(hoaDonBus.tinhTien(gioHang,sanPham,soLuongMoi)));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên hợp lệ!");
-                        modelRight.setValueAt(gioHang.get(row).getSoLuongMua(), row, 3);
-                    } finally {
-                        isUpdating = false; // Tắt cờ mở khóa
+                        modelRight.setValueAt(1, row, 3);
                     }
                 }
             }
         });
 
-        // Đã thay đổi từ MouseListener sang ActionListener chuẩn xác hơn
-        xoaGioBtn.addActionListener(e -> {
-            // 1. Báo lỗi nếu giỏ hàng đã trống để người dùng không bị hoang mang
-            if (gioHang.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Giỏ hàng hiện đang trống!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            // 2. Hỏi xác nhận
-            int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa toàn bộ giỏ hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Làm sạch dữ liệu mảng
+        xoaGioBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 gioHang.clear();
-
-                // Cập nhật lại giao diện
                 modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
-                updateTongTien("0.0");
-                capNhatKichThuocBang(tableRight);
-
+                try {
+                    updateTongTien(Double.toString(hoaDonBus.tinhTien(gioHang, null, 0)));
+                } catch (Exception ex) {
+                }
                 JOptionPane.showMessageDialog(null, "Giỏ hàng đã được làm mới!");
             }
         });
@@ -314,41 +254,17 @@ public class BanHang_GUI extends JPanel {
         panelBanHang.add(splitPane, BorderLayout.CENTER);
         cardPanel = new JPanel(cardLayout);
         cardPanel.add(panelBanHang, CARD_BAN_HANG);
-        ttG = new ThanhToanGUI(this);
-        cardPanel.add(ttG, CARD_THANH_TOAN);
+        cardPanel.add(new ThanhToanGUI(this), CARD_THANH_TOAN);
+
+
 
         add(cardPanel, BorderLayout.CENTER);
     }
 
     // =====================================================================
-    // CÁC HÀM HỖ TRỢ BÊN DƯỚI
+    // CÁC HÀM HỖ TRỢ BÊN DƯỚI (GIỮ NGUYÊN)
     // =====================================================================
     public void chuyenManHinh(String tenManHinh) {
-        //sdtKH, tenKH, timTxt, diaChiKH
-        if (tenManHinh.equals(CARD_THANH_TOAN)) {
-            String sdtValue = sdtKH.getText();
-            if (sdtValue == null || sdtValue.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus sdtKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            String tenKHVal = tenKH.getText();
-            if (tenKHVal == null || tenKHVal.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus tenKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            String diaChiVal = diaChiKH.getText();
-            if (diaChiVal == null || diaChiVal.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus diaChiKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            KhachHang_DTO khachHang = new KhachHang_DTO();
-            KhachHang_BUS kbBus = new KhachHang_BUS();
-            khachHang.setMaKH(kbBus.layMaKHmoiNhat());
-            khachHang.setHoTenKH(tenKHVal);
-            khachHang.setDiaChi(diaChiVal);
-            khachHang.setSoDT(sdtValue);
-            ttG.capNhatThongTin(khachHang, gioHang);
-        }
         cardLayout.show(cardPanel, tenManHinh);
     }
 
@@ -387,6 +303,7 @@ public class BanHang_GUI extends JPanel {
 
     private Vector<Vector<Object>> renderGioHang(ArrayList<ChiTietHoaDon_DTO> gioHangList) {
         Vector<Vector<Object>> duLieuBang = new Vector<>();
+
         if (gioHangList == null || gioHangList.isEmpty()) {
             return duLieuBang;
         }
@@ -394,39 +311,36 @@ public class BanHang_GUI extends JPanel {
         for (ChiTietHoaDon_DTO cthd : gioHangList) {
             Vector<Object> hang = new Vector<>();
 
-            // Tối ưu: Lấy 1 lần thay vì 2 lần để giảm query Database
-            SanPham_DTO sanPhamGoc = spBus.getSanPhamByMaSP(cthd.getMaSP());
+            SanPham_BUS sp = new SanPham_BUS();
+            hang.add(loadAnh(sp.getSanPhamByMaSP(cthd.getMaSP()).getPath()));
+            hang.add(cthd.getMaSP());
+            hang.add(sp.getSanPhamByMaSP(cthd.getMaSP()).getTenSP());
 
-            if (sanPhamGoc != null) {
-                hang.add(loadAnh(sanPhamGoc.getPath()));
-                hang.add(cthd.getMaSP());
-                hang.add(sanPhamGoc.getTenSP());
-                hang.add(cthd.getSoLuongMua());
-                hang.add(cthd.getDonGia());
-                hang.add(cthd.getThanhTien());
-                duLieuBang.add(hang);
-            }
+            // Các thuộc tính tính toán của Chi Tiết Hóa Đơn
+            hang.add(cthd.getSoLuongMua());
+            hang.add(cthd.getDonGia());
+            hang.add(cthd.getThanhTien());
+
+            // Thêm dòng vừa tạo vào mảng dữ liệu tổng
+            duLieuBang.add(hang);
         }
+
         return duLieuBang;
     }
 
     private Object loadAnh(String path) {
         try {
-            if(path != null && !path.isEmpty()) {
-                java.net.URL imgURL = getClass().getResource("/images/" + path); // Điều chỉnh lại thư mục chứa ảnh nếu cần
-                if (imgURL != null) {
-                    ImageIcon icon = new ImageIcon(imgURL);
-                    int maxH = 80;
-                    int imgW = icon.getIconWidth();
-                    int imgH = icon.getIconHeight();
-                    int newW = (imgW * maxH) / imgH;
-                    Image scaledImg = icon.getImage().getScaledInstance(newW, maxH, Image.SCALE_SMOOTH);
-                    return new ImageIcon(scaledImg);
-                }
+            java.net.URL imgURL = getClass().getResource(path);
+            if (imgURL != null) {
+                ImageIcon icon = new ImageIcon(imgURL);
+                int maxH = 80;
+                int imgW = icon.getIconWidth();
+                int imgH = icon.getIconHeight();
+                int newW = (imgW * maxH) / imgH;
+                Image scaledImg = icon.getImage().getScaledInstance(newW, maxH, Image.SCALE_SMOOTH);
+                return new ImageIcon(scaledImg);
             }
-        } catch (Exception e) {
-            System.out.println("Lỗi tải ảnh: " + path);
-        }
+        } catch (Exception e) {}
         return "No Image";
     }
 

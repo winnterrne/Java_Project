@@ -15,7 +15,6 @@ public class ThemNhaCungCapGUI extends JFrame {
     public ThemNhaCungCapGUI(NhaCungCapGUI parent) {
         this.parent = parent;
         initGui();
-        tfMaNCC.setText(nccBUS.taoMaNCC());
     }
 
     public void initGui() {
@@ -54,8 +53,7 @@ public class ThemNhaCungCapGUI extends JFrame {
 
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaNCC = new JTextField(20);
-        tfMaNCC.setEditable(false);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.HORIZONTAL; // textfield giãn ngang
         add(tfMaNCC, gbc);
 
         // Tên NCC

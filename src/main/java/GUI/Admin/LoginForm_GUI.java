@@ -5,15 +5,17 @@ import java.awt.*;
 import DAO.*;
 import DTO.*;
 import BUS.*;
-import GUI.Product.BanHang_GUI;
 
 
-public class LoginForm_GUI extends JFrame{
+public class LoginForm_GUI extends JFrame {
     JLabel lbtitle, lbImage, lbkhoiPhuc, lbnhapEmail;
     JTextField txtaiKhoan, txmatKhau, txnhapEmail;
     JPanel panelForm, panelImage;
     JButton btnLogin, btnSignUp, btnForgotPass, btnguiOTP;
+    TaiKhoan_DAO tkdao = new TaiKhoan_DAO();
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
+    TaiKhoan_DTO tkdto = new TaiKhoan_DTO();
+    JDialog jdlForgotPass;
     public LoginForm_GUI() {
         intGui();
     }
@@ -79,7 +81,7 @@ public class LoginForm_GUI extends JFrame{
         panelImage = new JPanel(new BorderLayout());
         panelImage.setBackground(Color.white);
 
-        ImageIcon icon = new ImageIcon(LoginForm_GUI.class.getResource("/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
+        ImageIcon icon = new ImageIcon(LoginForm_GUI.class.getResource("/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
         lbImage = new JLabel(icon);
         lbImage.setHorizontalAlignment(JLabel.CENTER);
         panelImage.add(lbImage,BorderLayout.CENTER);
@@ -126,8 +128,7 @@ public class LoginForm_GUI extends JFrame{
                 JOptionPane.showMessageDialog(this,"Vui long doi mat khau lan dau");
             }
             JOptionPane.showMessageDialog(this,"Chao mung mo kim chi ");
-            AdminFrame_GUI admin = new AdminFrame_GUI();
-            admin.getMenupanel().applyPermission();
+            new AdminFrame_GUI().setVisible(true);
             this.dispose();
         }else {
             JOptionPane.showMessageDialog(this,"Sai ten hoac sai mat khau");
@@ -137,10 +138,7 @@ public class LoginForm_GUI extends JFrame{
         new ForgotPass_GUI(this).setVisible(true);
     }
 
-
-
     public static void main(String[] args) {
         new LoginForm_GUI();
     }
-
 }

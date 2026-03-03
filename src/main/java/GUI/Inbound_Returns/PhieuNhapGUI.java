@@ -22,7 +22,7 @@ import com.toedter.calendar.JDateChooser;
 public class PhieuNhapGUI extends JPanel {
     JPanel topPanel, centerPanel, pTimKiem, pChucNang, pLocNgay, pLocGia;
     JTextField tfTimKiem, tfTuGia, tfDenGia;
-    JButton btnXoa, btnXemCTPN, btnXuatExcel, btnTimKiem, btnLamMoi;
+    JButton btnXoa, btnSua, btnXemCTPN, btnXuatExcel, btnTimKiem, btnLamMoi;
     JDateChooser dcTuNgay, dcDenNgay;
     JTable tbPhieuNhap;
     DefaultTableModel dtmPhieuNhap;
@@ -63,6 +63,9 @@ public class PhieuNhapGUI extends JPanel {
         pChucNang = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
         btnXoa = new JButton("Xóa");
         pChucNang.add(btnXoa);
+
+        btnSua = new JButton("Sửa");
+        pChucNang.add(btnSua);
 
         btnXemCTPN = new JButton("Xem Chi Tiết");
         pChucNang.add(btnXemCTPN);
@@ -140,7 +143,7 @@ public class PhieuNhapGUI extends JPanel {
                     stt++,
                     pn.getMaPhieuNhap(),
                     tenNCC,
-                    "admin",
+                    "admin", //sau này lấy manv->chức vụ....
                     pn.getNgayNhapHang(),
                     tongTienFormatted
             });
@@ -228,6 +231,17 @@ public class PhieuNhapGUI extends JPanel {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công");
                 }
             }
+        });
+
+        btnSua.addActionListener(e -> {
+            int selectedRow =  tbPhieuNhap.getSelectedRow();
+            if(selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu nhập cần sửa!");
+                return;
+            }
+            String maPN =  tbPhieuNhap.getValueAt(selectedRow, 1).toString();
+            new SuaPhieuNhapGUI(maPN).setVisible(true);
+            loadPhieuNhap();
         });
 
         btnXemCTPN.addActionListener(e -> {

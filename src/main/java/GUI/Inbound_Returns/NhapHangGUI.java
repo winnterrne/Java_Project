@@ -1,4 +1,4 @@
-package GUI.Inbound_Returns;
+package GUI.Inbound_Returns; //source root: folder java
 import BUS.ChiTietPhieuNhap_BUS;
 import BUS.NhaCungCap_BUS;
 import BUS.PhieuNhap_BUS;
@@ -38,7 +38,7 @@ public class NhapHangGUI extends JPanel {
     JLabel lMaPN, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfMaPN, tfNguoiTaoPhieu;
     JComboBox cbNhaCC;
-    JButton  btnSuaSL, btnXoaSP, btnNhapHang;
+    JButton btnNhapExcel, btnSuaSL, btnXoaSP, btnNhapHang;
 
     SanPham_BUS spBUS = new  SanPham_BUS();
     PhieuNhap_BUS pnBUS = new  PhieuNhap_BUS();
@@ -49,10 +49,7 @@ public class NhapHangGUI extends JPanel {
         loadTableSanPham();
         loadNCC();
         addEvents();
-        resetForm();
     }
-
-
 
     public void initGUI() {
         Font font = new Font("Times New Roman", Font.BOLD, 12);
@@ -71,6 +68,7 @@ public class NhapHangGUI extends JPanel {
         searchgbc.gridx = 0;
         searchgbc.gridy = 0;
         searchgbc.gridwidth = 1;
+        searchgbc.gridheight = 1;
         searchgbc.insets = new Insets(5, 5, 5, 5);
         tfTimKiem = new JTextField(20);
         pSearch.add(tfTimKiem, searchgbc);
@@ -93,12 +91,11 @@ public class NhapHangGUI extends JPanel {
         lgbc.fill = GridBagConstraints.BOTH;
         lgbc.gridx = 0;
         lgbc.gridy = 0;
-        lgbc.gridheight = 1;
         lPanel.add(pSearch, lgbc);
 
         lgbc.gridx = 0;
         lgbc.gridy = 1;
-        lgbc.weighty = 1.0;
+        lgbc.gridwidth = 1;
         lgbc.insets = new Insets(5, 5, 5, 5);
         String spCol[] = {"Mã SP", "Tên SP", "Đơn giá", "Số lượng"};
         modelSanPham = new DefaultTableModel(spCol, 0) {
@@ -114,6 +111,7 @@ public class NhapHangGUI extends JPanel {
         colTenSP.setMinWidth(200);
         spSanPham = new JScrollPane(tbSanPham);
         lPanel.add(spSanPham, lgbc);
+
 
         lbPanel = new JPanel(new GridBagLayout());
         GridBagConstraints lbgbc =  new GridBagConstraints();
@@ -136,9 +134,8 @@ public class NhapHangGUI extends JPanel {
 
         lgbc.gridx = 0;
         lgbc.gridy = 2;
-        lgbc.weighty = 0;
-        lgbc.insets = new Insets(25, 0, 25, 0);
         lPanel.add(lbPanel, lgbc);
+
 
         rPanel = new JPanel(new GridBagLayout());
         GridBagConstraints rgbc =  new GridBagConstraints();
@@ -154,7 +151,7 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridx = 1;
         rgbc.gridy = 0;
         tfMaPN = new JTextField(15);
-
+        tfMaPN.setText(pnBUS.taoMaPN());
         tfMaPN.setEditable(false);
         rPanel.add(tfMaPN, rgbc);
 
@@ -184,7 +181,6 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridy = 3;
         rgbc.insets = new Insets(5, 5, 5, 5);
         rgbc.gridwidth = 2;
-        rgbc.weighty = 1.0;
         String chiTietCol[] = {"STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá"};
         modelChiTiet = new DefaultTableModel(chiTietCol, 0) {
             @Override
@@ -242,8 +238,8 @@ public class NhapHangGUI extends JPanel {
 
         rgbc.gridx = 0;
         rgbc.gridy = 4;
-        rgbc.weighty = 0;
         rPanel.add(rbPanel, rgbc);
+
 
         add(lPanel);
         add(rPanel);
@@ -279,15 +275,6 @@ public class NhapHangGUI extends JPanel {
                     GiaBanFormatted,
                     sp.getSoLuongTon()
             });
-        }
-    }
-
-    public void resetForm() {
-        tfMaPN.setText(pnBUS.taoMaPN());
-        modelChiTiet.setRowCount(0);
-        lTinhTongTien.setText("");
-        if(cbNhaCC.getItemCount() > 0) {
-            cbNhaCC.setSelectedIndex(0);
         }
     }
 
@@ -415,9 +402,8 @@ public class NhapHangGUI extends JPanel {
                 Number number = nf.parse(lTinhTongTien.getText().trim());
                 double tongTien = number.doubleValue();
                 NhaCungCap_DTO ncc = (NhaCungCap_DTO) cbNhaCC.getSelectedItem();
-                if(ncc == null) return;
                 String maNCC = ncc.getMaNCC();
-                String maNV = "NV01";
+                String maNV = "NV001";
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(maPN, ngayNhapHang, tongTien, maNCC, maNV);
                 ArrayList<ChiTietPhieuNhap_DTO> listCT = new ArrayList<>();
 
@@ -427,14 +413,14 @@ public class NhapHangGUI extends JPanel {
                     String giaNhapStr =  modelChiTiet.getValueAt(i, 4).toString().trim();
                     Number numberTong = nf.parse(giaNhapStr);
                     double giaNhap = numberTong.doubleValue();
+
+
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
-                boolean result = pnBUS.taoPhieuNhapVaChiTiet(pn, listCT);
+                boolean result = pnBUS.themPhieuNhapVaChiTiet(pn, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công");
-                    loadTableSanPham();
-                    resetForm();
                 } else {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thất bại");
                 }

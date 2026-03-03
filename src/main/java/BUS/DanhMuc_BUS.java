@@ -10,16 +10,9 @@ import DTO.SanPham_DTO;
 public class DanhMuc_BUS {
     private final DanhMuc_DAO dmDAO = new DanhMuc_DAO();
 
-    public ArrayList<DanhMuc_DTO> getAllDanhMucAvailable() {
-        return dmDAO.getAllDanhMucAvailable();
-    }
 
     public ArrayList<DanhMuc_DTO> getAllDanhMuc() {
         return dmDAO.getAllDanhMuc();
-    }
-
-    public ArrayList<DanhMuc_DTO> getAllDanhMucDaXoa() {
-        return dmDAO.getAllDanhMucDaXoa();
     }
 
     public DanhMuc_DTO getDanhMucByMaDM(String maDM) {
@@ -53,40 +46,5 @@ public class DanhMuc_BUS {
     public ArrayList<SanPham_DTO> getSanPhamByMaDM(String maDM) {
         SanPham_DAO spDAO = new SanPham_DAO();
         return spDAO.getAllSanPhamByMaDM(maDM);
-    }
-
-    public String taoMaDMTuDong (){
-        String maxMaDM = dmDAO.getMaxMADM();
-        int soThuTu = 1;
-        if (maxMaDM != null && maxMaDM.startsWith("DM")){
-            String soThuTuStr = maxMaDM.substring(2);
-            try{
-                soThuTu = Integer.parseInt(soThuTuStr) + 1;
-            }catch (NumberFormatException e){
-                e.printStackTrace();
-            }
-        }
-        String dinhDangSo = String.format ("%03d", soThuTu);
-        String maDMNew = "DM" + dinhDangSo;
-
-        // Kiểm tra nếu maDMNew đã tồn tại (trường hợp gap do delete), tăng dần
-        while (dmDAO.isMaDMExists(maDMNew)) {
-            soThuTu++;
-            dinhDangSo = String.format("%03d", soThuTu);
-            maDMNew = "DM" + dinhDangSo;
-        }
-
-        if (soThuTu > 999) {
-            throw new IllegalStateException("Đã hết mã DM cho danh mục này (vượt 999)!");
-        }
-
-        return maDMNew;
-    }
-
-    public boolean restoreDanhMuc(String maDM) {
-        if (maDM == null || maDM.trim().isEmpty()) {
-            return false;
-        }
-        return dmDAO.restoreDanhMuc(maDM);
     }
 }

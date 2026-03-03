@@ -21,9 +21,7 @@ public class AdminFrame_GUI extends JFrame {
         rightPanel.add(contentpanel, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-    }
-    public AdminMenuPanel_GUI getMenupanel() {
-        return menupanel;
+
     }
 
 }

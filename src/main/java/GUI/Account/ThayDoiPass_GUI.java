@@ -1,26 +1,23 @@
 package GUI.Account;
 
 import BUS.TaiKhoan_BUS;
-import DTO.CurrentUser;
-import DTO.TaiKhoan_DTO;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ThayDoiPass_GUI extends JDialog {
     JLabel lbtitle;
-    JTextField tfTenDangNhap, tfHoVaTen, tfEmail;
+    JTextField tfTenDangNhap;
     JPasswordField tfPassCu, tfPassMoi;
-    JPanel panel1;
-    JButton btnLuu;
+    JPanel panel1, panel2;
+    JButton btnLuu, btnHuy;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
     public ThayDoiPass_GUI(Frame parent) {
-        super(parent, "Thay đổi mật khẩu",true);
+        super(parent, "Thay doi mat khau",true);
         init();
-        xemAccount();
     }
     public void init() {
-        setSize(550,700);
+        setSize(400,600);
         setLocationRelativeTo(getOwner());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -29,41 +26,31 @@ public class ThayDoiPass_GUI extends JDialog {
         panel1.setLayout(new BoxLayout(panel1,BoxLayout.Y_AXIS));
         panel1.add(Box.createVerticalStrut(80));
 
-        lbtitle = new JLabel("THAY ĐỔI MẬT KHẨU");
+        lbtitle = new JLabel("Thay doi mat khau");
         lbtitle.setFont(new Font("Arial",Font.BOLD,36));
         lbtitle.setForeground(new Color(0,102,204));
-        lbtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel1.add(lbtitle);
         panel1.add(Box.createVerticalStrut(50));
 
-        tfHoVaTen = new JTextField();
-        panel1.add(creatField("Họ và Tên",tfHoVaTen));
-        panel1.add(Box.createVerticalStrut(8));
-
-        tfEmail = new JTextField();
-        panel1.add(creatField("Email",tfEmail));
-        panel1.add(Box.createVerticalStrut(8));
-
         tfTenDangNhap = new JTextField();
-        panel1.add(creatField("Tên đăng nhập ", tfTenDangNhap));
-        panel1.add(Box.createVerticalStrut(8));
+        panel1.add(creatField("Ten tai khoan", tfTenDangNhap));
+        panel1.add(Box.createVerticalStrut(25));
 
         tfPassCu = new JPasswordField();
-        panel1.add(creatField("Mật khẩu cũ",tfPassCu));
+        panel1.add(creatField("Mat khau cu",tfPassCu));
         panel1.add(Box.createVerticalStrut(8));
 
         tfPassMoi = new JPasswordField();
-        panel1.add(creatField("Mật khẩu mới",tfPassMoi));
-        panel1.add(Box.createVerticalStrut(20));
+        panel1.add(creatField("Mat khau moi",tfPassMoi));
+        panel1.add(Box.createVerticalStrut(8));
 
-
-        btnLuu = new JButton("Lưu");
+        btnLuu = new JButton("Luu");
         btnLuu.setMaximumSize(new Dimension(180,40));
         btnLuu.setFont(new Font("Arial",Font.BOLD,14));
         btnLuu.setForeground(Color.white);
         btnLuu.setBackground(new Color(0,102,204));
         btnLuu.setFocusPainted(false);
-        btnLuu.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnLuu.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel1.add(btnLuu);
 
         panel1.add(Box.createVerticalStrut(20));
@@ -100,27 +87,15 @@ public class ThayDoiPass_GUI extends JDialog {
         String matkhaumoi = tfPassMoi.getText().trim();
 
         if(taikhoan.isEmpty() || matkhaucu.isEmpty() || matkhaumoi.isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Điền đầy đủ thông tin");
+            JOptionPane.showMessageDialog(this,"Dien day du thong tin");
             return;
         }
         boolean kq = tkbus.updatePassword(taikhoan,matkhaucu,matkhaumoi);
         if(kq) {
-            JOptionPane.showMessageDialog(this,"Đã đổi mật khẩu");
+            JOptionPane.showMessageDialog(this,"Da doi mat khau");
         }else {
-            JOptionPane.showMessageDialog(this,"Mật khẩu không trùng hoặc tên sai");
+            JOptionPane.showMessageDialog(this,"Khong the thay doi mat khau");
         }
     }
-    public void xemAccount() {
-        TaiKhoan_DTO tkdto = CurrentUser.getInstance().getTaiKhoan();
-
-        tfHoVaTen.setText(tkdto.getHoTen());
-        tfEmail.setText(tkdto.getEmail());
-
-        tfHoVaTen.setEnabled(false);
-        tfEmail.setEnabled(false);
-
-    }
-
-
 
 }
