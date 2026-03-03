@@ -5,20 +5,23 @@ public class SanPham_DTO {
     private String tenSP;
     private String moTa;
     private double giaBan;
-    private double donVi;
+    private String donVi;
     private int soLuongTon;
+    private String maKM;
+    private String viTri;
     private String maDM;
-
+    private String Path = "/GUI/Images/images.jpeg";
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, double donVi, int soLuongTon, String maDM) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon,String Path ,String maDM) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
         this.giaBan = giaBan;
         this.donVi = donVi;
         this.soLuongTon = soLuongTon;
+        this.Path = Path;
         this.maDM = maDM;
     }
 
@@ -34,11 +37,7 @@ public class SanPham_DTO {
         return moTa;
     }
 
-    public double getGiaBan() {
-        return giaBan;
-    }
-
-    public double getDonVi() {
+    public String getDonVi() {
         return donVi;
     }
 
@@ -58,12 +57,16 @@ public class SanPham_DTO {
         this.moTa = moTa;
     }
 
-    public void setDonVi(double donVi) {
+    public void setDonVi(String donVi) {
         this.donVi = donVi;
     }
 
     public void setGiaBan(double giaBan) {
         this.giaBan = giaBan;
+    }
+
+    public double getGiaBan() {
+        return this.giaBan;
     }
 
     public void setSoLuongTon(int soLuongTon) {
@@ -78,4 +81,35 @@ public class SanPham_DTO {
         this.maDM = maDM;
     }
 
+    public String getMaKhuyenMai() {
+        return maKM;
+    }
+
+    public void setMaKhuyenMai(String maKM) {
+        this.maKM = maKM;
+    }
+
+    public String getViTri() {
+        return viTri;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
+    }
+
+    public String getMaKM() {
+        return maKM;
+    }
+
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
+    }
+
+    public String getPath() {
+        return Path;
+    }
+
+    public void setPath(String path) {
+        Path = path;
+    }
 }

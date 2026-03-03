@@ -1,5 +1,6 @@
 package DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class ChiTietPhieuNhap_DTO {
@@ -44,11 +45,26 @@ public class ChiTietPhieuNhap_DTO {
         return ngayNhap;
     }
 
+    public Date getNgayNhapToDate() {
+        Date ngayNhapDate = Date.valueOf(ngayNhap);
+        return  ngayNhapDate;
+    }
+
     public LocalDate getHanSuDung() {
         return hanSuDung;
     }
 
+    public Date getHanSuDungToDate() {
+        Date HSD =  Date.valueOf(ngayNhap);
+        return HSD;
+    }
+
     public LocalDate getNgaySanXuat() {
         return ngaySanXuat;
+    }
+
+    public Date getNgaySanXuatToDate() {
+        Date ngaySanXuatDate = Date.valueOf(ngaySanXuat);
+        return ngaySanXuatDate;
     }
 }

@@ -28,3 +28,4 @@ public class VaiTro_DTO {
         this.tenVT = tenVT;
     }
 }
+

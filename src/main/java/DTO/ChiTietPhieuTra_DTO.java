@@ -33,4 +33,20 @@ public class ChiTietPhieuTra_DTO {
     public int getSoLuongTra() {
         return soLuongTra;
     }
+
+    public void setMaPhieuTra(String maPhieuTra) {
+        this.maPhieuTra = maPhieuTra;
+    }
+
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
+
+    public void setNgayTra(LocalDate ngayTra) {
+        this.ngayTra = ngayTra;
+    }
+
+    public void setSoLuongTra(int soLuongTra) {
+        this.soLuongTra = soLuongTra;
+    }
 }

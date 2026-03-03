@@ -24,6 +24,34 @@ public class KhachHang_DTO {
         return maKH;
     }
 
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public void setHoTenKH(String hoTenKH) {
+        this.hoTenKH = hoTenKH;
+    }
+
+    public void setSoDT(String soDT) {
+        this.soDT = soDT;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDiemTichLuy(double diemTichLuy) {
+        this.diemTichLuy = diemTichLuy;
+    }
+
+    public String  getHoTenKH() {
+        return hoTenKH;
+    }
+
     public String getHoTenNV() {
         return hoTenKH;
     }

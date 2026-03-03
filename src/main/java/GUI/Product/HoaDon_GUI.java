@@ -2,7 +2,6 @@ package GUI.Product;
 
 import BUS.HoaDon_BUS;
 import DTO.HoaDon_DTO;
-import DTO.SanPham_DTO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,8 +9,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
 
 public class HoaDon_GUI extends JPanel {
 
@@ -110,13 +107,14 @@ public class HoaDon_GUI extends JPanel {
         pnlHeader.add(new JLabel("Khách hàng: Nguyễn Văn A"));
         dialogChiTiet.add(pnlHeader, BorderLayout.NORTH);
 
-        Vector<String> colChiTiet = new Vector<>(Arrays.asList("Ảnh", "Mã SP", "Tên SP", "SL", "Đơn Giá", "Thành Tiền"));
+        // Phần Center: Bảng danh sách mặt hàng
+        String[] colChiTiet = {"STT", "Mã SP", "Tên SP", "SL", "Đơn Giá", "Thành Tiền"};
         Object[][] dummyDetailData = {
                 {"1", "SP01", "Cà phê đen", "2", "20,000", "40,000"},
                 {"2", "SP05", "Trà đá", "1", "5,000", "5,000"}
         };
 
-        DefaultTableModel modelChiTiet = new DefaultTableModel(render, colChiTiet) {
+        DefaultTableModel modelChiTiet = new DefaultTableModel(dummyDetailData, colChiTiet) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
 
@@ -175,36 +173,5 @@ public class HoaDon_GUI extends JPanel {
         popupMenu.add(itemXoa);
 
         popupMenu.show(e.getComponent(), e.getX(), e.getY());
-    }
-
-    private Object loadAnh(String path) {
-        try {
-            java.net.URL imgURL = getClass().getResource(path);
-            if (imgURL != null) {
-                ImageIcon icon = new ImageIcon(imgURL);
-                int maxH = 80;
-                int imgW = icon.getIconWidth();
-                int imgH = icon.getIconHeight();
-                int newW = (imgW * maxH) / imgH;
-                Image scaledImg = icon.getImage().getScaledInstance(newW, maxH, Image.SCALE_SMOOTH);
-                return new ImageIcon(scaledImg);
-            }
-        } catch (Exception e) {}
-        return "No Image";
-    }
-
-    private Vector<Vector<Object>> renderHoaDon(ArrayList<SanPham_DTO> danhSach) {
-        Vector<Vector<Object>> duLieuBang = new Vector<>();
-        if (danhSach == null) return duLieuBang;
-        for (SanPham_DTO sp : danhSach) {
-            Vector<Object> hang = new Vector<>();
-            hang.add(loadAnh(sp.getPath()));
-            hang.add(sp.getMaSP());
-            hang.add(sp.getTenSP());
-            hang.add(sp.getGiaBan());
-            hang.add(sp.getSoLuongTon());
-            duLieuBang.add(hang);
-        }
-        return duLieuBang;
     }
 }
