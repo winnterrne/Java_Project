@@ -45,4 +45,8 @@ public class PhieuNhap_BUS {
         return pnDAO.suaPhieuNhapVaChiTiet(pn, ct);
     }
 
+    public String getTenNCCByMaPN(String maPN) {
+        return pnDAO.getTenNCCByMaPN(maPN);
+    }
+
 }

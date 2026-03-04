@@ -25,33 +25,33 @@ public class AdminMenuPanel_GUI extends JPanel {
         setBackground(new Color(0x121929));
         add(Box.createVerticalStrut(20));
 
-        add(createMenuButton(" Quản lý sản phẩm",AdminContetnPanel_GUI.CARD_SAN_PHAM));
+        add(createMenuButton("Bán Hàng",AdminContetnPanel_GUI.CARD_BAN_HANG));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý danh mục sản phẩm",AdminContetnPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
+        add(createMenuButton(" Quản Lý Sản Phẩm",AdminContetnPanel_GUI.CARD_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý tài khoản",AdminContetnPanel_GUI.CARD_TAI_KHOAN));
+        add(createMenuButton(" Danh Mục Sản Phẩm",AdminContetnPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-
-        add(createMenuButton("Quản lý nhập hàng",AdminContetnPanel_GUI.CARD_NHAP_HANG));
+        add(createMenuButton("Danh Sách Hóa Đơn",AdminContetnPanel_GUI.CARD_HOA_DON));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý hóa đơn",AdminContetnPanel_GUI.CARD_HOA_DON));
+        add(createMenuButton("Quản Lý Nhà Cung Cấp",AdminContetnPanel_GUI.CARD_NHA_CUNG_CAP));
+        add(Box.createVerticalStrut(10));
+
+        add(createMenuButton("Phiếu Nhập",AdminContetnPanel_GUI.CARD_PHIEU_NHAP));
+        add(Box.createVerticalStrut(10));
+
+        add(createMenuButton("Nhập Hàng",AdminContetnPanel_GUI.CARD_NHAP_HANG));
+        add(Box.createVerticalStrut(10));
+
+        add(createMenuButton("Quản Lý Tài Khoản",AdminContetnPanel_GUI.CARD_TAI_KHOAN));
         add(Box.createVerticalStrut(10));
 
         add(createMenuButton("Thống kê và báo cáo",AdminContetnPanel_GUI.CARD_THONG_KE));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản lý nhà cung cấp",AdminContetnPanel_GUI.CARD_NHA_CUNG_CAP));
-        add(Box.createVerticalStrut(10));
-
-        add(createMenuButton("Quản lý phiếu nhập",AdminContetnPanel_GUI.CARD_PHIEU_NHAP));
-        add(Box.createVerticalStrut(10));
-
-        add(createMenuButton("Quản lý bán hàng",AdminContetnPanel_GUI.CARD_BAN_HANG));
-        add(Box.createVerticalStrut(10));
     }
 
     private JButton createMenuButton(String text,String cardName) {

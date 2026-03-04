@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class KhachHang_DAO {
 
-//    private String maKH;
+    //    private String maKH;
 //    private String hoTenKH;
 //    private String soDT;
 //    private String diaChi;

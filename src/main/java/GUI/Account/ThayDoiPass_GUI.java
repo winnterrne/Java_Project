@@ -34,7 +34,7 @@ public class ThayDoiPass_GUI extends JDialog {
 
         tfTenDangNhap = new JTextField();
         panel1.add(creatField("Ten tai khoan", tfTenDangNhap));
-        panel1.add(Box.createVerticalStrut(25));
+        panel1.add(Box.createVerticalStrut(8));
 
         tfPassCu = new JPasswordField();
         panel1.add(creatField("Mat khau cu",tfPassCu));

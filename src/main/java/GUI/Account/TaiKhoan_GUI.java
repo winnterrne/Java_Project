@@ -39,22 +39,22 @@ public class TaiKhoan_GUI extends JPanel {
         pTimKiem = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         tfTimKiem = new JTextField(20);
         pTimKiem.add(tfTimKiem);
-        btnTimKiem = createButton("Tim kiem");
+        btnTimKiem = createButton("Tìm Kiếm");
         pTimKiem.add(btnTimKiem);
         pTimKiem.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Tìm Kiếm"));
 
         pChucNang = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
-        btnXoa = createButton("Xoa");
+        btnXoa = createButton("Xóa");
         pChucNang.add(btnXoa);
-        btnSua = createButton("Sua");
+        btnSua = createButton("Sửa");
         pChucNang.add(btnSua);
-        btnThem = createButton("Them");
+        btnThem = createButton("Thêm");
         pChucNang.add(btnThem);
-        btnXemCTPN = createButton("Chi tiet");
+        btnXemCTPN = createButton("Chi Tiết");
         pChucNang.add(btnXemCTPN);
-        btnXuatExcel = createButton("Xuat excel");
+        btnXuatExcel = createButton("Xuất Excel");
         pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Chức Năng"));
@@ -63,7 +63,7 @@ public class TaiKhoan_GUI extends JPanel {
         topPanel.add(pTimKiem); topPanel.add(pChucNang);
 
         centerPanel =  new JPanel(new GridLayout(1, 1, 20, 20));
-        String cols[] = {"Mã tai khoan","Ho va ten ","Ten dang nhap", "Email", "Vai tro", "Trang thai"};
+        String cols[] = {"Mã Tài Khoản","Họ và Tên ","Tên Đăng Nhập", "Email", "Vai Trò", " Trạng Thái"};
         dtmTaiKhoan = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int r, int c) {
@@ -128,7 +128,7 @@ public class TaiKhoan_GUI extends JPanel {
                     tkdto.getTenDangNhap(),
                     tkdto.getEmail(),
                     tkdto.getMaVaiTro(),
-                    tkdto.isTrangThai() ? "Hoat dong" : "Khong hoat dong"
+                    tkdto.isTrangThai() ? "Hoạt động" : "Không hoạt động"
             });
         }
     }
@@ -141,7 +141,7 @@ public class TaiKhoan_GUI extends JPanel {
                     tkdto.getTenDangNhap(),
                     tkdto.getEmail(),
                     tkdto.getMaVaiTro(),
-                    tkdto.isTrangThai() ? "Hoat dong" : "Khong hoat dong"
+                    tkdto.isTrangThai() ? "Hoạt động" : "Không hoạt động"
             });
         }
     }
@@ -149,18 +149,18 @@ public class TaiKhoan_GUI extends JPanel {
         try {
             int i = tbTaiKhoan.getSelectedRow();
             if(i == -1) {
-                JOptionPane.showMessageDialog(this,"Vui long chon sinh vien can xoa");
+                JOptionPane.showMessageDialog(this,"Vui lòng chọn tài khoản cần xóa");
                 return;
             }
             String mataikhoan = tbTaiKhoan.getValueAt(i,1).toString();
-            int confirm = JOptionPane.showConfirmDialog(this,"Ban co muon xoa tai khoan nay k","Xac nhanh",JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa tài khoản này","Xác nhận",JOptionPane.YES_NO_OPTION);
             if(confirm == JOptionPane.YES_NO_OPTION) {
                 boolean result = tkbus.deleteTaiKhoan(mataikhoan);
                 if(result) {
-                    JOptionPane.showMessageDialog(this,"Xoa thanh cong");
+                    JOptionPane.showMessageDialog(this,"Xóa thành công");
                     loadTable();
                 }else {
-                    JOptionPane.showMessageDialog(this,"Xoa that bai");
+                    JOptionPane.showMessageDialog(this,"Xóa thất bại");
                 }
 
             }
@@ -175,7 +175,7 @@ public class TaiKhoan_GUI extends JPanel {
     public void SuaTaiKhoan() {
         int i = tbTaiKhoan.getSelectedRow();
         if(i == -1) {
-            JOptionPane.showMessageDialog(this,"Vui long chon tai khoan ");
+            JOptionPane.showMessageDialog(this,"Vui lòng chọn tài khoản");
             return;
         }
         String mataikhoan = dtmTaiKhoan.getValueAt(i,0).toString();
@@ -191,7 +191,7 @@ public class TaiKhoan_GUI extends JPanel {
     public void xuatExcel() {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Danh sach tai khoan");
+            XSSFSheet sheet = workbook.createSheet("Danh sách tài khoản");
             XSSFRow row = null;
             Cell cell = null;
 
@@ -211,7 +211,7 @@ public class TaiKhoan_GUI extends JPanel {
                 }
             }
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Chon noi luu file");
+            fileChooser.setDialogTitle("Chọn địa chỉ lưu file");
             int user = fileChooser.showSaveDialog(this);
             if (user == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
@@ -220,7 +220,7 @@ public class TaiKhoan_GUI extends JPanel {
                 fileoutput.close();
                 workbook.close();
 
-                JOptionPane.showMessageDialog(this,"Xuat file pdf thanh cong");
+                JOptionPane.showMessageDialog(this,"Xuất file excel thành công");
             }
         }catch (Exception e) {
             e.printStackTrace();

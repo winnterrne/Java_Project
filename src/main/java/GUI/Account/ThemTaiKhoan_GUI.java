@@ -18,12 +18,12 @@ public class ThemTaiKhoan_GUI extends JDialog {
     NhanVien_BUS nvbus = new NhanVien_BUS();
     private boolean isSaved = false;
     public ThemTaiKhoan_GUI(Frame frame) {
-        super(frame,"Them tai khoan",true);
+        super(frame,"Thêm tài khoản",true);
         initGui();
     }
 
     public void initGui() {
-        setTitle("Them tai khoan");
+        setTitle("Thêm tài khoản");
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -37,7 +37,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         gbc.insets = new Insets(0, 0, 10, 0);
 
         topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        lbTitle = new JLabel("Them Tai Khoan");
+        lbTitle = new JLabel("Thêm tài khoản ");
         lbTitle.setFont(new Font("Times New Roman", Font.BOLD, 32));
         topPanel.setBackground(Color.BLUE);
         lbTitle.setForeground(Color.white);
@@ -54,7 +54,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
 
         // Mã Tai Khoan
         gbc.gridx = 0; gbc.gridy = 1;
-        add(createLabel("Mã tai khoan"), gbc);
+        add(createLabel("Mã tài khoản"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaTaiKhoan = new JTextField(20);
@@ -64,7 +64,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // Tên Tai Khoan
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Tên tai khoan"), gbc);
+        add(createLabel("Tên tài khoản"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 2;
         tfTenTaiKhoan = new JTextField(20);
@@ -84,7 +84,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // Vai tro
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Vai tro"), gbc);
+        add(createLabel("Vai trò"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4;
         tfVaiTro = new JTextField(20);
@@ -94,7 +94,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // trang thai
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Trang thai"),gbc);
+        add(createLabel("Trạng thái"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 5;
         tfTrangThai = new JTextField(20);
@@ -141,31 +141,31 @@ public class ThemTaiKhoan_GUI extends JDialog {
         String nhanvien = tfMaNhanVien.getText().trim();
         try {
             if(matk.isEmpty() || tentk.isEmpty() || email.isEmpty() || vaitro.isEmpty() || trangthai.isEmpty() ) {
-                JOptionPane.showMessageDialog(this, "Vui long dien day du thong tin");
+                JOptionPane.showMessageDialog(this, "Vui lòng điền đẩy đủ thông tin");
                 return;
             }
             if(!email.matches("^[A-Za-z0-9+_.-]+@gmail\\.com$")) {
-                JOptionPane.showMessageDialog(this,"Vui long nhap dung dinh dang @gmail.com");
+                JOptionPane.showMessageDialog(this,"Vui lòng nhập đúng định dạng @gmail.com");
                 return;
             }
             if(!trangthai.equals("1") && !trangthai.equals("2")) {
-                JOptionPane.showMessageDialog(this,"Trang thi 1 = hoat dong, 2 = khong hoat dong");
+                JOptionPane.showMessageDialog(this,"Trạng thái 1 = hoạt động, 2 = không hoạt động ");
                 return;
             }
             if(tkbus.isTenDangNhap(tentk)) {
-                JOptionPane.showMessageDialog(this,"Ten danh nhap da ton tai ");
+                JOptionPane.showMessageDialog(this,"Tên đăng nhập đã tồn tại");
                 return;
             }
             if(tkbus.isEmailExist(email)) {
-                JOptionPane.showMessageDialog(this,"Email da ton tai");
+                JOptionPane.showMessageDialog(this,"Email đã tồn tại");
                 return;
             }
             if(tkbus.isMaTonTai(matk)) {
-                JOptionPane.showMessageDialog(this,"Ma tai khoan da ton tai");
+                JOptionPane.showMessageDialog(this,"Mã tài khoản đã tồn tại");
                 return;
             }
             if(!nvbus.isNhanVienExist(nhanvien)) {
-               JOptionPane.showMessageDialog(this,"Nhan vien khong ton tai");
+               JOptionPane.showMessageDialog(this,"Nhân viên không tồn tại");
                return;
             }
             TaiKhoan_DTO taikhoandto = new TaiKhoan_DTO();
@@ -177,16 +177,16 @@ public class ThemTaiKhoan_GUI extends JDialog {
             taikhoandto.setMaNV(nhanvien);
             NhanVien_DTO nvdto = nvbus.getNhanVienByMa(nhanvien);
             if(nvdto == null) {
-                JOptionPane.showMessageDialog(this,"Khong co nhan vien nay");
+                JOptionPane.showMessageDialog(this,"Không có nhân viên này");
                 return;
             }
             boolean result = tkbus.addTaiKhoan(taikhoandto);
             if(result) {
-                JOptionPane.showMessageDialog(this,"Them tai khoan thanh cong / Mat khau mac dinh la 123456");
+                JOptionPane.showMessageDialog(this,"Thêm tài khoản thành công / Mật khẩu mặc định là 123456");
                 isSaved = true;
                 this.dispose();
             }else {
-                JOptionPane.showMessageDialog(this,"Khong thanh cong them nv");
+                JOptionPane.showMessageDialog(this,"Không thành công thêm nhân viên");
             }
 
         }catch (Exception e) {
