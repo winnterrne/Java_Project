@@ -19,7 +19,7 @@ public class NhaCungCap_DAO {
                 NhaCungCap_DTO ncc = new NhaCungCap_DTO(
                         rs.getString("MaNCC"),
                         rs.getString("TenNCC"),
-                        rs.getString("SoDienThoai"),
+                        rs.getString("SoDT"),
                         rs.getString("DiaChi"),
                         rs.getString("Email")
                 );

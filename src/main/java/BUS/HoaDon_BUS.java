@@ -8,34 +8,32 @@ import DTO.SanPham_DTO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HoaDon_BUS {
     private HoaDon_DAO hoaDon = new HoaDon_DAO();
 
+    public HoaDon_BUS() {
+    }
+
     public HoaDon_DTO taoHoaDon() {
         HoaDon_DTO dto = new HoaDon_DTO();
-        String maHD =  hoaDon.layMaHoaDonMoiNhat();
+        String maHDCu = hoaDon.layMaHoaDonMoiNhat();
+        String maHDMoi = "HD001"; // Mặc định nếu chưa có hóa đơn nào
 
-            // 1. Trường hợp chưa có hóa đơn nào trong Database
-            if (maHD == null || maHD.isEmpty()) {
-                maHD = "HD001";
-            }
+        // 1. Chỉ tăng mã nếu đã có hóa đơn trong Database
+        if (maHDCu != null && !maHDCu.isEmpty()) {
             try {
-                String phanSoChuoi = maHD.substring(2);
+                String phanSoChuoi = maHDCu.substring(2);
                 int so = Integer.parseInt(phanSoChuoi);
-                so = so + 1;
-                maHD = String.format("HD%03d", so);
-
+                maHDMoi = String.format("HD%03d", so + 1);
             } catch (NumberFormatException e) {
                 System.out.println("Lỗi: Định dạng mã hóa đơn cũ không hợp lệ.");
             }
-            dto.setMaHD(maHD);
+        }
+
+        dto.setMaHD(maHDMoi);
         return dto;
-    }
-
-
-    public HoaDon_BUS() {
-
     }
 
     public ArrayList<HoaDon_DTO> layTatCaHD() {
@@ -67,29 +65,75 @@ public class HoaDon_BUS {
         if (ngay1 == null) {
             ngay1 = LocalDate.parse("2026/1/1", formatter);
         }
-
         if (ngay2 == null) {
             ngay2 = LocalDate.now();
         }
         return hoaDon.layHDTheoNgay(ngay1, ngay2);
     }
 
-    public double tinhTien(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuong) {
-        if (sanPham == null || soLuong <= 0) {
-            return 0.0f;
+    // --- CÁC HÀM XỬ LÝ GIỎ HÀNG TẠI BỘ NHỚ TẠM (RAM) ---
+
+    public void themVaoGioHang(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongThem) {
+        if (sanPham == null || gioHang == null || soLuongThem <= 0) {
+            return;
         }
 
-        for (ChiTietHoaDon_DTO cthd : gioHang) {
-            if (cthd.getMaSP().equals(sanPham.getMaSP())) {
-                int soLuongMoi = cthd.getSoLuongMua() + soLuong;
-                cthd.setSoLuongMua(soLuongMoi);
-                double thanhTienMoi = soLuongMoi * sanPham.getGiaBan();
-                cthd.setThanhTien(thanhTienMoi);
-                return thanhTienMoi;
-            }
-        }
+        ChiTietHoaDon_DTO cthdTonTai = kiemTra(gioHang, sanPham);
 
-        return 0.0f;
+        if (cthdTonTai != null) {
+            // Đã có trong giỏ -> Cộng dồn số lượng
+            capNhatGioHang(gioHang, sanPham, soLuongThem);
+        } else {
+            // Chưa có trong giỏ -> Tạo mới
+            ChiTietHoaDon_DTO cthdMoi = new ChiTietHoaDon_DTO();
+            cthdMoi.setMaSP(sanPham.getMaSP());
+            cthdMoi.setSoLuongMua(soLuongThem);
+            cthdMoi.setDonGia((float) sanPham.getGiaBan());
+            cthdMoi.setThanhTien(soLuongThem * sanPham.getGiaBan());
+            gioHang.add(cthdMoi);
+        }
     }
 
+    public void capNhatGioHang(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongThayDoi) {
+        if (sanPham == null || gioHang == null || gioHang.isEmpty()) {
+            return;
+        }
+
+        Iterator<ChiTietHoaDon_DTO> iterator = gioHang.iterator();
+        while (iterator.hasNext()) {
+            ChiTietHoaDon_DTO cthd = iterator.next();
+
+            if (cthd.getMaSP().equals(sanPham.getMaSP())) {
+                int soLuongMoi = cthd.getSoLuongMua() + soLuongThayDoi;
+
+                if (soLuongMoi <= 0) {
+                    iterator.remove(); // Xóa an toàn
+                } else {
+                    cthd.setSoLuongMua(soLuongMoi);
+                    cthd.setThanhTien(soLuongMoi * sanPham.getGiaBan());
+                }
+                break;
+            }
+        }
+    }
+
+    public double tinhTien(ArrayList<ChiTietHoaDon_DTO> gioHang) {
+        double thanhTien = 0;
+        for (ChiTietHoaDon_DTO cthd : gioHang) {
+            thanhTien += cthd.getThanhTien();
+        }
+        return thanhTien;
+    }
+
+    public ChiTietHoaDon_DTO kiemTra(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham) {
+        if (sanPham == null || gioHang == null) {
+            return null;
+        }
+        for (ChiTietHoaDon_DTO cthd : gioHang) {
+            if (cthd.getMaSP().equals(sanPham.getMaSP())) {
+                return cthd;
+            }
+        }
+        return null;
+    }
 }
