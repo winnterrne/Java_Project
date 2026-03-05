@@ -16,6 +16,17 @@ public class ChiTietHoaDon_BUS{
         return chiTietHoaDon.getChiTietHoaDon(maHD);
     }
 
+    public void insertCTHD(ChiTietHoaDon_DTO cthd) {
+        chiTietHoaDon.insertChiTietHoaDon(cthd);
+    }
+
+    public void insertChiTietHoaDon(ArrayList<ChiTietHoaDon_DTO> list, String maHD) {
+        for (ChiTietHoaDon_DTO cthd : list) {
+            cthd.setMaHD(maHD);
+            insertCTHD(cthd);
+        }
+    }
+
     public void capNhatSoLuongTon(ArrayList<ChiTietHoaDon_DTO> dsSanPham) {
         SanPham_BUS spBus =  new SanPham_BUS();
         for (ChiTietHoaDon_DTO d : dsSanPham) {

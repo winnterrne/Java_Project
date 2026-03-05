@@ -25,7 +25,7 @@ public class KhachHang_DAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     KhachHang_DTO dto = new KhachHang_DTO();
-                    dto.setMaKH(rs.getString("maHD"));
+                    dto.setMaKH(rs.getString("maKH"));
                     dto.setHoTenKH(rs.getString("hoTenKH"));
                     dto.setSoDT(rs.getString("soDT"));
                     dto.setDiaChi(rs.getString("diaChi"));
@@ -63,7 +63,7 @@ public class KhachHang_DAO {
 
 
     public boolean insertKH(KhachHang_DTO dto) {
-        String sql = "INSERT INTO HoaDon (maKH, hoTenKH, soDT, diaChi, email, diemTichLuy) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO khachhang (maKH, hoTenKH, soDT, diaChi, email, diemTichLuy) VALUES (?, ?, ?, ?, ?, ?)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();

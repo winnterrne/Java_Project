@@ -204,7 +204,6 @@ public class ThanhToanGUI extends JPanel {
             int i = 1;
             for (ChiTietHoaDon_DTO cthd : dsCTHD) {
                 SanPham_DTO sp = spBus.getSanPhamByMaSP(cthd.getMaSP());
-
                 modelSanPham.addRow(new Object[]{
                         i++,
                         sp.getTenSP(),
@@ -370,6 +369,7 @@ public class ThanhToanGUI extends JPanel {
                 hoaDon.setMaNV("NV01");
                 hoaDonBus.insertHD(hoaDon);
                 cthdBus.capNhatSoLuongTon(dsCTHD);
+                cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
                 JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
                 dialog.dispose();
                 resetDuLieu();
@@ -444,6 +444,7 @@ public class ThanhToanGUI extends JPanel {
             hoaDon.setMaNV("NV01");
             hoaDonBus.insertHD(hoaDon);
             cthdBus.capNhatSoLuongTon(dsCTHD);
+            cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
             JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
             dialog.dispose();
             resetDuLieu();
