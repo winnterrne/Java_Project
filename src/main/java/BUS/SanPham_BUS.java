@@ -18,6 +18,16 @@ public class SanPham_BUS {
         return spDAO.getAllSanPhamByMaDM(maDM);
     }
 
+    public ArrayList<SanPham_DTO> layDsSanPhamConTon() {
+        ArrayList<SanPham_DTO> list = new ArrayList<>();
+        for (SanPham_DTO sp : getAllSanPham()) {
+            if (sp.getSoLuongTon() > 0) {
+                list.add(sp);
+            }
+        }
+        return list;
+    }
+
     public boolean themSanPham(SanPham_DTO sp) {
         if (sp == null || sp.getMaSP() == null || sp.getMaSP().trim().isEmpty()) {
             return false;
