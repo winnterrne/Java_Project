@@ -1,9 +1,11 @@
 package GUI.Product;
 
 import BUS.HoaDon_BUS;
+import BUS.KhachHang_BUS;
 import BUS.SanPham_BUS;
 import DTO.ChiTietHoaDon_DTO;
 import DTO.HoaDon_DTO;
+import DTO.KhachHang_DTO;
 import DTO.SanPham_DTO;
 
 import javax.swing.*;
@@ -36,6 +38,8 @@ public class BanHang_GUI extends JPanel {
 
     // CÁC BIẾN CHO CARDLAYOUT
     CardLayout cardLayout;
+
+    private ThanhToanGUI ttG;
     JPanel cardPanel;
     public static final String CARD_BAN_HANG = "ManHinhBanHang";
     public static final String CARD_THANH_TOAN = "ManHinhThanhToan";
@@ -152,7 +156,10 @@ public class BanHang_GUI extends JPanel {
         btnCheckout.setFont(new Font("Arial", Font.BOLD, 18));
         btnCheckout.setBackground(new Color(40, 167, 69));
         btnCheckout.setForeground(Color.WHITE);
-        btnCheckout.addActionListener(e -> chuyenManHinh(CARD_THANH_TOAN));
+        btnCheckout.addActionListener(e -> {
+            chuyenManHinh(CARD_THANH_TOAN);
+            }
+        );
 
         checkoutPanel.add(btnCheckout, BorderLayout.SOUTH);
         rightPanel.add(checkoutPanel, BorderLayout.SOUTH);
@@ -307,7 +314,8 @@ public class BanHang_GUI extends JPanel {
         panelBanHang.add(splitPane, BorderLayout.CENTER);
         cardPanel = new JPanel(cardLayout);
         cardPanel.add(panelBanHang, CARD_BAN_HANG);
-        cardPanel.add(new ThanhToanGUI(this), CARD_THANH_TOAN);
+        ttG = new ThanhToanGUI(this);
+        cardPanel.add(ttG, CARD_THANH_TOAN);
 
         add(cardPanel, BorderLayout.CENTER);
     }
@@ -316,6 +324,31 @@ public class BanHang_GUI extends JPanel {
     // CÁC HÀM HỖ TRỢ BÊN DƯỚI
     // =====================================================================
     public void chuyenManHinh(String tenManHinh) {
+        //sdtKH, tenKH, timTxt, diaChiKH
+        if (tenManHinh.equals(CARD_THANH_TOAN)) {
+            String sdtValue = sdtKH.getText();
+            if (sdtValue == null || sdtValue.equals("")) {
+                JOptionPane.showMessageDialog(null,"Thieeus sdtKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            String tenKHVal = tenKH.getText();
+            if (tenKHVal == null || tenKHVal.equals("")) {
+                JOptionPane.showMessageDialog(null,"Thieeus tenKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            String diaChiVal = diaChiKH.getText();
+            if (diaChiVal == null || diaChiVal.equals("")) {
+                JOptionPane.showMessageDialog(null,"Thieeus diaChiKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            KhachHang_DTO khachHang = new KhachHang_DTO();
+            KhachHang_BUS kbBus = new KhachHang_BUS();
+            khachHang.setMaKH(kbBus.layMaKHmoiNhat());
+            khachHang.setHoTenKH(tenKHVal);
+            khachHang.setDiaChi(diaChiVal);
+            khachHang.setSoDT(sdtValue);
+            ttG.capNhatThongTin(khachHang, gioHang);
+        }
         cardLayout.show(cardPanel, tenManHinh);
     }
 

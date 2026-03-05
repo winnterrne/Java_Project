@@ -117,6 +117,7 @@ public class KhachHang_DAO {
         String sql = "SELECT maKH FROM KhachHang ORDER BY LENGTH(maKH) DESC, maKH DESC LIMIT 1";
 
 
+
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {

@@ -160,14 +160,14 @@ public class HoaDon_DAO {
 
     public String layMaHoaDonMoiNhat() {
         String maHoaDon = null;
-        String sql = "SELECT MaHoaDon FROM HoaDon ORDER BY MaHoaDon DESC LIMIT 1";
+        String sql = "SELECT maHD FROM HoaDon ORDER BY maHD DESC LIMIT 1";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
 
             if (rs.next()) {
-                maHoaDon = rs.getString("MaHoaDon");
+                maHoaDon = rs.getString("maHD");
             }
         } catch (Exception e) {
             e.printStackTrace();
