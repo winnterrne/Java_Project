@@ -19,6 +19,8 @@ public class DanhMuc_GUI extends JPanel {
     private JTable table;
     private DefaultTableModel model;
 
+    private BUS.DanhMuc_BUS dmBus = new BUS.DanhMuc_BUS();
+
     private JButton btnThem;
     private JButton btnSua;
     private JButton btnXoa;
@@ -122,7 +124,10 @@ public class DanhMuc_GUI extends JPanel {
 
     private void themDanhMuc() {
         JTextField txtMaDM = new JTextField(10);
+        txtMaDM.setEditable(false);
         JTextField txtTenDM = new JTextField(20);
+
+        txtMaDM.setText(dmBus.taoMaDMTuDong());
 
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
         panel.add(new JLabel("Mã DM:"));

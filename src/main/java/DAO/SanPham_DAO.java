@@ -15,7 +15,7 @@ public class SanPham_DAO {
         String sql = """
             SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri
             FROM SanPham
-            ORDER BY maSP
+            ORDER BY maDM ASC, maSP ASC
             """;
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -215,5 +215,38 @@ public class SanPham_DAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    // public String getMaxMaSPByMaDM (String maDM){
+    //     String sql = "Select max (maSP) as maxMaSP from SanPham where maDM = ?";
+    //     try (Connection con = databaseConnection.getConnection();
+    //          PreparedStatement ps = con.prepareStatement(sql)) {
+
+    //         ps.setString(1, maDM);
+    //         try (ResultSet rs = ps.executeQuery()) {
+    //             if (rs.next()) {
+    //                 return rs.getString("maxMaSP");
+    //             }
+    //         }
+    //     }catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
+
+    public String getMaxMaSP (){
+        String sql = "Select max (maSP) as maxMaSP from SanPham";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("maxMaSP");
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

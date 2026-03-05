@@ -146,4 +146,20 @@ public class DanhMuc_DAO {
         }
         return false;
     }
+
+    public String getMaxMADM (){
+        String sql = "Select max(MaDM) as maxMaDM from DanhMuc";
+        try(Connection con = databaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    return rs.getString("maxMaDM");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

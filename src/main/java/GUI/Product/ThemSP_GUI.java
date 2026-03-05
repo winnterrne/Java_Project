@@ -1,37 +1,66 @@
 package GUI.Product;
 
 import BUS.SanPham_BUS;
+import BUS.DanhMuc_BUS;
 import DTO.SanPham_DTO;
+import DTO.DanhMuc_DTO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 public class ThemSP_GUI extends JDialog {
 
     private SanPham_BUS bus;
+    private DanhMuc_BUS dmBus;
     private boolean success = false;
 
-    private JTextField txtMaSP, txtTenSP, txtMoTa, txtGiaBan, txtDonVi, txtSoLuong, txtMaDM, txtViTri;
+    private JTextField txtMaSP, txtTenSP, txtMoTa, txtGiaBan, txtDonVi, txtSoLuong, txtViTri;
+    private JComboBox<String> cbMaDM;
+    private List<DanhMuc_DTO> danhMucList;
 
     public ThemSP_GUI(Frame owner, SanPham_BUS bus) {
         super(owner, "Thêm sản phẩm mới", true);
         this.bus = bus;
+        this.dmBus = new DanhMuc_BUS();
 
         setSize(500, 450);
         setLocationRelativeTo(owner);
         setLayout(new BorderLayout(10, 10));
 
+        loadDanhMuc();
+
         JPanel formPanel = new JPanel(new GridLayout(0, 2, 10, 12));
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         txtMaSP    = new JTextField(15);
+        txtMaSP.setEditable(false);
         txtTenSP   = new JTextField(25);
         txtMoTa    = new JTextField(30);
         txtGiaBan  = new JTextField(15);
         txtDonVi   = new JTextField(10);
         txtSoLuong = new JTextField(10);
-        txtMaDM    = new JTextField(15);
         txtViTri   = new JTextField(15);
+
+        cbMaDM = new JComboBox<>();
+        for (DanhMuc_DTO dm : danhMucList) {
+            cbMaDM.addItem(dm.getTenDM() + " (" + dm.getMaDM () + ")");
+        }
+        if (!danhMucList.isEmpty()){
+            cbMaDM.setSelectedIndex(0);
+            capNhatMaSP();
+        }
+
+        cbMaDM.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    capNhatMaSP();
+                }
+            }
+        });
 
         formPanel.add(new JLabel("Mã SP:"));     formPanel.add(txtMaSP);
         formPanel.add(new JLabel("Tên SP:"));    formPanel.add(txtTenSP);
@@ -39,7 +68,7 @@ public class ThemSP_GUI extends JDialog {
         formPanel.add(new JLabel("Giá bán:"));   formPanel.add(txtGiaBan);
         formPanel.add(new JLabel("Đơn vị:"));    formPanel.add(txtDonVi);
         formPanel.add(new JLabel("Tồn kho:"));   formPanel.add(txtSoLuong);
-        formPanel.add(new JLabel("Mã DM:"));     formPanel.add(txtMaDM);
+        formPanel.add(new JLabel("Mã DM:"));     formPanel.add(cbMaDM);
         formPanel.add(new JLabel("Vị trí:"));    formPanel.add(txtViTri);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -58,6 +87,18 @@ public class ThemSP_GUI extends JDialog {
         getRootPane().setDefaultButton(btnLuu);
     }
 
+    private void loadDanhMuc() {
+        try {
+            danhMucList = dmBus.getAllDanhMuc();
+            if (danhMucList.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không có danh mục nào! Vui lòng thêm danh mục trước.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi tải danh mục: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void luuSanPham() {
         try {
             SanPham_DTO sp = new SanPham_DTO();
@@ -67,8 +108,16 @@ public class ThemSP_GUI extends JDialog {
             sp.setGiaBan(Double.parseDouble(txtGiaBan.getText().trim()));
             sp.setDonVi(txtDonVi.getText().trim());
             sp.setSoLuongTon(Integer.parseInt(txtSoLuong.getText().trim()));
-            sp.setMaDM(txtMaDM.getText().trim());
             sp.setViTri(txtViTri.getText().trim());
+
+            int selectedIndex = cbMaDM.getSelectedIndex();
+            if (selectedIndex >= 0) {
+                DanhMuc_DTO dm = danhMucList.get(selectedIndex);
+                sp.setMaDM(dm.getMaDM());
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn danh mục!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (bus.themSanPham(sp)) {
                 success = true;
@@ -86,5 +135,10 @@ public class ThemSP_GUI extends JDialog {
 
     public boolean isSuccess() {
         return success;
+    }
+
+    public void capNhatMaSP() {
+        String maSPMoi = bus.taoMaSPTuDong();
+        txtMaSP.setText(maSPMoi);
     }
 }

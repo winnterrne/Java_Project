@@ -58,4 +58,32 @@ public class SanPham_BUS {
     public ArrayList<SanPham_DTO> timSanPhamTheoTen(String ten) {
         return spDAO.timSanPhamTheoTen(ten);
     }
+
+    public String taoMaSPTuDong (){
+        String maxMaSP = spDAO.getMaxMaSP();
+        int soThuTu = 1;
+        if (maxMaSP != null && maxMaSP.startsWith("SP")) {
+            String soThuTuStr = maxMaSP.substring(2);
+            try {
+                soThuTu = Integer.parseInt(soThuTuStr) + 1;
+            } catch (NumberFormatException e) {
+                soThuTu = 1;
+            }
+        }
+        String dinhDangSo = String.format ("%03d", soThuTu);
+        String maSPMoi = "SP" + dinhDangSo;
+
+        // Kiểm tra nếu maSPMoi đã tồn tại (trường hợp gap do delete), tăng dần
+        while (spDAO.isMaSPExists(maSPMoi)) {
+            soThuTu++;
+            dinhDangSo = String.format("%03d", soThuTu);
+            maSPMoi = "SP" + dinhDangSo;
+        }
+
+        if (soThuTu > 999) {
+            throw new IllegalStateException("Đã hết mã SP cho danh mục này (vượt 999)!");
+        }
+
+        return maSPMoi;
+    }
 }

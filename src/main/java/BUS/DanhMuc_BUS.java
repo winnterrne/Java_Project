@@ -47,4 +47,32 @@ public class DanhMuc_BUS {
         SanPham_DAO spDAO = new SanPham_DAO();
         return spDAO.getAllSanPhamByMaDM(maDM);
     }
+
+    public String taoMaDMTuDong (){
+        String maxMaDM = dmDAO.getMaxMADM();
+        int soThuTu = 1;
+        if (maxMaDM != null && maxMaDM.startsWith("DM")){
+            String soThuTuStr = maxMaDM.substring(2);
+            try{
+                soThuTu = Integer.parseInt(soThuTuStr) + 1;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+        }
+        String dinhDangSo = String.format ("%03d", soThuTu);
+        String maDMNew = "DM" + dinhDangSo;
+
+        // Kiểm tra nếu maDMNew đã tồn tại (trường hợp gap do delete), tăng dần
+        while (dmDAO.isMaDMExists(maDMNew)) {
+            soThuTu++;
+            dinhDangSo = String.format("%03d", soThuTu);
+            maDMNew = "DM" + dinhDangSo;
+        }
+
+        if (soThuTu > 999) {
+            throw new IllegalStateException("Đã hết mã DM cho danh mục này (vượt 999)!");
+        }
+
+        return maDMNew;
+    }
 }
