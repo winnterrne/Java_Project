@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class AdminFrame_GUI extends JFrame {
 
-    private AdminContetnPanel_GUI contentpanel = new AdminContetnPanel_GUI();
+    private AdminContentPanel_GUI contentpanel = new AdminContentPanel_GUI();
     private AdminMenuPanel_GUI menupanel = new AdminMenuPanel_GUI(contentpanel);
     private AdminHeaderPanel_GUI headerpanel = new AdminHeaderPanel_GUI();
     public AdminFrame_GUI() {

@@ -23,4 +23,12 @@ public class KhachHang_BUS {
     public void updateKhachHang(KhachHang_DTO kh) {
         khachHang.updateKhachHang(kh);
     }
+
+    public void  deleteKhachHang(KhachHang_DTO kh) {
+
+    }
+
+    public String layMaKHmoiNhat() {
+        return "SP001";
+    }
 }

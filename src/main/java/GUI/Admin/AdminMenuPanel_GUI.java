@@ -8,14 +8,14 @@ import java.awt.event.MouseEvent;
 
 public class AdminMenuPanel_GUI extends JPanel {
     private JButton activeButton = null;
-    private AdminContetnPanel_GUI panel;
+    private AdminContentPanel_GUI panel;
 
-    public AdminMenuPanel_GUI(AdminContetnPanel_GUI contentpanel) {
+    public AdminMenuPanel_GUI(AdminContentPanel_GUI contentpanel) {
         panel = contentpanel;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(220, 0));
 
-        ImageIcon logo = new ImageIcon(getClass().getResource("/GUI/Image/images.jpeg"));
+        ImageIcon logo = new ImageIcon(getClass().getResource("/Image/images.jpeg"));
         Image img = logo.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel lbLogo = new JLabel(new ImageIcon(img));
         lbLogo.setAlignmentX(CENTER_ALIGNMENT);
@@ -25,31 +25,31 @@ public class AdminMenuPanel_GUI extends JPanel {
         setBackground(new Color(0x121929));
         add(Box.createVerticalStrut(20));
 
-        add(createMenuButton("Bán Hàng",AdminContetnPanel_GUI.CARD_BAN_HANG));
+        add(createMenuButton("Bán Hàng",AdminContentPanel_GUI.CARD_BAN_HANG));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton(" Quản Lý Sản Phẩm",AdminContetnPanel_GUI.CARD_SAN_PHAM));
+        add(createMenuButton(" Quản Lý Sản Phẩm",AdminContentPanel_GUI.CARD_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton(" Danh Mục Sản Phẩm",AdminContetnPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
+        add(createMenuButton(" Danh Mục Sản Phẩm",AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Danh Sách Hóa Đơn",AdminContetnPanel_GUI.CARD_HOA_DON));
+        add(createMenuButton("Danh Sách Hóa Đơn",AdminContentPanel_GUI.CARD_HOA_DON));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản Lý Nhà Cung Cấp",AdminContetnPanel_GUI.CARD_NHA_CUNG_CAP));
+        add(createMenuButton("Quản Lý Nhà Cung Cấp",AdminContentPanel_GUI.CARD_NHA_CUNG_CAP));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Phiếu Nhập",AdminContetnPanel_GUI.CARD_PHIEU_NHAP));
+        add(createMenuButton("Phiếu Nhập",AdminContentPanel_GUI.CARD_PHIEU_NHAP));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Nhập Hàng",AdminContetnPanel_GUI.CARD_NHAP_HANG));
+        add(createMenuButton("Nhập Hàng",AdminContentPanel_GUI.CARD_NHAP_HANG));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản Lý Tài Khoản",AdminContetnPanel_GUI.CARD_TAI_KHOAN));
+        add(createMenuButton("Quản Lý Tài Khoản",AdminContentPanel_GUI.CARD_TAI_KHOAN));
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Thống kê và báo cáo",AdminContetnPanel_GUI.CARD_THONG_KE));
+        add(createMenuButton("Thống kê và báo cáo",AdminContentPanel_GUI.CARD_THONG_KE));
         add(Box.createVerticalStrut(10));
 
     }

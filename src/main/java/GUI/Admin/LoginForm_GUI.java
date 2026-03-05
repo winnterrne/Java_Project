@@ -139,6 +139,6 @@ public class LoginForm_GUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new LoginForm_GUI();
+        new AdminFrame_GUI();
     }
 }
