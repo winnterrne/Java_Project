@@ -1,7 +1,6 @@
 package GUI.Product;
 
-import BUS.HoaDon_BUS;
-import BUS.KhachHang_BUS;
+import BUS.*;
 import DTO.*;
 import com.toedter.calendar.JDateChooser; // Import JDateChooser từ thư viện JCalendar
 
@@ -21,7 +20,10 @@ public class HoaDon_GUI extends JPanel {
     private JTable tableHoaDon;
     private DefaultTableModel modelHoaDon;
     private HoaDon_BUS hoaDonBus = new HoaDon_BUS();
+    private ChiTietHoaDon_BUS cthdBus  = new ChiTietHoaDon_BUS();
+    private SanPham_BUS  sanPhamBus = new SanPham_BUS();
     ArrayList<HoaDon_DTO> hoaDon = hoaDonBus.layTatCaHD();
+    Vector<String> colChiTiet = new Vector<>(Arrays.asList("Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá", "Thành Tiền"));
 
     Vector<String> columnsName = new Vector<>(Arrays.asList("Mã Hóa Đơn", "Ngày Lập", "Khách Hàng", "Nhân viên", "Tổng Tiền (VNĐ)"));
 
@@ -164,8 +166,9 @@ public class HoaDon_GUI extends JPanel {
     // --- GIAO DIỆN CỬA SỔ CHI TIẾT HÓA ĐƠN ---
     private void hienThiGiaoDienChiTiet(String maHienThi) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        HoaDon_DTO hd = hoaDonBus.layHDTheoMaHD(maHienThi);
 
-        JDialog dialogChiTiet = new JDialog(parentFrame, "Chi Tiết Hóa Đơn - " + maHienThi, true);
+        JDialog dialogChiTiet = new JDialog(parentFrame, "Chi Tiết Hóa Đơn - " + hd.getMaHD(), true);
         dialogChiTiet.setSize(650, 400);
         dialogChiTiet.setLocationRelativeTo(parentFrame);
         dialogChiTiet.setLayout(new BorderLayout(10, 10));
@@ -176,19 +179,13 @@ public class HoaDon_GUI extends JPanel {
                 BorderFactory.createTitledBorder("Thông tin hóa đơn")
         ));
 
-        pnlHeader.add(new JLabel("Mã HD: " + maHienThi));
-        pnlHeader.add(new JLabel("Ngày lập: 26/02/2026 08:30"));
-        pnlHeader.add(new JLabel("Nhân viên: NV_01"));
-        pnlHeader.add(new JLabel("Khách hàng: Nguyễn Văn A"));
+        pnlHeader.add(new JLabel("Mã HD: " + hd.getMaHD()));
+        pnlHeader.add(new JLabel("Ngày lập: " + hd.getNgayLapHD().toString()));
+        pnlHeader.add(new JLabel("Nhân viên: " + new NhanVien_BUS().getNhanVienByMa(hd.getMaHD())));
+        pnlHeader.add(new JLabel("Khách hàng: " + new KhachHang_BUS().layKHTheoMaKH(hd.getMaKH())));
         dialogChiTiet.add(pnlHeader, BorderLayout.NORTH);
 
-        String[] colChiTiet = {"STT", "Mã SP", "Tên SP", "SL", "Đơn Giá", "Thành Tiền"};
-        Object[][] dummyDetailData = {
-                {"1", "SP01", "Cà phê đen", "2", "20,000", "40,000"},
-                {"2", "SP05", "Trà đá", "1", "5,000", "5,000"}
-        };
-
-        DefaultTableModel modelChiTiet = new DefaultTableModel(dummyDetailData, colChiTiet) {
+        DefaultTableModel modelChiTiet = new DefaultTableModel(renderChiTietHoaDon(maHienThi), colChiTiet) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
 
@@ -202,7 +199,7 @@ public class HoaDon_GUI extends JPanel {
         JPanel pnlBottom = new JPanel(new BorderLayout());
         pnlBottom.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblTongTien = new JLabel("Tổng cộng: 45,000 VNĐ");
+        JLabel lblTongTien = new JLabel("Tổng cộng: " + hd.getTongTien());
         lblTongTien.setFont(new Font("Arial", Font.BOLD, 16));
         lblTongTien.setForeground(Color.RED);
         pnlBottom.add(lblTongTien, BorderLayout.WEST);
@@ -220,12 +217,12 @@ public class HoaDon_GUI extends JPanel {
     public void hienThiNutSua(MouseEvent e, String maHD) {
         JPopupMenu popupMenu = new JPopupMenu();
 
-        JMenuItem itemSua = new JMenuItem("Sửa Hóa Đơn: " + maHD);
+//        JMenuItem itemSua = new JMenuItem("Sửa Hóa Đơn: " + maHD);
         JMenuItem itemXoa = new JMenuItem("Xóa Hóa Đơn: " + maHD);
 
-        itemSua.addActionListener(event -> {
-            JOptionPane.showMessageDialog(this, "Đang mở giao diện sửa cho: " + maHD);
-        });
+//        itemSua.addActionListener(event -> {
+//            JOptionPane.showMessageDialog(this, "Đang mở giao diện sửa cho: " + maHD);
+//        });
 
         itemXoa.addActionListener(event -> {
             int confirm = JOptionPane.showConfirmDialog(this,
@@ -236,11 +233,13 @@ public class HoaDon_GUI extends JPanel {
             if (confirm == JOptionPane.YES_OPTION) {
                 int selectedRow = tableHoaDon.getSelectedRow();
                 modelHoaDon.removeRow(selectedRow);
+                String ma = tableHoaDon.getValueAt(selectedRow, 0).toString();
+                hoaDonBus.deleteHD(hoaDonBus.layHDTheoMaHD(ma));
                 JOptionPane.showMessageDialog(this, "Đã xóa hóa đơn thành công!");
             }
         });
 
-        popupMenu.add(itemSua);
+//        popupMenu.add(itemSua);
         popupMenu.addSeparator();
         popupMenu.add(itemXoa);
 
@@ -254,17 +253,47 @@ public class HoaDon_GUI extends JPanel {
             return duLieuBang;
         }
 
-        for (HoaDon_DTO cthd : hoaDon) {
+        // TỐI ƯU: Khởi tạo BUS ở ngoài vòng lặp để tránh việc tạo mới Object liên tục gây nặng RAM
+        KhachHang_BUS khBus = new KhachHang_BUS();
+
+        for (HoaDon_DTO hd : hoaDon) {
             Vector<Object> hang = new Vector<>();
-//            NhanVien_DTO nv;
-            KhachHang_BUS khBus = new KhachHang_BUS();
-            KhachHang_DTO kh = khBus.layKHTheoMaKH(cthd.getMaHD());
-            hang.add(cthd.getMaHD());
-            hang.add(cthd.getNgayLapHD().toString());
-            hang.add(kh.getHoTenKH());
-            hang.add(cthd.getMaNV());
-            hang.add(cthd.getTongTien());
+
+            // LỖI 1 ĐÃ SỬA: Phải lấy Mã Khách Hàng (getMaKH), thay vì lấy Mã Hóa Đơn (getMaHD)
+            KhachHang_DTO kh = khBus.layKHTheoMaKH(hd.getMaKH());
+
+            // Tránh lỗi NullPointerException lỡ như database bị mất dữ liệu khách hàng đó
+            String tenKhachHang = (kh != null) ? kh.getHoTenKH() : "Không xác định";
+
+            hang.add(hd.getMaHD());
+            hang.add(hd.getNgayLapHD().toString());
+            hang.add(tenKhachHang);
+            hang.add(hd.getMaNV());
+            hang.add(hd.getTongTien());
+
+            // LỖI 2 ĐÃ SỬA: Bạn tạo ra biến 'hang' chứa dữ liệu, nhưng lại quên add nó vào 'duLieuBang'
+            duLieuBang.add(hang);
         }
         return duLieuBang;
+    }
+
+
+    public Vector<Vector<Object>> renderChiTietHoaDon(String maHD) {
+        ArrayList<ChiTietHoaDon_DTO> ds = cthdBus.getChiTietHoaDon(maHD);
+        Vector<Vector<Object>> duLieuBang = new Vector<>();
+
+        if (ds != null || !ds.isEmpty()) {
+            for  (ChiTietHoaDon_DTO hd : ds) {
+                Vector<Object> hang = new Vector<>();
+                hang.add(hd.getMaSP());
+                hang.add(sanPhamBus.getSanPhamByMaSP(hd.getMaSP()).getTenSP());
+                hang.add(hd.getSoLuongMua());
+                hang.add(hd.getDonGia());
+                hang.add(hd.getThanhTien());
+                duLieuBang.add(hang);
+            }
+        }
+
+        return  duLieuBang;
     }
 }

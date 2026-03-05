@@ -18,21 +18,18 @@ public class HoaDon_BUS {
 
     public HoaDon_DTO taoHoaDon() {
         HoaDon_DTO dto = new HoaDon_DTO();
-        String maHDCu = hoaDon.layMaHoaDonMoiNhat();
-        String maHDMoi = "HD001"; // Mặc định nếu chưa có hóa đơn nào
 
-        // 1. Chỉ tăng mã nếu đã có hóa đơn trong Database
-        if (maHDCu != null && !maHDCu.isEmpty()) {
-            try {
-                String phanSoChuoi = maHDCu.substring(2);
-                int so = Integer.parseInt(phanSoChuoi);
-                maHDMoi = String.format("HD%03d", so + 1);
-            } catch (NumberFormatException e) {
-                System.out.println("Lỗi: Định dạng mã hóa đơn cũ không hợp lệ.");
-            }
+        // 1. Gọi hàm lấy mã mới (Hàm này đã xử lý sẵn logic tăng mã + định dạng)
+        String maHDMoi = hoaDon.layMaHoaDonMoiNhat();
+
+        // 2. Bảo vệ an toàn: Nếu CSDL trống không có bảng cấp mã, tự động fallback về HD001
+        if (maHDMoi == null || maHDMoi.equals("HD000")) {
+            maHDMoi = "HD001";
         }
 
+        // 3. Gán mã vào đối tượng
         dto.setMaHD(maHDMoi);
+
         return dto;
     }
 
