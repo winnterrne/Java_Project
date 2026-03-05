@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.HoaDon_DTO;
+import Utils.GeneratingID;
 import Utils.databaseConnection;
 
 import java.sql.*;
@@ -160,14 +161,14 @@ public class HoaDon_DAO {
 
     public String layMaHoaDonMoiNhat() {
         String maHoaDon = null;
-        String sql = "SELECT maHD FROM HoaDon ORDER BY maHD DESC LIMIT 1";
+        String sql = "SELECT maHD FROM BangCapPhatMa";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
 
             if (rs.next()) {
-                maHoaDon = rs.getString("maHD");
+                maHoaDon = GeneratingID.generatingID(rs.getString("maHD"));
             }
         } catch (Exception e) {
             e.printStackTrace();

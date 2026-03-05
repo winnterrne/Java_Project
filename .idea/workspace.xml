@@ -4,166 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuanLiSieuThiMini.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BUS/TaoHoaDon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" afterDir="false" />
+    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="wait for database loading">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContetnPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminFrame_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminFrame_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminHeaderPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminHeaderPanel_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DTO/ChiTietHoaDon_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/ChiTietHoaDon_DTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContetnPanel_GUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/QuanLiSieuThiMini.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utils/main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/QuanLiSieuThiMini.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/QuanLiSieuThiMini.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/src/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/QuanLiSieuThiMini.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/admin-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/desktop.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/images.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/src/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/target/classes/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/classes/target/classes/target/classes/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart-logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Image/user.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/user.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -213,6 +84,11 @@
       <force-push-target remote-path="origin" branch="QuangHuy" />
     </force-push-targets>
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Code\Code_Java\Java_Project\src\main\resources\Image" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="LoginForm_GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Admin.LoginForm_GUI" />
@@ -248,6 +124,19 @@
       <option name="presentableId" value="Default" />
       <updated>1772589933500</updated>
     </task>
+    <task id="LOCAL-00001" summary="wait for database loading">
+      <option name="closed" value="true" />
+      <created>1772680465437</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772680465437</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="wait for database loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="wait for database loading" />
   </component>
 </project>

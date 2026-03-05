@@ -33,6 +33,8 @@ public class ThanhToanGUI extends JPanel {
     private SanPham_BUS spBus = new SanPham_BUS();
     private BanHang_GUI main;
 
+    ArrayList<ChiTietHoaDon_DTO> dsCTHD;
+
     // Các biến phục vụ tính toán
     private double tongTienHangVal = 0, phaiTraVal = 0, khuyenMaiVal = 0;
     private Vector<String> columnsName = new Vector<>(Arrays.asList("STT", "Tên SP", "Số lượng", "Đơn giá", "Thành tiền"));
@@ -174,6 +176,7 @@ public class ThanhToanGUI extends JPanel {
     // =========================================================
     public void capNhatThongTin(KhachHang_DTO khachHang, ArrayList<ChiTietHoaDon_DTO> gioHang) {
         this.kh = khachHang;
+        dsCTHD = new ArrayList<>(gioHang);
 
         // --- Cập nhật Thông tin khách hàng ---
         String ten = (kh != null && kh.getHoTenKH() != null && !kh.getHoTenKH().isEmpty()) ? kh.getHoTenKH() : "Khách lẻ";
@@ -195,9 +198,9 @@ public class ThanhToanGUI extends JPanel {
         modelSanPham.setRowCount(0);
         tongTienHangVal = 0;
 
-        if (gioHang != null) {
+        if (dsCTHD != null) {
             int i = 1;
-            for (ChiTietHoaDon_DTO cthd : gioHang) {
+            for (ChiTietHoaDon_DTO cthd : dsCTHD) {
                 SanPham_DTO sp = spBus.getSanPhamByMaSP(cthd.getMaSP());
                 String tenSP = (sp != null) ? sp.getTenSP() : "SP Không xác định";
 
@@ -355,8 +358,9 @@ public class ThanhToanGUI extends JPanel {
                 // hoaDonBus.luuHoaDon(hoaDon, gioHang);
                 kh.setMaKH(khBus.layMaKHmoiNhat());
                 hoaDon.setMaKH(kh.getMaKH());
-//            hoaDon.setMaNV()
+                hoaDon.setMaNV("NV001");
                 hoaDonBus.insertHD(hoaDon);
+                capNhatSoLuongTon(dsCTHD);
                 JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
                 dialog.dispose();
                 // Reset/Chuyển màn hình
@@ -421,9 +425,11 @@ public class ThanhToanGUI extends JPanel {
         btnXacNhan.addActionListener(event -> {
             //TODO: Gọi hàm lưu CSDL
             kh.setMaKH(khBus.layMaKHmoiNhat());
+            khBus.insertKH(kh);
             hoaDon.setMaKH(kh.getMaKH());
 //            hoaDon.setMaNV()
             hoaDonBus.insertHD(hoaDon);
+            capNhatSoLuongTon(dsCTHD);
             JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
             dialog.dispose();
              main.chuyenManHinh("ManHinhBanHang");
@@ -433,5 +439,13 @@ public class ThanhToanGUI extends JPanel {
         dialog.add(lblQR, BorderLayout.CENTER);
         dialog.add(btnXacNhan, BorderLayout.SOUTH);
         dialog.setVisible(true);
+    }
+
+    public void capNhatSoLuongTon(ArrayList<ChiTietHoaDon_DTO> dsSanPham) {
+        for (ChiTietHoaDon_DTO d : dsSanPham) {
+            SanPham_DTO sp = spBus.getSanPhamByMaSP(d.getMaSP());
+            int i = sp.getSoLuongTon();
+            sp.setSoLuongTon(i - d.getSoLuongMua());
+        }
     }
 }

@@ -27,7 +27,7 @@ public class BanHang_GUI extends JPanel {
     SanPham_BUS spBus = new SanPham_BUS();
 
     // Dữ liệu cho 2 bảng
-    ArrayList<SanPham_DTO> danhSachKhoHang = spBus.getAllSanPham();
+    ArrayList<SanPham_DTO> danhSachKhoHang = spBus.layDsSanPhamConTon();
     ArrayList<ChiTietHoaDon_DTO> gioHang = new ArrayList<>();
 
     // Các biến Model & Cột (Đưa lên toàn cục để truy cập từ Event)
@@ -413,7 +413,7 @@ public class BanHang_GUI extends JPanel {
     private Object loadAnh(String path) {
         try {
             if(path != null && !path.isEmpty()) {
-                java.net.URL imgURL = getClass().getResource("/images/" + path); // Điều chỉnh lại thư mục chứa ảnh nếu cần
+                java.net.URL imgURL = getClass().getResource("/Image/images.jpeg"); // Điều chỉnh lại thư mục chứa ảnh nếu cần
                 if (imgURL != null) {
                     ImageIcon icon = new ImageIcon(imgURL);
                     int maxH = 80;
