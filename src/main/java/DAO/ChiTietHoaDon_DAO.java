@@ -27,10 +27,10 @@ public class ChiTietHoaDon_DAO {
                 while (rs.next()) {
                     ChiTietHoaDon_DTO dto = new ChiTietHoaDon_DTO();
                     dto.setMaHD(rs.getString("maHD"));
-                    dto.setDonGia(rs.getFloat("giaBan"));
+                    dto.setDonGia(rs.getFloat("donGia"));
                     dto.setMaSP(rs.getString("maSP"));
-                    dto.setSoLuongMua(rs.getInt("soLuongMua"));
-                    dto.setThanhTien(rs.getFloat("ThanhTien"));
+                    dto.setSoLuongMua(rs.getInt("soLuong"));
+                    dto.setThanhTien(rs.getFloat("thanhTien"));
                     list.add(dto);
                 }
             }

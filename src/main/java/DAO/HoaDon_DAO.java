@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
 public class HoaDon_DAO {
     public ArrayList<HoaDon_DTO> layTatCaHD() {
         ArrayList<HoaDon_DTO> list = new ArrayList<>();
@@ -108,7 +109,7 @@ public class HoaDon_DAO {
     }
 
     public boolean insertHoaDon(HoaDon_DTO dto) {
-        String sql = "INSERT INTO HoaDon (maHD, ngayLapHD, maKH, maNV) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO HoaDon (maHD, ngayLapHD, maKH, maNV, tongTien) VALUES (?, ?, ?, ?, ?)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -119,11 +120,12 @@ public class HoaDon_DAO {
             ps.setObject(2, dto.getNgayLapHD()); // Ghi chú: JDBC phiên bản 4.2 trở lên hỗ trợ trực tiếp java.time.LocalDate
             ps.setString(3, dto.getMaKH());
             ps.setString(4, dto.getMaNV());
+            ps.setDouble(5, dto.getTongTien());
 
             // Thực thi câu lệnh INSERT
             // executeUpdate() trả về số dòng (rows) bị tác động trong Database
             int rowsAffected = ps.executeUpdate();
-
+            GeneratingID.updateMa(dto.getMaHD(), "maHD");
             if (rowsAffected > 0) {
                 isSuccess = true;
             }

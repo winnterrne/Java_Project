@@ -68,7 +68,4 @@ public class KhachHang_DTO {
         this.diemTichLuy = diemTichLuy;
     }
 
-    public void setS() {
-
-    }
 }

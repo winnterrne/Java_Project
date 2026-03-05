@@ -4,25 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="wait for database loading">
+    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="update ID">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/ChiTietHoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/ChiTietHoaDon_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/mini-mart.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/ChiTietHoaDon_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/ChiTietHoaDon_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/ChiTietHoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/ChiTietHoaDon_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$17.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$18.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$19.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$9.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart-2.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart-logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Image/mini-mart.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Image/user.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/user.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,11 +163,30 @@
       <option name="project" value="LOCAL" />
       <updated>1772680465437</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update ID">
+      <option name="closed" value="true" />
+      <created>1772722534122</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772722534122</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="wait for database loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="wait for database loading" />
+    <MESSAGE value="update ID" />
+    <option name="LAST_COMMIT_MESSAGE" value="update ID" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.microsoft.sqlserver.jdbc.SQLServerException" package="com.microsoft.sqlserver.jdbc" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

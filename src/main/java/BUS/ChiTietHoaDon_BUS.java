@@ -16,5 +16,12 @@ public class ChiTietHoaDon_BUS{
         return chiTietHoaDon.getChiTietHoaDon(maHD);
     }
 
-
+    public void capNhatSoLuongTon(ArrayList<ChiTietHoaDon_DTO> dsSanPham) {
+        SanPham_BUS spBus =  new SanPham_BUS();
+        for (ChiTietHoaDon_DTO d : dsSanPham) {
+            SanPham_DTO sp = spBus.getSanPhamByMaSP(d.getMaSP());
+            int i = sp.getSoLuongTon();
+            sp.setSoLuongTon(i - d.getSoLuongMua());
+        }
+    }
 }

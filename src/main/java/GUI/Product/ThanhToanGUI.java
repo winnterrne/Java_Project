@@ -1,5 +1,6 @@
 package GUI.Product;
 
+import BUS.ChiTietHoaDon_BUS;
 import BUS.HoaDon_BUS;
 import BUS.KhachHang_BUS;
 import BUS.SanPham_BUS;
@@ -32,6 +33,7 @@ public class ThanhToanGUI extends JPanel {
     private HoaDon_BUS hoaDonBus = new HoaDon_BUS();
     private SanPham_BUS spBus = new SanPham_BUS();
     private BanHang_GUI main;
+    private ChiTietHoaDon_BUS cthdBus = new ChiTietHoaDon_BUS();
 
     ArrayList<ChiTietHoaDon_DTO> dsCTHD;
 
@@ -202,11 +204,10 @@ public class ThanhToanGUI extends JPanel {
             int i = 1;
             for (ChiTietHoaDon_DTO cthd : dsCTHD) {
                 SanPham_DTO sp = spBus.getSanPhamByMaSP(cthd.getMaSP());
-                String tenSP = (sp != null) ? sp.getTenSP() : "SP Không xác định";
 
                 modelSanPham.addRow(new Object[]{
                         i++,
-                        tenSP,
+                        sp.getTenSP(),
                         cthd.getSoLuongMua(),
                         String.format("%,.0f đ", cthd.getDonGia()),
                         String.format("%,.0f đ", cthd.getThanhTien())
@@ -218,6 +219,7 @@ public class ThanhToanGUI extends JPanel {
         // --- Tính toán lần cuối và hiển thị ---
         khuyenMaiVal = 0;
         phaiTraVal = tongTienHangVal - khuyenMaiVal;
+        hoaDon.setTongTien(phaiTraVal);
 
         lblTongTienHang.setText(String.format("%,.0f đ", tongTienHangVal));
         lblKhuyenMai.setText(String.format("%,.0f đ", khuyenMaiVal));
@@ -356,13 +358,21 @@ public class ThanhToanGUI extends JPanel {
 
                 // TODO: Gọi hàm lưu CSDL
                 // hoaDonBus.luuHoaDon(hoaDon, gioHang);
-                kh.setMaKH(khBus.layMaKHmoiNhat());
-                hoaDon.setMaKH(kh.getMaKH());
-                hoaDon.setMaNV("NV001");
+
+
+                if (kh != null) {
+                    khBus.insertKH(kh);
+                    hoaDon.setMaKH(kh.getMaKH());
+                }
+                else {
+                    hoaDon.setMaKH("KH000");
+                }
+                hoaDon.setMaNV("NV01");
                 hoaDonBus.insertHD(hoaDon);
-                capNhatSoLuongTon(dsCTHD);
+                cthdBus.capNhatSoLuongTon(dsCTHD);
                 JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
                 dialog.dispose();
+                resetDuLieu();
                 // Reset/Chuyển màn hình
                  main.chuyenManHinh("ManHinhBanHang");
 
@@ -424,14 +434,19 @@ public class ThanhToanGUI extends JPanel {
 
         btnXacNhan.addActionListener(event -> {
             //TODO: Gọi hàm lưu CSDL
-            kh.setMaKH(khBus.layMaKHmoiNhat());
-            khBus.insertKH(kh);
-            hoaDon.setMaKH(kh.getMaKH());
-//            hoaDon.setMaNV()
+            if (kh != null) {
+                khBus.insertKH(kh);
+                hoaDon.setMaKH(kh.getMaKH());
+            }
+            else {
+                hoaDon.setMaKH("KH000");
+            }
+            hoaDon.setMaNV("NV01");
             hoaDonBus.insertHD(hoaDon);
-            capNhatSoLuongTon(dsCTHD);
+            cthdBus.capNhatSoLuongTon(dsCTHD);
             JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
             dialog.dispose();
+            resetDuLieu();
              main.chuyenManHinh("ManHinhBanHang");
         });
 
@@ -441,11 +456,32 @@ public class ThanhToanGUI extends JPanel {
         dialog.setVisible(true);
     }
 
-    public void capNhatSoLuongTon(ArrayList<ChiTietHoaDon_DTO> dsSanPham) {
-        for (ChiTietHoaDon_DTO d : dsSanPham) {
-            SanPham_DTO sp = spBus.getSanPhamByMaSP(d.getMaSP());
-            int i = sp.getSoLuongTon();
-            sp.setSoLuongTon(i - d.getSoLuongMua());
+
+    // =========================================================
+    // 8. HÀM RESET DỮ LIỆU SAU KHI THANH TOÁN
+    // =========================================================
+    public void resetDuLieu() {
+        // 1. Reset các biến lưu trữ
+        kh = null;
+        hoaDon = null;
+        if (dsCTHD != null) {
+            dsCTHD.clear();
         }
+        tongTienHangVal = 0;
+        phaiTraVal = 0;
+        khuyenMaiVal = 0;
+
+        // 2. Reset các Label hiển thị trên giao diện về trạng thái rỗng
+        lblTenKH.setText("---");
+        lblSdt.setText("---");
+        lblDiaChi.setText("---");
+        lblMaHoaDon.setText("---");
+        lblNgayLapHD.setText("---");
+        lblTongTienHang.setText("0 đ");
+        lblKhuyenMai.setText("0 đ");
+        lblPhaiTra.setText("0 đ");
+
+        // 3. Xóa sạch dữ liệu trên bảng Sản phẩm
+        modelSanPham.setRowCount(0);
     }
 }
