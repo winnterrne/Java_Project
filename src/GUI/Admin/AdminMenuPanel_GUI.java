@@ -46,6 +46,12 @@ public class AdminMenuPanel_GUI extends JPanel {
         add(createMenuButton("Nhập Hàng",AdminContetnPanel_GUI.CARD_NHAP_HANG));
         add(Box.createVerticalStrut(10));
 
+        add(createMenuButton("Phiếu Trả", AdminContetnPanel_GUI.CARD_PHIEU_TRA));
+        add(Box.createVerticalStrut(10));
+
+        add(createMenuButton("Trả Hàng",AdminContetnPanel_GUI.CARD_TRA_HANG));
+        add(Box.createVerticalStrut(10));
+
         add(createMenuButton("Quản Lý Tài Khoản",AdminContetnPanel_GUI.CARD_TAI_KHOAN));
         add(Box.createVerticalStrut(10));
 

@@ -13,7 +13,7 @@ public class ThayDoiPass_GUI extends JDialog {
     JButton btnLuu, btnHuy;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
     public ThayDoiPass_GUI(Frame parent) {
-        super(parent, "Thay doi mat khau",true);
+        super(parent, "Thay đổi mật khẩu",true);
         init();
     }
     public void init() {
@@ -26,31 +26,33 @@ public class ThayDoiPass_GUI extends JDialog {
         panel1.setLayout(new BoxLayout(panel1,BoxLayout.Y_AXIS));
         panel1.add(Box.createVerticalStrut(80));
 
-        lbtitle = new JLabel("Thay doi mat khau");
+        lbtitle = new JLabel("THAY ĐỔI MẬT KHẨU");
         lbtitle.setFont(new Font("Arial",Font.BOLD,36));
         lbtitle.setForeground(new Color(0,102,204));
+        lbtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel1.add(lbtitle);
         panel1.add(Box.createVerticalStrut(50));
 
         tfTenDangNhap = new JTextField();
-        panel1.add(creatField("Ten tai khoan", tfTenDangNhap));
+        panel1.add(creatField("Tên đăng nhập ", tfTenDangNhap));
         panel1.add(Box.createVerticalStrut(8));
 
         tfPassCu = new JPasswordField();
-        panel1.add(creatField("Mat khau cu",tfPassCu));
+        panel1.add(creatField("Mật khẩu cũ",tfPassCu));
         panel1.add(Box.createVerticalStrut(8));
 
         tfPassMoi = new JPasswordField();
-        panel1.add(creatField("Mat khau moi",tfPassMoi));
-        panel1.add(Box.createVerticalStrut(8));
+        panel1.add(creatField("Mật khẩu mới",tfPassMoi));
+        panel1.add(Box.createVerticalStrut(20));
 
-        btnLuu = new JButton("Luu");
+
+        btnLuu = new JButton("Lưu");
         btnLuu.setMaximumSize(new Dimension(180,40));
         btnLuu.setFont(new Font("Arial",Font.BOLD,14));
         btnLuu.setForeground(Color.white);
         btnLuu.setBackground(new Color(0,102,204));
         btnLuu.setFocusPainted(false);
-        btnLuu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnLuu.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel1.add(btnLuu);
 
         panel1.add(Box.createVerticalStrut(20));
@@ -87,14 +89,14 @@ public class ThayDoiPass_GUI extends JDialog {
         String matkhaumoi = tfPassMoi.getText().trim();
 
         if(taikhoan.isEmpty() || matkhaucu.isEmpty() || matkhaumoi.isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Dien day du thong tin");
+            JOptionPane.showMessageDialog(this,"Điền đầy đủ thông tin");
             return;
         }
         boolean kq = tkbus.updatePassword(taikhoan,matkhaucu,matkhaumoi);
         if(kq) {
-            JOptionPane.showMessageDialog(this,"Da doi mat khau");
+            JOptionPane.showMessageDialog(this,"Đã đổi mật khẩu");
         }else {
-            JOptionPane.showMessageDialog(this,"Khong the thay doi mat khau");
+            JOptionPane.showMessageDialog(this,"Mật khẩu không trùng hoặc tên sai");
         }
     }
 

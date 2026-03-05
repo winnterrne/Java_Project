@@ -279,6 +279,15 @@ public class NhapHangGUI extends JPanel {
         }
     }
 
+    public void resetForm() {
+        tfMaPN.setText(pnBUS.taoMaPN());
+        modelChiTiet.setRowCount(0);
+        lTinhTongTien.setText("");
+        if(cbNhaCC.getItemCount() > 0) {
+            cbNhaCC.setSelectedIndex(0);
+        }
+    }
+
     public void loadNCC() {
         ArrayList<NhaCungCap_DTO> ncc = nccBUS.getAllNhaCungCap();
         cbNhaCC.removeAllItems();
@@ -403,6 +412,7 @@ public class NhapHangGUI extends JPanel {
                 Number number = nf.parse(lTinhTongTien.getText().trim());
                 double tongTien = number.doubleValue();
                 NhaCungCap_DTO ncc = (NhaCungCap_DTO) cbNhaCC.getSelectedItem();
+                if(ncc == null) return;
                 String maNCC = ncc.getMaNCC();
                 String maNV = "NV001";
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(maPN, ngayNhapHang, tongTien, maNCC, maNV);
@@ -414,14 +424,13 @@ public class NhapHangGUI extends JPanel {
                     String giaNhapStr =  modelChiTiet.getValueAt(i, 4).toString().trim();
                     Number numberTong = nf.parse(giaNhapStr);
                     double giaNhap = numberTong.doubleValue();
-
-
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
                 boolean result = pnBUS.themPhieuNhapVaChiTiet(pn, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công");
+                    resetForm();
                 } else {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thất bại");
                 }

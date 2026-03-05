@@ -37,7 +37,10 @@ public class AdminContetnPanel_GUI extends JPanel {
         add(new NhaCungCapGUI(), CARD_NHA_CUNG_CAP);
         add(new NhapHangGUI(), CARD_NHAP_HANG);
         add(new PhieuNhapGUI(), CARD_PHIEU_NHAP);
+        add(new TraHangGUI(),CARD_TRA_HANG);
+        add(new PhieuTraGUI(), CARD_PHIEU_TRA);
         add(new TaiKhoan_GUI(), CARD_TAI_KHOAN);
+
 
     }
     public void showManHinh(String tenmanhinh) {
