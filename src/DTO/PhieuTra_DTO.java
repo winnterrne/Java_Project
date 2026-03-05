@@ -1,5 +1,7 @@
 package DTO;
 
+import java.time.LocalDate;
+
 public class PhieuTra_DTO {
     private String maPhieuTra;
     private String lyDo;
@@ -7,17 +9,20 @@ public class PhieuTra_DTO {
     private String maNCC;
     private boolean trangThai;
     private String maPhieuNhap;
+    private double tongTra;
+    private LocalDate ngayTra;
 
     public PhieuTra_DTO() {
 
     }
-    public PhieuTra_DTO(String maPhieuTra, String lyDo, String maNV, String maNCC, boolean trangThai, String maPhieuNhap) {
+    public PhieuTra_DTO(String maPhieuTra, String lyDo, String maNV, String maNCC, String maPhieuNhap, double tongTra, LocalDate ngayTra) {
         this.maPhieuTra = maPhieuTra;
         this.lyDo = lyDo;
         this.maNV = maNV;
         this.maNCC = maNCC;
-        this.trangThai = trangThai;
         this.maPhieuNhap = maPhieuNhap;
+        this.tongTra = tongTra;
+        this.ngayTra = ngayTra;
     }
 
     public String getMaPhieuTra() {
@@ -66,5 +71,21 @@ public class PhieuTra_DTO {
 
     public void setMaPhieuNhap(String maPhieuNhap) {
         this.maPhieuNhap = maPhieuNhap;
+    }
+
+    public double getTongTra() {
+        return tongTra;
+    }
+
+    public void setTongTra(double tongTra) {
+        this.tongTra = tongTra;
+    }
+
+    public LocalDate getNgayTra() {
+        return ngayTra;
+    }
+
+    public void setNgayTra(LocalDate ngayTra) {
+        this.ngayTra = ngayTra;
     }
 }

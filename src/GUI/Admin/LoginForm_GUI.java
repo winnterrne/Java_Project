@@ -12,10 +12,7 @@ public class LoginForm_GUI extends JFrame{
     JTextField txtaiKhoan, txmatKhau, txnhapEmail;
     JPanel panelForm, panelImage;
     JButton btnLogin, btnSignUp, btnForgotPass, btnguiOTP;
-    TaiKhoan_DAO tkdao = new TaiKhoan_DAO();
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
-    TaiKhoan_DTO tkdto = new TaiKhoan_DTO();
-    JDialog jdlForgotPass;
     public LoginForm_GUI() {
         intGui();
     }
