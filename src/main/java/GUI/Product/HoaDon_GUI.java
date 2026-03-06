@@ -284,9 +284,9 @@ public class HoaDon_GUI extends JPanel {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 int selectedRow = tableHoaDon.getSelectedRow();
-                modelHoaDon.removeRow(selectedRow);
                 String ma = tableHoaDon.getValueAt(selectedRow, 0).toString();
                 hoaDonBus.deleteHD(hoaDonBus.layHDTheoMaHD(ma));
+                modelHoaDon.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Đã xóa hóa đơn thành công!");
             }
         });
