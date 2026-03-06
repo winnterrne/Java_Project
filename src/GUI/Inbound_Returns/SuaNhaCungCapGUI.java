@@ -119,6 +119,17 @@ public class SuaNhaCungCapGUI extends JFrame {
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         btnLuu = new JButton("Lưu");
         btnLuu.addActionListener(e -> {
+            boolean changed = !tfTenNCC.getText().equals(ncc.getTenNCC())
+                    || !tfSDT.getText().equals(ncc.getSoDT())
+                    || !tfDiaChi.getText().equals(ncc.getDiaChi())
+                    || !tfEmail.getText().equals(ncc.getEmail());
+
+            if (!changed) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa thay đổi thông tin nào");
+                return;
+            }
+
+
             ncc.setTenNCC(tfTenNCC.getText());
             ncc.setSoDT(tfSDT.getText());
             ncc.setDiaChi(tfDiaChi.getText());

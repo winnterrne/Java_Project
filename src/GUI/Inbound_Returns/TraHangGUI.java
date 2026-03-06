@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TraHangGUI extends JPanel {
     JPanel lPanel, lbPanel, pMaPN, rPanel, rbPanel, pSearch, pTinhTongTien;
@@ -43,10 +44,7 @@ public class TraHangGUI extends JPanel {
         initGUI();
         loadMaPN();
         addEvents();
-        if(cbMaPN.getItemCount()>0){
-            loadTableChiTietPN();
-            loadNCC();
-        }
+        resetForm();
     }
 
     public void initGUI() {
@@ -336,19 +334,21 @@ public class TraHangGUI extends JPanel {
 
     public void resetForm() {
         tfMaPT.setText(ptBUS.taoMaPhieuTraTuDong());
+        lTinhTongTien.setText("");
         modelChiTietTra.setRowCount(0);
+        if(cbMaPN.getItemCount()>0){
+            loadTableChiTietPN();
+            loadNCC();
+        }
     }
 
     private void updateThongTinPhieuNhap(String maPN) {
 
-        // 1. Cập nhật tên nhà cung cấp
         String tenNCC = pnBUS.getTenNCCByMaPN(maPN);
         tfNCC.setText(tenNCC);
 
-        // 2. Load lại bảng bên trái
         loadTableChiTietPN();
 
-        // 3. Reset bảng trả hàng bên phải
         modelChiTietTra.setRowCount(0);
         lTinhTongTien.setText("");
     }
@@ -369,7 +369,7 @@ public class TraHangGUI extends JPanel {
         });
 
         cbMaPN.addActionListener(e -> {
-            String maPNSelected = cbMaPN.getSelectedItem().toString();
+            String maPNSelected = Objects.requireNonNull(cbMaPN.getSelectedItem()).toString();
             updateThongTinPhieuNhap(maPNSelected);
         });
 
@@ -398,6 +398,20 @@ public class TraHangGUI extends JPanel {
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên");
+                return;
+            }
+
+            int soLuongNhap = Integer.parseInt(tbChiTietNhap.getValueAt(selectedRow, 4).toString());
+            int soLuongTon =  Integer.parseInt(tbChiTietNhap.getValueAt(selectedRow, 5).toString());
+            if (soLuong > soLuongNhap) {
+                JOptionPane.showMessageDialog(this,
+                        "Số lượng trả không được lớn hơn số lượng nhập (" + soLuongNhap + ")");
+                return;
+            }
+
+            if (soLuong > soLuongTon) {
+                JOptionPane.showMessageDialog(this,
+                        "Số lượng trả không được lớn hơn số lượng tồn (" + soLuongTon + ")");
                 return;
             }
 
@@ -478,10 +492,10 @@ public class TraHangGUI extends JPanel {
                 LocalDate ngayTra = LocalDate.now();
                 PhieuTra_DTO pt = new PhieuTra_DTO(
                         maPT,
-                        "Xạo l",
-                        "NV001",
-                        maPN,
+                        "Hàng lỗi",
+                        "NV01",
                         pn.getMaNCC(),
+                        maPN,
                         tongTien,
                         ngayTra
                 );
@@ -496,9 +510,10 @@ public class TraHangGUI extends JPanel {
                     ChiTietPhieuTra_DTO ct = new ChiTietPhieuTra_DTO(maPT, maSP, soLuong, donGia, ngayTra);
                     listCT.add(ct);
                 }
-                boolean result = ptBUS.taoPhieuTra(pt, listCT);
+                boolean result = ptBUS.taoPhieuTraVaChiTiet(pt, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Trả hàng thành công");
+                    loadTableChiTietPN();
                     resetForm();
                 } else {
                     JOptionPane.showMessageDialog(this, "Trả hàng thất bại");

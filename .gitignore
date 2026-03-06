@@ -1,5 +1,9 @@
 ### IntelliJ IDEA ###
-
+target/
+.idea/
+*.class
+*.log
+*.iml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

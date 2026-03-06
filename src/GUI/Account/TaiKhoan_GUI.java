@@ -26,11 +26,11 @@ public class TaiKhoan_GUI extends JPanel {
     DefaultTableModel dtmTaiKhoan;
     JScrollPane spTaiKhoan;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
-    TaiKhoan_DAO tkdao = new TaiKhoan_DAO();
     private String str = "";
     public TaiKhoan_GUI() {
         initGUI();
         loadTable();
+
     }
 
     public void initGUI() {
@@ -93,11 +93,7 @@ public class TaiKhoan_GUI extends JPanel {
             }
         });
         btnXemCTPN.addActionListener(e -> {
-            System.out.println("Da chay");
-            Window window = SwingUtilities.getWindowAncestor(this);
-            ThayDoiPass_GUI thaydoipass = new ThayDoiPass_GUI((Frame) window);
-            thaydoipass.setLocationRelativeTo(null);
-            thaydoipass.setVisible(true);
+
         });
         btnXuatExcel.addActionListener(e -> xuatExcel());
         btnSua.addActionListener(e -> SuaTaiKhoan());
@@ -134,7 +130,7 @@ public class TaiKhoan_GUI extends JPanel {
     }
     public void fillTable() {
         dtmTaiKhoan.setRowCount(0);
-        for (TaiKhoan_DTO tkdto : tkdao.sortName(str)) {
+        for (TaiKhoan_DTO tkdto : tkbus.sortName(str)) {
             dtmTaiKhoan.addRow(new Object[]{
                     tkdto.getMaTK(),
                     tkdto.getHoTen(),
@@ -152,7 +148,7 @@ public class TaiKhoan_GUI extends JPanel {
                 JOptionPane.showMessageDialog(this,"Vui lòng chọn tài khoản cần xóa");
                 return;
             }
-            String mataikhoan = tbTaiKhoan.getValueAt(i,1).toString();
+            String mataikhoan = tbTaiKhoan.getValueAt(i,0).toString();
             int confirm = JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa tài khoản này","Xác nhận",JOptionPane.YES_NO_OPTION);
             if(confirm == JOptionPane.YES_NO_OPTION) {
                 boolean result = tkbus.deleteTaiKhoan(mataikhoan);
@@ -188,6 +184,7 @@ public class TaiKhoan_GUI extends JPanel {
         SuaTaiKhoan_GUI suatk = new SuaTaiKhoan_GUI((Frame) window, dtmTaiKhoan, i, mataikhoan, tendangnhap, email, vaitro, trangthai);
         suatk.setVisible(true);
     }
+
     public void xuatExcel() {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();

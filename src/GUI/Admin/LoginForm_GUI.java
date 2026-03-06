@@ -5,6 +5,7 @@ import java.awt.*;
 import DAO.*;
 import DTO.*;
 import BUS.*;
+import GUI.Product.BanHang_GUI;
 
 
 public class LoginForm_GUI extends JFrame{
@@ -125,7 +126,8 @@ public class LoginForm_GUI extends JFrame{
                 JOptionPane.showMessageDialog(this,"Vui long doi mat khau lan dau");
             }
             JOptionPane.showMessageDialog(this,"Chao mung mo kim chi ");
-            new AdminFrame_GUI().setVisible(true);
+            AdminFrame_GUI admin = new AdminFrame_GUI();
+            admin.getMenupanel().applyPermission();
             this.dispose();
         }else {
             JOptionPane.showMessageDialog(this,"Sai ten hoac sai mat khau");
@@ -134,6 +136,8 @@ public class LoginForm_GUI extends JFrame{
     public void guiMaOTP() {
         new ForgotPass_GUI(this).setVisible(true);
     }
+
+
 
     public static void main(String[] args) {
         new LoginForm_GUI();

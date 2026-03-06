@@ -17,7 +17,12 @@ public class ChiTietPhieuTra_DAO {
         ArrayList<ChiTietPhieuTra_DTO> listCTPT = new ArrayList<>();
         try {
             Connection con = databaseConnection.getConnection();
-            String sql = "SELECT * FROM ChiTieuPhieuNhap";
+            String sql = """
+            SELECT ct.*
+            FROM ChiTietPhieuTra ct
+            JOIN PhieuTra pt ON ct.maPhieuTra = pt.maPhieuTra
+            WHERE pt.trangThai = 1
+            """;
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -38,7 +43,12 @@ public class ChiTietPhieuTra_DAO {
 
     public ArrayList<ChiTietPhieuTra_DTO> getChiTietPhieuTraByMaPT(String maPT){
         ArrayList<ChiTietPhieuTra_DTO> listCTPT = new ArrayList<>();
-        String sql = "select * from ChiTietPhieuTra where maPT = ?";
+        String sql = """
+            SELECT ct.*
+            FROM ChiTietPhieuTra ct
+            JOIN PhieuTra pt ON ct.maPhieuTra = pt.maPhieuTra
+            WHERE ct.maPhieuTra = ? AND pt.trangThai = 1
+            """;
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -62,7 +72,7 @@ public class ChiTietPhieuTra_DAO {
 
     public String getTenSPByMaSP(String maSP) {
         String tenSP = "";
-        String sql = "Select sp.TenSP from ChiTietPhieuTra ct JOIN SanPham sp ON ct.maSP = sp.maSP where ct.maSP = ?";
+        String sql = "Select sp.TenSP from ChiTietPhieuTra ct JOIN SanPham sp ON ct.maSP = sp.maSP where ct.maSP = ? and sp.trangThai = 1";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {

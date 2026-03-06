@@ -14,6 +14,7 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
     public ThongKeDoanhThu_GUI(Frame owner, ThongKe_BUS thongKeBus) {
         super(owner, "Thống kê doanh thu theo tháng", true);
+        System.out.println(">>> Constructor ThongKeDoanhThu_GUI bắt đầu - owner: " + owner.getTitle());
         this.thongKeBus = thongKeBus;
 
         setSize(900, 650);
@@ -62,27 +63,59 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         resultPanel.setVisible(false);
 
         btnXem.addActionListener(e -> {
-            int thang = (int) cbThang.getSelectedItem();
-            int nam = (int) cbNam.getSelectedItem();
+            System.out.println(">>> NÚT 'XEM THỐNG KÊ' ĐÃ ĐƯỢC NHẤN <<<");
 
-            List<ThongKeDoanhThu_DTO> list = thongKeBus.getThongKeDoanhThu(thang, nam);
-            double tongDoanhThu = thongKeBus.tongDoanhThuTheoThang(thang, nam);
+            try {
+                int thang = (int) cbThang.getSelectedItem();
+                int nam = (int) cbNam.getSelectedItem();
 
-            model.setRowCount(0);
+                System.out.println("Đang truy vấn dữ liệu cho tháng: " + thang + "/" + nam);
 
-            for (ThongKeDoanhThu_DTO tk : list) {
-                model.addRow(new Object[]{
-                        tk.getMaSP(),
-                        tk.getTenSP(),
-                        tk.getSoLuong(),
-                        String.format("%,.0f ₫", tk.getTongTien())
-                });
+                List<ThongKeDoanhThu_DTO> list = thongKeBus.getThongKeDoanhThu(thang, nam);
+                double tongDoanhThu = thongKeBus.tongDoanhThuTheoThang(thang, nam);
+
+                System.out.println("Số sản phẩm tìm thấy: " + list.size());
+                System.out.println("Tổng doanh thu: " + tongDoanhThu);
+
+                model.setRowCount(0);
+
+                for (ThongKeDoanhThu_DTO tk : list) {
+                    model.addRow(new Object[]{
+                            tk.getMaSP(),
+                            tk.getTenSP(),
+                            tk.getSoLuong(),
+                            String.format("%,.0f ₫", tk.getTongTien())
+                    });
+                }
+
+                lblTong.setText("TỔNG DOANH THU THÁNG " + thang + "/" + nam + ": "
+                        + String.format("%,.0f ₫", tongDoanhThu));
+
+                // Các lệnh refresh UI quan trọng
+                resultPanel.setVisible(true);
+                resultPanel.revalidate();   // ← thêm
+                resultPanel.repaint();      // ← thêm
+
+                // Nếu có table trong scroll pane
+                if (scroll != null) {
+                    scroll.revalidate();
+                    scroll.repaint();
+                }
+
+                pack();
+
+                // Đảm bảo vị trí giữa owner
+                setLocationRelativeTo(getOwner());
+
+                // Refresh toàn bộ dialog (nếu cần)
+                revalidate();
+                repaint();
+
+                System.out.println(">>> ĐÃ CẬP NHẬT BẢNG VÀ TỔNG DOANH THU <<<");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-
-            lblTong.setText("TỔNG DOANH THU THÁNG " + thang + "/" + nam + ": "
-                    + String.format("%,.0f ₫", tongDoanhThu));
-
-            resultPanel.setVisible(true);
         });
 
         JButton btnDong = new JButton("Đóng");
@@ -95,6 +128,9 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         add(resultPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
+        System.out.println(">>> Đã set up xong layout, trước pack()");
         pack();
+        System.out.println(">>> Constructor ThongKeDoanhThu_GUI hoàn tất - dialog sẵn sàng hiển thị");
+        setVisible(true);
     }
 }
