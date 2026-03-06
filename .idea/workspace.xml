@@ -4,26 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="Di Ngu DI djtcondymemay">
+    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/GeneratingID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/GeneratingID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContentPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContentPanel_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Utils/GeneratingID.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Utils/GeneratingID.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +160,31 @@
       <option name="project" value="LOCAL" />
       <updated>1772735418167</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790440605</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790440605</updated>
+    </task>
+    <task id="LOCAL-00006" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790448479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790448479</updated>
+    </task>
+    <task id="LOCAL-00007" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790452991</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790452991</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -165,7 +192,8 @@
     <MESSAGE value="update ID" />
     <MESSAGE value="update guiDuLieu" />
     <MESSAGE value="Di Ngu DI djtcondymemay" />
-    <option name="LAST_COMMIT_MESSAGE" value="Di Ngu DI djtcondymemay" />
+    <MESSAGE value="xong r dmm" />
+    <option name="LAST_COMMIT_MESSAGE" value="xong r dmm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

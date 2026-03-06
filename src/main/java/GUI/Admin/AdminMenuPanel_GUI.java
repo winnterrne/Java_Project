@@ -1,5 +1,8 @@
 package GUI.Admin;
-//import javax.security.auth.login.CredentialException;
+import DTO.CurrentUser;
+import GUI.Product.BanHang_GUI;
+
+import javax.security.auth.login.CredentialException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,6 +12,7 @@ import java.awt.event.MouseEvent;
 public class AdminMenuPanel_GUI extends JPanel {
     private JButton activeButton = null;
     private AdminContentPanel_GUI panel;
+    private JButton btnBanHang, btnQuanLySP, btnDanhMucSP, btnDanhSachHD, btnQuanLyNCC, btnPhieuNhap, btnNhapHang, btnPhieuTra, btnTraHang, btnQuanLyTK, btnTKBC;
 
     public AdminMenuPanel_GUI(AdminContentPanel_GUI contentpanel) {
         panel = contentpanel;
@@ -25,33 +29,51 @@ public class AdminMenuPanel_GUI extends JPanel {
         setBackground(new Color(0x121929));
         add(Box.createVerticalStrut(20));
 
-        add(createMenuButton("Bán Hàng",AdminContentPanel_GUI.CARD_BAN_HANG));
+        btnBanHang = createMenuButton("Bán Hàng",AdminContentPanel_GUI.CARD_BAN_HANG);
+        add(btnBanHang);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton(" Quản Lý Sản Phẩm",AdminContentPanel_GUI.CARD_SAN_PHAM));
+        btnQuanLySP = createMenuButton(" Quản Lý Sản Phẩm",AdminContentPanel_GUI.CARD_SAN_PHAM);
+        add(btnQuanLySP);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton(" Danh Mục Sản Phẩm",AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM));
+        btnDanhMucSP = createMenuButton(" Danh Mục Sản Phẩm",AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM);
+        add(btnDanhMucSP);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Danh Sách Hóa Đơn",AdminContentPanel_GUI.CARD_HOA_DON));
+        btnDanhSachHD = createMenuButton("Danh Sách Hóa Đơn",AdminContentPanel_GUI.CARD_HOA_DON);
+        add(btnDanhSachHD);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản Lý Nhà Cung Cấp",AdminContentPanel_GUI.CARD_NHA_CUNG_CAP));
+        btnQuanLyNCC = createMenuButton("Quản Lý Nhà Cung Cấp",AdminContentPanel_GUI.CARD_NHA_CUNG_CAP);
+        add(btnQuanLyNCC);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Phiếu Nhập",AdminContentPanel_GUI.CARD_PHIEU_NHAP));
+        btnPhieuNhap = createMenuButton("Phiếu Nhập",AdminContentPanel_GUI.CARD_PHIEU_NHAP);
+        add(btnPhieuNhap);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Nhập Hàng",AdminContentPanel_GUI.CARD_NHAP_HANG));
+        btnNhapHang = createMenuButton("Nhập Hàng",AdminContentPanel_GUI.CARD_NHAP_HANG);
+        add(btnNhapHang);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Quản Lý Tài Khoản",AdminContentPanel_GUI.CARD_TAI_KHOAN));
+        btnPhieuTra = createMenuButton("Phiếu Trả", AdminContentPanel_GUI.CARD_PHIEU_TRA);
+        add(btnPhieuTra);
         add(Box.createVerticalStrut(10));
 
-        add(createMenuButton("Thống kê và báo cáo",AdminContentPanel_GUI.CARD_THONG_KE));
+        btnTraHang = createMenuButton("Trả Hàng",AdminContentPanel_GUI.CARD_TRA_HANG);
+        add(btnTraHang);
         add(Box.createVerticalStrut(10));
 
+        btnQuanLyTK = createMenuButton("Quản Lý Tài Khoản",AdminContentPanel_GUI.CARD_TAI_KHOAN);
+        add(btnQuanLyTK);
+        add(Box.createVerticalStrut(10));
+
+        btnTKBC = createMenuButton("Thống kê và báo cáo",AdminContentPanel_GUI.CARD_THONG_KE);
+        add(btnTKBC);
+        add(Box.createVerticalStrut(10));
+
+        applyPermission();
     }
 
     private JButton createMenuButton(String text,String cardName) {
@@ -83,6 +105,31 @@ public class AdminMenuPanel_GUI extends JPanel {
             btn.setForeground(new Color(0x1D4ED8));
             activeButton = btn;
             panel.showManHinh(cardName);
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_NHAP_HANG)){
+                panel.getNhapHangGUI().resetForm();
+                panel.getNhapHangGUI().loadTableSanPham();
+            }
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_PHIEU_NHAP)){
+                panel.getPhieuNhapGUI().loadPhieuNhap();
+            }
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_TRA_HANG)) {
+                panel.getTraHangGUI().resetForm();
+                panel.getTraHangGUI().loadTableChiTietPN();
+            }
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_PHIEU_TRA)) {
+                panel.getPhieuTraGUI().loadPhieuTra();
+            }
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_BAN_HANG)) {
+                panel.getBanHangGUI().chuyenManHinh("ManHinhBanHang");
+            }
+            if (cardName.equals(AdminContentPanel_GUI.CARD_HOA_DON)) {
+                panel.getHoaDonGUI().refresh();
+            }
         });
 
         btn.addMouseListener(new MouseAdapter() {
@@ -104,4 +151,44 @@ public class AdminMenuPanel_GUI extends JPanel {
 
         return btn;
     }
+    public void applyPermission() {
+        String maVaiTro = CurrentUser.getInstance().getMaQuyen();
+        boolean isAdmin = "ADMIN".equalsIgnoreCase(maVaiTro);
+        boolean isNVBH = "NHANVIENBANHANG".equalsIgnoreCase(maVaiTro);
+        boolean isKho = "KHO".equalsIgnoreCase(maVaiTro);
+
+        disableALL();
+
+        if(isAdmin) {
+            enableALL();
+        }
+        if(isNVBH) {
+            btnBanHang.setEnabled(true);
+            btnDanhSachHD.setEnabled(true);
+        }
+        if(isKho) {
+            btnPhieuNhap.setEnabled(true);
+            btnNhapHang.setEnabled(true);
+            btnPhieuTra.setEnabled(true);
+            btnTraHang.setEnabled(true);
+            btnQuanLyNCC.setEnabled(true);
+        }
+    }
+    public void enableALL() {
+        Component[] components = getComponents();
+        for(Component c : components) {
+            if ( c instanceof JButton) {
+                ((JButton) c).setEnabled(true);
+            }
+        }
+    }
+    public void disableALL() {
+        Component[] components = getComponents();
+        for(Component c : components) {
+            if( c instanceof  JButton) {
+                ((JButton)c).setEnabled(false);
+            }
+        }
+    }
+
 }
