@@ -171,6 +171,7 @@ public class ChiTietPhieuNhapGUI extends JFrame {
         ArrayList<ChiTietPhieuNhap_DTO> listCTPN = ctpnBUS.getChiTietPhieuNhapByMaPN(maPN);
 
         modelSanPham.setRowCount(0);
+        NumberFormat nf =  NumberFormat.getInstance(new Locale("vi", "VN"));
         int stt = 1;
         for(ChiTietPhieuNhap_DTO ctp : listCTPN) {
             String tenSP = ctpnDAO.getTenSPByMaSP(ctp.getMaSP());
@@ -179,7 +180,7 @@ public class ChiTietPhieuNhapGUI extends JFrame {
                     ctp.getMaSP(),
                     tenSP,
                     ctp.getSoLuong(),
-                    ctp.getGiaNhap(),
+                    nf.format(ctp.getGiaNhap()),
                     ctp.getHanSuDung()
             });
         }

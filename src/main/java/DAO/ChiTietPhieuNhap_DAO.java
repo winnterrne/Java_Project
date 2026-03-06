@@ -97,4 +97,32 @@ public class ChiTietPhieuNhap_DAO {
         }
         return soLuongTon;
     }
+
+    public ArrayList<ChiTietPhieuNhap_DTO> timSanPhamTheoTenTrongCTPN(String maSP, String keyword) {
+        ArrayList<ChiTietPhieuNhap_DTO> list = new ArrayList<>();
+        try {
+            Connection con = databaseConnection.getConnection();
+            String sql = "SELECT ct.* FROM ChiTietPhieuNhap ct JOIN SanPham sp ON ct.maSP = sp.maSP where ct.maPhieuNhap = ? AND sp.tenSP LIKE ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, maSP);
+            ps.setString(2, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                ChiTietPhieuNhap_DTO ctpn = new ChiTietPhieuNhap_DTO(
+                        rs.getString("maPhieuNhap"),
+                        rs.getString("maSP"),
+                        rs.getInt("soLuong"),
+                        rs.getDouble("giaNhap"),
+                        rs.getDate("ngayNhap").toLocalDate(),
+                        rs.getDate("hanSuDung").toLocalDate(),
+                        rs.getDate("ngaySanXuat").toLocalDate()
+                );
+                list.add(ctpn);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
