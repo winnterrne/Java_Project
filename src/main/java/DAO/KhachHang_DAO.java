@@ -17,7 +17,7 @@ public class KhachHang_DAO {
     public ArrayList<KhachHang_DTO> layTatCaKH() {
         ArrayList<KhachHang_DTO> list = new ArrayList<>();
 
-        String sql = "Select * from khachhang where 1=1";
+        String sql = "Select * from khachhang where trangThai = 1";
 
 
         try (Connection con = databaseConnection.getConnection();
@@ -42,7 +42,7 @@ public class KhachHang_DAO {
 
     public KhachHang_DTO layKHTheoMaKH(String maKH) {
         KhachHang_DTO dto = new KhachHang_DTO();
-        String sql = "Select * from khachhang where maKH = ?";
+        String sql = "Select * from khachhang where maKH = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1,maKH);
@@ -63,7 +63,7 @@ public class KhachHang_DAO {
 
 
     public boolean insertKH(KhachHang_DTO dto) {
-        String sql = "INSERT INTO khachhang (maKH, hoTenKH, soDT, diaChi, email, diemTichLuy) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO khachhang (maKH, hoTenKH, soDT, diaChi, email, diemTichLuy, trangThai) VALUES (?, ?, ?, ?, ?, ?, 1)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -78,8 +78,6 @@ public class KhachHang_DAO {
 
             int rowsAffected = ps.executeUpdate();
 
-            GeneratingID.updateMa(dto.getMaKH(), "maKH");
-
             if (rowsAffected > 0) {
                 isSuccess = true;
             }
@@ -91,7 +89,15 @@ public class KhachHang_DAO {
     }
 
     public void deleteKhachHang(String maKH) {
-
+        String sql = "update khachhang set trangThai = ? where maKH = ?";
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1,0);
+            ps.setString(2,maKH);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateKhachHang(KhachHang_DTO dto) {
@@ -118,7 +124,7 @@ public class KhachHang_DAO {
     public String layMaKhachHangMoiNhat() {
         String maMoiNhat = null;
 
-        String sql = "Select maKH from BangCapPhatMa";
+        String sql = "Select top 1 maKH from KhachHang order by maKH desc";
 
 
 

@@ -399,7 +399,7 @@ public class ThanhToanGUI extends JPanel {
         JPanel pnlInfo = new JPanel(new GridLayout(3, 1, 5, 5));
         pnlInfo.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
 
-        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 123456789", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
+        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 123456789 (fake)", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
         pnlInfo.add(new JLabel("Số tiền cần chuyển: " + String.format("%,.0f đ", phaiTraVal), SwingConstants.CENTER) {{
             setForeground(Color.RED);
             setFont(new Font("Arial", Font.BOLD, 18));
@@ -412,7 +412,7 @@ public class ThanhToanGUI extends JPanel {
         JLabel lblQR = new JLabel("Đang tải ảnh QR...", SwingConstants.CENTER);
         try {
             // Thay đổi đường dẫn ảnh cho phù hợp với dự án của bạn
-            java.net.URL imgUrl = getClass().getResource("/img/qr_bank.png");
+            java.net.URL imgUrl = getClass().getResource("/Image/qrcode_317985092_38f020b86f99a92aa2555bd8345cd937.png");
             if (imgUrl != null) {
                 ImageIcon qrIcon = new ImageIcon(imgUrl);
                 Image img = qrIcon.getImage().getScaledInstance(280, 280, Image.SCALE_SMOOTH);
