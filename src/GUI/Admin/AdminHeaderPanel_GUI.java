@@ -1,4 +1,6 @@
 package GUI.Admin;
+import GUI.Account.ThayDoiPass_GUI;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -43,9 +45,16 @@ public class AdminHeaderPanel_GUI extends JPanel {
         pAccount.add(Box.createHorizontalStrut(6));
         pAccount.add(lAccount);
 
+        btnAccount.addActionListener(e -> changePass());
         add(lTitle);
         add(Box.createHorizontalGlue());
         add(pAccount);
-
+    }
+    public void changePass() {
+        System.out.println("Da chay");
+        Window window = SwingUtilities.getWindowAncestor(this);
+        ThayDoiPass_GUI thaydoipass = new ThayDoiPass_GUI((Frame) window);
+        thaydoipass.setLocationRelativeTo(null);
+        thaydoipass.setVisible(true);
     }
 }

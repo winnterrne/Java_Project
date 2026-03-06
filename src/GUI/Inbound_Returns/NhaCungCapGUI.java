@@ -47,23 +47,36 @@ public class NhaCungCapGUI extends JPanel {
         tfTimKiem = new JTextField(20);
         pTimKiem.add(tfTimKiem);
         btnTimKiem = new JButton("Tìm kiếm");
+        btnTimKiem.setBackground(new Color(30, 144, 255));
+        btnTimKiem.setForeground(Color.WHITE);
         pTimKiem.add(btnTimKiem);
         btnLamMoi = new JButton("Làm mới");
+
         pTimKiem.add(btnLamMoi);
         pTimKiem.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Tìm Kiếm"));
 
         pChucNang = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
         btnThem = new JButton("Thêm");
+        btnThem.setBackground(new Color(76,175,80));
+        btnThem.setForeground(Color.WHITE);
         pChucNang.add(btnThem);
 
         btnXoa = new JButton("Xóa");
+        btnXoa.setBackground(new Color(244,67,54));
+        btnXoa.setForeground(Color.WHITE);
+
         pChucNang.add(btnXoa);
 
         btnSua = new JButton("Sửa");
+        btnSua.setBackground(new Color(255,193,7));
+        btnSua.setForeground(Color.BLACK);
         pChucNang.add(btnSua);
 
         btnXuatExcel = new JButton("Xuất Excel");
+        btnXuatExcel.setBackground(new Color(0,128,0));
+        btnXuatExcel.setForeground(Color.WHITE);
+
         pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Chức Năng"));

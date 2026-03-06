@@ -36,8 +36,6 @@ public class NhaCungCap_BUS {
             return "Số điện thoại phải gồm 10 chữ số";
         }
 
-
-        // 4. Thêm vào DB
         boolean success = nccDAO.addNhaCungCap(ncc);
 
         if (success)
@@ -84,5 +82,15 @@ public class NhaCungCap_BUS {
 
     public ArrayList<NhaCungCap_DTO> timNCCTheoTenNCC(String keyword) {
         return nccDAO.timKiemNCCTheoTen(keyword);
+    }
+
+    public String taoMaNCC() {
+        String maNCC = nccDAO.getMaNCCLonNhat();
+        if(maNCC == null) {
+            return "NCC01";
+        }
+        String so = maNCC.substring(3);
+        int soMoi = Integer.parseInt(so) + 1;
+        return String.format("NCC%02d", soMoi);
     }
 }

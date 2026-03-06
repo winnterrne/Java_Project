@@ -160,7 +160,7 @@ public class HoaDon_DAO {
 
     public String layMaHoaDonMoiNhat() {
         String maHoaDon = null;
-        String sql = "SELECT maHD FROM HoaDon ORDER BY maHD DESC LIMIT 1";
+        String sql = "SELECT TOP 1 maHD FROM HoaDon ORDER BY maHD DESC ";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);

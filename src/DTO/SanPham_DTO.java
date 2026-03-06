@@ -11,16 +11,18 @@ public class SanPham_DTO {
     private String maKhuyenMai;
     private String viTri;
     private String Path;
+    private byte trangThai;
 
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, byte trangThai) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
         this.giaBan = giaBan;
         this.donVi = donVi;
+        this.trangThai = trangThai;
         this.soLuongTon = soLuongTon;
         this.maDM = maDM;
     }
@@ -103,5 +105,13 @@ public class SanPham_DTO {
 
     public void setPath(String path) {
         Path = path;
+    }
+
+    public byte getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(byte trangThai) {
+        this.trangThai = trangThai;
     }
 }

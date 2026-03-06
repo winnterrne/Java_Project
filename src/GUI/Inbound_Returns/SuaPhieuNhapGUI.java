@@ -443,7 +443,7 @@ public class SuaPhieuNhapGUI extends JFrame {
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
-                boolean result = pnBUS.suaPhieuNhap(pn, listCT);
+                boolean result = pnBUS.taoPhieuNhapVaChiTiet(pn, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công");
                 } else {
