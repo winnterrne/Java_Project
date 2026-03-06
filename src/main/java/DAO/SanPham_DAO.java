@@ -10,10 +10,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SanPham_DAO {
+    public ArrayList<SanPham_DTO> getAllSanPhamAvailable() {
+        ArrayList<SanPham_DTO> list = new ArrayList<>();
+        String sql = """
+            SELECT *
+            FROM SanPham
+            where trangThai = 1
+            ORDER BY maDM ASC, maSP ASC
+            """;
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                SanPham_DTO sp = new SanPham_DTO();
+                sp.setMaSP(rs.getString("maSp"));
+                sp.setTenSP(rs.getString("tenSP"));
+                sp.setMoTa(rs.getString("moTa"));
+                sp.setGiaBan(rs.getDouble("giaBan"));
+                sp.setDonVi(rs.getString("donVi"));
+                sp.setSoLuongTon(rs.getInt("soLuongTon"));
+                sp.setMaDM(rs.getString("maDM"));
+                sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+                sp.setViTri(rs.getString("viTri"));
+                sp.setTrangThai(rs.getByte("trangThai"));
+                list.add(sp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
-            SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri
+            SELECT *
             FROM SanPham
             ORDER BY maDM ASC, maSP ASC
             """;
@@ -31,6 +62,7 @@ public class SanPham_DAO {
                 sp.setMaDM(rs.getString("maDM"));
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
+                sp.setTrangThai(rs.getByte("trangThai"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -39,24 +71,35 @@ public class SanPham_DAO {
         return list;
     }
 
+    public ArrayList<SanPham_DTO> getAllSanPhamDaXoa (){
+        ArrayList<SanPham_DTO> list = new ArrayList<>();
+        String sql = """
+                Select *
+                from SanPham
+                where trangThai = 0
+                order by maDM ASC, maSP ASC
+                """;
+
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(mapRowToDTO(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
-        String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri FROM SanPham WHERE maSP = ?";
+        String sql = "SELECT * FROM SanPham WHERE maSP = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maSP);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    SanPham_DTO sp = new SanPham_DTO();
-                    sp.setMaSP(rs.getString("maSP"));
-                    sp.setTenSP(rs.getString("tenSP"));
-                    sp.setMoTa(rs.getString("moTa"));
-                    sp.setGiaBan(rs.getDouble("giaBan"));
-                    sp.setDonVi(rs.getString("donVi"));
-                    sp.setSoLuongTon(rs.getInt("soLuongTon"));
-                    sp.setMaDM(rs.getString("maDM"));
-                    sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
-                    sp.setViTri(rs.getString("viTri"));
-                    return sp;
+                    return mapRowToDTO(rs);
                 }
             }
         } catch (SQLException e) {
@@ -71,7 +114,7 @@ public class SanPham_DAO {
         String sql = """
                 Select maSP, tenSP
                 From SanPham
-                Where maDM = ?
+                Where maDM = ? and trangThai = 1
                 Order By tenSP
                 """;
 
@@ -95,7 +138,7 @@ public class SanPham_DAO {
 
     public boolean insertSanPham (SanPham_DTO sp){
         boolean result = false;
-        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -119,7 +162,7 @@ public class SanPham_DAO {
     }
 
     public boolean isMaSPExists(String maSP) {
-        String sql = "SELECT COUNT(*) FROM SanPham WHERE maSP = ?";
+        String sql = "SELECT COUNT(*) FROM SanPham WHERE maSP = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maSP);
@@ -135,7 +178,7 @@ public class SanPham_DAO {
     }
 
     public boolean isTenSPExists(String tenSP) {
-        String sql = "SELECT COUNT(*) FROM SanPham WHERE tenSP = ?";
+        String sql = "SELECT COUNT(*) FROM SanPham WHERE tenSP = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, tenSP);
@@ -174,24 +217,9 @@ public class SanPham_DAO {
         return result;
     }
 
-    public boolean deleteSanPham(String maSP) {
-        boolean result = false;
-        String sql = "DELETE FROM SanPham WHERE maSP = ?";
-        try (Connection con = databaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, maSP);
-            if (ps.executeUpdate() > 0) {
-                result = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     public ArrayList<SanPham_DTO> timSanPhamTheoTen(String tenSP) {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ?";
+        String sql = "SELECT * FROM SanPham WHERE tenSP LIKE ? and trangThai = 1 order by tenSP";
         try {
             Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -199,17 +227,7 @@ public class SanPham_DAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                SanPham_DTO sp = new SanPham_DTO();
-                sp.setMaSP(rs.getString("maSP"));
-                sp.setTenSP(rs.getString("tenSP"));
-                sp.setMoTa(rs.getString("moTa"));
-                sp.setGiaBan(rs.getDouble("giaBan"));
-                sp.setDonVi(rs.getString("donVi"));
-                sp.setSoLuongTon(rs.getInt("soLuongTon"));
-                sp.setMaDM(rs.getString("maDM"));
-                sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
-                sp.setViTri(rs.getString("viTri"));
-                list.add(sp);
+                list.add(mapRowToDTO(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,5 +266,43 @@ public class SanPham_DAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private SanPham_DTO mapRowToDTO(ResultSet rs) throws SQLException {
+        SanPham_DTO sp = new SanPham_DTO();
+        sp.setMaSP(rs.getString("maSP"));
+        sp.setTenSP(rs.getString("tenSP"));
+        sp.setMoTa(rs.getString("moTa"));
+        sp.setGiaBan(rs.getDouble("giaBan"));
+        sp.setDonVi(rs.getString("donVi"));
+        sp.setSoLuongTon(rs.getInt("soLuongTon"));
+        sp.setMaDM(rs.getString("maDM"));
+        sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+        sp.setViTri(rs.getString("viTri"));
+        sp.setTrangThai(rs.getByte("trangThai"));
+        return sp;
+    }
+
+    private boolean updateTrangThai(String maSP, byte trangThai) {
+        boolean result = false;
+        String sql = "UPDATE SanPham SET trangThai = ? WHERE maSP = ?";
+        try (Connection con = databaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setByte(1, trangThai);
+            ps.setString(2, maSP);
+            result = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean deleteSanPham(String maSP) {
+        return updateTrangThai(maSP, (byte) 0);
+    }
+
+    public boolean restoreSanPham(String maSP) {
+        return updateTrangThai(maSP, (byte) 1);
     }
 }

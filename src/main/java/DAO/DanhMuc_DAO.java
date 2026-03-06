@@ -23,6 +23,33 @@ public class DanhMuc_DAO {
         return con;
     }*/
 
+    public ArrayList<DanhMuc_DTO> getAllDanhMucAvailable() {
+        ArrayList<DanhMuc_DTO> list = new ArrayList<>();
+        String sql = """
+            SELECT dm.maDM, dm.tenDM, 
+                   COUNT(CASE WHEN sp.trangThai = 1 THEN sp.maSP END) AS soLuongSP
+            FROM DanhMuc dm
+            LEFT JOIN SanPham sp ON dm.maDM = sp.maDM
+            WHERE dm.trangThai = 1
+            GROUP BY dm.maDM, dm.tenDM
+            ORDER BY dm.maDM
+            """;
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                DanhMuc_DTO dm = new DanhMuc_DTO();
+                dm.setMaDM(rs.getString("maDM"));
+                dm.setTenDM(rs.getString("tenDM"));
+                dm.setSoLuongSP(rs.getInt("soLuongSP"));
+                list.add(dm);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public ArrayList<DanhMuc_DTO> getAllDanhMuc() {
         ArrayList<DanhMuc_DTO> list = new ArrayList<>();
         String sql ="SELECT dm.maDM, " +
@@ -48,8 +75,35 @@ public class DanhMuc_DAO {
         return list;
     }
 
+    public ArrayList<DanhMuc_DTO> getAllDanhMucDaXoa() {
+        ArrayList<DanhMuc_DTO> list = new ArrayList<>();
+        String sql = """
+            SELECT dm.maDM, dm.tenDM, 
+                   COUNT(CASE WHEN sp.trangThai = 1 THEN sp.maSP END) AS soLuongSP
+            FROM DanhMuc dm
+            LEFT JOIN SanPham sp ON dm.maDM = sp.maDM
+            WHERE dm.trangThai = 0
+            GROUP BY dm.maDM, dm.tenDM
+            ORDER BY dm.maDM
+            """;
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                DanhMuc_DTO dm = new DanhMuc_DTO();
+                dm.setMaDM(rs.getString("maDM"));
+                dm.setTenDM(rs.getString("tenDM"));
+                dm.setSoLuongSP(rs.getInt("soLuongSP"));
+                list.add(dm);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public DanhMuc_DTO getDanhMucByMaDM(String maDM) {
-        String sql = "SELECT maDM, tenDM FROM DanhMuc WHERE maDM = ?";
+        String sql = "SELECT maDM, tenDM FROM DanhMuc WHERE maDM = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maDM);
@@ -72,7 +126,7 @@ public class DanhMuc_DAO {
             return false;
         }
 
-        String sql = "INSERT INTO DanhMuc (maDM, tenDM) VALUES (?, ?)";
+        String sql = "INSERT INTO DanhMuc (maDM, tenDM, trangThai) VALUES (?, ?, 1)";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, dm.getMaDM());
@@ -85,7 +139,7 @@ public class DanhMuc_DAO {
     }
 
     public boolean isTenDMExists(String tenDM) {
-        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE tenDM = ?";
+        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE tenDM = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, tenDM);
@@ -98,7 +152,7 @@ public class DanhMuc_DAO {
     }
 
     public boolean updateDanhMuc(DanhMuc_DTO dm) {
-        String sql = "UPDATE DanhMuc SET tenDM = ? WHERE maDM = ?";
+        String sql = "UPDATE DanhMuc SET tenDM = ? WHERE maDM = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, dm.getTenDM());
@@ -110,32 +164,32 @@ public class DanhMuc_DAO {
         }
     }
 
-    public boolean deleteDanhMuc(String maDM) {
-        String checkSQL = "SELECT COUNT(*) FROM SanPham WHERE maDM = ?";
-        String deleteSQL = "DELETE FROM DanhMuc WHERE maDM = ?";
+    // public boolean deleteDanhMuc(String maDM) {
+    //     String checkSQL = "SELECT COUNT(*) FROM SanPham WHERE maDM = ?";
+    //     String deleteSQL = "UPDATE DanhMuc SET trangThai = 0 WHERE maDM = ?";
 
-        try (Connection con = databaseConnection.getConnection();
-             PreparedStatement check = con.prepareStatement(checkSQL);
-             PreparedStatement delete = con.prepareStatement(deleteSQL)) {
+    //     try (Connection con = databaseConnection.getConnection();
+    //          PreparedStatement check = con.prepareStatement(checkSQL);
+    //          PreparedStatement delete = con.prepareStatement(deleteSQL)) {
 
-            check.setString(1, maDM);
-            ResultSet rs = check.executeQuery();
-            if (rs.next() && rs.getInt(1) > 0) {
-                System.out.println("Không thể xóa: Danh mục còn sản phẩm!");
-                return false;
-            }
+    //         check.setString(1, maDM);
+    //         ResultSet rs = check.executeQuery();
+    //         if (rs.next() && rs.getInt(1) > 0) {
+    //             System.out.println("Không thể xóa: Danh mục còn sản phẩm!");
+    //             return false;
+    //         }
 
-            delete.setString(1, maDM);
-            return delete.executeUpdate() > 0;
+    //         delete.setString(1, maDM);
+    //         return delete.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         return false;
+    //     }
+    // }
 
     public boolean isMaDMExists(String maDM) {
-        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE maDM = ?";
+        String sql = "SELECT COUNT(*) FROM DanhMuc WHERE maDM = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maDM);
@@ -148,7 +202,7 @@ public class DanhMuc_DAO {
     }
 
     public String getMaxMADM (){
-        String sql = "Select max(MaDM) as maxMaDM from DanhMuc";
+        String sql = "Select max(MaDM) as maxMaDM from DanhMuc where trangThai = 1";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)){
 
@@ -161,5 +215,50 @@ public class DanhMuc_DAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private boolean updateTrangThaiDanhMuc(String maDM, byte trangThai) {
+        String sql = "UPDATE DanhMuc SET trangThai = ? WHERE maDM = ?";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setByte(1, trangThai);
+            ps.setString(2, maDM);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteDanhMuc(String maDM) {
+        // Kiểm tra có sản phẩm active nào thuộc danh mục này không
+        String checkSQL = """
+            SELECT COUNT(*) 
+            FROM SanPham 
+            WHERE maDM = ? AND trangThai = 1
+            """;
+
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement check = con.prepareStatement(checkSQL)) {
+
+            check.setString(1, maDM);
+            try (ResultSet rs = check.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    System.out.println("Không thể xóa: Danh mục còn sản phẩm đang hoạt động!");
+                    return false;
+                }
+            }
+
+            // Nếu không còn sản phẩm active → tiến hành xóa mềm
+            return updateTrangThaiDanhMuc(maDM, (byte) 0);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean restoreDanhMuc(String maDM) {
+        return updateTrangThaiDanhMuc(maDM, (byte) 1);
     }
 }

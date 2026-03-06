@@ -10,9 +10,16 @@ import DTO.SanPham_DTO;
 public class DanhMuc_BUS {
     private final DanhMuc_DAO dmDAO = new DanhMuc_DAO();
 
+    public ArrayList<DanhMuc_DTO> getAllDanhMucAvailable() {
+        return dmDAO.getAllDanhMucAvailable();
+    }
 
     public ArrayList<DanhMuc_DTO> getAllDanhMuc() {
         return dmDAO.getAllDanhMuc();
+    }
+
+    public ArrayList<DanhMuc_DTO> getAllDanhMucDaXoa() {
+        return dmDAO.getAllDanhMucDaXoa();
     }
 
     public DanhMuc_DTO getDanhMucByMaDM(String maDM) {
@@ -74,5 +81,12 @@ public class DanhMuc_BUS {
         }
 
         return maDMNew;
+    }
+
+    public boolean restoreDanhMuc(String maDM) {
+        if (maDM == null || maDM.trim().isEmpty()) {
+            return false;
+        }
+        return dmDAO.restoreDanhMuc(maDM);
     }
 }

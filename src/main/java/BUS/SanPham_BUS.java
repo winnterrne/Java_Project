@@ -7,8 +7,16 @@ import java.util.ArrayList;
 public class SanPham_BUS {
     private final DAO.SanPham_DAO spDAO = new DAO.SanPham_DAO();
 
+    public ArrayList<SanPham_DTO> getAllSanPhamAvavilable(){
+        return spDAO.getAllSanPhamAvailable();
+    }
+
     public ArrayList<SanPham_DTO> getAllSanPham() {
         return spDAO.getAllSanPham();
+    }
+
+    public ArrayList<SanPham_DTO> getAllSanPhamDaXoa() {
+        return spDAO.getAllSanPhamDaXoa();
     }
 
     public ArrayList<SanPham_DTO> getAllSanPhamByMaDM(String maDM) {
@@ -85,5 +93,12 @@ public class SanPham_BUS {
         }
 
         return maSPMoi;
+    }
+
+    public boolean restoreSanPham(String maSP) {
+        if (maSP == null || maSP.trim().isEmpty()) {
+            return false;
+        }
+        return spDAO.restoreSanPham(maSP);
     }
 }
