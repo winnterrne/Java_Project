@@ -79,7 +79,7 @@ public class LoginForm_GUI extends JFrame{
         panelImage = new JPanel(new BorderLayout());
         panelImage.setBackground(Color.white);
 
-        ImageIcon icon = new ImageIcon(LoginForm_GUI.class.getResource("/GUI/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
+        ImageIcon icon = new ImageIcon(LoginForm_GUI.class.getResource("/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg"));
         lbImage = new JLabel(icon);
         lbImage.setHorizontalAlignment(JLabel.CENTER);
         panelImage.add(lbImage,BorderLayout.CENTER);
