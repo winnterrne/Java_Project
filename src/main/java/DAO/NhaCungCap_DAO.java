@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class NhaCungCap_DAO {
     public ArrayList<NhaCungCap_DTO> getAllNhaCungCap() {
         ArrayList<NhaCungCap_DTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM NhaCungCap";
+        String sql = "SELECT * FROM NhaCungCap WHERE trangThai = 1";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()) {
@@ -32,7 +32,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean addNhaCungCap(NhaCungCap_DTO ncc) {
-        String sql = "INSERT INTO NhaCungCap (maNCC, tenNCC, soDT, diaChi, email) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO NhaCungCap (maNCC, tenNCC, soDT, diaChi, email, trangThai) VALUES (?, ?, ?, ?, ?, 1)";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -49,7 +49,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean isDuplicateMaNCC(String maNCC) {
-        String sql = "SELECT COUNT(*) FROM NhaCungCap WHERE maNCC = ?";
+        String sql = "SELECT COUNT(*) FROM NhaCungCap WHERE maNCC = ? AND trangThai = 1";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maNCC);
@@ -65,7 +65,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean deleteNhaCungCap(String maNCC) {
-        String sql = "DELETE FROM NhaCungCap WHERE maNCC = ?";
+        String sql = "UPDATE NhaCungCap SET trangThai = 0 WHERE maNCC = ?";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maNCC);
@@ -77,7 +77,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean updateNhaCungCap(NhaCungCap_DTO ncc) {
-        String sql = "UPDATE NhaCungCap SET tenNCC = ?, soDT = ?, diaChi = ?, email = ? WHERE maNCC = ?";
+        String sql = "UPDATE NhaCungCap SET tenNCC = ?, soDT = ?, diaChi = ?, email = ? WHERE maNCC = ? and trangThai = 1";
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -94,7 +94,7 @@ public class NhaCungCap_DAO {
     }
 
     public String getTenNhaCungCapByMaNCC(String maNCC) {
-        String sql = "SELECT tenNCC FROM NhaCungCap WHERE maNCC = ?";
+        String sql = "SELECT tenNCC FROM NhaCungCap WHERE maNCC = ? AND trangThai = 1";
         String tenNCC = "";
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -113,7 +113,7 @@ public class NhaCungCap_DAO {
         ArrayList<NhaCungCap_DTO> list = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM NhaCungCap WHERE tenNCC LIKE ?";
+            String sql = "SELECT * FROM NhaCungCap WHERE tenNCC LIKE ? AND trangThai = 1";
             Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,"%" + keyword + "%");
@@ -132,6 +132,23 @@ public class NhaCungCap_DAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public String getMaNCCLonNhat() {
+        String lastMaNCC = null;
+        String sql = "SELECT TOP 1 maNCC " +
+                "FROM NhaCungCap WHERE trangThai = 1" +
+                "ORDER BY CAST(SUBSTRING(maNCC, 4, LEN(maNCC)) AS INT) DESC";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                lastMaNCC = rs.getString("maNCC");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastMaNCC;
     }
 
 }

@@ -13,7 +13,7 @@ public class PhieuTra_DAO {
         ArrayList<PhieuTra_DTO> list = new ArrayList<>();
         try {
             Connection con = databaseConnection.getConnection();
-            String sql = "SELECT * FROM PhieuTra";
+            String sql = "SELECT * FROM PhieuTra WHERE trangThai = 1";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
@@ -21,8 +21,8 @@ public class PhieuTra_DAO {
                         rs.getString("maPhieuTra"),
                         rs.getString("lyDo"),
                         rs.getString("maNV"),
-                        rs.getString("maPhieuNhap"),
                         rs.getString("maNCC"),
+                        rs.getString("maPhieuNhap"),
                         rs.getDouble("tongTra"),
                         rs.getDate("ngayTra").toLocalDate()
                 );
@@ -38,12 +38,12 @@ public class PhieuTra_DAO {
         String tenNCC = "";
         try {
             Connection con = databaseConnection.getConnection();
-            String sql = "SELECT ncc.tenNCC FROM NhaCungCap ncc JOIN PhieuTra pt ON ncc.maNCC = pt.maNCC WHERE maPhieuTra = ?";
+            String sql = "SELECT ncc.TenNCC FROM NhaCungCap ncc JOIN PhieuTra pt ON ncc.MaNCC = pt.MaNCC WHERE MaPhieuTra = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, maPT);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                tenNCC = rs.getString("tenNCC");
+                tenNCC = rs.getString("TenNCC");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,32 +51,32 @@ public class PhieuTra_DAO {
         return tenNCC;
     }
 
-    public boolean taoPhieuTra(PhieuTra_DTO pt, ArrayList<ChiTietPhieuTra_DTO> listCT) {
+    public boolean taoPhieuTraVaChiTiet(PhieuTra_DTO pt, ArrayList<ChiTietPhieuTra_DTO> listCT) {
         Connection con = null;
         try {
             con = databaseConnection.getConnection();
             con.setAutoCommit(false);
 
-            String sqlPT = "INSERT INTO PhieuTra(maPhieuTra, lyDo, maNV, maPhieuNhap, maNCC, tongTra, ngayTra) VALUES(?, ?, ?, ?, ?, ?, ?)";
+            String sqlPT = "INSERT INTO PhieuTra(maPhieuTra, lyDo, maNV, maNCC, trangThai, maPhieuNhap, tongTra, ngayTra) VALUES(?, ?, ?, ?, 1, ?, ?, ?)";
             PreparedStatement psPT = con.prepareStatement(sqlPT);
             psPT.setString(1, pt.getMaPhieuTra());
             psPT.setString(2, pt.getLyDo());
             psPT.setString(3, pt.getMaNV());
-            psPT.setString(4, pt.getMaPhieuNhap());
-            psPT.setString(5, pt.getMaNCC());
+            psPT.setString(4, pt.getMaNCC());
+            psPT.setString(5, pt.getMaPhieuNhap());
             psPT.setDouble(6, pt.getTongTra());
             psPT.setDate(7, Date.valueOf(pt.getNgayTra()));
 
             psPT.executeUpdate();
 
-            String sqlCT = "INSERT INTO ChiTietPhieuTra(maPT, maSP, soLuongTra, giaNhap, ngayTra) VALUES(?, ?, ?, ?, ?)";
+            String sqlCT = "INSERT INTO ChiTietPhieuTra(maPhieuTra, maSP, ngayTra, soLuongTra, giaNhap) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement psCT = con.prepareStatement(sqlCT);
             for(ChiTietPhieuTra_DTO ct : listCT) {
                 psCT.setString(1, ct.getMaPhieuTra());
                 psCT.setString(2, ct.getMaSP());
-                psCT.setInt(3, ct.getSoLuongTra());
-                psCT.setDouble(4, ct.getGiaNhap());
-                psCT.setDate(5, Date.valueOf(ct.getNgayTra()));
+                psCT.setDate(3, Date.valueOf(ct.getNgayTra()));
+                psCT.setInt(4, ct.getSoLuongTra());
+                psCT.setDouble(5, ct.getGiaNhap());
                 psCT.addBatch();
             }
             psCT.executeBatch();
@@ -93,7 +93,9 @@ public class PhieuTra_DAO {
             return false;
         } finally {
             try {
-                if(con != null) {} con.setAutoCommit(true);
+                if(con != null) {
+                    con.setAutoCommit(true);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -101,19 +103,20 @@ public class PhieuTra_DAO {
     }
 
     public String getMaPTLonNhat() {
-        String LastMaPT = null;
-        try {
-            Connection con = databaseConnection.getConnection();
-            String sql = "SELECT MAX(maPhieuTra) as maPhieuTraMax FROM PhieuTra";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                LastMaPT = rs.getString("maPhieuTraMax");
+        String lastMaPN = null;
+        String sql = "SELECT TOP 1 maPhieuTra " +
+                "FROM PhieuTra WHERE trangThai = 1" +
+                "ORDER BY CAST(SUBSTRING(maPhieuTra, 3, LEN(maPhieuTra)) AS INT) DESC";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                lastMaPN = rs.getString("maPhieuTra");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return LastMaPT;
+        return lastMaPN;
     }
 
     public ArrayList<PhieuTra_DTO> timKiemNangCao(String keyword, Date tuNgay, Date denNgay, Double giaTu, Double giaDen) {
@@ -123,15 +126,15 @@ public class PhieuTra_DAO {
             Connection con = databaseConnection.getConnection();
             String sql = """
                         SELECT pt.* FROM PhieuTra pt
-                        JOIN NhaCungCap ncc on pt.maNCC = ncc.maNCC
-                        WHERE 1 = 1
+                        JOIN NhaCungCap ncc on pt.MaNCC = ncc.MaNCC
+                        WHERE pt.trangThai = 1
                         """;
 
             ArrayList<Object> danhSachThamSo = new ArrayList<>();
 
             // Tìm theo mã
             if (!keyword.trim().isEmpty()) {
-                sql += " AND (pt.maPhieuTra LIKE ? or ncc.tenNCC LIKE ?)";
+                sql += " AND (pt.MaPhieuTra LIKE ? or ncc.TenNCC LIKE ?)";
                 danhSachThamSo.add("%" + keyword + "%");
                 danhSachThamSo.add("%" + keyword + "%");
             }
@@ -164,8 +167,8 @@ public class PhieuTra_DAO {
                         rs.getString("maPhieuTra"),
                         rs.getString("lyDo"),
                         rs.getString("maNV"),
-                        rs.getString("maPhieuNhap"),
                         rs.getString("maNCC"),
+                        rs.getString("maPhieuNhap"),
                         rs.getDouble("tongTra"),
                         rs.getDate("ngayTra").toLocalDate()
                 );
@@ -179,13 +182,13 @@ public class PhieuTra_DAO {
     }
 
     public boolean deletePhieuTra(String maPT) {
-        String sql = "DELETE FROM PhieuTra WHERE maPhieuTra = ?";
+        String sql = "UPDATE PhieuTra SET trangThai = 0 WHERE maPhieuTra = ?";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, maPT);
-            return ps.executeUpdate() > 0; // true nếu xóa thành công
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,7 +198,7 @@ public class PhieuTra_DAO {
 
     public PhieuTra_DTO getPhieuTraByMaPT(String maPT) {
         PhieuTra_DTO pt = null;
-        String sql = "SELECT * FROM PhieuTra WHERE maPhieuTra = ?";
+        String sql = "SELECT * FROM PhieuTra WHERE MaPhieuTra = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -206,8 +209,8 @@ public class PhieuTra_DAO {
                             rs.getString("maPhieuTra"),
                             rs.getString("lyDo"),
                             rs.getString("maNV"),
-                            rs.getString("maPhieuNhap"),
                             rs.getString("maNCC"),
+                            rs.getString("maPhieuNhap"),
                             rs.getDouble("tongTra"),
                             rs.getDate("ngayTra").toLocalDate()
                     );

@@ -13,7 +13,12 @@ import java.util.ArrayList;
 public class ChiTietPhieuNhap_DAO {
     public ArrayList<ChiTietPhieuNhap_DTO> getAllChiTietPhieuNhap(){
         ArrayList<ChiTietPhieuNhap_DTO> list = new ArrayList<>();
-        String sql = "select * from ChiTietPhieuNhap";
+        String sql = """
+            SELECT ct.*
+            FROM ChiTietPhieuNhap ct
+            JOIN PhieuNhap pn ON ct.maPhieuNhap = pn.maPhieuNhap
+            WHERE pn.trangThai = 1
+            """;
 
         try(Connection con = databaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -38,7 +43,12 @@ public class ChiTietPhieuNhap_DAO {
 
     public ArrayList<ChiTietPhieuNhap_DTO> getChiTietPhieuNhapByMaPN(String maPN){
         ArrayList<ChiTietPhieuNhap_DTO> list = new ArrayList<>();
-        String sql = "select * from ChiTietPhieuNhap where maPhieuNhap = ?";
+        String sql = """
+            SELECT ct.*
+            FROM ChiTietPhieuNhap ct
+            JOIN PhieuNhap pn ON ct.maPhieuNhap = pn.maPhieuNhap
+            WHERE ct.maPhieuNhap = ? AND pn.trangThai = 1
+            """;
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -98,13 +108,31 @@ public class ChiTietPhieuNhap_DAO {
         return soLuongTon;
     }
 
-    public ArrayList<ChiTietPhieuNhap_DTO> timSanPhamTheoTenTrongCTPN(String maSP, String keyword) {
+    public int getSoLuongNhap(String maPN, String maSP) {
+        int soLuong = 0;
+        String sql = "SELECT soLuong FROM ChiTietPhieuNhap WHERE maPhieuNhap = ? AND maSP = ?";
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, maPN);
+            ps.setString(2, maSP);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    soLuong = rs.getInt("soLuong");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return soLuong;
+    }
+
+    public ArrayList<ChiTietPhieuNhap_DTO> timSanPhamTheoTenTrongCTPN(String maPN, String keyword) {
         ArrayList<ChiTietPhieuNhap_DTO> list = new ArrayList<>();
         try {
             Connection con = databaseConnection.getConnection();
             String sql = "SELECT ct.* FROM ChiTietPhieuNhap ct JOIN SanPham sp ON ct.maSP = sp.maSP where ct.maPhieuNhap = ? AND sp.tenSP LIKE ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, maSP);
+            ps.setString(1, maPN);
             ps.setString(2, "%" + keyword + "%");
             ResultSet rs = ps.executeQuery();
 

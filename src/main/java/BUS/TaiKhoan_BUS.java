@@ -36,7 +36,9 @@ public class TaiKhoan_BUS {
     }
     // ham dang nhap
     public TaiKhoan_DTO login(String tendangnhap, String matkhau) {
-        return taikhoan.login(tendangnhap,matkhau);
+        TaiKhoan_DTO tk =  taikhoan.login(tendangnhap,matkhau);
+        CurrentUser.getInstance().login(tk);
+        return tk;
     }
     // ham xoa tai khoan
     public boolean deleteTaiKhoan(String mataikhoan) {
@@ -137,5 +139,8 @@ public class TaiKhoan_BUS {
             return false;
         }
         return taikhoan.updatePassword(tentaikhoan,matkhaucu,matkhaumoi);
+    }
+    public ArrayList<TaiKhoan_DTO > sortName(String str) {
+        return taikhoan.sortName(str);
     }
 }

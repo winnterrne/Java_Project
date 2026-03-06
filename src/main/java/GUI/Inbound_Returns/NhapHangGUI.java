@@ -38,7 +38,7 @@ public class NhapHangGUI extends JPanel {
     JLabel lMaPN, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfMaPN, tfNguoiTaoPhieu;
     JComboBox cbNhaCC;
-    JButton btnNhapExcel, btnSuaSL, btnXoaSP, btnNhapHang;
+    JButton  btnSuaSL, btnXoaSP, btnNhapHang;
 
     SanPham_BUS spBUS = new  SanPham_BUS();
     PhieuNhap_BUS pnBUS = new  PhieuNhap_BUS();
@@ -49,7 +49,10 @@ public class NhapHangGUI extends JPanel {
         loadTableSanPham();
         loadNCC();
         addEvents();
+        resetForm();
     }
+
+
 
     public void initGUI() {
         Font font = new Font("Times New Roman", Font.BOLD, 12);
@@ -151,7 +154,7 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridx = 1;
         rgbc.gridy = 0;
         tfMaPN = new JTextField(15);
-        tfMaPN.setText(pnBUS.taoMaPN());
+
         tfMaPN.setEditable(false);
         rPanel.add(tfMaPN, rgbc);
 
@@ -414,7 +417,7 @@ public class NhapHangGUI extends JPanel {
                 NhaCungCap_DTO ncc = (NhaCungCap_DTO) cbNhaCC.getSelectedItem();
                 if(ncc == null) return;
                 String maNCC = ncc.getMaNCC();
-                String maNV = "NV001";
+                String maNV = "NV01";
                 PhieuNhap_DTO pn = new PhieuNhap_DTO(maPN, ngayNhapHang, tongTien, maNCC, maNV);
                 ArrayList<ChiTietPhieuNhap_DTO> listCT = new ArrayList<>();
 
@@ -427,9 +430,10 @@ public class NhapHangGUI extends JPanel {
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
-                boolean result = pnBUS.themPhieuNhapVaChiTiet(pn, listCT);
+                boolean result = pnBUS.taoPhieuNhapVaChiTiet(pn, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công");
+                    loadTableSanPham();
                     resetForm();
                 } else {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thất bại");

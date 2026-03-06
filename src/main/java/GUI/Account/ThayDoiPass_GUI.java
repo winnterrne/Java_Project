@@ -1,23 +1,26 @@
 package GUI.Account;
 
 import BUS.TaiKhoan_BUS;
+import DTO.CurrentUser;
+import DTO.TaiKhoan_DTO;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ThayDoiPass_GUI extends JDialog {
     JLabel lbtitle;
-    JTextField tfTenDangNhap;
+    JTextField tfTenDangNhap, tfHoVaTen, tfEmail;
     JPasswordField tfPassCu, tfPassMoi;
-    JPanel panel1, panel2;
-    JButton btnLuu, btnHuy;
+    JPanel panel1;
+    JButton btnLuu;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
     public ThayDoiPass_GUI(Frame parent) {
         super(parent, "Thay đổi mật khẩu",true);
         init();
+        xemAccount();
     }
     public void init() {
-        setSize(400,600);
+        setSize(550,700);
         setLocationRelativeTo(getOwner());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -32,6 +35,14 @@ public class ThayDoiPass_GUI extends JDialog {
         lbtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel1.add(lbtitle);
         panel1.add(Box.createVerticalStrut(50));
+
+        tfHoVaTen = new JTextField();
+        panel1.add(creatField("Họ và Tên",tfHoVaTen));
+        panel1.add(Box.createVerticalStrut(8));
+
+        tfEmail = new JTextField();
+        panel1.add(creatField("Email",tfEmail));
+        panel1.add(Box.createVerticalStrut(8));
 
         tfTenDangNhap = new JTextField();
         panel1.add(creatField("Tên đăng nhập ", tfTenDangNhap));
@@ -99,5 +110,17 @@ public class ThayDoiPass_GUI extends JDialog {
             JOptionPane.showMessageDialog(this,"Mật khẩu không trùng hoặc tên sai");
         }
     }
+    public void xemAccount() {
+        TaiKhoan_DTO tkdto = CurrentUser.getInstance().getTaiKhoan();
+
+        tfHoVaTen.setText(tkdto.getHoTen());
+        tfEmail.setText(tkdto.getEmail());
+
+        tfHoVaTen.setEnabled(false);
+        tfEmail.setEnabled(false);
+
+    }
+
+
 
 }
