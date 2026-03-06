@@ -29,7 +29,6 @@ public class AdminContentPanel_GUI extends JPanel {
         setLayout(card);
         setBackground(new Color(0xF6F3F3));
 
-        /*  add(new SellingForm(), CARD_BAN_HANG); */
         add(new SanPhamMain_GUI(spbus, tkbus),CARD_SAN_PHAM);
         add(new DanhMuc_GUI(), CARD_DANH_MUC_SAN_PHAM);
         add(new HoaDon_GUI(), CARD_HOA_DON);

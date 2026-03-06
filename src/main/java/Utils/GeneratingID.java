@@ -22,14 +22,4 @@ public class GeneratingID {
         // 5. Ghép chữ và phần số đã được định dạng chuẩn
         return prefix + String.format(formatString, nextNumber);
     }
-
-    public static void  updateMa(String ma, String tenCot) {
-        try (Connection conn = databaseConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement("UPDATE BangCapPhatMa SET " + tenCot + " = ?");) {
-            ps.setString(1, ma);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
