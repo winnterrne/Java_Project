@@ -10,6 +10,7 @@ public class TaiKhoan_DTO {
     private String maNV;
     private String maKH;
     private String otp;
+    private String otp_expire;
     private String hoTen;
 
 
@@ -17,7 +18,7 @@ public class TaiKhoan_DTO {
 
     }
 
-    public TaiKhoan_DTO(String tenDangNhap, String passWord, String maTK, String email, String maVaiTro, boolean trangThai, String maNV, String maKH, String hoTen) {
+    public TaiKhoan_DTO(String tenDangNhap, String passWord, String maTK, String email, String maVaiTro, boolean trangThai, String maNV, String maKH, String otp, String otp_expire, String hoTen) {
         this.tenDangNhap = tenDangNhap;
         this.passWord = passWord;
         this.maTK = maTK;
@@ -27,6 +28,8 @@ public class TaiKhoan_DTO {
         this.maNV = maNV;
         this.maKH = maKH;
         this.hoTen = hoTen;
+        this.otp = otp;
+        this.otp_expire =otp_expire;
     }
 
     public String getTenDangNhap() {
@@ -107,5 +110,13 @@ public class TaiKhoan_DTO {
 
     public void setHoTen(String hoTen) {
         this.hoTen = hoTen;
+    }
+
+    public String getOtp_expire() {
+        return otp_expire;
+    }
+
+    public void setOtp_expire(String otp_expire) {
+        this.otp_expire = otp_expire;
     }
 }

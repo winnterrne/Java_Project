@@ -23,7 +23,7 @@ public class AdminContentPanel_GUI extends JPanel {
     public static final String CARD_PHIEU_NHAP = "Phiếu Nhập";
     public static final String CARD_PHIEU_TRA = "Phiếu Trả";
     public static final String CARD_TRA_HANG = "Trả Hàng";
-    public JPanel panelTrong = new JPanel();
+    public static final String CARD_TRONG = "Panel trong";
     private SanPham_BUS spbus = new SanPham_BUS();
     private ThongKe_BUS tkbus = new ThongKe_BUS();
     private NhapHangGUI nhapHangGUI;
@@ -38,10 +38,10 @@ public class AdminContentPanel_GUI extends JPanel {
         setLayout(card);
         setBackground(new Color(0xF6F3F3));
 
-        add(panelTrong);
+        add(new PanelTrong());
+
         banHangGUI = new BanHang_GUI();
         add(banHangGUI, CARD_BAN_HANG);
-
         add(new SanPhamMain_GUI(spbus, tkbus),CARD_SAN_PHAM);
         add(new DanhMuc_GUI(), CARD_DANH_MUC_SAN_PHAM);
         hoaDonGUI = new HoaDon_GUI();

@@ -246,6 +246,7 @@ public class SanPham_DAO {
                 sp.setMaDM(rs.getString("maDM"));
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
+                sp.setPath(rs.getString("Path"));
                 list.add(sp);
             }
         } catch (Exception e) {

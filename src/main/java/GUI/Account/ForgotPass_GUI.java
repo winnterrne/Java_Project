@@ -7,6 +7,7 @@ import javax.mail.*;
 import javax.swing.*;
 import javax.net.*;
 import javax.mail.internet.*;
+import java.awt.*;
 
 public class ForgotPass_GUI extends JDialog {
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
@@ -21,14 +22,15 @@ public class ForgotPass_GUI extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
         lbkhoiPhuc = new JLabel("KHÔI PHỤC MẬT KHẨU");
-        lbkhoiPhuc.setBounds(120,30,200,40);
+        lbkhoiPhuc.setBounds(180,30,250,40);
+        lbkhoiPhuc.setFont(new Font("Arial", Font.BOLD, 20));
         lbnhapEmail = new JLabel("Nhập địa chỉ email");
-        lbnhapEmail.setBounds(60,70,150,23);
+        lbnhapEmail.setBounds(60,105,150,23);
 
         txnhapEmail = new JTextField();
-        txnhapEmail.setBounds(60,110,200,30);
+        txnhapEmail.setBounds(60,130,240,30);
         btnForgotPass = new JButton("Gửi mã xác nhận");
-        btnForgotPass.setBounds(350,110,150,30);
+        btnForgotPass.setBounds(350,130,130,30);
         panelOTP = new JPanel();
         panelOTP.setLayout(null);
         panelOTP.setBounds(0,0,600,300);
@@ -38,7 +40,8 @@ public class ForgotPass_GUI extends JDialog {
         panelOTP.add(btnForgotPass);
 
         lbkhoiPhuc = new JLabel("KHÔI PHỤC MẬT KHẨU");
-        lbkhoiPhuc.setBounds(120,30,200,40);
+        lbkhoiPhuc.setBounds(180,30,250,40);
+        lbkhoiPhuc.setFont(new Font("Arial", Font.BOLD, 20));
         lbnhapMa = new JLabel("Nhập mã OTP ");
         lbnhapMa.setBounds(60,80,200,30);
         lbguiMaText = new JLabel("Mã OTP đã gửi vào địa chỉ email");
@@ -60,7 +63,8 @@ public class ForgotPass_GUI extends JDialog {
 
 
         lbkhoiPhuc = new JLabel("KHÔI PHỤC MẬT KHẨU");
-        lbkhoiPhuc.setBounds(120,30,200,40);
+        lbkhoiPhuc.setBounds(180,30,250,40);
+        lbkhoiPhuc.setFont(new Font("Arial", Font.BOLD, 20));
         lbNewPass = new JLabel("Nhập mật khẩu mới ");
         lbNewPass.setBounds(60,130,200,30);
         txNewPass = new JTextField();
@@ -92,6 +96,9 @@ public class ForgotPass_GUI extends JDialog {
 
     public void sendOTP() {
         String getEmail = txnhapEmail.getText();
+        if(getEmail.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Ban chua nhap tai khaon email");
+        }
         if (!tkbus.isEmailExist(getEmail)) {
             JOptionPane.showMessageDialog(this, "Email không tồn tại");
             return;

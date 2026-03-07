@@ -86,8 +86,14 @@ public class LoginForm_GUI extends JFrame{
 
         add(panelForm,BorderLayout.WEST);
         add(panelImage,BorderLayout.CENTER);
+
+        txtaiKhoan.addActionListener(e -> txmatKhau.requestFocus());
+        txmatKhau.addActionListener(e -> login());
+
         btnLogin.addActionListener(e -> login());
+        getRootPane().setDefaultButton(btnLogin);
         btnForgotPass.addActionListener(e -> guiMaOTP());
+
         
         setVisible(true);
 
