@@ -18,21 +18,18 @@ public class HoaDon_BUS {
 
     public HoaDon_DTO taoHoaDon() {
         HoaDon_DTO dto = new HoaDon_DTO();
-        String maHDCu = hoaDon.layMaHoaDonMoiNhat();
-        String maHDMoi = "HD001"; // Mặc định nếu chưa có hóa đơn nào
 
-        // 1. Chỉ tăng mã nếu đã có hóa đơn trong Database
-        if (maHDCu != null && !maHDCu.isEmpty()) {
-            try {
-                String phanSoChuoi = maHDCu.substring(2);
-                int so = Integer.parseInt(phanSoChuoi);
-                maHDMoi = String.format("HD%03d", so + 1);
-            } catch (NumberFormatException e) {
-                System.out.println("Lỗi: Định dạng mã hóa đơn cũ không hợp lệ.");
-            }
+        // 1. Gọi hàm lấy mã mới (Hàm này đã xử lý sẵn logic tăng mã + định dạng)
+        String maHDMoi = hoaDon.layMaHoaDonMoiNhat();
+
+        // 2. Bảo vệ an toàn: Nếu CSDL trống không có bảng cấp mã, tự động fallback về HD001
+        if (maHDMoi == null || maHDMoi.equals("HD000")) {
+            maHDMoi = "HD001";
         }
 
+        // 3. Gán mã vào đối tượng
         dto.setMaHD(maHDMoi);
+
         return dto;
     }
 
@@ -62,6 +59,10 @@ public class HoaDon_BUS {
 
     public ArrayList<HoaDon_DTO> layHDTheoNgay(LocalDate ngay1, LocalDate ngay2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/M/d");
+        if (ngay1 == null && ngay2 == null) {
+            return null;
+        }
+
         if (ngay1 == null) {
             ngay1 = LocalDate.parse("2026/1/1", formatter);
         }
@@ -135,5 +136,61 @@ public class HoaDon_BUS {
             }
         }
         return null;
+    }
+
+
+    public ArrayList<HoaDon_DTO> boLocTimKiemHD(String maHD, String maKH, LocalDate ngay1, LocalDate ngay2) {
+        // 1. Khởi tạo danh sách chứa kết quả
+        ArrayList<HoaDon_DTO> listKetQua = new ArrayList<>();
+
+        // 2. Lấy toàn bộ danh sách hóa đơn làm dữ liệu gốc
+        ArrayList<HoaDon_DTO> danhSachGoc = layTatCaHD();
+        if (danhSachGoc == null || danhSachGoc.isEmpty()) {
+            return listKetQua;
+        }
+
+        // 3. Duyệt qua từng hóa đơn để lọc
+        for (HoaDon_DTO hd : danhSachGoc) {
+            boolean thoaMan = true; // Mặc định hóa đơn là hợp lệ
+
+            // Điều kiện 1: Lọc theo Mã Hóa Đơn
+            if (maHD != null && !maHD.trim().isEmpty()) {
+                if (hd.getMaHD() == null || !hd.getMaHD().toLowerCase().contains(maHD.toLowerCase())) {
+                    thoaMan = false;
+                }
+            }
+
+            // Điều kiện 2: Lọc theo Mã Khách Hàng
+            if (thoaMan && maKH != null && !maKH.trim().isEmpty()) {
+                if (hd.getMaKH() == null || !hd.getMaKH().toLowerCase().contains(maKH.toLowerCase())) {
+                    thoaMan = false;
+                }
+            }
+
+            // Điều kiện 3: Lọc theo khoảng thời gian (Hỗ trợ 1 ngày hoặc 2 ngày)
+            if (thoaMan && (ngay1 != null || ngay2 != null)) {
+                LocalDate ngayLap = hd.getNgayLapHD();
+                if (ngayLap != null) {
+                    // Nếu nhập 'Từ ngày' (ngay1) và ngày lập trước ngày đó -> Loại
+                    if (ngay1 != null && ngayLap.isBefore(ngay1)) {
+                        thoaMan = false;
+                    }
+                    // Nếu nhập 'Đến ngày' (ngay2) và ngày lập sau ngày đó -> Loại
+                    if (ngay2 != null && ngayLap.isAfter(ngay2)) {
+                        thoaMan = false;
+                    }
+                } else {
+                    // Dữ liệu hóa đơn bị lỗi (không có ngày lập) nhưng đang bật bộ lọc ngày -> Loại
+                    thoaMan = false;
+                }
+            }
+
+            // 4. Nếu vượt qua mọi bộ lọc thì thêm vào danh sách kết quả
+            if (thoaMan) {
+                listKetQua.add(hd);
+            }
+        }
+
+        return listKetQua;
     }
 }

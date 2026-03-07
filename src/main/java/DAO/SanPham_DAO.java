@@ -44,7 +44,7 @@ public class SanPham_DAO {
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
-            SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri
+            SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path
             FROM SanPham
             ORDER BY maDM ASC, maSP ASC
             """;
@@ -62,6 +62,7 @@ public class SanPham_DAO {
                 sp.setMaDM(rs.getString("maDM"));
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
+                sp.setPath(rs.getString("Path"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -75,7 +76,7 @@ public class SanPham_DAO {
 
     //
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
-        String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri FROM SanPham WHERE maSP = ?";
+        String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path FROM SanPham WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maSP);
@@ -91,6 +92,7 @@ public class SanPham_DAO {
                     sp.setMaDM(rs.getString("maDM"));
                     sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                     sp.setViTri(rs.getString("viTri"));
+                    sp.setPath(rs.getString("Path"));
                     return sp;
                 }
             }

@@ -1,5 +1,6 @@
 package GUI.Product;
 
+import BUS.ChiTietHoaDon_BUS;
 import BUS.HoaDon_BUS;
 import BUS.KhachHang_BUS;
 import BUS.SanPham_BUS;
@@ -32,6 +33,9 @@ public class ThanhToanGUI extends JPanel {
     private HoaDon_BUS hoaDonBus = new HoaDon_BUS();
     private SanPham_BUS spBus = new SanPham_BUS();
     private BanHang_GUI main;
+    private ChiTietHoaDon_BUS cthdBus = new ChiTietHoaDon_BUS();
+
+    ArrayList<ChiTietHoaDon_DTO> dsCTHD;
 
     // Các biến phục vụ tính toán
     private double tongTienHangVal = 0, phaiTraVal = 0, khuyenMaiVal = 0;
@@ -174,6 +178,7 @@ public class ThanhToanGUI extends JPanel {
     // =========================================================
     public void capNhatThongTin(KhachHang_DTO khachHang, ArrayList<ChiTietHoaDon_DTO> gioHang) {
         this.kh = khachHang;
+        dsCTHD = new ArrayList<>(gioHang);
 
         // --- Cập nhật Thông tin khách hàng ---
         String ten = (kh != null && kh.getHoTenKH() != null && !kh.getHoTenKH().isEmpty()) ? kh.getHoTenKH() : "Khách lẻ";
@@ -195,15 +200,13 @@ public class ThanhToanGUI extends JPanel {
         modelSanPham.setRowCount(0);
         tongTienHangVal = 0;
 
-        if (gioHang != null) {
+        if (dsCTHD != null) {
             int i = 1;
-            for (ChiTietHoaDon_DTO cthd : gioHang) {
+            for (ChiTietHoaDon_DTO cthd : dsCTHD) {
                 SanPham_DTO sp = spBus.getSanPhamByMaSP(cthd.getMaSP());
-                String tenSP = (sp != null) ? sp.getTenSP() : "SP Không xác định";
-
                 modelSanPham.addRow(new Object[]{
                         i++,
-                        tenSP,
+                        sp.getTenSP(),
                         cthd.getSoLuongMua(),
                         String.format("%,.0f đ", cthd.getDonGia()),
                         String.format("%,.0f đ", cthd.getThanhTien())
@@ -215,6 +218,7 @@ public class ThanhToanGUI extends JPanel {
         // --- Tính toán lần cuối và hiển thị ---
         khuyenMaiVal = 0;
         phaiTraVal = tongTienHangVal - khuyenMaiVal;
+        hoaDon.setTongTien(phaiTraVal);
 
         lblTongTienHang.setText(String.format("%,.0f đ", tongTienHangVal));
         lblKhuyenMai.setText(String.format("%,.0f đ", khuyenMaiVal));
@@ -353,14 +357,24 @@ public class ThanhToanGUI extends JPanel {
 
                 // TODO: Gọi hàm lưu CSDL
                 // hoaDonBus.luuHoaDon(hoaDon, gioHang);
-                kh.setMaKH(khBus.layMaKHmoiNhat());
-                hoaDon.setMaKH(kh.getMaKH());
-//            hoaDon.setMaNV()
+
+
+                if (kh != null) {
+                    khBus.insertKH(kh);
+                    hoaDon.setMaKH(kh.getMaKH());
+                }
+                else {
+                    hoaDon.setMaKH("KH000");
+                }
+                hoaDon.setMaNV("NV01");
                 hoaDonBus.insertHD(hoaDon);
+                cthdBus.capNhatSoLuongTon(dsCTHD);
+                cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
                 JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
                 dialog.dispose();
+                resetDuLieu();
                 // Reset/Chuyển màn hình
-                main.chuyenManHinh("ManHinhBanHang");
+                 main.chuyenManHinh("ManHinhBanHang");
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(dialog, "Vui lòng nhập số tiền hợp lệ!");
@@ -385,7 +399,7 @@ public class ThanhToanGUI extends JPanel {
         JPanel pnlInfo = new JPanel(new GridLayout(3, 1, 5, 5));
         pnlInfo.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
 
-        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 123456789", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
+        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 0866046872 (Duc)", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
         pnlInfo.add(new JLabel("Số tiền cần chuyển: " + String.format("%,.0f đ", phaiTraVal), SwingConstants.CENTER) {{
             setForeground(Color.RED);
             setFont(new Font("Arial", Font.BOLD, 18));
@@ -398,7 +412,7 @@ public class ThanhToanGUI extends JPanel {
         JLabel lblQR = new JLabel("Đang tải ảnh QR...", SwingConstants.CENTER);
         try {
             // Thay đổi đường dẫn ảnh cho phù hợp với dự án của bạn
-            java.net.URL imgUrl = getClass().getResource("/img/qr_bank.png");
+            java.net.URL imgUrl = getClass().getResource("/Image/z7594512401443_d445bb5ea80b8a33ce984a76350d6e7b.jpg");
             if (imgUrl != null) {
                 ImageIcon qrIcon = new ImageIcon(imgUrl);
                 Image img = qrIcon.getImage().getScaledInstance(280, 280, Image.SCALE_SMOOTH);
@@ -420,18 +434,55 @@ public class ThanhToanGUI extends JPanel {
 
         btnXacNhan.addActionListener(event -> {
             //TODO: Gọi hàm lưu CSDL
-            kh.setMaKH(khBus.layMaKHmoiNhat());
-            hoaDon.setMaKH(kh.getMaKH());
-//            hoaDon.setMaNV()
+            if (kh != null) {
+                khBus.insertKH(kh);
+                hoaDon.setMaKH(kh.getMaKH());
+            }
+            else {
+                hoaDon.setMaKH("KH000");
+            }
+            hoaDon.setMaNV("NV01");
             hoaDonBus.insertHD(hoaDon);
+            cthdBus.capNhatSoLuongTon(dsCTHD);
+            cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
             JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
             dialog.dispose();
-            main.chuyenManHinh("ManHinhBanHang");
+            resetDuLieu();
+             main.chuyenManHinh("ManHinhBanHang");
         });
 
         dialog.add(pnlInfo, BorderLayout.NORTH);
         dialog.add(lblQR, BorderLayout.CENTER);
         dialog.add(btnXacNhan, BorderLayout.SOUTH);
         dialog.setVisible(true);
+    }
+
+
+    // =========================================================
+    // 8. HÀM RESET DỮ LIỆU SAU KHI THANH TOÁN
+    // =========================================================
+    public void resetDuLieu() {
+        // 1. Reset các biến lưu trữ
+        kh = null;
+        hoaDon = null;
+        if (dsCTHD != null) {
+            dsCTHD.clear();
+        }
+        tongTienHangVal = 0;
+        phaiTraVal = 0;
+        khuyenMaiVal = 0;
+
+        // 2. Reset các Label hiển thị trên giao diện về trạng thái rỗng
+        lblTenKH.setText("---");
+        lblSdt.setText("---");
+        lblDiaChi.setText("---");
+        lblMaHoaDon.setText("---");
+        lblNgayLapHD.setText("---");
+        lblTongTienHang.setText("0 đ");
+        lblKhuyenMai.setText("0 đ");
+        lblPhaiTra.setText("0 đ");
+
+        // 3. Xóa sạch dữ liệu trên bảng Sản phẩm
+        modelSanPham.setRowCount(0);
     }
 }

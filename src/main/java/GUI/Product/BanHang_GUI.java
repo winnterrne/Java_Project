@@ -27,7 +27,7 @@ public class BanHang_GUI extends JPanel {
     SanPham_BUS spBus = new SanPham_BUS();
 
     // Dữ liệu cho 2 bảng
-    ArrayList<SanPham_DTO> danhSachKhoHang = spBus.getAllSanPham();
+    ArrayList<SanPham_DTO> danhSachKhoHang = spBus.layDsSanPhamConTon();
     ArrayList<ChiTietHoaDon_DTO> gioHang = new ArrayList<>();
 
     // Các biến Model & Cột (Đưa lên toàn cục để truy cập từ Event)
@@ -44,7 +44,6 @@ public class BanHang_GUI extends JPanel {
     public static final String CARD_BAN_HANG = "ManHinhBanHang";
     public static final String CARD_THANH_TOAN = "ManHinhThanhToan";
 
-    HoaDon_DTO hoaDon;
 
     public BanHang_GUI() {
         setLayout(new BorderLayout());
@@ -157,8 +156,8 @@ public class BanHang_GUI extends JPanel {
         btnCheckout.setBackground(new Color(40, 167, 69));
         btnCheckout.setForeground(Color.WHITE);
         btnCheckout.addActionListener(e -> {
-                    chuyenManHinh(CARD_THANH_TOAN);
-                }
+            chuyenManHinh(CARD_THANH_TOAN);
+            }
         );
 
         checkoutPanel.add(btnCheckout, BorderLayout.SOUTH);
@@ -324,31 +323,36 @@ public class BanHang_GUI extends JPanel {
     // CÁC HÀM HỖ TRỢ BÊN DƯỚI
     // =====================================================================
     public void chuyenManHinh(String tenManHinh) {
-        //sdtKH, tenKH, timTxt, diaChiKH
         if (tenManHinh.equals(CARD_THANH_TOAN)) {
-            String sdtValue = sdtKH.getText();
-            if (sdtValue == null || sdtValue.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus sdtKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            String tenKHVal = tenKH.getText();
-            if (tenKHVal == null || tenKHVal.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus tenKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            String diaChiVal = diaChiKH.getText();
-            if (diaChiVal == null || diaChiVal.equals("")) {
-                JOptionPane.showMessageDialog(null,"Thieeus diaChiKH","Canh Bao", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            KhachHang_DTO khachHang = new KhachHang_DTO();
+            String sdtValue = sdtKH.getText().trim();
+            String tenKHVal = tenKH.getText().trim();
+            String diaChiVal = diaChiKH.getText().trim();
+
             KhachHang_BUS kbBus = new KhachHang_BUS();
-            khachHang.setMaKH(kbBus.layMaKHmoiNhat());
-            khachHang.setHoTenKH(tenKHVal);
-            khachHang.setDiaChi(diaChiVal);
-            khachHang.setSoDT(sdtValue);
+
+            // CẢNH BÁO NHỎ: Mình đã đổi lại thứ tự truyền tham số cho đúng với hàm bên BUS của bạn
+            // (Tên truyền trước, SĐT truyền sau) để tránh râu ông nọ cắm cằm bà kia nhé!
+            KhachHang_DTO khachHang = kbBus.themKhachHang(tenKHVal, sdtValue, diaChiVal);
             ttG.capNhatThongTin(khachHang, gioHang);
         }
+
+        // XỬ LÝ KHI QUAY LẠI MÀN HÌNH BÁN HÀNG
+        if (tenManHinh.equals(CARD_BAN_HANG)) {
+            // 1. Xóa dữ liệu bộ nhớ
+            gioHang.clear();
+
+            // 2. Ép bảng giao diện vẽ lại với giỏ hàng trống
+            modelRight.setDataVector(renderGioHang(gioHang), columnsRight);
+
+            // 3. Reset tiền về 0
+            updateTongTien("0.0");
+
+            // 4. Xóa trắng thông tin khách hàng cũ
+            sdtKH.setText("");
+            tenKH.setText("");
+            diaChiKH.setText("");
+        }
+
         cardLayout.show(cardPanel, tenManHinh);
     }
 
@@ -405,6 +409,8 @@ public class BanHang_GUI extends JPanel {
                 hang.add(cthd.getDonGia());
                 hang.add(cthd.getThanhTien());
                 duLieuBang.add(hang);
+
+                System.out.println(sanPhamGoc.getPath());
             }
         }
         return duLieuBang;
@@ -413,7 +419,7 @@ public class BanHang_GUI extends JPanel {
     private Object loadAnh(String path) {
         try {
             if(path != null && !path.isEmpty()) {
-                java.net.URL imgURL = getClass().getResource("/images/" + path); // Điều chỉnh lại thư mục chứa ảnh nếu cần
+                java.net.URL imgURL = getClass().getResource("/" + path); // Điều chỉnh lại thư mục chứa ảnh nếu cần
                 if (imgURL != null) {
                     ImageIcon icon = new ImageIcon(imgURL);
                     int maxH = 80;

@@ -19,9 +19,9 @@ public class ChiTietHoaDon_DAO {
 
     public ArrayList<ChiTietHoaDon_DTO> getChiTietHoaDon(String maHD) {
         ArrayList<ChiTietHoaDon_DTO> list = new ArrayList<>();
-        String sql = "select * from ChiTietHoaDon where maHD = ?";
+        String sql = "select * from chitiethoadon where maHD = ?";
         try (Connection conn = databaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, maHD);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -42,7 +42,7 @@ public class ChiTietHoaDon_DAO {
     }
 
     public boolean insertChiTietHoaDon(ChiTietHoaDon_DTO chiTietHoaDonDto) {
-        String sql = "INSERT INTO HoaDon (maHD, maSP, giaBan, soLuongMua, thanhTien) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO chitiethoadon (maHD, maSP, donGia, soLuong, thanhTien) VALUES (?, ?, ?, ?, ?)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -63,7 +63,7 @@ public class ChiTietHoaDon_DAO {
 
     public ArrayList<ChiTietHoaDon_DTO> updateCTHD(String maHD, ChiTietHoaDon_DTO chiTietHoaDon) {
         ArrayList<ChiTietHoaDon_DTO> list = new ArrayList<>();
-        String sql = "UPDATE ChiTietHoaDon SET maSP = ?, donGia = ?, soLuongMua = ?, thanhTien= ? WHERE maHD = ?";
+        String sql = "UPDATE chitiethoadon SET maSP = ?, donGia = ?, soLuong = ?, thanhTien= ? WHERE maHD = ?";
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, maHD);
@@ -73,7 +73,7 @@ public class ChiTietHoaDon_DAO {
                     dto.setMaHD(rs.getString("maHD"));
                     dto.setDonGia(rs.getFloat("donGia"));
                     dto.setMaSP(rs.getString("maSP"));
-                    dto.setSoLuongMua(rs.getInt("soLuongMua"));
+                    dto.setSoLuongMua(rs.getInt("soLuong"));
                     dto.setThanhTien(rs.getFloat("ThanhTien"));
                     list.add(dto);
                 }
@@ -86,7 +86,7 @@ public class ChiTietHoaDon_DAO {
     }
 
     public boolean updateChiTietHoaDon(ChiTietHoaDon_DTO chiTietHoaDonDto) {
-        String sql = "insert into ChiTietHoaDon(maSP, giaBan, soLuongMua, thanhTien) values (?,?,?,?) ChiTietHoaDon where maHD = ?";
+        String sql = "insert into chitiethoadon(maSP, donGia, soLuong, thanhTien) values (?,?,?,?) chitiethoadon where maHD = ?";
         int row = 0;
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -108,10 +108,10 @@ public class ChiTietHoaDon_DAO {
     }
 
     public boolean deleteChiTietHoaDon(String maHD) {
-        String sql = "delete from ChiTietHoaDon where maHD = ?";
+        String sql = "delete from chitiethoadon where maHD = ?";
         int row = 0;
         try (Connection conn = databaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);) {
+        PreparedStatement ps = conn.prepareStatement(sql);) {
             ps.setString(1, maHD);
             row = ps.executeUpdate();
         } catch (SQLException e) {

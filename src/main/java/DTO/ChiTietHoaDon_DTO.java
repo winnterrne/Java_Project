@@ -1,28 +1,23 @@
 package DTO;
 
-import java.time.LocalDate;
-
 public class ChiTietHoaDon_DTO {
     private String maHD;
     private String maSP;
-    private int soLuong;
+    private int soLuongMua;
     private double thanhTien;
     private float donGia;
-    private String maNV;
-    private LocalDate date;
 
     public ChiTietHoaDon_DTO() {
 
     }
-    public ChiTietHoaDon_DTO(String maHD, String maSP, int soLuong, double thanhTien, float donGia, String maNV, LocalDate date) {
+    public ChiTietHoaDon_DTO(String maHD, String maSP, int soLuong, float donGia) {
         this.maHD = maHD;
         this.maSP = maSP;
-        this.soLuong = soLuong;
-        this.thanhTien = thanhTien;
+        this.soLuongMua = soLuong;
         this.donGia = donGia;
-        this.maNV = maNV;
-        this.date = date;
+        this.thanhTien = soLuongMua*donGia;
     }
+
     public String getMaHD() {
         return maHD;
     }
@@ -40,11 +35,11 @@ public class ChiTietHoaDon_DTO {
     }
 
     public int getSoLuongMua() {
-        return soLuong;
+        return soLuongMua;
     }
 
     public void setSoLuongMua(int soLuong) {
-        this.soLuong = soLuong;
+        this.soLuongMua = soLuong;
     }
 
     public double getThanhTien() {
@@ -61,29 +56,5 @@ public class ChiTietHoaDon_DTO {
 
     public void setDonGia(float donGia) {
         this.donGia = donGia;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public String getMaNV() {
-        return maNV;
-    }
-
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 }

@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.KhachHang_DTO;
+import Utils.GeneratingID;
 import Utils.databaseConnection;
 
 import java.sql.*;
@@ -16,7 +17,7 @@ public class KhachHang_DAO {
     public ArrayList<KhachHang_DTO> layTatCaKH() {
         ArrayList<KhachHang_DTO> list = new ArrayList<>();
 
-        String sql = "Select * from khachhang where 1=1";
+        String sql = "Select * from khachhang where trangThai = 1";
 
 
         try (Connection con = databaseConnection.getConnection();
@@ -24,7 +25,7 @@ public class KhachHang_DAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     KhachHang_DTO dto = new KhachHang_DTO();
-                    dto.setMaKH(rs.getString("maHD"));
+                    dto.setMaKH(rs.getString("maKH"));
                     dto.setHoTenKH(rs.getString("hoTenKH"));
                     dto.setSoDT(rs.getString("soDT"));
                     dto.setDiaChi(rs.getString("diaChi"));
@@ -41,13 +42,13 @@ public class KhachHang_DAO {
 
     public KhachHang_DTO layKHTheoMaKH(String maKH) {
         KhachHang_DTO dto = new KhachHang_DTO();
-        String sql = "Select * from khachhang where maKH = ?";
+        String sql = "Select * from khachhang where maKH = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1,maKH);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    dto.setMaKH(rs.getString("maHD"));
+                    dto.setMaKH(rs.getString("maKH"));
                     dto.setHoTenKH(rs.getString("hoTenKH"));
                     dto.setSoDT(rs.getString("soDT"));
                     dto.setDiaChi(rs.getString("diaChi"));
@@ -62,7 +63,7 @@ public class KhachHang_DAO {
 
 
     public boolean insertKH(KhachHang_DTO dto) {
-        String sql = "INSERT INTO HoaDon (maKH, hoTenKH, soDT, diaChi, diemTichLuy) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO khachhang (maKH, hoTenKH, soDT, diaChi, email, diemTichLuy, trangThai) VALUES (?, ?, ?, ?, ?, ?, 1)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -72,7 +73,8 @@ public class KhachHang_DAO {
             ps.setString(2, dto.getHoTenKH());
             ps.setString(3, dto.getSoDT());
             ps.setString(4, dto.getDiaChi());
-            ps.setDouble(5, dto.getDiemTichLuy());
+            ps.setString(5, dto.getEmail());
+            ps.setDouble(6, dto.getDiemTichLuy());
 
             int rowsAffected = ps.executeUpdate();
 
@@ -83,16 +85,23 @@ public class KhachHang_DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return isSuccess;
     }
 
     public void deleteKhachHang(String maKH) {
-
+        String sql = "update khachhang set trangThai = ? where maKH = ?";
+        try (Connection conn = databaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1,0);
+            ps.setString(2,maKH);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateKhachHang(KhachHang_DTO dto) {
-        String sql = "UPDATE HoaDon SET hoTenKH = ?, soDT = ?, diaChi = ?, diemTichLuy = ? WHERE maKH = ?";
+        String sql = "UPDATE KhachHang SET hoTenKH = ?, soDT = ?, diaChi = ?,email= ?, diemTichLuy = ? WHERE maKH = ?";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -100,8 +109,9 @@ public class KhachHang_DAO {
             ps.setString(1, dto.getHoTenKH());
             ps.setString(2, dto.getSoDT());
             ps.setString(3, dto.getDiaChi());
-
-            ps.setDouble(4, dto.getDiemTichLuy());
+            ps.setString(4, dto.getEmail());
+            ps.setDouble(5, dto.getDiemTichLuy());
+            ps.setString(6, dto.getMaKH());
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -114,7 +124,8 @@ public class KhachHang_DAO {
     public String layMaKhachHangMoiNhat() {
         String maMoiNhat = null;
 
-        String sql = "SELECT maKH FROM KhachHang ORDER BY LENGTH(maKH) DESC, maKH DESC LIMIT 1";
+        String sql = "Select top 1 maKH from KhachHang order by maKH desc";
+
 
 
 
@@ -123,7 +134,7 @@ public class KhachHang_DAO {
              ResultSet rs = pst.executeQuery()) {
 
             if (rs.next()) {
-                maMoiNhat = rs.getString("maKH");
+                maMoiNhat = GeneratingID.generatingID(rs.getString("maKH"));
             }
         } catch (Exception e) {
             e.printStackTrace();

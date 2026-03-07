@@ -2,7 +2,6 @@ package DAO;
 
 
 import DTO.ChiTietPhieuNhap_DTO;
-import DTO.NhaCungCap_DTO;
 import DTO.PhieuNhap_DTO;
 import Utils.databaseConnection;
 
@@ -13,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class PhieuNhap_DAO {
     public ArrayList<PhieuNhap_DTO> getAllPhieuNhap() {

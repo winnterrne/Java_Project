@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Utils/ExportExcelHoaDon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Utils/ExportHoaDon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Utils/GeneratingID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Image/qrcode_317985092_38f020b86f99a92aa2555bd8345cd937.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/excel/DanhSachHoaDon.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD01.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD04.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContentPanel_GUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/BanHang_GUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$16.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$19.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ThanhToanGUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/admin-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/desktop.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/images.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/mini-mart.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/qrcode_317985092_38f020b86f99a92aa2555bd8345cd937.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Image/z7442838284200_8d1012d310e331c9aff8b0764d4a914b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Utils/ExportExcelHoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Utils/ExportHoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Utils/GeneratingID.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD04.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QuanLiSieuThiMini.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Admin/AdminContetnPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Admin/AdminContetnPanel_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/ChiTietHoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/ChiTietHoaDon_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/KhachHang_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/TaoHoaDon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/PhieuNhap_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/PhieuNhap_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/ChiTietHoaDon_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/ChiTietHoaDon_DTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/KhachHang_DTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContetnPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminFrame_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminFrame_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/ChiTietHoaDon_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/ChiTietHoaDon_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/HoaDon_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/KhachHang_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/ChiTietHoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/ChiTietHoaDon_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/HoaDon_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/SanPham_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/SanPham_DAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DTO/ChiTietHoaDon_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/ChiTietHoaDon_DTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContetnPanel_GUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/QuanLiSieuThiMini.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pom.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Dev-Huy&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/winnterrne/Java_Project.git&quot;,
+    &quot;accountId&quot;: &quot;208afd4e-d5cb-4019-8064-fb66f73e4f92&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3ASdVh9c0WbeylPtm6nQirVgHKi" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LoginForm_GUI.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging VietDuc&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Code/Code_Java/Java_Project/pom.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.ignored.files&quot;
+  }
+}</component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="QuangHuy" />
+    </force-push-targets>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Code\Code_Java\Java_Project\src\main\resources\Image" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="LoginForm_GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Admin.LoginForm_GUI" />
+      <module name="QuanLiSieuThiMini" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.Admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LoginForm_GUI" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="" />
+      <created>1772589933500</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772589933500</updated>
+    </task>
+    <task id="LOCAL-00001" summary="wait for database loading">
+      <option name="closed" value="true" />
+      <created>1772680465437</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772680465437</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update ID">
+      <option name="closed" value="true" />
+      <created>1772722534122</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772722534122</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update guiDuLieu">
+      <option name="closed" value="true" />
+      <created>1772733825790</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1772733825790</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Di Ngu DI djtcondymemay">
+      <option name="closed" value="true" />
+      <created>1772735418167</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772735418167</updated>
+    </task>
+    <task id="LOCAL-00005" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790440605</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790440605</updated>
+    </task>
+    <task id="LOCAL-00006" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790448479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790448479</updated>
+    </task>
+    <task id="LOCAL-00007" summary="xong r dmm">
+      <option name="closed" value="true" />
+      <created>1772790452991</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772790452991</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="wait for database loading" />
+    <MESSAGE value="update ID" />
+    <MESSAGE value="update guiDuLieu" />
+    <MESSAGE value="Di Ngu DI djtcondymemay" />
+    <MESSAGE value="xong r dmm" />
+    <option name="LAST_COMMIT_MESSAGE" value="xong r dmm" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.microsoft.sqlserver.jdbc.SQLServerException" package="com.microsoft.sqlserver.jdbc" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

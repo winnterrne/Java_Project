@@ -1,8 +1,8 @@
 package GUI.Product;
 
-import BUS.HoaDon_BUS;
-import BUS.KhachHang_BUS;
+import BUS.*;
 import DTO.*;
+import Utils.ExportHoaDon;
 import com.toedter.calendar.JDateChooser; // Import JDateChooser từ thư viện JCalendar
 
 import javax.swing.*;
@@ -11,19 +11,27 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Vector;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+
+import static Utils.ExportExcelHoaDon.ExportExcelHoaDon;
 
 public class HoaDon_GUI extends JPanel {
 
     private JTable tableHoaDon;
     private DefaultTableModel modelHoaDon;
     private HoaDon_BUS hoaDonBus = new HoaDon_BUS();
+    private ChiTietHoaDon_BUS cthdBus  = new ChiTietHoaDon_BUS();
+    private SanPham_BUS  sanPhamBus = new SanPham_BUS();
     ArrayList<HoaDon_DTO> hoaDon = hoaDonBus.layTatCaHD();
+    Vector<String> colChiTiet = new Vector<>(Arrays.asList("Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá", "Thành Tiền"));
 
     Vector<String> columnsName = new Vector<>(Arrays.asList("Mã Hóa Đơn", "Ngày Lập", "Khách Hàng", "Nhân viên", "Tổng Tiền (VNĐ)"));
+
+    JTextField txtTimMaHD, txtTimMaKH;
+
+    JDateChooser dateTimNgayTu, dateTimNgayDen;
 
     public HoaDon_GUI() {
         setLayout(new BorderLayout(10, 10));
@@ -41,36 +49,62 @@ public class HoaDon_GUI extends JPanel {
         lblTitle.setBorder(BorderFactory.createEmptyBorder(15, 0, 10, 0));
         pnlTop.add(lblTitle, BorderLayout.NORTH);
 
-        // 1.2 Panel Tìm kiếm (Search Panel)
-        JPanel pnlSearch = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        // ==========================================
+        // 1.2 Panel Tìm kiếm (Search Panel) - Đã tối ưu Layout
+        // ==========================================
+        JPanel pnlSearch = new JPanel(new BorderLayout());
         pnlSearch.setBackground(new Color(0xF6F3F3));
         pnlSearch.setBorder(BorderFactory.createTitledBorder("Bộ lọc tìm kiếm"));
 
-        // Các thành phần của bộ lọc
-        pnlSearch.add(new JLabel("Mã Hóa Đơn:"));
-        JTextField txtTimMaHD = new JTextField(10);
-        pnlSearch.add(txtTimMaHD);
+        // --- Khu vực nhập liệu (Căn trái) ---
+        JPanel pnlInput = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        pnlInput.setBackground(new Color(0xF6F3F3));
 
-        pnlSearch.add(new JLabel("Ngày lập:"));
-        // --- SỬ DỤNG JDATECHOOSER TẠI ĐÂY ---
-        JDateChooser dateTimNgay = new JDateChooser();
-        dateTimNgay.setDateFormatString("dd/MM/yyyy"); // Định dạng ngày tháng hiển thị
-        dateTimNgay.setPreferredSize(new Dimension(130, 25)); // Đặt kích thước cho ô chọn ngày
-        pnlSearch.add(dateTimNgay);
+        pnlInput.add(new JLabel("Mã Hóa Đơn:"));
+        txtTimMaHD = new JTextField(8); // Giảm nhẹ chiều dài để tiết kiệm không gian
+        pnlInput.add(txtTimMaHD);
 
-        pnlSearch.add(new JLabel("Mã KH:"));
-        JTextField txtTimMaKH = new JTextField(10);
-        pnlSearch.add(txtTimMaKH);
+        pnlInput.add(new JLabel("Từ ngày:"));
+        dateTimNgayTu = new JDateChooser();
+        dateTimNgayTu.setDateFormatString("dd/MM/yyyy");
+        dateTimNgayTu.setPreferredSize(new Dimension(110, 25));
+        pnlInput.add(dateTimNgayTu);
+
+        pnlInput.add(new JLabel("Đến:"));
+        dateTimNgayDen = new JDateChooser();
+        dateTimNgayDen.setDateFormatString("dd/MM/yyyy");
+        dateTimNgayDen.setPreferredSize(new Dimension(110, 25));
+        pnlInput.add(dateTimNgayDen);
+
+        pnlInput.add(new JLabel("Mã KH:"));
+        txtTimMaKH  = new JTextField(8);
+        pnlInput.add(txtTimMaKH);
+
+// --- Khu vực nút bấm (Căn phải) ---
+        JPanel pnlButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
+        pnlButtons.setBackground(new Color(0xF6F3F3));
 
         JButton btnTimKiem = new JButton("Tìm kiếm");
+        btnTimKiem.setPreferredSize(new Dimension(100, 25));
+
+        // 1. Thêm nút Xuất Excel (Chỉ khai báo UI)
+        JButton btnExcel = new JButton("Xuất Excel");
+        btnExcel.setPreferredSize(new Dimension(100, 25));
+
         JButton btnLamMoi = new JButton("Làm mới");
-        pnlSearch.add(btnTimKiem);
-        pnlSearch.add(btnLamMoi);
+        btnLamMoi.setPreferredSize(new Dimension(100, 25));
+
+        // 2. Add các nút vào Panel theo thứ tự
+        pnlButtons.add(btnTimKiem);
+        pnlButtons.add(btnExcel); // Nút Excel nằm ở giữa
+        pnlButtons.add(btnLamMoi);
+
+        // Ghép 2 khu vực vào pnlSearch
+        pnlSearch.add(pnlInput, BorderLayout.CENTER);
+        pnlSearch.add(pnlButtons, BorderLayout.EAST);
 
         pnlTop.add(pnlSearch, BorderLayout.CENTER);
-
-        // Đưa toàn bộ khu vực phía trên vào NORTH của Layout chính
-        add(pnlTop, BorderLayout.NORTH);
+        add(BorderLayout.NORTH, pnlTop);
 
 
         // ==========================================
@@ -105,10 +139,9 @@ public class HoaDon_GUI extends JPanel {
 
         // Sự kiện cho nút Làm mới (Clear form)
         btnLamMoi.addActionListener(e -> {
-            txtTimMaHD.setText("");
-            dateTimNgay.setDate(null); // Trả JDateChooser về trạng thái rỗng
-            txtTimMaKH.setText("");
+
             // TODO: Gọi lại hàm load toàn bộ dữ liệu (không có bộ lọc) lên bảng
+            refresh();
         });
 
         // Sự kiện cho nút Tìm kiếm
@@ -116,22 +149,41 @@ public class HoaDon_GUI extends JPanel {
             String maHD = txtTimMaHD.getText().trim();
             String maKH = txtTimMaKH.getText().trim();
 
-            // Xử lý lấy ngày tháng từ JDateChooser
-            Date selectedDate = dateTimNgay.getDate();
-            String ngayFormat = "";
-            if (selectedDate != null) {
-                // Chuyển đối tượng Date thành String theo định dạng để truyền xuống DB hoặc BUS (nếu cần)
-                // Lưu ý: Tùy thuộc vào CSDL của bạn lưu ngày theo dạng nào (yyyy-MM-dd hay dd/MM/yyyy)
-                // Ở đây mình ví dụ định dạng yyyy-MM-dd là chuẩn thông dụng nhất trong SQL
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                ngayFormat = sdf.format(selectedDate);
+            Date tuDate = dateTimNgayTu.getDate();
+            Date denDate = dateTimNgayDen.getDate();
+            LocalDate selectedDate1 = null, selectedDate2 = null;
+
+            if (tuDate != null) {
+                // Chuyển đổi java.util.Date sang java.time.LocalDate
+                selectedDate1 = tuDate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+            }
+            if (denDate != null) {
+                selectedDate2 = denDate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
             }
 
             // TODO: Gọi hàm lọc dữ liệu từ BUS truyền vào maHD, ngayFormat, maKH
-            JOptionPane.showMessageDialog(this,
-                    "Đang tìm kiếm...\nMã HD: " + maHD +
-                            "\nNgày (format cho SQL): " + (ngayFormat.isEmpty() ? "Không chọn" : ngayFormat) +
-                            "\nMã KH: " + maKH);
+            modelHoaDon.setDataVector(renderHoaDon(hoaDonBus.boLocTimKiemHD(maHD,maKH,selectedDate1, selectedDate2)), columnsName);
+        });
+
+        btnExcel.addActionListener(e -> {
+            // 1. Thiết lập đường dẫn lưu vào src/main/resources/excel
+            String projectPath = System.getProperty("user.dir");
+            String relativePath = "src" + java.io.File.separator + "main" + java.io.File.separator + "resources" + java.io.File.separator + "excel";
+
+            java.io.File excelFolder = new java.io.File(projectPath + java.io.File.separator + relativePath);
+            if (!excelFolder.exists()) {
+                excelFolder.mkdirs(); // Tự động tạo thư mục nếu chưa có
+            }
+
+            // 2. Tên file theo thời gian hiện tại hoặc tên cố định
+            String path = excelFolder.getAbsolutePath() + java.io.File.separator + "DanhSachHoaDon.xlsx";
+
+            // 3. Gọi hàm xuất
+            ExportExcelHoaDon(tableHoaDon, path);
         });
 
         // Bắt sự kiện Click chuột cho Table
@@ -164,8 +216,9 @@ public class HoaDon_GUI extends JPanel {
     // --- GIAO DIỆN CỬA SỔ CHI TIẾT HÓA ĐƠN ---
     private void hienThiGiaoDienChiTiet(String maHienThi) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        HoaDon_DTO hd = hoaDonBus.layHDTheoMaHD(maHienThi);
 
-        JDialog dialogChiTiet = new JDialog(parentFrame, "Chi Tiết Hóa Đơn - " + maHienThi, true);
+        JDialog dialogChiTiet = new JDialog(parentFrame, "Chi Tiết Hóa Đơn - " + hd.getMaHD(), true);
         dialogChiTiet.setSize(650, 400);
         dialogChiTiet.setLocationRelativeTo(parentFrame);
         dialogChiTiet.setLayout(new BorderLayout(10, 10));
@@ -176,23 +229,18 @@ public class HoaDon_GUI extends JPanel {
                 BorderFactory.createTitledBorder("Thông tin hóa đơn")
         ));
 
-        pnlHeader.add(new JLabel("Mã HD: " + maHienThi));
-        pnlHeader.add(new JLabel("Ngày lập: 26/02/2026 08:30"));
-        pnlHeader.add(new JLabel("Nhân viên: NV_01"));
-        pnlHeader.add(new JLabel("Khách hàng: Nguyễn Văn A"));
+        pnlHeader.add(new JLabel("Mã HD: " + hd.getMaHD()));
+        pnlHeader.add(new JLabel("Ngày lập: " + hd.getNgayLapHD().toString()));
+        pnlHeader.add(new JLabel("Nhân viên: " + new NhanVien_BUS().getNhanVienByMa(hd.getMaNV()).getHoTenNV()));
+        pnlHeader.add(new JLabel("Khách hàng: " + new KhachHang_BUS().layKHTheoMaKH(hd.getMaKH()).getHoTenKH()));
         dialogChiTiet.add(pnlHeader, BorderLayout.NORTH);
 
-        String[] colChiTiet = {"STT", "Mã SP", "Tên SP", "SL", "Đơn Giá", "Thành Tiền"};
-        Object[][] dummyDetailData = {
-                {"1", "SP01", "Cà phê đen", "2", "20,000", "40,000"},
-                {"2", "SP05", "Trà đá", "1", "5,000", "5,000"}
-        };
-
-        DefaultTableModel modelChiTiet = new DefaultTableModel(dummyDetailData, colChiTiet) {
+        DefaultTableModel modelChiTiet = new DefaultTableModel(renderChiTietHoaDon(maHienThi), colChiTiet) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
 
         JTable tableChiTiet = new JTable(modelChiTiet);
+        tableChiTiet.getTableHeader().setReorderingAllowed(false);
         tableChiTiet.setRowHeight(25);
 
         JScrollPane scrollChiTiet = new JScrollPane(tableChiTiet);
@@ -202,7 +250,7 @@ public class HoaDon_GUI extends JPanel {
         JPanel pnlBottom = new JPanel(new BorderLayout());
         pnlBottom.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel lblTongTien = new JLabel("Tổng cộng: 45,000 VNĐ");
+        JLabel lblTongTien = new JLabel("Tổng cộng: " + hd.getTongTien());
         lblTongTien.setFont(new Font("Arial", Font.BOLD, 16));
         lblTongTien.setForeground(Color.RED);
         pnlBottom.add(lblTongTien, BorderLayout.WEST);
@@ -220,12 +268,13 @@ public class HoaDon_GUI extends JPanel {
     public void hienThiNutSua(MouseEvent e, String maHD) {
         JPopupMenu popupMenu = new JPopupMenu();
 
-        JMenuItem itemSua = new JMenuItem("Sửa Hóa Đơn: " + maHD);
-        JMenuItem itemXoa = new JMenuItem("Xóa Hóa Đơn: " + maHD);
+//        JMenuItem itemSua = new JMenuItem("Sửa Hóa Đơn: " + maHD);
+        JMenuItem itemXoa = new JMenuItem("Xóa Hóa Đơn");
+        JMenuItem itemXuatPDF  = new JMenuItem("Xuất PDF");
 
-        itemSua.addActionListener(event -> {
-            JOptionPane.showMessageDialog(this, "Đang mở giao diện sửa cho: " + maHD);
-        });
+//        itemSua.addActionListener(event -> {
+//            JOptionPane.showMessageDialog(this, "Đang mở giao diện sửa cho: " + maHD);
+//        });
 
         itemXoa.addActionListener(event -> {
             int confirm = JOptionPane.showConfirmDialog(this,
@@ -235,12 +284,56 @@ public class HoaDon_GUI extends JPanel {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 int selectedRow = tableHoaDon.getSelectedRow();
+                String ma = tableHoaDon.getValueAt(selectedRow, 0).toString();
+                hoaDonBus.deleteHD(hoaDonBus.layHDTheoMaHD(ma));
                 modelHoaDon.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Đã xóa hóa đơn thành công!");
             }
         });
 
-        popupMenu.add(itemSua);
+// Sự kiện Xuất PDF (Lưu thẳng vào src/main/resources/pdf)
+        itemXuatPDF.addActionListener(event -> {
+            // 1. Lấy thông tin Hóa đơn, Khách hàng và Nhân viên
+            HoaDon_DTO hd = hoaDonBus.layHDTheoMaHD(maHD);
+            KhachHang_DTO kh = new KhachHang_BUS().layKHTheoMaKH(hd.getMaKH());
+            NhanVien_DTO nv = new NhanVien_BUS().getNhanVienByMa(hd.getMaNV());
+
+            String tenNhanVien = (nv != null) ? nv.getHoTenNV() : "Không xác định";
+            String ngayLap = (hd.getNgayLapHD() != null) ? hd.getNgayLapHD().toString() : "";
+
+            // 2. Tạo một JTable ảo chứa Chi tiết hóa đơn
+            DefaultTableModel modelChiTiet = new DefaultTableModel(renderChiTietHoaDon(maHD), colChiTiet);
+            JTable tableChiTiet = new JTable(modelChiTiet);
+
+            // ==========================================
+            // 3. TỰ ĐỘNG LƯU VÀO src/main/resources/pdf
+            // ==========================================
+            // Lấy đường dẫn gốc (root path) của dự án
+            String projectPath = System.getProperty("user.dir");
+
+            // ĐÃ SỬA: Đường dẫn khớp đúng với cấu trúc trong ảnh của bạn
+            String relativePath = "src" + java.io.File.separator + "main" + java.io.File.separator + "resources" + java.io.File.separator + "pdf";
+
+            java.io.File pdfFolder = new java.io.File(projectPath + java.io.File.separator + relativePath);
+
+            // Tạo đường dẫn file hoàn chỉnh
+            String fileName = "HoaDon_" + maHD + ".pdf";
+            String path = pdfFolder.getAbsolutePath() + java.io.File.separator + fileName;
+
+            // 4. Gọi hàm xuất PDF
+            ExportHoaDon.export(
+                    hd.getMaHD(),
+                    kh.getHoTenKH(),
+                    kh.getDiaChi(),
+                    tenNhanVien,
+                    ngayLap,
+                    tableChiTiet,
+                    hd.getTongTien(),
+                    path
+            );
+        });
+
+        popupMenu.add(itemXuatPDF);
         popupMenu.addSeparator();
         popupMenu.add(itemXoa);
 
@@ -254,17 +347,50 @@ public class HoaDon_GUI extends JPanel {
             return duLieuBang;
         }
 
-        for (HoaDon_DTO cthd : hoaDon) {
+        // TỐI ƯU: Khởi tạo BUS ở ngoài vòng lặp để tránh việc tạo mới Object liên tục gây nặng RAM
+        KhachHang_BUS khBus = new KhachHang_BUS();
+
+        for (HoaDon_DTO hd : hoaDon) {
             Vector<Object> hang = new Vector<>();
-//            NhanVien_DTO nv;
-            KhachHang_BUS khBus = new KhachHang_BUS();
-            KhachHang_DTO kh = khBus.layKHTheoMaKH(cthd.getMaHD());
-            hang.add(cthd.getMaHD());
-            hang.add(cthd.getNgayLapHD().toString());
-            hang.add(kh.getHoTenKH());
-            hang.add(cthd.getMaNV());
-            hang.add(cthd.getTongTien());
+
+            hang.add(hd.getMaHD());
+            hang.add(hd.getNgayLapHD().toString());
+            hang.add(new KhachHang_BUS().layKHTheoMaKH(hd.getMaKH()).getHoTenKH());
+            hang.add(new NhanVien_BUS().getNhanVienByMa(hd.getMaNV()).getHoTenNV());
+            hang.add(Double.toString(hd.getTongTien()));
+
+            // LỖI 2 ĐÃ SỬA: Bạn tạo ra biến 'hang' chứa dữ liệu, nhưng lại quên add nó vào 'duLieuBang'
+            duLieuBang.add(hang);
         }
         return duLieuBang;
+    }
+
+
+    public Vector<Vector<Object>> renderChiTietHoaDon(String maHD) {
+        ArrayList<ChiTietHoaDon_DTO> ds = cthdBus.getChiTietHoaDon(maHD);
+        Vector<Vector<Object>> duLieuBang = new Vector<>();
+
+        if (ds != null || !ds.isEmpty()) {
+            for  (ChiTietHoaDon_DTO hd : ds) {
+                Vector<Object> hang = new Vector<>();
+                hang.add(hd.getMaSP());
+                hang.add(sanPhamBus.getSanPhamByMaSP(hd.getMaSP()).getTenSP());
+                hang.add(hd.getSoLuongMua());
+                hang.add(hd.getDonGia());
+                hang.add(hd.getThanhTien());
+                duLieuBang.add(hang);
+            }
+        }
+
+        return  duLieuBang;
+    }
+
+    public void refresh() {
+        txtTimMaHD.setText("");
+        dateTimNgayTu.setDate(null);
+        dateTimNgayDen.setDate(null);// Trả JDateChooser về trạng thái rỗng
+        txtTimMaKH.setText("");
+        hoaDon = hoaDonBus.layTatCaHD();
+        modelHoaDon.setDataVector(renderHoaDon(hoaDon), columnsName);
     }
 }

@@ -1,17 +1,19 @@
 package DAO;
 
 import DTO.HoaDon_DTO;
+import Utils.GeneratingID;
 import Utils.databaseConnection;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
 public class HoaDon_DAO {
     public ArrayList<HoaDon_DTO> layTatCaHD() {
         ArrayList<HoaDon_DTO> list = new ArrayList<>();
 
-        String sql = "Select * from HoaDon where 1=1";
+        String sql = "Select * from hoadon where trangThai = 1";
 
 
         try (Connection con = databaseConnection.getConnection();
@@ -23,6 +25,7 @@ public class HoaDon_DAO {
                     dto.setNgayLapHD(LocalDate.parse(rs.getDate("ngayLapHD").toString()));
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setMaNV(rs.getString("maNV"));
+                    dto.setTongTien(rs.getDouble("tongTien"));
                     list.add(dto);
                 }
             }
@@ -34,7 +37,7 @@ public class HoaDon_DAO {
 
     public ArrayList<HoaDon_DTO> layHDTheoNgay(LocalDate ngay1, LocalDate ngay2) {
         ArrayList<HoaDon_DTO> list = new ArrayList<>();
-        String sql = "SELECT * FROM HoaDon WHERE ngayLapHD BETWEEN ? AND ?";
+        String sql = "SELECT * FROM hoadon WHERE ngayLapHD BETWEEN ? AND ? and trangThai = 1";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -50,6 +53,7 @@ public class HoaDon_DAO {
 
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setMaNV(rs.getString("maNV"));
+                    dto.setTongTien(rs.getDouble("tongTien"));
                     list.add(dto);
                 }
             }
@@ -64,7 +68,7 @@ public class HoaDon_DAO {
     public ArrayList<HoaDon_DTO> layHDTheoMaKH(String maKH) {
         String value = maKH;
         ArrayList<HoaDon_DTO> list = new ArrayList<>();
-        String sql = "Select * from HoaDon where maKH = ?";
+        String sql = "Select * from hoadon where maKH = ? and trangThai = 1";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1,value);
@@ -75,6 +79,7 @@ public class HoaDon_DAO {
                     dto.setNgayLapHD(LocalDate.parse(rs.getDate("ngayLapHD").toString()));
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setMaNV(rs.getString("maNV"));
+                    dto.setTongTien(rs.getDouble("tongTien"));
                     list.add(dto);
                 }
             }
@@ -87,9 +92,9 @@ public class HoaDon_DAO {
     public HoaDon_DTO layHDTheoMaHD(String maHD) {
         String value = maHD;
         HoaDon_DTO dto = new HoaDon_DTO();
-        String sql = "Select * from HoaDon where maHD = ?";
+        String sql = "Select * from hoadon where maHD = ? and trangThai = 1";
         try (Connection conn = databaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1,value);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -98,6 +103,7 @@ public class HoaDon_DAO {
                     dto.setNgayLapHD(ngayLap);
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setMaNV(rs.getString("maNV"));
+                    dto.setTongTien(rs.getDouble("tongTien"));
                 }
             }
         } catch (SQLException e) {
@@ -107,7 +113,7 @@ public class HoaDon_DAO {
     }
 
     public boolean insertHoaDon(HoaDon_DTO dto) {
-        String sql = "INSERT INTO HoaDon (maHD, ngayLapHD, maKH, maNV) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO HoaDon (maHD, ngayLapHD, maKH, maNV, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, 1)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -118,11 +124,11 @@ public class HoaDon_DAO {
             ps.setObject(2, dto.getNgayLapHD()); // Ghi chú: JDBC phiên bản 4.2 trở lên hỗ trợ trực tiếp java.time.LocalDate
             ps.setString(3, dto.getMaKH());
             ps.setString(4, dto.getMaNV());
+            ps.setDouble(5, dto.getTongTien());
 
             // Thực thi câu lệnh INSERT
             // executeUpdate() trả về số dòng (rows) bị tác động trong Database
             int rowsAffected = ps.executeUpdate();
-
             if (rowsAffected > 0) {
                 isSuccess = true;
             }
@@ -135,11 +141,19 @@ public class HoaDon_DAO {
     }
 
     public void deleteHoaDon(String maHD) {
-
+        String sql = "update HoaDon set trangThai = ? where maHD = ?";
+        try (Connection conn = databaseConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1,0);
+            ps.setString(2,maHD);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateHoaDon(HoaDon_DTO dto) {
-        String sql = "UPDATE HoaDon SET ngayLapHD = ?, maKH = ?, maNV = ? WHERE maHD = ?";
+        String sql = "UPDATE HoaDon SET ngayLapHD = ?, maKH = ?, maNV = ?, tongTien = ? WHERE maHD = ?";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -147,8 +161,9 @@ public class HoaDon_DAO {
             ps.setObject(1, dto.getNgayLapHD());
             ps.setString(2, dto.getMaKH());
             ps.setString(3, dto.getMaNV());
+            ps.setDouble(4, dto.getTongTien());
 
-            ps.setString(4, dto.getMaHD());
+            ps.setString(5, dto.getMaHD());
 
             return ps.executeUpdate() > 0;
 
@@ -160,14 +175,14 @@ public class HoaDon_DAO {
 
     public String layMaHoaDonMoiNhat() {
         String maHoaDon = null;
-        String sql = "SELECT TOP 1 maHD FROM HoaDon ORDER BY maHD DESC ";
+        String sql = "Select top 1 maHD from HoaDon order by maHD desc";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
 
             if (rs.next()) {
-                maHoaDon = rs.getString("maHD");
+                maHoaDon = GeneratingID.generatingID(rs.getString("maHD"));
             }
         } catch (Exception e) {
             e.printStackTrace();
