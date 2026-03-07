@@ -6,27 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/TaiKhoan_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/TaiKhoan_DTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Account/ForgotPass_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Account/ForgotPass_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Account/TaiKhoan_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Account/TaiKhoan_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BUS/SanPham_BUS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/KhachHang_DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/PhieuNhap_DAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DTO/KhachHang_DTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Account/TaiKhoan_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContentPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminContentPanel_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminFrame_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminHeaderPanel_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/AdminMenuPanel_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Admin/LoginForm_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/HoaDon_GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Account/ForgotPass_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Account/ForgotPass_GUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +59,9 @@
     &quot;Application.LoginForm_GUI.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;VietDuc&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Code/Code_Java/Java_Project/pom.xml&quot;,
@@ -96,7 +84,7 @@
   <component name="RunManager">
     <configuration name="LoginForm_GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Admin.LoginForm_GUI" />
-      <module name="Java_Project" />
+      <module name="QuanLiSieuThiMini" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GUI.Admin.*" />
@@ -112,13 +100,6 @@
         <item itemvalue="Application.LoginForm_GUI" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

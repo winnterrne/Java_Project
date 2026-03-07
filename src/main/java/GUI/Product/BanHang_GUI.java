@@ -25,6 +25,8 @@ public class BanHang_GUI extends JPanel {
     JLabel lblTotalValue;
     HoaDon_BUS hoaDonBus = new HoaDon_BUS();
     SanPham_BUS spBus = new SanPham_BUS();
+    String str = " ";
+    JTable tableLeft;
 
     // Dữ liệu cho 2 bảng
     ArrayList<SanPham_DTO> danhSachKhoHang = spBus.layDsSanPhamConTon();
@@ -74,7 +76,7 @@ public class BanHang_GUI extends JPanel {
                 return super.getColumnClass(columnIndex);
             }
         };
-        JTable tableLeft = new JTable(modelLeft);
+         tableLeft = new JTable(modelLeft);
         capNhatKichThuocBang(tableLeft);
         tableLeft.getTableHeader().setReorderingAllowed(false);
         leftPanel.add(new JScrollPane(tableLeft), BorderLayout.CENTER);
@@ -165,6 +167,13 @@ public class BanHang_GUI extends JPanel {
 
         // --- CÁC SỰ KIỆN LẮNG NGHE (LISTENERS) ---
 
+        /*
+        timTxt.addCaretListener(e -> {
+            str = timTxt.getText().trim();
+            fillTable();
+        });
+         */
+
         timBtn.addActionListener(e -> {
             // Lấy chữ và tự động cắt khoảng trắng dư thừa ở hai đầu
             String text = timTxt.getText().trim();
@@ -201,6 +210,8 @@ public class BanHang_GUI extends JPanel {
             modelLeft.setDataVector(renderKhoHang(danhSachKhoHang), columnsLeft);
             capNhatKichThuocBang(tableLeft);
         });
+
+
 
         tableLeft.addMouseListener(new MouseAdapter() {
             @Override
@@ -409,6 +420,7 @@ public class BanHang_GUI extends JPanel {
                 hang.add(cthd.getDonGia());
                 hang.add(cthd.getThanhTien());
                 duLieuBang.add(hang);
+
             }
         }
         return duLieuBang;
@@ -417,7 +429,7 @@ public class BanHang_GUI extends JPanel {
     private Object loadAnh(String path) {
         try {
             if(path != null && !path.isEmpty()) {
-                java.net.URL imgURL = getClass().getResource("/Image/images.jpeg"); // Điều chỉnh lại thư mục chứa ảnh nếu cần
+                java.net.URL imgURL = getClass().getResource("/" + path); // Điều chỉnh lại thư mục chứa ảnh nếu cần
                 if (imgURL != null) {
                     ImageIcon icon = new ImageIcon(imgURL);
                     int maxH = 80;
@@ -437,4 +449,12 @@ public class BanHang_GUI extends JPanel {
     public void updateTongTien(String text) {
         lblTotalValue.setText(text);
     }
+
+    /*
+    public void fillTable() {
+        ArrayList<SanPham_DTO> list = spBus.timSanPhamTheoTen(str);
+        modelLeft.setDataVector(renderKhoHang(list),columnsLeft);
+        capNhatKichThuocBang(tableLeft);
+    }
+     */
 }
