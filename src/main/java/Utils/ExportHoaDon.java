@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 public class ExportHoaDon {
 
-    // ĐÃ THÊM: Tham số tenNV và ngayTao
+
     public static void export(
             String maHD,
             String tenKH,
@@ -31,23 +31,23 @@ public class ExportHoaDon {
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-            // Load font hỗ trợ tiếng Việt
-            PDType0Font fontBold = PDType0Font.load(document, new File("C:/Windows/Fonts/arialbd.ttf")); // Arial Bold
-            PDType0Font fontNormal = PDType0Font.load(document, new File("C:/Windows/Fonts/arial.ttf")); // Arial Thường
+
+            PDType0Font fontBold = PDType0Font.load(document, new File("C:/Windows/Fonts/arialbd.ttf"));
+            PDType0Font fontNormal = PDType0Font.load(document, new File("C:/Windows/Fonts/arial.ttf"));
 
             PDPageContentStream content = new PDPageContentStream(document, page);
             DecimalFormat df = new DecimalFormat("#,###.##");
 
-            // ==========================================
-            // 1. HEADER - TIÊU ĐỀ HÓA ĐƠN
-            // ==========================================
+
+
+
             content.beginText();
             content.setFont(fontBold, 18);
             content.newLineAtOffset(210, 800);
             content.showText("HÓA ĐƠN BÁN HÀNG");
             content.endText();
 
-            // Ngày in hóa đơn (Ngày hiện tại trên máy tính)
+
             LocalDate today = LocalDate.now();
             content.beginText();
             content.setFont(fontNormal, 11);
@@ -55,18 +55,18 @@ public class ExportHoaDon {
             content.showText("Ngày in: " + String.format("%02d/%02d/%d", today.getDayOfMonth(), today.getMonthValue(), today.getYear()));
             content.endText();
 
-            // Mã hóa đơn (Góc phải)
+
             content.beginText();
             content.setFont(fontBold, 12);
-            content.setNonStrokingColor(Color.RED); // In mã màu đỏ
+            content.setNonStrokingColor(Color.RED);
             content.newLineAtOffset(450, 780);
             content.showText("Số: " + maHD);
-            content.setNonStrokingColor(Color.BLACK); // Trả lại màu đen
+            content.setNonStrokingColor(Color.BLACK);
             content.endText();
 
-            // ==========================================
-            // 2. THÔNG TIN ĐƠN VỊ BÁN HÀNG (Cố định)
-            // ==========================================
+
+
+
             int startY = 740;
             int lineSpacing = 15;
 
@@ -82,15 +82,15 @@ public class ExportHoaDon {
             content.newLineAtOffset(0, -lineSpacing);
             content.endText();
 
-            // Vẽ một đường gạch ngang ngăn cách
+
             startY -= (lineSpacing * 3) + 10;
             content.moveTo(50, startY);
             content.lineTo(545, startY);
             content.stroke();
 
-            // ==========================================
-            // 3. THÔNG TIN KHÁCH HÀNG (Người mua)
-            // ==========================================
+
+
+
             startY -= 20;
             content.beginText();
             content.setFont(fontNormal, 11);
@@ -103,25 +103,25 @@ public class ExportHoaDon {
             content.newLineAtOffset(0, -lineSpacing);
             content.endText();
 
-            // ==========================================
-            // 4. BẢNG CHI TIẾT SẢN PHẨM (Có kẻ ô)
-            // ==========================================
+
+
+
             startY -= (lineSpacing * 4) + 30;
             float margin = 50;
             float yPosition = startY;
             float rowHeight = 25;
             float tableWidth = 495;
 
-            // Định nghĩa độ rộng các cột: STT, Mã SP, Tên SP, SL, Đơn Giá, Thành Tiền
+
             float[] columnWidths = {40, 70, 165, 50, 80, 90};
 
-            // Vẽ viền ngoài cho header
+
             content.addRect(margin, yPosition - rowHeight, tableWidth, rowHeight);
             content.stroke();
 
             TableModel model = table.getModel();
 
-            // In Text cho Header
+
             float xPosition = margin;
             String[] headers = {"STT", "Mã SP", "Tên Hàng Hóa", "SL", "Đơn Giá", "Thành Tiền"};
             for (int col = 0; col < headers.length; col++) {
@@ -131,7 +131,7 @@ public class ExportHoaDon {
                 content.showText(headers[col]);
                 content.endText();
 
-                // Vẽ cột dọc ngăn cách
+
                 if (col < headers.length - 1) {
                     content.moveTo(xPosition + columnWidths[col], yPosition);
                     content.lineTo(xPosition + columnWidths[col], yPosition - rowHeight);
@@ -142,7 +142,7 @@ public class ExportHoaDon {
 
             yPosition -= rowHeight;
 
-            // In dữ liệu từng dòng
+
             for (int row = 0; row < model.getRowCount(); row++) {
                 content.addRect(margin, yPosition - rowHeight, tableWidth, rowHeight);
                 content.stroke();
@@ -152,7 +152,7 @@ public class ExportHoaDon {
                 for (int col = 0; col < headers.length; col++) {
                     String text = "";
                     if (col == 0) {
-                        text = String.valueOf(row + 1); // Cột STT tự động
+                        text = String.valueOf(row + 1);
                     } else {
                         Object cellValue = model.getValueAt(row, col - 1);
                         text = (cellValue != null) ? cellValue.toString() : "";
@@ -164,7 +164,7 @@ public class ExportHoaDon {
                     content.showText(text);
                     content.endText();
 
-                    // Vẽ nét đứt/cột dọc ngăn cách
+
                     if (col < headers.length - 1) {
                         content.moveTo(xPosition + columnWidths[col], yPosition);
                         content.lineTo(xPosition + columnWidths[col], yPosition - rowHeight);
@@ -175,9 +175,9 @@ public class ExportHoaDon {
                 yPosition -= rowHeight;
             }
 
-            // ==========================================
-            // 5. TỔNG KẾT
-            // ==========================================
+
+
+
             yPosition -= 20;
 
             content.beginText();
@@ -188,15 +188,15 @@ public class ExportHoaDon {
             content.showText(df.format(tongTienHang) + " VNĐ");
             content.endText();
 
-            // ==========================================
-            // 6. THÔNG TIN NHÂN VIÊN VÀ NGÀY TẠO
-            // ==========================================
-            yPosition -= 40; // Cách dòng tổng kết một khoảng
+
+
+
+            yPosition -= 40;
             xPosition = 50;
 
             content.beginText();
             content.setFont(fontBold, 11);
-            // Đặt thông tin ở bên phải trang
+
             content.newLineAtOffset(xPosition, yPosition);
             content.showText("Ngày tạo hóa đơn: " + (ngayTao != null ? ngayTao : ""));
             content.newLineAtOffset(0, -18);
@@ -206,7 +206,7 @@ public class ExportHoaDon {
             content.close();
             document.save(path);
 
-            // Mở file sau khi xuất
+
             File file = new File(path);
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(file);

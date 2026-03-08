@@ -348,5 +348,22 @@ public class SanPham_DAO {
         return updateTrangThai(maSP, (byte) 0);
     }
 
+    public int getSoLuongTon(String maSP) {
+        int soLuongTon = 0;
+        try {
+            Connection con = databaseConnection.getConnection();
+            String sql = "Select soLuongTon from SanPham where maSP = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, maSP);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                soLuongTon = rs.getInt("soLuongTon");
+            }
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  soLuongTon;
+    }
+
 
 }

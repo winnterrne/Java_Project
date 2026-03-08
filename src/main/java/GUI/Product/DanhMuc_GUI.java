@@ -147,8 +147,8 @@ public class DanhMuc_GUI extends JPanel {
         JTextField txtMaDM = new JTextField(10);
         txtMaDM.setEditable(false);
         JTextField txtTenDM = new JTextField(20);
-
         txtMaDM.setText(dmBus.taoMaDMTuDong());
+
 
         JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
         panel.add(new JLabel("Mã DM:"));

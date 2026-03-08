@@ -137,7 +137,7 @@ public class NhaCungCap_DAO {
     public String getMaNCCLonNhat() {
         String lastMaNCC = null;
         String sql = "SELECT TOP 1 maNCC " +
-                "FROM NhaCungCap WHERE trangThai = 1" +
+                "FROM NhaCungCap " +
                 "ORDER BY CAST(SUBSTRING(maNCC, 4, LEN(maNCC)) AS INT) DESC";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);

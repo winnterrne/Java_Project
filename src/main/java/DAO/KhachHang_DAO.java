@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class KhachHang_DAO {
 
-    //    private String maKH;
-//    private String hoTenKH;
-//    private String soDT;
-//    private String diaChi;
-//    private double diemTichLuy;
+
+
+
+
+
     public ArrayList<KhachHang_DTO> layTatCaKH() {
         ArrayList<KhachHang_DTO> list = new ArrayList<>();
 

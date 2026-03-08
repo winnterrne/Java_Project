@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -94,7 +95,7 @@ public class PhieuTraGUI extends JPanel {
         topPanel.add(pTimKiem); topPanel.add(pChucNang); topPanel.add(pLocNgay); topPanel.add(pLocGia);
 
         centerPanel =  new JPanel(new GridLayout(1, 1, 20, 20));
-        String cols[] = {"STT", "Mã Phiếu Trả", "Nhà cung cấp", "Người tạo", "Thời gian tạo", "Tổng tiền"};
+        String cols[] = {"STT", "Mã Phiếu Trả", "Nhà cung cấp", "Người tạo", "Lý do", "Thời gian tạo", "Tổng tiền"};
         dtmPhieuTra = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -138,8 +139,9 @@ public class PhieuTraGUI extends JPanel {
                     stt++,
                     pt.getMaPhieuTra(),
                     tenNCC,
-                    "admin", //sau này lấy manv->chức vụ....
-                    pt.getNgayTra(),
+                    "admin",
+                    pt.getLyDo(),
+                    pt.getNgayTra().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });
         }
@@ -152,7 +154,6 @@ public class PhieuTraGUI extends JPanel {
         for(PhieuTra_DTO pt : listPT) {
             String tenNCC = ptBUS.getTenNCCByMaPT(pt.getMaPhieuTra());
             String tongTienFormatted = nf.format(pt.getTongTra());
-
             dtmPhieuTra.addRow(new Object[]{
                     stt++,
                     pt.getMaPhieuTra(),
@@ -172,19 +173,7 @@ public class PhieuTraGUI extends JPanel {
         String giaTuStr = tfTuGia.getText().trim();
         String giaDenStr = tfDenGia.getText().trim();
 
-        // Nếu tất cả đều trống
-        if (keyword.isEmpty() && tuNgay == null && denNgay == null
-                && giaTuStr.isEmpty() && giaDenStr.isEmpty()) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Vui lòng nhập ít nhất một điều kiện tìm kiếm!");
-            return;
-        }
-
-        Double giaTu = giaTuStr.isEmpty() ? null : Double.parseDouble(giaTuStr);
-        Double giaDen = giaDenStr.isEmpty() ? null : Double.parseDouble(giaDenStr);
-
-        ArrayList<PhieuTra_DTO> list = ptBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTu, giaDen);
+        ArrayList<PhieuTra_DTO> list = ptBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTuStr, giaDenStr);
 
         loadPhieuTra(list);
     }

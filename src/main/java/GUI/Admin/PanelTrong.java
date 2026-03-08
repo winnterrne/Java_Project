@@ -9,5 +9,4 @@ public class PanelTrong extends JPanel {
         lbTen = new JLabel("Xin Chao Admin");
         lbTen.setFont(new Font("Arial",Font.BOLD,40));
     }
-
 }

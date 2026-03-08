@@ -5,14 +5,12 @@ import java.awt.*;
 import DAO.*;
 import DTO.*;
 import BUS.*;
-import GUI.Product.BanHang_GUI;
-
 
 public class LoginForm_GUI extends JFrame{
-    JLabel lbtitle, lbImage, lbkhoiPhuc, lbnhapEmail;
-    JTextField txtaiKhoan, txmatKhau, txnhapEmail;
+    JLabel lbtitle, lbImage;
+    JTextField txtaiKhoan, txmatKhau;
     JPanel panelForm, panelImage;
-    JButton btnLogin, btnSignUp, btnForgotPass, btnguiOTP;
+    JButton btnLogin, btnSignUp, btnForgotPass;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
     public LoginForm_GUI() {
         intGui();

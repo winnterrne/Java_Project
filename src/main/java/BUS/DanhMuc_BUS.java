@@ -66,13 +66,13 @@ public class DanhMuc_BUS {
                 e.printStackTrace();
             }
         }
-        String dinhDangSo = String.format ("%03d", soThuTu);
+        String dinhDangSo = String.format ("%02d", soThuTu);
         String maDMNew = "DM" + dinhDangSo;
 
         // Kiểm tra nếu maDMNew đã tồn tại (trường hợp gap do delete), tăng dần
         while (dmDAO.isMaDMExists(maDMNew)) {
             soThuTu++;
-            dinhDangSo = String.format("%03d", soThuTu);
+            dinhDangSo = String.format("%02d", soThuTu);
             maDMNew = "DM" + dinhDangSo;
         }
 

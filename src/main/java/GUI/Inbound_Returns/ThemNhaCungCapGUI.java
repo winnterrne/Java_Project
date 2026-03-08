@@ -133,6 +133,11 @@ public class ThemNhaCungCapGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        tfMaNCC.addActionListener(e -> tfTenNCC.requestFocus());
+        tfTenNCC.addActionListener(e -> tfSDT.requestFocus());
+        tfSDT.addActionListener(e -> tfDiaChi.requestFocus());
+        tfDiaChi.addActionListener(e -> tfEmail.requestFocus());
+        tfEmail.addActionListener(e -> btnThem.doClick());
     }
 
     public JLabel createLabel(String text) {

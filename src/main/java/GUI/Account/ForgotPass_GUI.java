@@ -97,7 +97,7 @@ public class ForgotPass_GUI extends JDialog {
     public void sendOTP() {
         String getEmail = txnhapEmail.getText();
         if(getEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Ban chua nhap tai khaon email");
+            JOptionPane.showMessageDialog(this,"Bạn chưa nhập tài khoản email ");
         }
         if (!tkbus.isEmailExist(getEmail)) {
             JOptionPane.showMessageDialog(this, "Email không tồn tại");
@@ -133,7 +133,7 @@ public class ForgotPass_GUI extends JDialog {
     public void doiMatKhau() {
         String password = txNewPass.getText().trim();
         String email = txEmailNewPass.getText().trim();
-        if(password.isEmpty() || password == null) {
+        if(password.isEmpty()) {
             JOptionPane.showMessageDialog(this,"Nhập mật khẩu");
             return;
         }

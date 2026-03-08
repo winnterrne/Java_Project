@@ -12,6 +12,8 @@ import java.util.Properties;
 
 public class TaiKhoan_BUS {
     private TaiKhoan_DAO taikhoan;
+    NhanVien_BUS nvbus = new NhanVien_BUS();
+    private static final String Default_Pass = "123456";
     public TaiKhoan_BUS () {
         taikhoan = new TaiKhoan_DAO();
     }
@@ -23,10 +25,52 @@ public class TaiKhoan_BUS {
     }
     // kiem tra them tai khoan
     public boolean addTaiKhoan(TaiKhoan_DTO taikhoandto) {
-        String defaultPass = "123456";
-        taikhoandto.setPassWord(defaultPass);
         return taikhoan.addTaiKhoan(taikhoandto);
     }
+    public String checkLogic(TaiKhoan_DTO tk, String trangthai) {
+        String matk = tk.getMaTK();
+        String tendn = tk.getTenDangNhap();
+        String email = tk.getEmail();
+        String vaitro = tk.getMaVaiTro();
+        String manv = tk.getMaNV();
+
+        if(matk == null || matk.trim().isEmpty() ||
+                tendn == null || tendn.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() ||
+                vaitro == null || vaitro.trim().isEmpty() ||
+                manv == null || manv.trim().isEmpty()) {
+            return "Vui lòng điền đầy đủ thông tin";
+        }
+        if(!tk.getEmail().matches("^[A-Za-z0-9+_.-]+@gmail\\.com$")) {
+            return "Email phải có định dạng @gmail.com";
+        }
+        if(!trangthai.equals("1") && !trangthai.equals("2")) {
+            return "Trạng thái chỉ được 1 = hoạt động 2 = không hoạt động ";
+        }
+        vaitro = vaitro.trim().toUpperCase();
+        if(!vaitro.equals("ADMIN") && !vaitro.equals("KHO") && !vaitro.equals("NHANVIENBANHANG")) {
+            return "Vai trò chỉ được admin, kho hoặc, nv bán hàng ";
+        }
+        if(isTenDangNhap(tk.getTenDangNhap())) {
+            return "Tên đăng nhập đã tồn tại";
+        }
+        if(isEmailExist(tk.getEmail())) {
+            return "Email đã tồn tại";
+        }
+        if(isMaTonTai(tk.getMaTK())) {
+            return "Mã tài khoản đã tồn tại";
+        }
+        if(!nvbus.isNhanVienExist(tk.getMaNV())) {
+            return "Mã nhân viên không tồn tại ";
+        }
+        tk.setTrangThai(trangthai.equals("1"));
+        tk.setPassWord(Default_Pass);
+        boolean result = taikhoan.addTaiKhoan(tk);
+        if(result)
+            return "Thành công";
+        return "Thêm tài khoản thất bại";
+    }
+
     public boolean isMaTonTai(String matk) {
         return taikhoan.isUsernameExist(matk);
     }
@@ -142,5 +186,14 @@ public class TaiKhoan_BUS {
     }
     public ArrayList<TaiKhoan_DTO > sortName(String str) {
         return taikhoan.sortName(str);
+    }
+    public String taoMaTuDong() {
+        String maTK = taikhoan.getMaxMaTK();
+        if(maTK == null) {
+            return "QL01";
+        }
+        String so = maTK.substring(2);
+        int soMoi = Integer.parseInt(so) + 1;
+        return String.format("QL%02d",soMoi);
     }
 }

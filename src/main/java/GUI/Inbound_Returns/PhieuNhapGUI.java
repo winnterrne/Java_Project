@@ -9,6 +9,7 @@ import java.awt.*;
 import java.rmi.server.ExportException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -141,7 +142,7 @@ public class PhieuNhapGUI extends JPanel {
                     pn.getMaPhieuNhap(),
                     tenNCC,
                     "admin",
-                    pn.getNgayNhapHang(),
+                    pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });
         }
@@ -160,7 +161,7 @@ public class PhieuNhapGUI extends JPanel {
                     pn.getMaPhieuNhap(),
                     tenNCC,
                     "admin",
-                    pn.getNgayNhapHang(),
+                    pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });
         }
@@ -174,20 +175,7 @@ public class PhieuNhapGUI extends JPanel {
         String giaTuStr = tfTuGia.getText().trim();
         String giaDenStr = tfDenGia.getText().trim();
 
-        // Nếu tất cả đều trống
-        if (keyword.isEmpty() && tuNgay == null && denNgay == null
-                && giaTuStr.isEmpty() && giaDenStr.isEmpty()) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Vui lòng nhập ít nhất một điều kiện tìm kiếm!");
-            return;
-        }
-
-        Double giaTu = giaTuStr.isEmpty() ? null : Double.parseDouble(giaTuStr);
-        Double giaDen = giaDenStr.isEmpty() ? null : Double.parseDouble(giaDenStr);
-
-        ArrayList<PhieuNhap_DTO> list =
-                pnBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTu, giaDen);
+        ArrayList<PhieuNhap_DTO> list = pnBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTuStr, giaDenStr);
 
         loadPhieuNhap(list);
     }
@@ -253,7 +241,6 @@ public class PhieuNhapGUI extends JPanel {
                     filePath += ".xlsx";
                 }
 
-                ArrayList<PhieuNhap_DTO> list = pnBUS.getAllPhieuNhap();
                 ep.exportTablePNToExcel(tbPhieuNhap, filePath);
             }
         });

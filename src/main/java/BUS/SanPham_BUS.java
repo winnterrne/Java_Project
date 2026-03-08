@@ -109,13 +109,13 @@ public class SanPham_BUS {
                 soThuTu = 1;
             }
         }
-        String dinhDangSo = String.format ("%03d", soThuTu);
+        String dinhDangSo = String.format ("%02d", soThuTu);
         String maSPMoi = "SP" + dinhDangSo;
 
         // Kiểm tra nếu maSPMoi đã tồn tại (trường hợp gap do delete), tăng dần
         while (spDAO.isMaSPExists(maSPMoi)) {
             soThuTu++;
-            dinhDangSo = String.format("%03d", soThuTu);
+            dinhDangSo = String.format("%02d", soThuTu);
             maSPMoi = "SP" + dinhDangSo;
         }
 
@@ -131,5 +131,27 @@ public class SanPham_BUS {
             return false;
         }
         return spDAO.restoreSanPham(maSP);
+    }
+
+    public int getSoLuongTon(String maSP) {
+        if (maSP == null || maSP.trim().isEmpty()) {
+            return 0;
+        }
+        return spDAO.getSoLuongTon(maSP);
+    }
+
+    public ArrayList<SanPham_DTO> timKiemChung(String tuKhoa) {
+        ArrayList<SanPham_DTO> ketQua = new ArrayList<>();
+        SanPham_DTO spTheoMa = getSanPhamByMaSP(tuKhoa);
+
+        if (spTheoMa != null) {
+            ketQua.add(spTheoMa); // Ưu tiên tìm theo mã
+        } else {
+            ArrayList<SanPham_DTO> dsTheoTen = timSanPhamTheoTen(tuKhoa); // Không có mã thì tìm theo tên
+            if (dsTheoTen != null && !dsTheoTen.isEmpty()) {
+                ketQua.addAll(dsTheoTen);
+            }
+        }
+        return ketQua;
     }
 }

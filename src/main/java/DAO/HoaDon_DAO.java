@@ -94,7 +94,7 @@ public class HoaDon_DAO {
         HoaDon_DTO dto = new HoaDon_DTO();
         String sql = "Select * from hoadon where maHD = ? and trangThai = 1";
         try (Connection conn = databaseConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1,value);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -119,15 +119,15 @@ public class HoaDon_DAO {
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            // Truyền dữ liệu từ DTO vào các tham số (?) trong câu lệnh SQL
+
             ps.setString(1, dto.getMaHD());
-            ps.setObject(2, dto.getNgayLapHD()); // Ghi chú: JDBC phiên bản 4.2 trở lên hỗ trợ trực tiếp java.time.LocalDate
+            ps.setObject(2, dto.getNgayLapHD());
             ps.setString(3, dto.getMaKH());
             ps.setString(4, dto.getMaNV());
             ps.setDouble(5, dto.getTongTien());
 
-            // Thực thi câu lệnh INSERT
-            // executeUpdate() trả về số dòng (rows) bị tác động trong Database
+
+
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 isSuccess = true;
@@ -143,7 +143,7 @@ public class HoaDon_DAO {
     public void deleteHoaDon(String maHD) {
         String sql = "update HoaDon set trangThai = ? where maHD = ?";
         try (Connection conn = databaseConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)){
+             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1,0);
             ps.setString(2,maHD);
             ps.executeUpdate();

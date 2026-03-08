@@ -1,14 +1,10 @@
 package DAO;
-import DTO.NhanVien_DTO;
 import DTO.TaiKhoan_DTO;
+import Utils.databaseConnection;
+import org.apache.poi.ss.formula.eval.PercentEval;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class TaiKhoan_DAO {
     private Connection conn;
@@ -341,5 +337,20 @@ public class TaiKhoan_DAO {
             }
         }
         return list;
+    }
+    public String getMaxMaTK (){
+        String sql = "Select max(mataikhoan) as maxmataikhoan from TaiKhoan where trangThai = 1";
+        try(Connection con = databaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    return rs.getString("maxmataikhoan");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

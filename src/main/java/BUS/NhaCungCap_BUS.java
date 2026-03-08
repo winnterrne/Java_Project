@@ -12,10 +12,6 @@ public class NhaCungCap_BUS {
     }
     public String addNCC(NhaCungCap_DTO ncc) {
 
-        if (ncc.getMaNCC() == null || ncc.getMaNCC().trim().isEmpty()) {
-            return "Mã nhà cung cấp không được rỗng";
-        }
-
         if (ncc.getTenNCC() == null || ncc.getTenNCC().trim().isEmpty()) {
             return "Tên nhà cung cấp không được rỗng";
         }
@@ -36,6 +32,14 @@ public class NhaCungCap_BUS {
             return "Số điện thoại phải gồm 10 chữ số";
         }
 
+        if (!ncc.getEmail().endsWith("@gmail.com")) {
+            return "Email phải kết thúc bằng đuôi @gmail.com";
+        }
+
+        if(!ncc.getEmail().matches("^[A-Za-z0-9._%+-]+@gmail\\.com$")) {
+            return "Email không hợp lệ, vui lòng nhập đúng định dạng (ví dụ: domixi36@gmail.com";
+        }
+
         boolean success = nccDAO.addNhaCungCap(ncc);
 
         if (success)
@@ -49,9 +53,6 @@ public class NhaCungCap_BUS {
     }
 
     public String updateNCC(NhaCungCap_DTO ncc) {
-        if (ncc.getMaNCC() == null || ncc.getMaNCC().trim().isEmpty()) {
-            return "Mã nhà cung cấp không được rỗng";
-        }
 
         if (ncc.getTenNCC() == null || ncc.getTenNCC().trim().isEmpty()) {
             return "Tên nhà cung cấp không được rỗng";
@@ -67,6 +68,14 @@ public class NhaCungCap_BUS {
 
         if (!ncc.getSoDT().matches("\\d{10}")) {
             return "Số điện thoại phải gồm 10 chữ số";
+        }
+
+        if (!ncc.getEmail().endsWith("@gmail.com")) {
+            return "Email phải kết thúc bằng đuôi @gmail.com";
+        }
+
+        if(!ncc.getEmail().matches("^[A-Za-z0-9._%+-]+@gmail\\.com$")) {
+            return "Email không hợp lệ, vui lòng nhập đúng định dạng (ví dụ: domixi36@gmail.com)";
         }
 
         boolean success = nccDAO.updateNhaCungCap(ncc);

@@ -258,4 +258,22 @@ public class PhieuNhap_DAO {
         }
     }
 
+    public int getSoLuongNhap(String maPhieuNhap, String maSP) {
+        int soLuong = 0;
+        try {
+            Connection con = databaseConnection.getConnection();
+            String sql = "SELECT ct.soLuong FROM PhieuNhap pn JOIN ChiTietPhieuNhap ct ON pn.maPhieuNhap = ct.maPhieuNhap Where ct.maPhieuNhap = ? AND ct.maSP = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, maPhieuNhap);
+            ps.setString(2, maSP);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                soLuong = rs.getInt("soLuong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return soLuong;
+    }
+
 }
