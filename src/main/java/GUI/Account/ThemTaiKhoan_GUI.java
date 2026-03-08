@@ -1,29 +1,29 @@
 package GUI.Account;
-
 import BUS.NhanVien_BUS;
 import BUS.TaiKhoan_BUS;
 import DTO.NhanVien_DTO;
 import DTO.TaiKhoan_DTO;
 
+import javax.print.attribute.standard.JobHoldUntil;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ThemTaiKhoan_GUI extends JDialog {
-    JPanel topPanel, centerPanel, buttonPanel;
+    JPanel topPanel, buttonPanel;
     JLabel lbTitle;
     JTextField tfMaTaiKhoan, tfTenTaiKhoan, tfEmail, tfVaiTro, tfTrangThai, tfMaNhanVien;
     JButton btnThem, btnHuy;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
-    NhanVien_BUS nvbus = new NhanVien_BUS();
     private boolean isSaved = false;
     public ThemTaiKhoan_GUI(Frame frame) {
-        super(frame,"Them tai khoan",true);
+        super(frame,"Thêm tài khoản",true);
         initGui();
+        tfMaTaiKhoan.setText(tkbus.taoMaTuDong());
+        tfMaTaiKhoan.setEditable(false);
     }
 
     public void initGui() {
-        setTitle("Them tai khoan");
+        setTitle("Thêm tài khoản");
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -37,7 +37,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         gbc.insets = new Insets(0, 0, 10, 0);
 
         topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        lbTitle = new JLabel("Them Tai Khoan");
+        lbTitle = new JLabel("Thêm tài khoản ");
         lbTitle.setFont(new Font("Times New Roman", Font.BOLD, 32));
         topPanel.setBackground(Color.BLUE);
         lbTitle.setForeground(Color.white);
@@ -54,7 +54,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
 
         // Mã Tai Khoan
         gbc.gridx = 0; gbc.gridy = 1;
-        add(createLabel("Mã tai khoan"), gbc);
+        add(createLabel("Mã tài khoản"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaTaiKhoan = new JTextField(20);
@@ -64,7 +64,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // Tên Tai Khoan
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Tên tai khoan"), gbc);
+        add(createLabel("Tên tài khoản"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 2;
         tfTenTaiKhoan = new JTextField(20);
@@ -84,7 +84,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // Vai tro
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Vai tro"), gbc);
+        add(createLabel("Vai trò"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4;
         tfVaiTro = new JTextField(20);
@@ -94,7 +94,7 @@ public class ThemTaiKhoan_GUI extends JDialog {
         // trang thai
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Trang thai"),gbc);
+        add(createLabel("Trạng thái"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 5;
         tfTrangThai = new JTextField(20);
@@ -126,6 +126,12 @@ public class ThemTaiKhoan_GUI extends JDialog {
         add(buttonPanel, gbc);
         setSize(600, 400);
         setLocationRelativeTo(null);
+        tfMaTaiKhoan.addActionListener(e -> tfTenTaiKhoan.requestFocus());
+        tfTenTaiKhoan.addActionListener(e -> tfEmail.requestFocus());
+        tfEmail.addActionListener(e -> tfVaiTro.requestFocus());
+        tfVaiTro.addActionListener(e -> tfTrangThai.requestFocus());
+        tfTrangThai.addActionListener(e -> tfMaNhanVien.requestFocus());
+        tfMaNhanVien.addActionListener(e -> themTaiKhoan());
         btnThem.addActionListener(e -> themTaiKhoan());
     }
     public JLabel createLabel(String text) {
@@ -133,67 +139,34 @@ public class ThemTaiKhoan_GUI extends JDialog {
         return label;
     }
     public void themTaiKhoan() {
-        String matk = tfMaTaiKhoan.getText().trim();
-        String tentk = tfTenTaiKhoan.getText().trim();
-        String email = tfEmail.getText().trim();
-        String vaitro = tfVaiTro.getText().trim();
-        String trangthai = tfTrangThai.getText().trim();
-        String nhanvien = tfMaNhanVien.getText().trim();
         try {
-            if(matk.isEmpty() || tentk.isEmpty() || email.isEmpty() || vaitro.isEmpty() || trangthai.isEmpty() ) {
-                JOptionPane.showMessageDialog(this, "Vui long dien day du thong tin");
-                return;
-            }
-            if(!email.matches("^[A-Za-z0-9+_.-]+@gmail\\.com$")) {
-                JOptionPane.showMessageDialog(this,"Vui long nhap dung dinh dang @gmail.com");
-                return;
-            }
-            if(!trangthai.equals("1") && !trangthai.equals("2")) {
-                JOptionPane.showMessageDialog(this,"Trang thi 1 = hoat dong, 2 = khong hoat dong");
-                return;
-            }
-            if(tkbus.isTenDangNhap(tentk)) {
-                JOptionPane.showMessageDialog(this,"Ten danh nhap da ton tai ");
-                return;
-            }
-            if(tkbus.isEmailExist(email)) {
-                JOptionPane.showMessageDialog(this,"Email da ton tai");
-                return;
-            }
-            if(tkbus.isMaTonTai(matk)) {
-                JOptionPane.showMessageDialog(this,"Ma tai khoan da ton tai");
-                return;
-            }
-            if(!nvbus.isNhanVienExist(nhanvien)) {
-               JOptionPane.showMessageDialog(this,"Nhan vien khong ton tai");
-               return;
-            }
-            TaiKhoan_DTO taikhoandto = new TaiKhoan_DTO();
-            taikhoandto.setMaTK(matk);
-            taikhoandto.setTenDangNhap(tentk);
-            taikhoandto.setEmail(email);
-            taikhoandto.setMaVaiTro(vaitro);
-            taikhoandto.setTrangThai(trangthai.equals("1"));
-            taikhoandto.setMaNV(nhanvien);
-            NhanVien_DTO nvdto = nvbus.getNhanVienByMa(nhanvien);
-            if(nvdto == null) {
-                JOptionPane.showMessageDialog(this,"Khong co nhan vien nay");
-                return;
-            }
-            boolean result = tkbus.addTaiKhoan(taikhoandto);
-            if(result) {
-                JOptionPane.showMessageDialog(this,"Them tai khoan thanh cong / Mat khau mac dinh la 123456");
-                isSaved = true;
-                this.dispose();
-            }else {
-                JOptionPane.showMessageDialog(this,"Khong thanh cong them nv");
-            }
+            TaiKhoan_DTO tkdto = new TaiKhoan_DTO();
+            String matk = tkbus.taoMaTuDong();
+            tfMaTaiKhoan.setText(matk);
+            tkdto.setMaTK(matk);
+            tkdto.setTenDangNhap(tfTenTaiKhoan.getText().trim());
+            tkdto.setEmail(tfEmail.getText().trim());
+            tkdto.setMaVaiTro(tfVaiTro.getText().trim());
+            tkdto.setMaNV(tfMaNhanVien.getText().trim());
+            tkdto.setMaVaiTro(tfVaiTro.getText().trim());
 
+            String trangthai = tfTrangThai.getText().trim();
+            tkdto.setTrangThai(trangthai.equals("1"));
+            String result = tkbus.checkLogic(tkdto, trangthai);
+            if(result.equals("Thành công")) {
+                JOptionPane.showMessageDialog(this,"Thêm tài khoản thành công");
+                isSaved = true;
+                dispose();
+            }else {
+                JOptionPane.showMessageDialog(this,result);
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public boolean isSaved() {
         return isSaved;
     }
+
 }

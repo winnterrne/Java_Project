@@ -396,6 +396,10 @@ public class NhapHangGUI extends JPanel {
 
         btnNhapHang.addActionListener(e -> {
             try {
+                if(tbChiTiet.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(this, "Bạn phải thêm ít nhất 1 sản phẩm để nhập");
+                    return;
+                }
                 String maPN = tfMaPN.getText();
                 LocalDate ngayNhapHang =  LocalDate.now();
                 NumberFormat nf = NumberFormat.getNumberInstance(new Locale("vi", "VN"));

@@ -5,6 +5,9 @@ import DTO.ChiTietHoaDon_DTO;
 import DTO.HoaDon_DTO;
 import DTO.SanPham_DTO;
 
+
+import DTO.KhachHang_DTO;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,74 +21,54 @@ public class HoaDon_BUS {
 
     public HoaDon_DTO taoHoaDon() {
         HoaDon_DTO dto = new HoaDon_DTO();
-
-        // 1. Gọi hàm lấy mã mới (Hàm này đã xử lý sẵn logic tăng mã + định dạng)
         String maHDMoi = hoaDon.layMaHoaDonMoiNhat();
-
-        // 2. Bảo vệ an toàn: Nếu CSDL trống không có bảng cấp mã, tự động fallback về HD001
         if (maHDMoi == null || maHDMoi.equals("HD000")) {
             maHDMoi = "HD001";
         }
-
-        // 3. Gán mã vào đối tượng
         dto.setMaHD(maHDMoi);
-
         return dto;
     }
 
-    public ArrayList<HoaDon_DTO> layTatCaHD() {
-        return hoaDon.layTatCaHD();
-    }
-
-    public void insertHD(HoaDon_DTO dto) {
-        hoaDon.insertHoaDon(dto);
-    }
-
-    public void updateHD(HoaDon_DTO dto) {
-        hoaDon.updateHoaDon(dto);
-    }
-
-    public void deleteHD(HoaDon_DTO dto) {
-        hoaDon.deleteHoaDon(dto.getMaHD());
-    }
-
-    public HoaDon_DTO layHDTheoMaHD(String maHD) {
-        return hoaDon.layHDTheoMaHD(maHD);
-    }
-
-    public ArrayList<HoaDon_DTO> layHDTheoMaKH(String maKH) {
-        return hoaDon.layHDTheoMaKH(maKH);
-    }
+    public ArrayList<HoaDon_DTO> layTatCaHD() { return hoaDon.layTatCaHD(); }
+    public void insertHD(HoaDon_DTO dto) { hoaDon.insertHoaDon(dto); }
+    public void updateHD(HoaDon_DTO dto) { hoaDon.updateHoaDon(dto); }
+    public void deleteHD(HoaDon_DTO dto) { hoaDon.deleteHoaDon(dto.getMaHD()); }
+    public HoaDon_DTO layHDTheoMaHD(String maHD) { return hoaDon.layHDTheoMaHD(maHD); }
+    public ArrayList<HoaDon_DTO> layHDTheoMaKH(String maKH) { return hoaDon.layHDTheoMaKH(maKH); }
 
     public ArrayList<HoaDon_DTO> layHDTheoNgay(LocalDate ngay1, LocalDate ngay2) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/M/d");
-        if (ngay1 == null && ngay2 == null) {
-            return null;
-        }
-
-        if (ngay1 == null) {
-            ngay1 = LocalDate.parse("2026/1/1", formatter);
-        }
-        if (ngay2 == null) {
-            ngay2 = LocalDate.now();
-        }
+        if (ngay1 == null && ngay2 == null) return null;
+        if (ngay1 == null) ngay1 = LocalDate.parse("2026/1/1", formatter);
+        if (ngay2 == null) ngay2 = LocalDate.now();
         return hoaDon.layHDTheoNgay(ngay1, ngay2);
     }
 
-    // --- CÁC HÀM XỬ LÝ GIỎ HÀNG TẠI BỘ NHỚ TẠM (RAM) ---
+
+
+
 
     public void themVaoGioHang(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongThem) {
-        if (sanPham == null || gioHang == null || soLuongThem <= 0) {
-            return;
-        }
+        if (sanPham == null || gioHang == null || soLuongThem <= 0) return;
 
         ChiTietHoaDon_DTO cthdTonTai = kiemTra(gioHang, sanPham);
 
         if (cthdTonTai != null) {
-            // Đã có trong giỏ -> Cộng dồn số lượng
-            capNhatGioHang(gioHang, sanPham, soLuongThem);
+            int soLuongMoi = cthdTonTai.getSoLuongMua() + soLuongThem;
+
+
+            if (soLuongMoi > sanPham.getSoLuongTon()) {
+                throw new IllegalArgumentException("Số lượng mua vượt quá số lượng tồn kho (" + sanPham.getSoLuongTon() + ")!");
+            }
+
+            cthdTonTai.setSoLuongMua(soLuongMoi);
+            cthdTonTai.setThanhTien(soLuongMoi * sanPham.getGiaBan());
         } else {
-            // Chưa có trong giỏ -> Tạo mới
+
+            if (soLuongThem > sanPham.getSoLuongTon()) {
+                throw new IllegalArgumentException("Số lượng mua vượt quá số lượng tồn kho (" + sanPham.getSoLuongTon() + ")!");
+            }
+
             ChiTietHoaDon_DTO cthdMoi = new ChiTietHoaDon_DTO();
             cthdMoi.setMaSP(sanPham.getMaSP());
             cthdMoi.setSoLuongMua(soLuongThem);
@@ -95,26 +78,32 @@ public class HoaDon_BUS {
         }
     }
 
-    public void capNhatGioHang(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongThayDoi) {
-        if (sanPham == null || gioHang == null || gioHang.isEmpty()) {
-            return;
+    public void capNhatSoLuongMoi(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongMoi) {
+        if (sanPham == null || gioHang == null) return;
+
+
+        if (soLuongMoi > sanPham.getSoLuongTon()) {
+            throw new IllegalArgumentException("Số lượng nhập vào vượt quá tồn kho (" + sanPham.getSoLuongTon() + ")!");
         }
 
         Iterator<ChiTietHoaDon_DTO> iterator = gioHang.iterator();
         while (iterator.hasNext()) {
             ChiTietHoaDon_DTO cthd = iterator.next();
-
             if (cthd.getMaSP().equals(sanPham.getMaSP())) {
-                int soLuongMoi = cthd.getSoLuongMua() + soLuongThayDoi;
-
                 if (soLuongMoi <= 0) {
-                    iterator.remove(); // Xóa an toàn
+                    iterator.remove();
                 } else {
                     cthd.setSoLuongMua(soLuongMoi);
                     cthd.setThanhTien(soLuongMoi * sanPham.getGiaBan());
                 }
                 break;
             }
+        }
+    }
+
+    public void xoaKhoiGioHang(ArrayList<ChiTietHoaDon_DTO> gioHang, String maSP) {
+        if (gioHang != null && maSP != null) {
+            gioHang.removeIf(cthd -> cthd.getMaSP().equals(maSP));
         }
     }
 
@@ -127,9 +116,7 @@ public class HoaDon_BUS {
     }
 
     public ChiTietHoaDon_DTO kiemTra(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham) {
-        if (sanPham == null || gioHang == null) {
-            return null;
-        }
+        if (sanPham == null || gioHang == null) return null;
         for (ChiTietHoaDon_DTO cthd : gioHang) {
             if (cthd.getMaSP().equals(sanPham.getMaSP())) {
                 return cthd;
@@ -138,59 +125,65 @@ public class HoaDon_BUS {
         return null;
     }
 
-
     public ArrayList<HoaDon_DTO> boLocTimKiemHD(String maHD, String maKH, LocalDate ngay1, LocalDate ngay2) {
-        // 1. Khởi tạo danh sách chứa kết quả
         ArrayList<HoaDon_DTO> listKetQua = new ArrayList<>();
-
-        // 2. Lấy toàn bộ danh sách hóa đơn làm dữ liệu gốc
         ArrayList<HoaDon_DTO> danhSachGoc = layTatCaHD();
-        if (danhSachGoc == null || danhSachGoc.isEmpty()) {
-            return listKetQua;
-        }
+        if (danhSachGoc == null || danhSachGoc.isEmpty()) return listKetQua;
 
-        // 3. Duyệt qua từng hóa đơn để lọc
         for (HoaDon_DTO hd : danhSachGoc) {
-            boolean thoaMan = true; // Mặc định hóa đơn là hợp lệ
-
-            // Điều kiện 1: Lọc theo Mã Hóa Đơn
+            boolean thoaMan = true;
             if (maHD != null && !maHD.trim().isEmpty()) {
-                if (hd.getMaHD() == null || !hd.getMaHD().toLowerCase().contains(maHD.toLowerCase())) {
-                    thoaMan = false;
-                }
+                if (hd.getMaHD() == null || !hd.getMaHD().toLowerCase().contains(maHD.toLowerCase())) thoaMan = false;
             }
-
-            // Điều kiện 2: Lọc theo Mã Khách Hàng
             if (thoaMan && maKH != null && !maKH.trim().isEmpty()) {
-                if (hd.getMaKH() == null || !hd.getMaKH().toLowerCase().contains(maKH.toLowerCase())) {
-                    thoaMan = false;
-                }
+                if (hd.getMaKH() == null || !hd.getMaKH().toLowerCase().contains(maKH.toLowerCase())) thoaMan = false;
             }
-
-            // Điều kiện 3: Lọc theo khoảng thời gian (Hỗ trợ 1 ngày hoặc 2 ngày)
             if (thoaMan && (ngay1 != null || ngay2 != null)) {
                 LocalDate ngayLap = hd.getNgayLapHD();
                 if (ngayLap != null) {
-                    // Nếu nhập 'Từ ngày' (ngay1) và ngày lập trước ngày đó -> Loại
-                    if (ngay1 != null && ngayLap.isBefore(ngay1)) {
-                        thoaMan = false;
-                    }
-                    // Nếu nhập 'Đến ngày' (ngay2) và ngày lập sau ngày đó -> Loại
-                    if (ngay2 != null && ngayLap.isAfter(ngay2)) {
-                        thoaMan = false;
-                    }
+                    if (ngay1 != null && ngayLap.isBefore(ngay1)) thoaMan = false;
+                    if (ngay2 != null && ngayLap.isAfter(ngay2)) thoaMan = false;
                 } else {
-                    // Dữ liệu hóa đơn bị lỗi (không có ngày lập) nhưng đang bật bộ lọc ngày -> Loại
                     thoaMan = false;
                 }
             }
-
-            // 4. Nếu vượt qua mọi bộ lọc thì thêm vào danh sách kết quả
-            if (thoaMan) {
-                listKetQua.add(hd);
-            }
+            if (thoaMan) listKetQua.add(hd);
         }
-
         return listKetQua;
+    }
+
+
+
+
+    public boolean thanhToanGiaoDich(HoaDon_DTO hoaDon, KhachHang_DTO kh, ArrayList<ChiTietHoaDon_DTO> dsCTHD, String maNV) {
+        try {
+
+            if (kh != null) {
+                KhachHang_BUS khBus = new KhachHang_BUS();
+                khBus.insertKH(kh);
+                hoaDon.setMaKH(kh.getMaKH());
+            } else {
+                hoaDon.setMaKH("KH000");
+            }
+
+
+            hoaDon.setMaNV(maNV);
+
+
+            insertHD(hoaDon);
+
+
+            ChiTietHoaDon_BUS cthdBus = new ChiTietHoaDon_BUS();
+            cthdBus.capNhatSoLuongTon(dsCTHD);
+            cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
+
+
+
+
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi quá trình thanh toán: " + e.getMessage());
+            return false;
+        }
     }
 }

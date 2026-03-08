@@ -12,7 +12,7 @@ public class ToolBarPanel_GUI extends JToolBar {
         btnSua = new JButton("SỬA");
         btnXoa = new JButton("XÓA");
         btnChiTiet = new JButton("CHI TIẾT");
-        btnLamMoi = new JButton("Làm mới");
+        btnLamMoi = new JButton("LÀM MỚI");
         btnExportExcel = new JButton("XUẤT EXCEL");
         btnExportPDF = new JButton("XUẤT PDF");
         btnThongKe = new JButton("THỐNG KÊ DOANH THU");
@@ -31,13 +31,13 @@ public class ToolBarPanel_GUI extends JToolBar {
         add(btnThem);
         add(btnSua);
         add(btnXoa);
-        addSeparator();
+
         add(btnChiTiet);
         add(btnLamMoi);
-        addSeparator();
+
         add(btnExportExcel);
         add(btnExportPDF);
-        addSeparator();
+
         add(btnXemSPXoa);
         add(btnThongKe);
     }

@@ -2,12 +2,9 @@ package GUI.Inbound_Returns;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.FileChooserUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.rmi.server.ExportException;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,27 +12,28 @@ import java.util.Date;
 import java.util.Locale;
 
 import BUS.PhieuNhap_BUS;
+import BUS.PhieuTra_BUS;
 import DAO.PhieuNhap_DAO;
 import DTO.PhieuNhap_DTO;
+import DTO.PhieuTra_DTO;
 import Utils.EportExcel;
 import com.toedter.calendar.JDateChooser;
 
-public class PhieuNhapGUI extends JPanel {
+public class PhieuTraGUI extends JPanel {
     JPanel topPanel, centerPanel, pTimKiem, pChucNang, pLocNgay, pLocGia;
     JTextField tfTimKiem, tfTuGia, tfDenGia;
-    JButton btnXoa, btnXemCTPN, btnXuatExcel, btnTimKiem, btnLamMoi;
+    JButton btnXoa, btnXemCTPT, btnXuatExcel, btnTimKiem, btnLamMoi;
     JDateChooser dcTuNgay, dcDenNgay;
-    JTable tbPhieuNhap;
-    DefaultTableModel dtmPhieuNhap;
-    JScrollPane spPhieuNhap;
+    JTable tbPhieuTra;
+    DefaultTableModel dtmPhieuTra;
+    JScrollPane spPhieuTra;
 
-    PhieuNhap_BUS pnBUS = new PhieuNhap_BUS();
-    PhieuNhap_DAO pnDAO = new PhieuNhap_DAO();
+    PhieuTra_BUS ptBUS =  new PhieuTra_BUS();
 
     EportExcel ep = new EportExcel();
-    public PhieuNhapGUI() {
+    public PhieuTraGUI() {
         initGUI();
-        loadPhieuNhap();
+        loadPhieuTra();
         addEvents();
     }
 
@@ -65,8 +63,8 @@ public class PhieuNhapGUI extends JPanel {
         btnXoa = new JButton("Xóa");
         pChucNang.add(btnXoa);
 
-        btnXemCTPN = new JButton("Xem Chi Tiết");
-        pChucNang.add(btnXemCTPN);
+        btnXemCTPT = new JButton("Xem Chi Tiết");
+        pChucNang.add(btnXemCTPT);
         btnXuatExcel = new JButton("Xuất Excel");
         pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
@@ -97,24 +95,24 @@ public class PhieuNhapGUI extends JPanel {
         topPanel.add(pTimKiem); topPanel.add(pChucNang); topPanel.add(pLocNgay); topPanel.add(pLocGia);
 
         centerPanel =  new JPanel(new GridLayout(1, 1, 20, 20));
-        String cols[] = {"STT", "Mã Phiếu Nhập", "Nhà cung cấp", "Người tạo", "Thời gian tạo", "Tổng tiền"};
-        dtmPhieuNhap = new DefaultTableModel(cols, 0) {
+        String cols[] = {"STT", "Mã Phiếu Trả", "Nhà cung cấp", "Người tạo", "Lý do", "Thời gian tạo", "Tổng tiền"};
+        dtmPhieuTra = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        tbPhieuNhap = new JTable(dtmPhieuNhap);
-        tbPhieuNhap.setRowHeight(20);
-        tbPhieuNhap.getTableHeader().setReorderingAllowed(false);
-        TableColumn col1 = tbPhieuNhap.getColumnModel().getColumn(0);
+        tbPhieuTra = new JTable(dtmPhieuTra);
+        tbPhieuTra.setRowHeight(20);
+        tbPhieuTra.getTableHeader().setReorderingAllowed(false);
+        TableColumn col1 = tbPhieuTra.getColumnModel().getColumn(0);
         col1.setMaxWidth(50);
 
-        spPhieuNhap = new JScrollPane(tbPhieuNhap);
+        spPhieuTra = new JScrollPane(tbPhieuTra);
         Border line = BorderFactory.createLineBorder(Color.BLACK);
         Border margin = new EmptyBorder(10, 20, 10, 20);
-        spPhieuNhap.setBorder(new CompoundBorder(line, margin));
-        centerPanel.add(spPhieuNhap);
+        spPhieuTra.setBorder(new CompoundBorder(line, margin));
+        centerPanel.add(spPhieuTra);
 
         add(topPanel, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
@@ -128,40 +126,40 @@ public class PhieuNhapGUI extends JPanel {
         return label;
     }
 
-    public void loadPhieuNhap() {
-        ArrayList<PhieuNhap_DTO> listPN = pnBUS.getAllPhieuNhap();
+    public void loadPhieuTra() {
+        ArrayList<PhieuTra_DTO> listPT = ptBUS.getAllPhieuTra();
         int stt = 1;
-        dtmPhieuNhap.setRowCount(0);
+        dtmPhieuTra.setRowCount(0);
 
         NumberFormat nf =  NumberFormat.getInstance(new Locale("vi", "VN"));
-        for(PhieuNhap_DTO pn : listPN) {
-            String tenNCC = pnDAO.getTenNCCByMaPN(pn.getMaPhieuNhap());
-            String tongTienFormatted = nf.format(pn.getTongTien());
-            dtmPhieuNhap.addRow(new Object[]{
+        for(PhieuTra_DTO pt : listPT) {
+            String tenNCC = ptBUS.getTenNCCByMaPT(pt.getMaPhieuTra());
+            String tongTienFormatted = nf.format(pt.getTongTra());
+            dtmPhieuTra.addRow(new Object[]{
                     stt++,
-                    pn.getMaPhieuNhap(),
+                    pt.getMaPhieuTra(),
                     tenNCC,
                     "admin",
-                    pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    pt.getLyDo(),
+                    pt.getNgayTra().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });
         }
     }
 
-    public void loadPhieuNhap(ArrayList<PhieuNhap_DTO> listPN) {
+    public void loadPhieuTra(ArrayList<PhieuTra_DTO> listPT) {
         int stt = 1;
-        dtmPhieuNhap.setRowCount(0);
+        dtmPhieuTra.setRowCount(0);
         NumberFormat nf =  NumberFormat.getInstance(new Locale("vi", "VN"));
-        for(PhieuNhap_DTO pn : listPN) {
-            String tenNCC = pnDAO.getTenNCCByMaPN(pn.getMaPhieuNhap());
-            String tongTienFormatted = nf.format(pn.getTongTien());
-
-            dtmPhieuNhap.addRow(new Object[]{
+        for(PhieuTra_DTO pt : listPT) {
+            String tenNCC = ptBUS.getTenNCCByMaPT(pt.getMaPhieuTra());
+            String tongTienFormatted = nf.format(pt.getTongTra());
+            dtmPhieuTra.addRow(new Object[]{
                     stt++,
-                    pn.getMaPhieuNhap(),
+                    pt.getMaPhieuTra(),
                     tenNCC,
                     "admin",
-                    pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    pt.getNgayTra(),
                     tongTienFormatted
             });
         }
@@ -175,15 +173,13 @@ public class PhieuNhapGUI extends JPanel {
         String giaTuStr = tfTuGia.getText().trim();
         String giaDenStr = tfDenGia.getText().trim();
 
-        ArrayList<PhieuNhap_DTO> list = pnBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTuStr, giaDenStr);
+        ArrayList<PhieuTra_DTO> list = ptBUS.timKiemNangCao(keyword, tuNgay, denNgay, giaTuStr, giaDenStr);
 
-        loadPhieuNhap(list);
+        loadPhieuTra(list);
     }
 
     public void addEvents() {
-        btnTimKiem.addActionListener(e -> {
-            btnTimKiemActionPerformed(e);
-        });
+        btnTimKiem.addActionListener(this::btnTimKiemActionPerformed);
 
         btnLamMoi.addActionListener(e -> {
             tfTimKiem.setText("");
@@ -192,40 +188,40 @@ public class PhieuNhapGUI extends JPanel {
             dcDenNgay.setDate(null);
             tfTuGia.setText("");
             tfDenGia.setText("");
-            loadPhieuNhap();
+            loadPhieuTra();
         });
 
         btnXoa.addActionListener(e -> {
-            int selectedRow = tbPhieuNhap.getSelectedRow();
+            int selectedRow = tbPhieuTra.getSelectedRow();
             if(selectedRow == -1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu nhập cần xóa");
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu trả cần xóa");
                 return;
             }
-            String maPN = tbPhieuNhap.getValueAt(selectedRow, 1).toString();
+            String maPN = tbPhieuTra.getValueAt(selectedRow, 1).toString();
             int confirm = JOptionPane.showConfirmDialog(
                     this,
-                    "Bạn có muốn xóa phiếu nhập " + maPN,
+                    "Bạn có muốn xóa phiếu trả " + maPN,
                     "Xác nhận xóa",
                     JOptionPane.YES_NO_OPTION
             );
             if(confirm == JOptionPane.YES_OPTION) {
-                if(pnBUS.deletePhieuNhap(maPN)) {
+                if(ptBUS.deletePhieuTra(maPN)) {
                     JOptionPane.showMessageDialog(this, "Đã xóa thành công!");
-                    loadPhieuNhap();
+                    loadPhieuTra();
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công");
                 }
             }
         });
 
-        btnXemCTPN.addActionListener(e -> {
-            int selectedRow = tbPhieuNhap.getSelectedRow();
+        btnXemCTPT.addActionListener(e -> {
+            int selectedRow = tbPhieuTra.getSelectedRow();
             if(selectedRow == -1) {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu nhập");
                 return;
             }
-            String maPN = tbPhieuNhap.getValueAt(selectedRow, 1).toString();
-            new ChiTietPhieuNhapGUI(maPN).setVisible(true);
+            String maPT = tbPhieuTra.getValueAt(selectedRow, 1).toString();
+            new ChiTietPhieuTraGUI(maPT).setVisible(true);
         });
 
         btnXuatExcel.addActionListener(e -> {
@@ -241,13 +237,9 @@ public class PhieuNhapGUI extends JPanel {
                     filePath += ".xlsx";
                 }
 
-                ep.exportTablePNToExcel(tbPhieuNhap, filePath);
+                ep.exportTablePNToExcel(tbPhieuTra, filePath);
             }
         });
 
-    }
-
-    public static void main(String[] args) {
-        new PhieuNhapGUI();
     }
 }

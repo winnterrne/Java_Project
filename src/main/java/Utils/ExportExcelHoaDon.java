@@ -19,7 +19,7 @@ public class ExportExcelHoaDon {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("DanhSachHoaDon");
 
-        // 1. Tạo Header
+
         Row headerRow = sheet.createRow(0);
         CellStyle headerStyle = workbook.createCellStyle();
         Font font = workbook.createFont();
@@ -32,7 +32,7 @@ public class ExportExcelHoaDon {
             cell.setCellStyle(headerStyle);
         }
 
-        // 2. Đổ dữ liệu từ JTable
+
         for (int i = 0; i < table.getRowCount(); i++) {
             Row row = sheet.createRow(i + 1);
             for (int j = 0; j < table.getColumnCount(); j++) {
@@ -40,10 +40,10 @@ public class ExportExcelHoaDon {
                 Cell cell = row.createCell(j);
 
                 if (value != null) {
-                    // Cột chỉ số 4 là "Tổng Tiền (VNĐ)"
+
                     if (j == 4) {
                         try {
-                            // Chuyển đổi định dạng tiền VN (ví dụ "150,000.0") về Double để Excel hiểu là số
+
                             NumberFormat nf = NumberFormat.getInstance();
                             String numberStr = value.toString().replace(" VNĐ", "").trim();
                             Number number = nf.parse(numberStr);
@@ -58,12 +58,12 @@ public class ExportExcelHoaDon {
             }
         }
 
-        // 3. Tự động chỉnh độ rộng cột
+
         for (int i = 0; i < table.getColumnCount(); i++) {
             sheet.autoSizeColumn(i);
         }
 
-        // 4. Lưu file và mở file
+
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
             JOptionPane.showMessageDialog(null, "Xuất Excel Hóa đơn thành công!");

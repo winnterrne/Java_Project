@@ -6,14 +6,43 @@
   <component name="ChangeListManager">
     <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/DanhMuc_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/DanhMuc_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/HoaDon_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/NhaCungCap_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/NhaCungCap_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/PhieuNhap_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/PhieuNhap_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/PhieuTra_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/PhieuTra_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/SanPham_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BUS/TaiKhoan_BUS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BUS/TaiKhoan_BUS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/ChiTietHoaDon_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/HoaDon_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/KhachHang_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/NhaCungCap_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/NhaCungCap_DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/PhieuNhap_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/PhieuNhap_DAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DTO/TaiKhoan_DTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DTO/TaiKhoan_DTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/TaiKhoan_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/TaiKhoan_DAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Account/ForgotPass_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Account/ForgotPass_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Account/TaiKhoan_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Account/TaiKhoan_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminContentPanel_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Account/ThemTaiKhoan_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Account/ThemTaiKhoan_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/AdminMenuPanel_GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/LoginForm_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Admin/PanelTrong.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Admin/PanelTrong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/NhapHangGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/NhapHangGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/PhieuNhapGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/PhieuNhapGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/PhieuTraGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/PhieuTraGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/ThemNhaCungCapGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/ThemNhaCungCapGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/TraHangGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/TraHangGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/BanHang_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Account/ForgotPass_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Account/ForgotPass_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/DanhMuc_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/DanhMuc_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/HoaDon_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThanhToanGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThemSP_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThemSP_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ToolBarPanel_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ToolBarPanel_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/ExportExcelHoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/ExportExcelHoaDon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/ExportHoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/ExportHoaDon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/GeneratingID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/GeneratingID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/pdf/HoaDon_HD03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GUI/Product/ToolBarPanel_GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GUI/Product/ToolBarPanel_GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pdf/HoaDon_HD03.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

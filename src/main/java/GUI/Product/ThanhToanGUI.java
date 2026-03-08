@@ -1,8 +1,6 @@
 package GUI.Product;
 
-import BUS.ChiTietHoaDon_BUS;
 import BUS.HoaDon_BUS;
-import BUS.KhachHang_BUS;
 import BUS.SanPham_BUS;
 import DTO.*;
 
@@ -19,42 +17,31 @@ import java.util.Vector;
 
 public class ThanhToanGUI extends JPanel {
 
-    // =========================================================
-    // 1. KHAI BÁO BIẾN TOÀN CỤC
-    // =========================================================
     private JLabel lblTenKH, lblSdt, lblDiaChi, lblMaHoaDon, lblTongTienHang, lblKhuyenMai, lblPhaiTra, lblNgayLapHD;
     private JTable tblSanPham;
     private DefaultTableModel modelSanPham;
     private JScrollPane scrollTable;
 
-    private KhachHang_BUS khBus = new KhachHang_BUS();
     private KhachHang_DTO kh;
     private HoaDon_DTO hoaDon;
     private HoaDon_BUS hoaDonBus = new HoaDon_BUS();
     private SanPham_BUS spBus = new SanPham_BUS();
     private BanHang_GUI main;
-    private ChiTietHoaDon_BUS cthdBus = new ChiTietHoaDon_BUS();
 
     ArrayList<ChiTietHoaDon_DTO> dsCTHD;
 
-    // Các biến phục vụ tính toán
     private double tongTienHangVal = 0, phaiTraVal = 0, khuyenMaiVal = 0;
     private Vector<String> columnsName = new Vector<>(Arrays.asList("STT", "Tên SP", "Số lượng", "Đơn giá", "Thành tiền"));
 
-    // =========================================================
-    // 2. CONSTRUCTOR: CHỈ XÂY DỰNG KHUNG GIAO DIỆN RỖNG
-    // =========================================================
     public ThanhToanGUI(BanHang_GUI mainPanel) {
         this.main = mainPanel;
         setLayout(new BorderLayout(10, 10));
 
-        // --- Khởi tạo Font và Màu sắc ---
         Font fontValue = new Font("Arial", Font.BOLD, 18);
         Font fontLabel = new Font("Arial", Font.BOLD, 15);
         Color colorText = new Color(0, 51, 102);
         Color colorDiscount = new Color(0, 153, 51);
 
-        // --- Khởi tạo các Label với giá trị mặc định ---
         lblTenKH = new JLabel("---"); lblTenKH.setFont(fontValue); lblTenKH.setForeground(colorText);
         lblSdt = new JLabel("---"); lblSdt.setFont(fontValue); lblSdt.setForeground(colorText);
         lblDiaChi = new JLabel("---"); lblDiaChi.setFont(fontValue); lblDiaChi.setForeground(colorText);
@@ -65,25 +52,18 @@ public class ThanhToanGUI extends JPanel {
         lblKhuyenMai = new JLabel("0 đ"); lblKhuyenMai.setFont(fontValue); lblKhuyenMai.setForeground(colorDiscount);
         lblPhaiTra = new JLabel("0 đ"); lblPhaiTra.setFont(new Font("Arial", Font.BOLD, 22)); lblPhaiTra.setForeground(Color.RED);
 
-        // --- Khởi tạo Model và Bảng (rỗng) ---
         modelSanPham = new DefaultTableModel(new Vector<>(), columnsName) {
             @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            public boolean isCellEditable(int row, int column) { return false; }
         };
         tblSanPham = new JTable(modelSanPham);
         tblSanPham.getTableHeader().setReorderingAllowed(false);
         tblSanPham.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
-
         scrollTable = new JScrollPane(tblSanPham);
 
-        // Gọi hàm căn chỉnh cột và kích thước cơ bản
         canChinhDoRongCot();
         capNhatKichThuocBang(tblSanPham);
 
-        // --- Sắp xếp bố cục ---
-        // [PANEL TOP]: Thông tin Khách hàng & Hóa đơn
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         topPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 5, 15));
@@ -96,18 +76,15 @@ public class ThanhToanGUI extends JPanel {
 
         JPanel pnlHoaDon = new JPanel(new BorderLayout(5, 5));
         pnlHoaDon.setBorder(BorderFactory.createTitledBorder("Thông tin hóa đơn"));
-
         JPanel pnlMaHD = new JPanel();
         pnlMaHD.setLayout(new BoxLayout(pnlMaHD, BoxLayout.Y_AXIS));
 
         JPanel pnlDong1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         pnlDong1.add(new JLabel("Mã hóa đơn:") {{ setFont(fontLabel); }}); pnlDong1.add(lblMaHoaDon);
-
         JPanel pnlDong2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         pnlDong2.add(new JLabel("Ngày lập:") {{ setFont(fontLabel); }}); pnlDong2.add(lblNgayLapHD);
 
         pnlMaHD.add(pnlDong1); pnlMaHD.add(pnlDong2);
-
         pnlHoaDon.add(pnlMaHD, BorderLayout.NORTH);
         pnlHoaDon.add(scrollTable, BorderLayout.CENTER);
 
@@ -124,7 +101,6 @@ public class ThanhToanGUI extends JPanel {
         topPanel.add(pnlHoaDon);
         add(topPanel, BorderLayout.NORTH);
 
-        // [PANEL CENTER]: Các nút thanh toán
         JPanel pnlPhuongThuc = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         pnlPhuongThuc.setBorder(BorderFactory.createTitledBorder("Chọn phương thức thanh toán"));
 
@@ -156,7 +132,6 @@ public class ThanhToanGUI extends JPanel {
         pnlPhuongThuc.add(btnChuyenKhoan);
         add(pnlPhuongThuc, BorderLayout.CENTER);
 
-        // [PANEL BOTTOM]: Nút Hủy bỏ
         JPanel pnlHuy = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton btnHuy = new JButton("Hủy bỏ thanh toán");
         btnHuy.setContentAreaFilled(false);
@@ -164,23 +139,18 @@ public class ThanhToanGUI extends JPanel {
         btnHuy.setFont(new Font("Arial", Font.BOLD, 14));
         btnHuy.setForeground(Color.GRAY);
         btnHuy.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        btnHuy.addActionListener(e -> {
-            main.chuyenManHinh("ManHinhBanHang");
-        });
+        btnHuy.addActionListener(e -> main.chuyenManHinh("ManHinhBanHang"));
 
         pnlHuy.add(btnHuy);
         add(pnlHuy, BorderLayout.SOUTH);
+
+
     }
 
-    // =========================================================
-    // 3. HÀM CẬP NHẬT: NHẬN DỮ LIỆU VÀ ĐỔ VÀO GIAO DIỆN
-    // =========================================================
     public void capNhatThongTin(KhachHang_DTO khachHang, ArrayList<ChiTietHoaDon_DTO> gioHang) {
         this.kh = khachHang;
         dsCTHD = new ArrayList<>(gioHang);
 
-        // --- Cập nhật Thông tin khách hàng ---
         String ten = (kh != null && kh.getHoTenKH() != null && !kh.getHoTenKH().isEmpty()) ? kh.getHoTenKH() : "Khách lẻ";
         String sdt = (kh != null && kh.getSoDT() != null && !kh.getSoDT().isEmpty()) ? kh.getSoDT() : "Không có";
         String diaChi = (kh != null && kh.getDiaChi() != null && !kh.getDiaChi().isEmpty()) ? kh.getDiaChi() : "Không có";
@@ -189,14 +159,12 @@ public class ThanhToanGUI extends JPanel {
         lblSdt.setText(sdt);
         lblDiaChi.setText(diaChi);
 
-        // --- Tạo Hóa Đơn và cập nhật Label ---
         hoaDon = hoaDonBus.taoHoaDon();
         lblMaHoaDon.setText(hoaDon.getMaHD());
         LocalDate ngayLapHD = LocalDate.now();
         hoaDon.setNgayLapHD(ngayLapHD);
         lblNgayLapHD.setText(ngayLapHD.toString());
 
-        // --- Đổ dữ liệu vào bảng và tính tổng tiền ---
         modelSanPham.setRowCount(0);
         tongTienHangVal = 0;
 
@@ -215,7 +183,6 @@ public class ThanhToanGUI extends JPanel {
             }
         }
 
-        // --- Tính toán lần cuối và hiển thị ---
         khuyenMaiVal = 0;
         phaiTraVal = tongTienHangVal - khuyenMaiVal;
         hoaDon.setTongTien(phaiTraVal);
@@ -224,13 +191,9 @@ public class ThanhToanGUI extends JPanel {
         lblKhuyenMai.setText(String.format("%,.0f đ", khuyenMaiVal));
         lblPhaiTra.setText(String.format("%,.0f đ", phaiTraVal));
 
-        // Tự động điều chỉnh chiều cao bảng sau khi có dữ liệu
         capNhatKichThuocBang(tblSanPham);
     }
 
-    // =========================================================
-    // 4. HÀM CĂN CHỈNH CHI TIẾT CỘT TRONG BẢNG
-    // =========================================================
     public void canChinhDoRongCot() {
         if (tblSanPham.getColumnModel().getColumnCount() == 5) {
             tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -240,34 +203,24 @@ public class ThanhToanGUI extends JPanel {
             tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(100);
             tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(100);
 
-            // Căn lề phải (Right-align) cho tiền tệ và số lượng
             DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
             rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
             tblSanPham.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
             tblSanPham.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
             tblSanPham.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
 
-            // Căn giữa cho STT
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
             tblSanPham.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         }
     }
 
-    // =========================================================
-    // 5. HÀM ĐIỀU CHỈNH CHIỀU CAO BẢNG TỰ ĐỘNG
-    // =========================================================
     public void capNhatKichThuocBang(JTable table) {
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
-
         int headerHeight = table.getTableHeader().getPreferredSize().height;
         int rowCount = table.getRowCount();
-
-        // Chiều cao vừa đủ = Header + số dòng (mặc định cho 2 dòng nếu rỗng)
         int estimatedHeight = headerHeight + (rowCount == 0 ? (rowHeight * 2) : (rowHeight * rowCount));
-
-        // Chiều cao tối đa 250px để không bị đẩy tràn giao diện
         int maxHeight = 250;
         int finalHeight = Math.min(estimatedHeight, maxHeight);
 
@@ -279,9 +232,22 @@ public class ThanhToanGUI extends JPanel {
         }
     }
 
-    // =========================================================
-    // 6. DIALOG THANH TOÁN TIỀN MẶT
-    // =========================================================
+
+    private void hoanTatThanhToan(JDialog dialog) {
+
+
+        boolean thanhCong = hoaDonBus.thanhToanGiaoDich(hoaDon, kh, dsCTHD, "NV01");
+
+        if (thanhCong) {
+            JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dialog.dispose();
+            resetDuLieu();
+            main.chuyenManHinh("ManHinhBanHang");
+        } else {
+            JOptionPane.showMessageDialog(dialog, "Đã xảy ra lỗi khi lưu hóa đơn!", "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void hienThiDialogTienMat() {
         Window parentWindow = SwingUtilities.getWindowAncestor(this);
         JDialog dialog = new JDialog(parentWindow, "Thanh toán Tiền mặt", Dialog.ModalityType.APPLICATION_MODAL);
@@ -291,16 +257,12 @@ public class ThanhToanGUI extends JPanel {
 
         JPanel pnlCenter = new JPanel(new GridLayout(3, 2, 10, 20));
         pnlCenter.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
         Font font16 = new Font("Arial", Font.BOLD, 16);
 
         pnlCenter.add(new JLabel("Khách cần trả:") {{ setFont(font16); }});
-        pnlCenter.add(new JLabel(String.format("%,.0f đ", phaiTraVal)) {{
-            setFont(new Font("Arial", Font.BOLD, 18));
-            setForeground(Color.RED);
-        }});
-
+        pnlCenter.add(new JLabel(String.format("%,.0f đ", phaiTraVal)) {{ setFont(new Font("Arial", Font.BOLD, 18)); setForeground(Color.RED); }});
         pnlCenter.add(new JLabel("Tiền khách đưa:") {{ setFont(font16); }});
+
         JTextField txtTienKhachDua = new JTextField();
         txtTienKhachDua.setFont(font16);
         pnlCenter.add(txtTienKhachDua);
@@ -311,7 +273,6 @@ public class ThanhToanGUI extends JPanel {
         lblTienThua.setForeground(new Color(0, 153, 51));
         pnlCenter.add(lblTienThua);
 
-        // Tự động tính tiền thừa khi gõ
         txtTienKhachDua.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent evt) {
@@ -355,40 +316,18 @@ public class ThanhToanGUI extends JPanel {
                     return;
                 }
 
-                // TODO: Gọi hàm lưu CSDL
-                // hoaDonBus.luuHoaDon(hoaDon, gioHang);
 
-
-                if (kh != null) {
-                    khBus.insertKH(kh);
-                    hoaDon.setMaKH(kh.getMaKH());
-                }
-                else {
-                    hoaDon.setMaKH("KH000");
-                }
-                hoaDon.setMaNV("NV01");
-                hoaDonBus.insertHD(hoaDon);
-                cthdBus.capNhatSoLuongTon(dsCTHD);
-                cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
-                JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
-                dialog.dispose();
-                resetDuLieu();
-                // Reset/Chuyển màn hình
-                 main.chuyenManHinh("ManHinhBanHang");
-
+                hoanTatThanhToan(dialog);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(dialog, "Vui lòng nhập số tiền hợp lệ!");
             }
         });
-
+        txtTienKhachDua.addActionListener(e -> btnXacNhan.doClick());
         dialog.add(pnlCenter, BorderLayout.CENTER);
         dialog.add(btnXacNhan, BorderLayout.SOUTH);
         dialog.setVisible(true);
     }
 
-    // =========================================================
-    // 7. DIALOG THANH TOÁN CHUYỂN KHOẢN (QR TĨNH)
-    // =========================================================
     private void hienThiDialogChuyenKhoan() {
         Window parentWindow = SwingUtilities.getWindowAncestor(this);
         JDialog dialog = new JDialog(parentWindow, "Thanh toán Chuyển khoản", Dialog.ModalityType.APPLICATION_MODAL);
@@ -398,20 +337,12 @@ public class ThanhToanGUI extends JPanel {
 
         JPanel pnlInfo = new JPanel(new GridLayout(3, 1, 5, 5));
         pnlInfo.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
-
-        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 123456789 (fake)", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
-        pnlInfo.add(new JLabel("Số tiền cần chuyển: " + String.format("%,.0f đ", phaiTraVal), SwingConstants.CENTER) {{
-            setForeground(Color.RED);
-            setFont(new Font("Arial", Font.BOLD, 18));
-        }});
-        pnlInfo.add(new JLabel("Nội dung: " + lblMaHoaDon.getText(), SwingConstants.CENTER) {{
-            setFont(new Font("Arial", Font.BOLD, 16));
-            setForeground(Color.BLUE);
-        }});
+        pnlInfo.add(new JLabel("Ngân hàng: MB Bank - STK: 123456789", SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 15)); }});
+        pnlInfo.add(new JLabel("Số tiền cần chuyển: " + String.format("%,.0f đ", phaiTraVal), SwingConstants.CENTER) {{ setForeground(Color.RED); setFont(new Font("Arial", Font.BOLD, 18)); }});
+        pnlInfo.add(new JLabel("Nội dung: " + lblMaHoaDon.getText(), SwingConstants.CENTER) {{ setFont(new Font("Arial", Font.BOLD, 16)); setForeground(Color.BLUE); }});
 
         JLabel lblQR = new JLabel("Đang tải ảnh QR...", SwingConstants.CENTER);
         try {
-            // Thay đổi đường dẫn ảnh cho phù hợp với dự án của bạn
             java.net.URL imgUrl = getClass().getResource("/Image/qrcode_317985092_38f020b86f99a92aa2555bd8345cd937.png");
             if (imgUrl != null) {
                 ImageIcon qrIcon = new ImageIcon(imgUrl);
@@ -419,7 +350,7 @@ public class ThanhToanGUI extends JPanel {
                 lblQR.setIcon(new ImageIcon(img));
                 lblQR.setText("");
             } else {
-                lblQR.setText("Không tìm thấy ảnh QR (src/img/qr_bank.png)");
+                lblQR.setText("Không tìm thấy ảnh QR");
             }
         } catch (Exception ex) {
             lblQR.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -433,22 +364,8 @@ public class ThanhToanGUI extends JPanel {
         btnXacNhan.setFont(new Font("Arial", Font.BOLD, 16));
 
         btnXacNhan.addActionListener(event -> {
-            //TODO: Gọi hàm lưu CSDL
-            if (kh != null) {
-                khBus.insertKH(kh);
-                hoaDon.setMaKH(kh.getMaKH());
-            }
-            else {
-                hoaDon.setMaKH("KH000");
-            }
-            hoaDon.setMaNV("NV01");
-            hoaDonBus.insertHD(hoaDon);
-            cthdBus.capNhatSoLuongTon(dsCTHD);
-            cthdBus.insertChiTietHoaDon(dsCTHD, hoaDon.getMaHD());
-            JOptionPane.showMessageDialog(dialog, "Thanh toán thành công!");
-            dialog.dispose();
-            resetDuLieu();
-             main.chuyenManHinh("ManHinhBanHang");
+
+            hoanTatThanhToan(dialog);
         });
 
         dialog.add(pnlInfo, BorderLayout.NORTH);
@@ -457,32 +374,17 @@ public class ThanhToanGUI extends JPanel {
         dialog.setVisible(true);
     }
 
-
-    // =========================================================
-    // 8. HÀM RESET DỮ LIỆU SAU KHI THANH TOÁN
-    // =========================================================
     public void resetDuLieu() {
-        // 1. Reset các biến lưu trữ
         kh = null;
         hoaDon = null;
-        if (dsCTHD != null) {
-            dsCTHD.clear();
-        }
+        if (dsCTHD != null) dsCTHD.clear();
         tongTienHangVal = 0;
         phaiTraVal = 0;
         khuyenMaiVal = 0;
 
-        // 2. Reset các Label hiển thị trên giao diện về trạng thái rỗng
-        lblTenKH.setText("---");
-        lblSdt.setText("---");
-        lblDiaChi.setText("---");
-        lblMaHoaDon.setText("---");
-        lblNgayLapHD.setText("---");
-        lblTongTienHang.setText("0 đ");
-        lblKhuyenMai.setText("0 đ");
-        lblPhaiTra.setText("0 đ");
-
-        // 3. Xóa sạch dữ liệu trên bảng Sản phẩm
+        lblTenKH.setText("---"); lblSdt.setText("---"); lblDiaChi.setText("---");
+        lblMaHoaDon.setText("---"); lblNgayLapHD.setText("---");
+        lblTongTienHang.setText("0 đ"); lblKhuyenMai.setText("0 đ"); lblPhaiTra.setText("0 đ");
         modelSanPham.setRowCount(0);
     }
 }

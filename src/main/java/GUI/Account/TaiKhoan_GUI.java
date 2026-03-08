@@ -1,6 +1,5 @@
 package GUI.Account;
 import BUS.TaiKhoan_BUS;
-import DAO.TaiKhoan_DAO;
 import DTO.TaiKhoan_DTO;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -115,10 +113,6 @@ public class TaiKhoan_GUI extends JPanel {
         return button;
     }
 
-    public JLabel createLabel(String text) {
-        JLabel label = new JLabel(text);
-        return label;
-    }
     public void loadTable() {
         dtmTaiKhoan.setRowCount(0);
         ArrayList<TaiKhoan_DTO> list = tkbus.getToShowTable();

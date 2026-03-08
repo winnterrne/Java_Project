@@ -69,9 +69,6 @@ public class AdminMenuPanel_GUI extends JPanel {
         add(btnQuanLyTK);
         add(Box.createVerticalStrut(10));
 
-        btnTKBC = createMenuButton("Thống kê và báo cáo",AdminContentPanel_GUI.CARD_THONG_KE);
-        add(btnTKBC);
-        add(Box.createVerticalStrut(10));
 
         applyPermission();
     }
