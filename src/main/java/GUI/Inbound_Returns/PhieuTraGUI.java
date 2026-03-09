@@ -11,12 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import BUS.PhieuNhap_BUS;
 import BUS.PhieuTra_BUS;
-import DAO.PhieuNhap_DAO;
-import DTO.PhieuNhap_DTO;
 import DTO.PhieuTra_DTO;
-import Utils.EportExcel;
+import Utils.ExportExcel;
 import com.toedter.calendar.JDateChooser;
 
 public class PhieuTraGUI extends JPanel {
@@ -30,7 +27,7 @@ public class PhieuTraGUI extends JPanel {
 
     PhieuTra_BUS ptBUS =  new PhieuTra_BUS();
 
-    EportExcel ep = new EportExcel();
+    ExportExcel ep = new ExportExcel();
     public PhieuTraGUI() {
         initGUI();
         loadPhieuTra();

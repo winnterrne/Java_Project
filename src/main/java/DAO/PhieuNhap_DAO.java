@@ -144,21 +144,21 @@ public class PhieuNhap_DAO {
 
             ArrayList<Object> danhSachThamSo = new ArrayList<>();
 
-            // Tìm theo mã
+            
             if (!keyword.trim().isEmpty()) {
                 sql += " AND (pn.maPhieuNhap LIKE ? or ncc.tenNCC LIKE ?)";
                 danhSachThamSo.add("%" + keyword + "%");
                 danhSachThamSo.add("%" + keyword + "%");
             }
 
-            // Lọc ngày
+            
             if (tuNgay != null && denNgay != null) {
                 sql += " AND ngayNhapHang BETWEEN ? AND ?";
                 danhSachThamSo.add(new Date(tuNgay.getTime()));
                 danhSachThamSo.add(new Date(denNgay.getTime()));
             }
 
-            // Lọc giá
+            
             if (giaTu != null && giaDen != null) {
                 sql += " AND tongTien BETWEEN ? AND ?";
                 danhSachThamSo.add(giaTu);
@@ -167,7 +167,7 @@ public class PhieuNhap_DAO {
 
             PreparedStatement ps = con.prepareStatement(sql);
 
-            // Gán tham số
+            
             for (int i = 0; i < danhSachThamSo.size(); i++) {
                 ps.setObject(i + 1, danhSachThamSo.get(i));
             }

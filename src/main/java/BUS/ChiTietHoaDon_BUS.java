@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ChiTietHoaDon_BUS{
     private ChiTietHoaDon_DAO chiTietHoaDon = new ChiTietHoaDon_DAO();
-
+    SanPham_BUS spBus =  new SanPham_BUS();
     public ChiTietHoaDon_BUS() {
 
     }
@@ -28,11 +28,11 @@ public class ChiTietHoaDon_BUS{
     }
 
     public void capNhatSoLuongTon(ArrayList<ChiTietHoaDon_DTO> dsSanPham) {
-        SanPham_BUS spBus =  new SanPham_BUS();
         for (ChiTietHoaDon_DTO d : dsSanPham) {
             SanPham_DTO sp = spBus.getSanPhamByMaSP(d.getMaSP());
             int i = sp.getSoLuongTon();
             sp.setSoLuongTon(i - d.getSoLuongMua());
+            spBus.updateSanPham(sp);
         }
     }
 }

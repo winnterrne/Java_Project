@@ -28,13 +28,13 @@ public class SuaPhieuNhapGUI extends JFrame {
     DefaultTableModel modelSanPham, modelChiTiet;
     JScrollPane spSanPham, spChiTiet;
 
-    //left Panel
+    
     JTextField tfTimKiem, tfSoLuong;
     JButton btnTimKiem, btnLamMoi;
     JLabel lSoLuong;
     JButton btnThem;
 
-    //right Panel
+    
     JLabel lMaPN, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfMaPN, tfNguoiTaoPhieu;
     JComboBox cbNhaCC;
@@ -97,6 +97,7 @@ public class SuaPhieuNhapGUI extends JFrame {
         lgbc.gridx = 0;
         lgbc.gridy = 1;
         lgbc.gridwidth = 1;
+        lgbc.weighty = 1.0;
         lgbc.insets = new Insets(5, 5, 5, 5);
         String spCol[] = {"Mã SP", "Tên SP", "Đơn giá", "Số lượng"};
         modelSanPham = new DefaultTableModel(spCol, 0) {
@@ -134,6 +135,7 @@ public class SuaPhieuNhapGUI extends JFrame {
 
         lgbc.gridx = 0;
         lgbc.gridy = 2;
+        lgbc.weighty = 0;
         lPanel.add(lbPanel, lgbc);
 
 
@@ -181,8 +183,8 @@ public class SuaPhieuNhapGUI extends JFrame {
         rgbc.gridy = 3;
         rgbc.insets = new Insets(5, 5, 5, 5);
         rgbc.gridwidth = 2;
-
-        //Table Chi tiết phiếu nhập
+        rgbc.weighty = 1.0;
+        
         String chiTietCol[] = {"STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá"};
         modelChiTiet = new DefaultTableModel(chiTietCol, 0) {
             @Override
@@ -239,6 +241,7 @@ public class SuaPhieuNhapGUI extends JFrame {
 
         rgbc.gridx = 0;
         rgbc.gridy = 4;
+        rgbc.weighty = 0;
         rPanel.add(rbPanel, rgbc);
 
 
@@ -440,7 +443,7 @@ public class SuaPhieuNhapGUI extends JFrame {
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
-                boolean result = pnBUS.suaPhieuNhap(pn, listCT);
+                boolean result = pnBUS.taoPhieuNhapVaChiTiet(pn, listCT);
                 if(result) {
                     JOptionPane.showMessageDialog(this, "Nhập hàng thành công");
                 } else {

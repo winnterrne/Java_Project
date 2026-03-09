@@ -1,5 +1,7 @@
 package Utils;
 
+import BUS.SanPham_BUS;
+import DTO.SanPham_DTO;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -9,13 +11,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Locale;
 
-public class EportExcel {
+public class ExportExcel {
+    SanPham_BUS spBUS = new SanPham_BUS();
     public static void exportTablePNToExcel(JTable table, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("DanhSachPhieuNhap");
@@ -111,6 +116,5 @@ public class EportExcel {
                 e.printStackTrace();
             }
         }
-
     }
 }

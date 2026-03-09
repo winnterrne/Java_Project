@@ -6,7 +6,7 @@ import java.awt.*;
 public class PanelTrong extends JPanel {
     public PanelTrong() {
         JLabel lbTen;
-        lbTen = new JLabel("Xin Chao Admin");
+        lbTen = new JLabel("Xin Chào Admin");
         lbTen.setFont(new Font("Arial",Font.BOLD,40));
     }
 }

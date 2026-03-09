@@ -16,7 +16,7 @@ public class LoginForm_GUI extends JFrame{
         intGui();
     }
     public void intGui() {
-        setTitle("Dang Nhap");
+        setTitle("Đăng Nhập");
         setSize(1000,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,8 +27,8 @@ public class LoginForm_GUI extends JFrame{
         panelForm.setLayout(new BoxLayout(panelForm,BoxLayout.Y_AXIS));
         panelForm.add(Box.createVerticalStrut(80));
 
-        // SIGN IN / LOGIN
-        lbtitle = new JLabel("Welcom to my shop");
+
+        lbtitle = new JLabel("Welcome to my shop");
         lbtitle.setFont(new Font("Arial",Font.BOLD,36));
         lbtitle.setForeground(new Color(0,102,204));
         lbtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -44,6 +44,7 @@ public class LoginForm_GUI extends JFrame{
         panelForm.add(Box.createVerticalStrut(8));
 
         btnForgotPass = new JButton("Forgot password ?");
+        btnForgotPass.setBorder(BorderFactory.createEmptyBorder());
         btnForgotPass.setMaximumSize(new Dimension(160, 30));
         btnForgotPass.setForeground(new Color(0,102,204));
         btnForgotPass.setFont(new Font("Arial",Font.PLAIN,13));
@@ -73,7 +74,7 @@ public class LoginForm_GUI extends JFrame{
         btnSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelForm.add(btnSignUp);
 
-        // IMAGE
+
         panelImage = new JPanel(new BorderLayout());
         panelImage.setBackground(Color.white);
 
@@ -108,7 +109,7 @@ public class LoginForm_GUI extends JFrame{
 
         input.setMaximumSize(new Dimension(320,38));
         input.setPreferredSize(new Dimension(320,38));
-        input.setMinimumSize(new Dimension(320,80));
+        input.setMinimumSize(new Dimension(320,38));
         input.setAlignmentX(Component.CENTER_ALIGNMENT);
         input.setFont(new Font("Arial",Font.PLAIN,14));
 
@@ -121,20 +122,20 @@ public class LoginForm_GUI extends JFrame{
         String username = txtaiKhoan.getText();
         String password = new String(((JPasswordField)txmatKhau).getPassword());
         if(username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Vui long dien day du thong tin");
+            JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin");
             return;
         }
         TaiKhoan_DTO tk = tkbus.login(username,password);
         if(tk != null) {
             if(password.equals("123456")) {
-                JOptionPane.showMessageDialog(this,"Vui long doi mat khau lan dau");
+                JOptionPane.showMessageDialog(this,"Vui lòng đổi mật khẩu lần đầu");
             }
-            JOptionPane.showMessageDialog(this,"Chao mung mo kim chi ");
+            JOptionPane.showMessageDialog(this,"Chào mừng!");
             AdminFrame_GUI admin = new AdminFrame_GUI();
             admin.getMenupanel().applyPermission();
             this.dispose();
         }else {
-            JOptionPane.showMessageDialog(this,"Sai ten hoac sai mat khau");
+            JOptionPane.showMessageDialog(this,"Sai tên hoặc sai mật khẩu");
         }
     }
     public void guiMaOTP() {

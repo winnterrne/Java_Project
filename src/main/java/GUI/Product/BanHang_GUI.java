@@ -293,6 +293,9 @@ public class BanHang_GUI extends JPanel {
             sdtKH.setText("");
             tenKH.setText("");
             diaChiKH.setText("");
+            danhSachKhoHang= spBus.layDsSanPhamConTon();
+            modelLeft.setDataVector(renderKhoHang(danhSachKhoHang), columnsLeft);
+            capNhatKichThuocBang(tableLeft);
         }
 
         cardLayout.show(cardPanel, tenManHinh);

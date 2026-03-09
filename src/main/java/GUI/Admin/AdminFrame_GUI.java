@@ -9,7 +9,7 @@ public class AdminFrame_GUI extends JFrame {
     private AdminHeaderPanel_GUI headerpanel = new AdminHeaderPanel_GUI();
     public AdminFrame_GUI() {
         setTitle("Quản lý siêu thị Độ KiKi - Admin");
-        setSize(1200, 800);
+        setSize(1250, 800);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         JPanel leftPanel = new JPanel(new BorderLayout());

@@ -2,8 +2,7 @@ package GUI.Inbound_Returns;
 
 import BUS.NhaCungCap_BUS;
 import DTO.NhaCungCap_DTO;
-import DTO.PhieuNhap_DTO;
-import Utils.EportExcel;
+import Utils.ExportExcel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -13,10 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class NhaCungCapGUI extends JPanel {
     JPanel topPanel, centerPanel, pTimKiem, pChucNang;
@@ -26,7 +22,7 @@ public class NhaCungCapGUI extends JPanel {
     DefaultTableModel dtmNCC;
     JScrollPane spNCC;
     NhaCungCap_BUS nccBUS = new NhaCungCap_BUS();
-    EportExcel export = new EportExcel();
+    ExportExcel export = new ExportExcel();
     public NhaCungCapGUI() {
         initGUI();
         loadTableNCC();

@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static Utils.ExportExcelHoaDon.ExportExcelHoaDon;
@@ -36,11 +37,14 @@ public class HoaDon_GUI extends JPanel {
     JDateChooser dateTimNgayTu, dateTimNgayDen;
 
     public HoaDon_GUI() {
+        Font font = new Font("Times New Roman", Font.BOLD, 12);
+        UIManager.put("Label.font", font);
+        UIManager.put("Button.font", font);
+        UIManager.put("Button.font", font);
+        UIManager.put("TableHeader.font", font);
+        UIManager.put("ComboBox.font", font);
         setLayout(new BorderLayout(10, 10));
         setBackground(new Color(0xF6F3F3));
-
-
-
 
         JPanel pnlTop = new JPanel(new BorderLayout());
         pnlTop.setBackground(new Color(0xF6F3F3));
@@ -100,9 +104,6 @@ public class HoaDon_GUI extends JPanel {
         add(BorderLayout.NORTH, pnlTop);
 
 
-
-
-
         modelHoaDon = new DefaultTableModel(renderHoaDon(hoaDon), columnsName) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -111,20 +112,12 @@ public class HoaDon_GUI extends JPanel {
         };
 
         tableHoaDon = new JTable(modelHoaDon);
-        tableHoaDon.setRowHeight(30);
-        tableHoaDon.setFont(new Font("Arial", Font.PLAIN, 16));
-        tableHoaDon.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
-        tableHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 40));
         tableHoaDon.getTableHeader().setReorderingAllowed(false);
         tableHoaDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(tableHoaDon);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
         add(scrollPane, BorderLayout.CENTER);
-
-
-
-
 
 
         btnLamMoi.addActionListener(e -> refresh());
@@ -203,7 +196,7 @@ public class HoaDon_GUI extends JPanel {
         String tenKH = kh != null ? kh.getHoTenKH() : "Khách lẻ";
 
         pnlHeader.add(new JLabel("Mã HD: " + hd.getMaHD()));
-        pnlHeader.add(new JLabel("Ngày lập: " + hd.getNgayLapHD().toString()));
+        pnlHeader.add(new JLabel("Ngày lập: " + hd.getNgayLapHD().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         pnlHeader.add(new JLabel("Nhân viên: " + tenNV));
         pnlHeader.add(new JLabel("Khách hàng: " + tenKH));
         dialogChiTiet.add(pnlHeader, BorderLayout.NORTH);
@@ -305,7 +298,7 @@ public class HoaDon_GUI extends JPanel {
         for (HoaDon_DTO hd : danhSach) {
             Vector<Object> hang = new Vector<>();
             hang.add(hd.getMaHD());
-            hang.add(hd.getNgayLapHD().toString());
+            hang.add(hd.getNgayLapHD().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 
             KhachHang_DTO kh = khBus.layKHTheoMaKH(hd.getMaKH());

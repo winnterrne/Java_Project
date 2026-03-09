@@ -3,6 +3,7 @@ package GUI.Product;
 import BUS.SanPham_BUS;
 import BUS.ThongKe_BUS;
 import DTO.SanPham_DTO;
+import Utils.ExportExcel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -70,6 +71,12 @@ public class SanPhamMain_GUI extends JPanel {
                 }
             }
         });
+    }
+
+    public void refreshTable() {
+        if (tablePanel != null) {
+            tablePanel.loadSanPham();   // hoặc loadDanhMuc() nếu là DanhMuc_GUI
+        }
     }
 
     private void themSanPham() {
@@ -213,7 +220,7 @@ public class SanPhamMain_GUI extends JPanel {
                 });
             }
             JTable tempTable = new JTable(tempModel);
-            Utils.EportExcel.exportTablePNToExcel(tempTable, filePath);
+            ExportExcel.exportTablePNToExcel(tempTable, filePath);
         }
     }
 

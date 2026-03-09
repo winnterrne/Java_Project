@@ -21,14 +21,14 @@ public class ExportPDFSP {
 
             PDType0Font font = PDType0Font.load(document, new File("C:/Windows/Fonts/arial.ttf"));
 
-            // Tiêu đề
+            
             content.beginText();
             content.setFont(font, 16);
             content.newLineAtOffset(200, 800);
             content.showText(title);
             content.endText();
 
-            // Bảng
+            
             TableModel model = table.getModel();
             float yPosition = 750;
             float rowHeight = 25;
@@ -36,13 +36,19 @@ public class ExportPDFSP {
 
             int colCount = model.getColumnCount();
             float totalWidth = PDRectangle.A4.getWidth() - 2 * margin;
-            float baseWidth = totalWidth / colCount;
             float[] columnWidths = new float[colCount];
-            for (int i = 0; i < colCount; i++) {
-                columnWidths[i] = baseWidth;
-            }
 
-            // In header
+
+            columnWidths[0] = 40;
+            columnWidths[1] = 110;
+            columnWidths[2] = 130;
+            columnWidths[3] = 80;
+            columnWidths[4] = 60;
+            columnWidths[5] = 60;
+            columnWidths[6] = 80;
+
+
+            
             float x = margin;
             for (int col = 0; col < colCount; col++) {
                 content.beginText();
@@ -55,7 +61,7 @@ public class ExportPDFSP {
 
             yPosition -= rowHeight;
 
-            // In dữ liệu
+            
             for (int row = 0; row < model.getRowCount(); row++) {
                 x = margin;
                 for (int col = 0; col < colCount; col++) {

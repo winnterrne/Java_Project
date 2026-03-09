@@ -121,7 +121,7 @@ public class ThemSP_GUI extends JDialog {
             sp.setSoLuongTon(Integer.parseInt(txtSoLuong.getText().trim()));
             sp.setMaKhuyenMai(txtMaKhuyenMai.getText().trim());
             sp.setViTri(txtViTri.getText().trim());
-
+            sp.setTrangThai((byte) 1);
             int selectedIndex = cbMaDM.getSelectedIndex();
             if (selectedIndex >= 0) {
                 DanhMuc_DTO dm = danhMucList.get(selectedIndex);
