@@ -155,6 +155,7 @@ public class SuaPhieuNhapGUI extends JFrame {
         tfMaPN = new JTextField(15);
         tfMaPN.setText(maPN);
         tfMaPN.setEditable(false);
+        tfMaPN.setFocusable(false);
         rPanel.add(tfMaPN, rgbc);
 
         rgbc.gridx = 0;

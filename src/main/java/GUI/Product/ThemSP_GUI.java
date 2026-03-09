@@ -37,11 +37,15 @@ public class ThemSP_GUI extends JDialog {
 
         txtMaSP    = new JTextField(15);
         txtMaSP.setEditable(false);
+        txtMaSP.setFocusable(false);
         txtTenSP   = new JTextField(25);
         txtMoTa    = new JTextField(30);
         txtGiaBan  = new JTextField(15);
         txtDonVi   = new JTextField(10);
         txtSoLuong = new JTextField(10);
+        txtSoLuong.setEditable(false);
+        txtSoLuong.setFocusable(false);
+        txtSoLuong.setText("0");
         txtMaKhuyenMai = new JTextField(10);
         txtViTri   = new JTextField(15);
 

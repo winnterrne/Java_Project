@@ -24,6 +24,7 @@ public class SuaNhaCungCapGUI extends JFrame {
     private void loadDataNCC() {
         tfMaNCC.setText(ncc.getMaNCC());
         tfMaNCC.setEditable(false);
+        tfMaNCC.setFocusable(false);
         tfTenNCC.setText(ncc.getTenNCC());
         tfSDT.setText(ncc.getSoDT());
         tfDiaChi.setText(ncc.getDiaChi());

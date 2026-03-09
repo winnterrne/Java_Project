@@ -138,7 +138,7 @@ public class SanPham_DAO {
             ps.setString(3, sp.getMoTa());
             ps.setDouble(4, sp.getGiaBan());
             ps.setString(5, sp.getDonVi());
-            ps.setInt(6, sp.getSoLuongTon());
+            ps.setInt(6, 0);
             ps.setString(7, sp.getMaDM());
             ps.setString(8, sp.getMaKhuyenMai());
             ps.setString(9, sp.getViTri());

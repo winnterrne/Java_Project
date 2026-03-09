@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ThemNhaCungCapGUI extends JFrame {
-    JPanel topPanel, centerPanel, buttonPanel;
+    JPanel topPanel, buttonPanel;
     JLabel lbTitle;
     JTextField tfMaNCC, tfTenNCC, tfSDT, tfDiaChi, tfEmail;
     JButton btnThem, btnHuy;
@@ -52,6 +52,7 @@ public class ThemNhaCungCapGUI extends JFrame {
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaNCC = new JTextField(20);
         tfMaNCC.setEditable(false);
+        tfMaNCC.setFocusable(false);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfMaNCC, gbc);
 

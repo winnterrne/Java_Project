@@ -29,6 +29,9 @@ public class SuaSP_GUI extends JDialog {
         txtTenSP   = new JTextField(sp.getTenSP(), 25);
         txtGiaBan  = new JTextField(String.valueOf(sp.getGiaBan()), 15);
         txtSoLuong = new JTextField(String.valueOf(sp.getSoLuongTon()), 10);
+        txtSoLuong.setText("0");
+        txtSoLuong.setEditable(false);
+        txtSoLuong.setFocusable(false);
 
         formPanel.add(new JLabel("Tên SP:"));    formPanel.add(txtTenSP);
         formPanel.add(new JLabel("Giá bán:"));   formPanel.add(txtGiaBan);
@@ -54,7 +57,6 @@ public class SuaSP_GUI extends JDialog {
         try {
             sp.setTenSP(txtTenSP.getText().trim());
             sp.setGiaBan(Double.parseDouble(txtGiaBan.getText().trim()));
-            sp.setSoLuongTon(Integer.parseInt(txtSoLuong.getText().trim()));
 
             if (bus.updateSanPham(sp)) {
                 success = true;
@@ -64,7 +66,7 @@ public class SuaSP_GUI extends JDialog {
                 JOptionPane.showMessageDialog(this, "Sửa thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Giá bán và tồn kho phải là số!", "Lỗi dữ liệu", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Giá bán phải là số!", "Lỗi dữ liệu", JOptionPane.ERROR_MESSAGE);
         }
     }
 
