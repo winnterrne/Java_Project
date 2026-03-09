@@ -31,7 +31,7 @@ public class SanPham_BUS {
 
     public ArrayList<SanPham_DTO> layDsSanPhamConTon() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
-        for (SanPham_DTO sp : getAllSanPham()) {
+        for (SanPham_DTO sp : getAllSanPhamAvavilable()) {
             if (sp.getSoLuongTon() > 0) {
                 list.add(sp);
             }

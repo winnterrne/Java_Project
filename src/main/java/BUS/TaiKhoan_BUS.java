@@ -23,7 +23,7 @@ public class TaiKhoan_BUS {
     public ArrayList<TaiKhoan_DTO> getToShowTable() {
         return taikhoan.getToShowTable();
     }
-    // kiem tra them tai khoan
+    
     public boolean addTaiKhoan(TaiKhoan_DTO taikhoandto) {
         return taikhoan.addTaiKhoan(taikhoandto);
     }
@@ -74,29 +74,29 @@ public class TaiKhoan_BUS {
     public boolean isMaTonTai(String matk) {
         return taikhoan.isUsernameExist(matk);
     }
-    // kiem tra ten dang nhap
+    
     public boolean isTenDangNhap(String tendangnhap) {
         return taikhoan.isTenDangNhap(tendangnhap);
     }
-    // ham dang nhap
+    
     public TaiKhoan_DTO login(String tendangnhap, String matkhau) {
         TaiKhoan_DTO tk =  taikhoan.login(tendangnhap,matkhau);
         CurrentUser.getInstance().login(tk);
         return tk;
     }
-    // ham xoa tai khoan
+    
     public boolean deleteTaiKhoan(String mataikhoan) {
         return taikhoan.deleteTaiKhoan(mataikhoan);
 
     }
-    // ham cap nhat tai khoan
+    
     public boolean updateTaiKhoan(TaiKhoan_DTO taikhoandto) {
         if(taikhoandto.getTenDangNhap()== null || taikhoandto.getTenDangNhap() == null) {
             return false;
         }
         return taikhoan.updateTaikhoan(taikhoandto);
     }
-    // ham cap nhat mat khau
+    
     public boolean updatePassWordForgot(String matkhaumoi, String email) {
         if(matkhaumoi.length() < 6) {
             return false;
@@ -109,12 +109,12 @@ public class TaiKhoan_BUS {
             return false;
         }
     }
-    // ham tao ma otp
+    
     public String taoOTP() {
         int otp = 100000 + new java.util.Random().nextInt(900000);
         return String.valueOf(otp);
     }
-    // ham gui otp
+    
     public boolean guiOTP(String email) {
         if(!taikhoan.isEmailExist(email)) {
             return false;
@@ -127,7 +127,7 @@ public class TaiKhoan_BUS {
         }
         return false;
     }
-    // ham kiem tra otp
+    
     public boolean checkOTP(String inputotp,String email ) {
         return taikhoan.checkOTP(inputotp,email);
 
@@ -142,7 +142,7 @@ public class TaiKhoan_BUS {
         }
         return false;
     }
-    // Ham gui mail
+    
     private void SendMail(String toEmail, String otp) {
         final String fromEmail = "winnterrne@gmail.com";
         final String password = "hzxvbocfunqiegoh";
@@ -159,7 +159,7 @@ public class TaiKhoan_BUS {
             }
         };
         Session ses = Session.getInstance(pro,au);
-        toEmail = "winnterrne@gmail.com";
+
         MimeMessage mess = new MimeMessage(ses);
         try {
             mess.addHeader("Content-type","text/plain; charset=UTF-8");
@@ -174,7 +174,7 @@ public class TaiKhoan_BUS {
             e.printStackTrace();
         }
     }
-    //
+    
     public boolean updatePassword(String tentaikhoan, String matkhaucu, String matkhaumoi) {
         if (tentaikhoan.isEmpty() || matkhaucu.isEmpty() || matkhaumoi.isEmpty()) {
             return false;

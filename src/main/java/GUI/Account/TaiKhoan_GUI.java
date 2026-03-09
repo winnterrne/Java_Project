@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class TaiKhoan_GUI extends JPanel {
     JPanel topPanel, centerPanel, pTimKiem, pChucNang;
     JTextField tfTimKiem;
-    JButton btnXoa, btnSua, btnXemCTPN, btnXuatExcel, btnTimKiem, btnThem;
+    JButton btnXoa, btnSua, btnXuatExcel, btnTimKiem, btnThem;
     JTable tbTaiKhoan;
     DefaultTableModel dtmTaiKhoan;
     JScrollPane spTaiKhoan;
@@ -32,6 +32,12 @@ public class TaiKhoan_GUI extends JPanel {
     }
 
     public void initGUI() {
+        Font font = new Font("Times New Roman", Font.BOLD, 12);
+        UIManager.put("Label.font", font);
+        UIManager.put("Button.font", font);
+        UIManager.put("Button.font", font);
+        UIManager.put("TableHeader.font", font);
+        UIManager.put("ComboBox.font", font);
         setLayout(new BorderLayout(10, 10 ));
         topPanel = new JPanel(new GridLayout(1, 2, 15, 15));
         pTimKiem = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
@@ -50,8 +56,6 @@ public class TaiKhoan_GUI extends JPanel {
         pChucNang.add(btnSua);
         btnThem = createButton("Thêm");
         pChucNang.add(btnThem);
-        btnXemCTPN = createButton("Chi Tiết");
-        pChucNang.add(btnXemCTPN);
         btnXuatExcel = createButton("Xuất Excel");
         pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
@@ -71,7 +75,6 @@ public class TaiKhoan_GUI extends JPanel {
         tbTaiKhoan = new JTable(dtmTaiKhoan);
         tbTaiKhoan.getTableHeader().setReorderingAllowed(false);
         tbTaiKhoan.setRowHeight(25);
-        tbTaiKhoan.setFont(new Font("Arial", Font.PLAIN,18));
         spTaiKhoan = new JScrollPane(tbTaiKhoan);
         Border line = BorderFactory.createLineBorder(Color.BLACK);
         Border margin = new EmptyBorder(10, 20, 10, 20);
@@ -83,15 +86,13 @@ public class TaiKhoan_GUI extends JPanel {
 
         btnThem.addActionListener(e -> {
             Window window = SwingUtilities.getWindowAncestor(this);
-            ThemTaiKhoan_GUI themtk = new ThemTaiKhoan_GUI((Frame) window);
-            themtk.setLocationRelativeTo(null);
+            ThemTaiKhoan_GUI themtk = new ThemTaiKhoan_GUI(window);
+            themtk.setLocationRelativeTo(this);
             themtk.setVisible(true);
             if(themtk.isSaved()) {
                 loadTable();
-            }
-        });
-        btnXemCTPN.addActionListener(e -> {
 
+            }
         });
         btnXuatExcel.addActionListener(e -> xuatExcel());
         btnSua.addActionListener(e -> SuaTaiKhoan());

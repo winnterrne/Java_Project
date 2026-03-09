@@ -231,7 +231,6 @@ public class DanhMuc_DAO {
     }
 
     public boolean deleteDanhMuc(String maDM) {
-        // Kiểm tra có sản phẩm active nào thuộc danh mục này không
         String checkSQL = """
             SELECT COUNT(*) 
             FROM SanPham 
@@ -249,7 +248,6 @@ public class DanhMuc_DAO {
                 }
             }
 
-            // Nếu không còn sản phẩm active → tiến hành xóa mềm
             return updateTrangThaiDanhMuc(maDM, (byte) 0);
 
         } catch (SQLException e) {

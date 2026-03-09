@@ -91,12 +91,12 @@ public class ThongKeDoanhThu_GUI extends JDialog {
                 lblTong.setText("TỔNG DOANH THU THÁNG " + thang + "/" + nam + ": "
                         + String.format("%,.0f ₫", tongDoanhThu));
 
-                // Các lệnh refresh UI quan trọng
+                
                 resultPanel.setVisible(true);
-                resultPanel.revalidate();   // ← thêm
-                resultPanel.repaint();      // ← thêm
+                resultPanel.revalidate();   
+                resultPanel.repaint();      
 
-                // Nếu có table trong scroll pane
+                
                 if (scroll != null) {
                     scroll.revalidate();
                     scroll.repaint();
@@ -104,10 +104,10 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
                 pack();
 
-                // Đảm bảo vị trí giữa owner
+                
                 setLocationRelativeTo(getOwner());
 
-                // Refresh toàn bộ dialog (nếu cần)
+                
                 revalidate();
                 repaint();
 

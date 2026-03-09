@@ -24,14 +24,14 @@ public class TraHangGUI extends JPanel {
     DefaultTableModel modelChiTietTra, modelChiTietNhap;
     JScrollPane spChiTietNhap, spChiTietTra;
 
-    //left Panel
+    
     JTextField tfTimKiem, tfSoLuong, tfNCC;
     JButton btnTimKiem, btnLamMoi;
     JLabel lSoLuong, lMaPN;
     JButton btnThem;
     JComboBox cbMaPN;
 
-    //right Panel
+    
     JLabel lMaPT, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfNguoiTaoPhieu, tfMaPT;
 

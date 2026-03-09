@@ -12,7 +12,6 @@ public class Search_GUI extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
 
         txtSearch = new JTextField(30);
-        txtSearch.setText("Nhập tên hoặc mã sản phẩm...");
         btnSearch = new JButton("Tìm");
 
         add(new JLabel("Tìm kiếm: "));

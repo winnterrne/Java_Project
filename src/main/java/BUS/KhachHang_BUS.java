@@ -33,21 +33,21 @@ public class KhachHang_BUS {
     }
 
     public KhachHang_DTO themKhachHang(String tenKh, String sdtKH, String diaChiKH) {
-        // 1. Kiểm tra an toàn: Cắt khoảng trắng (trim) và xem có rỗng không
+        
         boolean isTenRong = (tenKh == null || tenKh.trim().isEmpty());
         boolean isSdtRong = (sdtKH == null || sdtKH.trim().isEmpty());
         boolean isDiaChiRong = (diaChiKH == null || diaChiKH.trim().isEmpty());
 
-        // 2. Nếu TẤT CẢ đều rỗng -> Đây là khách vãng lai (Khách lẻ)
+        
         if (isTenRong && isSdtRong && isDiaChiRong) {
-            return null; // Trả về null để bên giao diện tự động gán mã 'KH000'
+            return null; 
         }
 
-        // 3. Nếu có nhập thông tin -> Tạo khách hàng mới
+        
         KhachHang_DTO kh = new KhachHang_DTO();
-        kh.setMaKH(layMaKHmoiNhat()); // Sinh mã tự động
+        kh.setMaKH(layMaKHmoiNhat()); 
 
-        // Gán dữ liệu (nếu rỗng thì lưu là "Không có" để CSDL không bị null)
+        
         kh.setHoTenKH(isTenRong ? "Khách hàng mới" : tenKh);
         kh.setSoDT(isSdtRong ? "Không có" : sdtKH);
         kh.setDiaChi(isDiaChiRong ? "Không có" : diaChiKH);

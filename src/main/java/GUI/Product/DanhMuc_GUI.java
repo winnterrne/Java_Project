@@ -4,6 +4,7 @@ import DAO.DanhMuc_DAO;
 import DAO.SanPham_DAO;
 import DTO.DanhMuc_DTO;
 import DTO.SanPham_DTO;
+import Utils.ExportExcel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +31,6 @@ public class DanhMuc_GUI extends JPanel {
     private JButton btnXemDanhMucDaXoa;
     private JTextField txtSearch;
     private JButton btnExportExcel;
-    private JButton btnExportPDF;
 
     public DanhMuc_GUI() {
         super(new BorderLayout());
@@ -56,7 +56,7 @@ public class DanhMuc_GUI extends JPanel {
         btnChiTiet  = new JButton("Chi Tiết");
         btnXemDanhMucDaXoa = new JButton("Xem Danh Mục Đã Xóa");
         btnExportExcel = new JButton("Xuất Excel");
-        btnExportPDF = new JButton("Xuất PDF");
+
 
         toolBar.add(btnThem);
         toolBar.add(btnSua);
@@ -66,7 +66,7 @@ public class DanhMuc_GUI extends JPanel {
         toolBar.add(btnXemDanhMucDaXoa);
         toolBar.addSeparator();
         toolBar.add(btnExportExcel);
-        toolBar.add(btnExportPDF);
+
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -112,7 +112,7 @@ public class DanhMuc_GUI extends JPanel {
         btnXoa.addActionListener(e -> xoaDanhMuc());
         btnChiTiet.addActionListener(e -> xemChiTiet());
         btnExportExcel.addActionListener(e -> exprtExcel());
-        btnExportPDF.addActionListener(e -> exportPDF());
+//        btnImportExcel.addActionListener(e -> new);
 
         btnXemDanhMucDaXoa.addActionListener(e -> {
             System.out.println(">>> NÚT 'Xem Danh Mục Đã Xóa' ĐÃ ĐƯỢC NHẤN!");
@@ -285,10 +285,8 @@ public class DanhMuc_GUI extends JPanel {
     public void XemDanhMucDaXoa() {
         System.out.println(">>> Vào hàm XemDanhMucDaXoa");
 
-        // Cách 1: dùng table làm mốc (nằm sâu hơn, dễ có ancestor)
         Window parent = SwingUtilities.getWindowAncestor(table);
         if (parent == null) {
-            // Fallback: dùng chính panel
             parent = SwingUtilities.getWindowAncestor(this);
         }
 
@@ -319,7 +317,7 @@ public class DanhMuc_GUI extends JPanel {
             if (!filPath.toLowerCase().endsWith(".xlsx")) {
                 filPath += ".xlsx";
             }
-            Utils.EportExcel.exportTablePNToExcel(table, filPath);
+            ExportExcel.exportTablePNToExcel(table, filPath);
         }
     }
 

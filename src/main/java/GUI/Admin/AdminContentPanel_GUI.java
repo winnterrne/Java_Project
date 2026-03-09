@@ -32,6 +32,7 @@ public class AdminContentPanel_GUI extends JPanel {
     private PhieuTraGUI phieuTraGUI;
     private BanHang_GUI  banHangGUI;
     private HoaDon_GUI hoaDonGUI;
+    private SanPhamMain_GUI sanPhamMainGui;
 
     public AdminContentPanel_GUI() {
         card = new CardLayout();
@@ -42,7 +43,8 @@ public class AdminContentPanel_GUI extends JPanel {
 
         banHangGUI = new BanHang_GUI();
         add(banHangGUI, CARD_BAN_HANG);
-        add(new SanPhamMain_GUI(spbus, tkbus),CARD_SAN_PHAM);
+        sanPhamMainGui = new SanPhamMain_GUI(spbus, tkbus);
+        add(sanPhamMainGui,CARD_SAN_PHAM);
         add(new DanhMuc_GUI(), CARD_DANH_MUC_SAN_PHAM);
         hoaDonGUI = new HoaDon_GUI();
         add(hoaDonGUI, CARD_HOA_DON);
@@ -85,5 +87,9 @@ public class AdminContentPanel_GUI extends JPanel {
 
     public void showManHinh(String tenmanhinh) {
         card.show(this,tenmanhinh);
+    }
+
+    public SanPhamMain_GUI getSanPhamMainGui() {
+        return sanPhamMainGui;
     }
 }

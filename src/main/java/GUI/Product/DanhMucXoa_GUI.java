@@ -24,30 +24,30 @@ public class DanhMucXoa_GUI extends JDialog {
         setLocationRelativeTo(owner);
         setLayout(new BorderLayout(10, 10));
 
-        // Tiêu đề
+        
         JLabel lblTitle = new JLabel("Danh sách danh mục đã bị xóa mềm");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 18));
         lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
         lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         add(lblTitle, BorderLayout.NORTH);
 
-        // Bảng hiển thị
+        
         String[] columns = {"Mã DM", "Tên danh mục", "Số lượng sản phẩm"};
         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;  // Không cho edit trực tiếp
+                return false;  
             }
         };
         tableDaXoa = new JTable(model);
         tableDaXoa.setRowHeight(30);
-        tableDaXoa.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);  // Cho chọn nhiều dòng
+        tableDaXoa.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);  
         tableDaXoa.setFillsViewportHeight(true);
 
         JScrollPane scrollPane = new JScrollPane(tableDaXoa);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Panel nút dưới
+        
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         JButton btnKhoiPhuc = new JButton("Khôi phục danh mục đã chọn");
         btnKhoiPhuc.setPreferredSize(new Dimension(220, 40));
@@ -62,7 +62,7 @@ public class DanhMucXoa_GUI extends JDialog {
         bottomPanel.add(btnDong);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // Load dữ liệu ngay khi mở
+        
         loadDanhSachDaXoa();
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -71,7 +71,7 @@ public class DanhMucXoa_GUI extends JDialog {
 
     private void loadDanhSachDaXoa() {
         model.setRowCount(0);
-        ArrayList<DanhMuc_DTO> list = danhMucBus.getAllDanhMucDaXoa();  // Gọi hàm từ BUS
+        ArrayList<DanhMuc_DTO> list = danhMucBus.getAllDanhMucDaXoa();  
         if (list.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Hiện không có danh mục nào bị xóa mềm.");
             return;
@@ -112,7 +112,7 @@ public class DanhMucXoa_GUI extends JDialog {
             JOptionPane.showMessageDialog(this, "Đã khôi phục thành công " + successCount + " danh mục!");
             loadDanhSachDaXoa();
             if(danhMucMainGUI != null) {
-                danhMucMainGUI.loadDanhMuc();  // Refresh lại bảng chính nếu có reference
+                danhMucMainGUI.loadDanhMuc();  
             }
         } else {
             JOptionPane.showMessageDialog(this, "Không khôi phục được danh mục nào!", "Lỗi", JOptionPane.ERROR_MESSAGE);

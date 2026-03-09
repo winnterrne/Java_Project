@@ -33,6 +33,7 @@ public class SanPham_DAO {
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setTrangThai(rs.getByte("trangThai"));
+                sp.setPath(rs.getString("Path"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -132,7 +133,7 @@ public class SanPham_DAO {
 
     public boolean insertSanPham (SanPham_DTO sp){
         boolean result = false;
-        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
