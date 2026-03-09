@@ -5,10 +5,7 @@ import BUS.PhieuNhap_BUS;
 import BUS.SanPham_BUS;
 import DAO.ChiTietPhieuNhap_DAO;
 import DAO.SanPham_DAO;
-import DTO.ChiTietPhieuNhap_DTO;
-import DTO.NhaCungCap_DTO;
-import DTO.PhieuNhap_DTO;
-import DTO.SanPham_DTO;
+import DTO.*;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -184,7 +181,7 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridy = 2;
         tfNguoiTaoPhieu = new JTextField(15);
         tfNguoiTaoPhieu.setEditable(false);
-        tfNguoiTaoPhieu.setText("admin");
+        tfNguoiTaoPhieu.setText(CurrentUser.getInstance().getmaNV() + " - " + CurrentUser.getInstance().getTenNV());
         rPanel.add(tfNguoiTaoPhieu, rgbc);
 
         rgbc.gridx = 0;

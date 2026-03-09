@@ -252,6 +252,7 @@ public class TaiKhoan_DAO {
                     taikhoan.setEmail(rs.getString("email"));
                     taikhoan.setTrangThai(rs.getBoolean("trangthai"));
                     taikhoan.setHoTen(rs.getString("hoTenNV"));
+                    taikhoan.setMaNV(rs.getString("maNV"));
                 }
             }catch (Exception e) {
                 e.printStackTrace();

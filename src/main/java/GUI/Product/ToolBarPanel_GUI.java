@@ -3,7 +3,7 @@ package GUI.Product;
 import javax.swing.*;
 
 public class ToolBarPanel_GUI extends JToolBar {
-    private JButton btnThem, btnSua, btnXoa, btnChiTiet, btnLamMoi, btnExportExcel, btnThongKe, btnXemSPXoa, btnExportPDF;
+    private JButton btnThem, btnSua, btnXoa, btnChiTiet, btnLamMoi, btnExportExcel, btnThongKe, btnXemSPXoa, btnExportPDF, btnImportExcel;
 
     public ToolBarPanel_GUI() {
         setFloatable(false);
@@ -17,6 +17,7 @@ public class ToolBarPanel_GUI extends JToolBar {
         btnExportPDF = new JButton("XUẤT PDF");
         btnThongKe = new JButton("THỐNG KÊ DOANH THU");
         btnXemSPXoa = new JButton("XEM SẢN PHẨM ĐÃ XÓA");
+        btnImportExcel = new JButton("NHẬP EXCEL");
 
         btnThem.setToolTipText("Thêm sản phẩm mới");
         btnSua.setToolTipText("Sửa sản phẩm đã chọn");
@@ -27,6 +28,7 @@ public class ToolBarPanel_GUI extends JToolBar {
         btnExportPDF.setToolTipText("Xuất danh sách ra file PDF");
         btnThongKe.setToolTipText("Thống kê doanh thu theo tháng");
         btnXemSPXoa.setToolTipText("Xem sản phẩm đã xóa");
+        btnImportExcel.setToolTipText("Nhập sản phẩm từ file Excel");
 
         add(btnThem);
         add(btnSua);
@@ -40,6 +42,8 @@ public class ToolBarPanel_GUI extends JToolBar {
 
         add(btnXemSPXoa);
         add(btnThongKe);
+
+        add(btnImportExcel);
     }
 
     public JButton getBtnThem() { return btnThem; }
@@ -51,5 +55,8 @@ public class ToolBarPanel_GUI extends JToolBar {
     public JButton getBtnExportPDF() { return btnExportPDF; }
     public JButton getBtnThongKe() { return btnThongKe; }
     public JButton getBtnXemSPXoa() { return btnXemSPXoa; }
+    public JButton getBtnImportExcel() {
+        return btnImportExcel;
+    }
 
 }

@@ -194,7 +194,7 @@ public class TraHangGUI extends JPanel {
         rgbc.gridy = 2;
         tfNguoiTaoPhieu = new JTextField(15);
         tfNguoiTaoPhieu.setEditable(false);
-        tfNguoiTaoPhieu.setText("admin");
+        tfNguoiTaoPhieu.setText(CurrentUser.getInstance().getmaNV() + " - " + CurrentUser.getInstance().getTenNV());
         rPanel.add(tfNguoiTaoPhieu, rgbc);
 
         rgbc.gridx = 0;

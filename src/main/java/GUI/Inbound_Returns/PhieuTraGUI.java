@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import BUS.PhieuTra_BUS;
+import DTO.CurrentUser;
 import DTO.PhieuTra_DTO;
 import Utils.ExportExcel;
 import com.toedter.calendar.JDateChooser;
@@ -136,7 +137,7 @@ public class PhieuTraGUI extends JPanel {
                     stt++,
                     pt.getMaPhieuTra(),
                     tenNCC,
-                    "admin",
+                    CurrentUser.getInstance().getTenNV(),
                     pt.getLyDo(),
                     pt.getNgayTra().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
@@ -155,7 +156,7 @@ public class PhieuTraGUI extends JPanel {
                     stt++,
                     pt.getMaPhieuTra(),
                     tenNCC,
-                    "admin",
+                    CurrentUser.getInstance().getTenNV(),
                     pt.getNgayTra(),
                     tongTienFormatted
             });

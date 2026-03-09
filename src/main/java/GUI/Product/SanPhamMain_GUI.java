@@ -4,6 +4,7 @@ import BUS.SanPham_BUS;
 import BUS.ThongKe_BUS;
 import DTO.SanPham_DTO;
 import Utils.ExportExcel;
+import Utils.ImportExcel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -58,6 +59,10 @@ public class SanPhamMain_GUI extends JPanel {
         toolBar.getBtnExportPDF().addActionListener(e -> xuatPDF());
         toolBar.getBtnThongKe().addActionListener(e -> moThongKeDoanhThu());
         toolBar.getBtnXemSPXoa().addActionListener(e -> xemSPDaXoa());
+        toolBar.getBtnImportExcel().addActionListener(e -> {
+            ImportExcel.importExcelData();
+            tablePanel.loadSanPham();
+        });
         searchPanel.getBtnSearch().addActionListener(e -> {
             String keyword = searchPanel.getTxtSearch().getText().trim();
             tablePanel.timKiem(keyword);
