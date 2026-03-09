@@ -32,6 +32,20 @@ public class CurrentUser {
         String ma = getMaQuyen();
         return "ADMIN".equals(ma);
     }
+
+    public String getMaNV() {
+        if(tkhientai == null) {
+            return "";
+        }
+        return tkhientai.getMaNV();
+    }
+
+    public String getHoTenNV() {
+        if(tkhientai == null) {
+            return "";
+        }
+        return tkhientai.getHoTen();
+    }
     public boolean isNhanVienBanHang() {
         String ma = getMaQuyen();
         return "NHANVIENBANHANG".equals(ma);

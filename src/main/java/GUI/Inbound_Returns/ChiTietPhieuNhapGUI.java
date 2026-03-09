@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -181,7 +182,7 @@ public class ChiTietPhieuNhapGUI extends JFrame {
                     tenSP,
                     ctp.getSoLuong(),
                     nf.format(ctp.getGiaNhap()),
-                    ctp.getHanSuDung()
+                    ctp.getHanSuDung().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
             });
         }
     }

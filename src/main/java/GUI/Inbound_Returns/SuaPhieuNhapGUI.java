@@ -28,13 +28,13 @@ public class SuaPhieuNhapGUI extends JFrame {
     DefaultTableModel modelSanPham, modelChiTiet;
     JScrollPane spSanPham, spChiTiet;
 
-    //left Panel
+    
     JTextField tfTimKiem, tfSoLuong;
     JButton btnTimKiem, btnLamMoi;
     JLabel lSoLuong;
     JButton btnThem;
 
-    //right Panel
+    
     JLabel lMaPN, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfMaPN, tfNguoiTaoPhieu;
     JComboBox cbNhaCC;
@@ -184,7 +184,7 @@ public class SuaPhieuNhapGUI extends JFrame {
         rgbc.insets = new Insets(5, 5, 5, 5);
         rgbc.gridwidth = 2;
         rgbc.weighty = 1.0;
-        //Table Chi tiết phiếu nhập
+        
         String chiTietCol[] = {"STT", "Mã SP", "Tên SP", "Số lượng", "Đơn giá"};
         modelChiTiet = new DefaultTableModel(chiTietCol, 0) {
             @Override

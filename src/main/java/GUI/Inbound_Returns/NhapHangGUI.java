@@ -5,10 +5,12 @@ import BUS.PhieuNhap_BUS;
 import BUS.SanPham_BUS;
 import DAO.ChiTietPhieuNhap_DAO;
 import DAO.SanPham_DAO;
-import DTO.ChiTietPhieuNhap_DTO;
-import DTO.NhaCungCap_DTO;
-import DTO.PhieuNhap_DTO;
-import DTO.SanPham_DTO;
+import DTO.*;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 
@@ -16,6 +18,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -28,17 +32,17 @@ public class NhapHangGUI extends JPanel {
     DefaultTableModel modelSanPham, modelChiTiet;
     JScrollPane spSanPham, spChiTiet;
 
-    //left Panel
+    
     JTextField tfTimKiem, tfSoLuong;
     JButton btnTimKiem, btnLamMoi;
     JLabel lSoLuong;
     JButton btnThem;
 
-    //right Panel
+    
     JLabel lMaPN, lNhaCC, lNguoiTaoPhieu, lTongTien, lTinhTongTien;
     JTextField tfMaPN, tfNguoiTaoPhieu;
     JComboBox cbNhaCC;
-    JButton  btnSuaSL, btnXoaSP, btnNhapHang;
+    JButton  btnNhapExcel, btnSuaSL, btnXoaSP, btnNhapHang;
 
     SanPham_BUS spBUS = new  SanPham_BUS();
     PhieuNhap_BUS pnBUS = new  PhieuNhap_BUS();
@@ -177,7 +181,7 @@ public class NhapHangGUI extends JPanel {
         rgbc.gridy = 2;
         tfNguoiTaoPhieu = new JTextField(15);
         tfNguoiTaoPhieu.setEditable(false);
-        tfNguoiTaoPhieu.setText("admin");
+        tfNguoiTaoPhieu.setText(CurrentUser.getInstance().getMaNV() + " - " + CurrentUser.getInstance().getHoTenNV());
         rPanel.add(tfNguoiTaoPhieu, rgbc);
 
         rgbc.gridx = 0;
@@ -212,10 +216,17 @@ public class NhapHangGUI extends JPanel {
         rbgbc.gridy = 0;
         rbgbc.weightx = 0;
         rbgbc.fill = GridBagConstraints.NONE;
+        btnNhapExcel = new JButton("Nhập Excel");
+        rbPanel.add(btnNhapExcel, rbgbc);
+
+        rbgbc.gridx = 1;
+        rbgbc.gridy = 0;
+        rbgbc.weightx = 0;
+        rbgbc.fill = GridBagConstraints.NONE;
         btnSuaSL = new JButton("Sửa số lượng");
         rbPanel.add(btnSuaSL, rbgbc);
 
-        rbgbc.gridx = 1;
+        rbgbc.gridx = 2;
         rbgbc.gridy = 0;
         rbgbc.fill = GridBagConstraints.NONE;
         btnXoaSP = new JButton("Xóa sản phẩm");
@@ -223,7 +234,7 @@ public class NhapHangGUI extends JPanel {
 
         rbgbc.gridx = 0;
         rbgbc.gridy = 1;
-        rbgbc.gridwidth = 2;
+        rbgbc.gridwidth = 3;
         pTinhTongTien = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         lTongTien = new JLabel("Tổng tiền: ");
         lTongTien.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -236,7 +247,7 @@ public class NhapHangGUI extends JPanel {
 
         rbgbc.gridx = 0;
         rbgbc.gridy = 2;
-        rbgbc.gridwidth = 2;
+        rbgbc.gridwidth = 3;
         btnNhapHang = new JButton("Nhập hàng");
         rbPanel.add(btnNhapHang, rbgbc);
 
@@ -297,6 +308,66 @@ public class NhapHangGUI extends JPanel {
         for(NhaCungCap_DTO nc : ncc) {
             cbNhaCC.addItem(nc);
         }
+    }
+
+    public void importExcel() {
+
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+            File file = fileChooser.getSelectedFile();
+
+            try (FileInputStream fis = new FileInputStream(file);
+                 Workbook workbook = new XSSFWorkbook(fis)) {
+
+                Sheet sheet = workbook.getSheetAt(0);
+
+                modelChiTiet.setRowCount(0);
+                NumberFormat nf =  NumberFormat.getNumberInstance(new Locale("vi", "VN"));
+                DataFormatter formatter = new DataFormatter();
+                for (Row row : sheet) {
+                    if (row.getRowNum() == 0) continue;
+                    String maSP = formatter.formatCellValue(row.getCell(1));
+                    if (maSP == null || maSP.trim().isEmpty()) {
+                        continue;
+                    }
+                    String tenSP = formatter.formatCellValue(row.getCell(2));
+
+                    int soLuong = (int) row.getCell(3).getNumericCellValue();
+                    double donGia = row.getCell(4).getNumericCellValue();
+
+                    modelChiTiet.addRow(new Object[]{
+                            modelChiTiet.getRowCount() + 1,
+                            maSP,
+                            tenSP,
+                            soLuong,
+                            nf.format(donGia)
+                    });
+                }
+
+                JOptionPane.showMessageDialog(this, "Nhập Excel thành công!");
+                lTinhTongTien.setText(tinhTongTien());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Lỗi đọc file Excel!");
+            }
+        }
+    }
+
+    public String tinhTongTien() {
+        Double tongTien = 0.0;
+        Double donGia;
+        int soLuong;
+        for(int i = 0; i < modelChiTiet.getRowCount(); i++) {
+            soLuong = Integer.parseInt(modelChiTiet.getValueAt(i, 3).toString());
+            donGia = Double.parseDouble(modelChiTiet.getValueAt(i, 4).toString().replace(".", ""));
+            tongTien = tongTien + soLuong*donGia;
+        }
+        NumberFormat nf =  NumberFormat.getInstance(new  Locale("vi", "VN"));
+        String numberFormatted =  nf.format(tongTien);
+        return numberFormatted;
     }
 
     public void addEvents() {
@@ -365,6 +436,10 @@ public class NhapHangGUI extends JPanel {
             lTinhTongTien.setText(tinhTongTien());
         });
 
+        btnNhapExcel.addActionListener(e -> {
+            importExcel();
+        });
+
         btnSuaSL.addActionListener(e -> {
             int selectedRow = tbChiTiet.getSelectedRow();
             if(selectedRow == -1) {
@@ -429,8 +504,8 @@ public class NhapHangGUI extends JPanel {
                     String maSP = tbChiTiet.getValueAt(i, 1).toString().trim();
                     int soLuong = Integer.parseInt(modelChiTiet.getValueAt(i, 3).toString());
                     String giaNhapStr =  modelChiTiet.getValueAt(i, 4).toString().trim();
-                    Number numberTong = nf.parse(giaNhapStr);
-                    double giaNhap = numberTong.doubleValue();
+                    Number numberNhap = nf.parse(giaNhapStr);
+                    double giaNhap = numberNhap.doubleValue();
                     ChiTietPhieuNhap_DTO ct = new ChiTietPhieuNhap_DTO(maPN, maSP, soLuong, giaNhap, ngayNhapHang, ngayNhapHang, ngayNhapHang);
                     listCT.add(ct);
                 }
@@ -447,20 +522,6 @@ public class NhapHangGUI extends JPanel {
                 JOptionPane.showMessageDialog(this, "Lỗi dữ liệu");
             }
         });
-    }
-
-    public String tinhTongTien() {
-        Double tongTien = 0.0;
-        Double donGia;
-        int soLuong;
-        for(int i = 0; i < modelChiTiet.getRowCount(); i++) {
-            soLuong = Integer.parseInt(modelChiTiet.getValueAt(i, 3).toString());
-            donGia = Double.parseDouble(modelChiTiet.getValueAt(i, 4).toString().replace(".", ""));
-            tongTien = tongTien + soLuong*donGia;
-        }
-        NumberFormat nf =  NumberFormat.getInstance(new  Locale("vi", "VN"));
-        String numberFormatted =  nf.format(tongTien);
-        return numberFormatted;
     }
 
 

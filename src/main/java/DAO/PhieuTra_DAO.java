@@ -132,21 +132,21 @@ public class PhieuTra_DAO {
 
             ArrayList<Object> danhSachThamSo = new ArrayList<>();
 
-            // Tìm theo mã
+            
             if (!keyword.trim().isEmpty()) {
                 sql += " AND (pt.MaPhieuTra LIKE ? or ncc.TenNCC LIKE ?)";
                 danhSachThamSo.add("%" + keyword + "%");
                 danhSachThamSo.add("%" + keyword + "%");
             }
 
-            // Lọc ngày
+            
             if (tuNgay != null && denNgay != null) {
                 sql += " AND ngayTra BETWEEN ? AND ?";
                 danhSachThamSo.add(new Date(tuNgay.getTime()));
                 danhSachThamSo.add(new Date(denNgay.getTime()));
             }
 
-            // Lọc giá
+            
             if (giaTu != null && giaDen != null) {
                 sql += " AND tongTra BETWEEN ? AND ?";
                 danhSachThamSo.add(giaTu);
@@ -155,7 +155,7 @@ public class PhieuTra_DAO {
 
             PreparedStatement ps = con.prepareStatement(sql);
 
-            // Gán tham số
+            
             for (int i = 0; i < danhSachThamSo.size(); i++) {
                 ps.setObject(i + 1, danhSachThamSo.get(i));
             }

@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 public class AdminMenuPanel_GUI extends JPanel {
     private JButton activeButton = null;
     private AdminContentPanel_GUI panel;
-    private JButton btnBanHang, btnQuanLySP, btnDanhMucSP, btnDanhSachHD, btnQuanLyNCC, btnPhieuNhap, btnNhapHang, btnPhieuTra, btnTraHang, btnQuanLyTK, btnTKBC;
+    private JButton btnBanHang, btnQuanLySP, btnDanhMucSP, btnDanhSachHD, btnQuanLyNCC, btnPhieuNhap, btnNhapHang, btnPhieuTra, btnTraHang, btnQuanLyTK, btnDangXuat;
 
     public AdminMenuPanel_GUI(AdminContentPanel_GUI contentpanel) {
         panel = contentpanel;
@@ -29,31 +29,31 @@ public class AdminMenuPanel_GUI extends JPanel {
         setBackground(new Color(0x121929));
         add(Box.createVerticalStrut(20));
 
-        btnBanHang = createMenuButton("Bán Hàng",AdminContentPanel_GUI.CARD_BAN_HANG);
+        btnBanHang = createMenuButton("Bán Hàng", AdminContentPanel_GUI.CARD_BAN_HANG);
         add(btnBanHang);
         add(Box.createVerticalStrut(10));
 
-        btnQuanLySP = createMenuButton(" Quản Lý Sản Phẩm",AdminContentPanel_GUI.CARD_SAN_PHAM);
+        btnQuanLySP = createMenuButton(" Quản Lý Sản Phẩm", AdminContentPanel_GUI.CARD_SAN_PHAM);
         add(btnQuanLySP);
         add(Box.createVerticalStrut(10));
 
-        btnDanhMucSP = createMenuButton(" Danh Mục Sản Phẩm",AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM);
+        btnDanhMucSP = createMenuButton(" Danh Mục Sản Phẩm", AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM);
         add(btnDanhMucSP);
         add(Box.createVerticalStrut(10));
 
-        btnDanhSachHD = createMenuButton("Danh Sách Hóa Đơn",AdminContentPanel_GUI.CARD_HOA_DON);
+        btnDanhSachHD = createMenuButton("Danh Sách Hóa Đơn", AdminContentPanel_GUI.CARD_HOA_DON);
         add(btnDanhSachHD);
         add(Box.createVerticalStrut(10));
 
-        btnQuanLyNCC = createMenuButton("Quản Lý Nhà Cung Cấp",AdminContentPanel_GUI.CARD_NHA_CUNG_CAP);
+        btnQuanLyNCC = createMenuButton("Quản Lý Nhà Cung Cấp", AdminContentPanel_GUI.CARD_NHA_CUNG_CAP);
         add(btnQuanLyNCC);
         add(Box.createVerticalStrut(10));
 
-        btnPhieuNhap = createMenuButton("Phiếu Nhập",AdminContentPanel_GUI.CARD_PHIEU_NHAP);
+        btnPhieuNhap = createMenuButton("Phiếu Nhập", AdminContentPanel_GUI.CARD_PHIEU_NHAP);
         add(btnPhieuNhap);
         add(Box.createVerticalStrut(10));
 
-        btnNhapHang = createMenuButton("Nhập Hàng",AdminContentPanel_GUI.CARD_NHAP_HANG);
+        btnNhapHang = createMenuButton("Nhập Hàng", AdminContentPanel_GUI.CARD_NHAP_HANG);
         add(btnNhapHang);
         add(Box.createVerticalStrut(10));
 
@@ -61,16 +61,43 @@ public class AdminMenuPanel_GUI extends JPanel {
         add(btnPhieuTra);
         add(Box.createVerticalStrut(10));
 
-        btnTraHang = createMenuButton("Trả Hàng",AdminContentPanel_GUI.CARD_TRA_HANG);
+        btnTraHang = createMenuButton("Trả Hàng", AdminContentPanel_GUI.CARD_TRA_HANG);
         add(btnTraHang);
         add(Box.createVerticalStrut(10));
 
-        btnQuanLyTK = createMenuButton("Quản Lý Tài Khoản",AdminContentPanel_GUI.CARD_TAI_KHOAN);
+        btnQuanLyTK = createMenuButton("Quản Lý Tài Khoản", AdminContentPanel_GUI.CARD_TAI_KHOAN);
         add(btnQuanLyTK);
         add(Box.createVerticalStrut(10));
 
+        btnDangXuat = creatLogOutButton("Đăng xuất");
+        add(btnDangXuat);
+        add(Box.createVerticalStrut(10));
 
         applyPermission();
+        btnBanHang.doClick();
+    }
+
+    private JButton creatLogOutButton(String text) {
+        JButton btn = new JButton(text);
+
+        Color normal = new Color(0x121929);
+        Color active = new Color(0xFDFDFD);
+
+        btn.setMaximumSize(new Dimension(200, 40));
+        btn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        btn.setForeground(Color.WHITE);
+        btn.setBackground(normal);
+
+        btn.setFocusPainted(false);
+        btn.setOpaque(true);
+        btn.setContentAreaFilled(true);
+
+        btn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(119, 117, 117), 1, true),
+                BorderFactory.createEmptyBorder(8, 15, 8, 15)));
+
+        btn.addActionListener(e -> logOut((AdminFrame_GUI) SwingUtilities.getWindowAncestor(this)));
+        return btn;
     }
 
     private JButton createMenuButton(String text,String cardName) {
@@ -102,6 +129,10 @@ public class AdminMenuPanel_GUI extends JPanel {
             btn.setForeground(new Color(0x1D4ED8));
             activeButton = btn;
             panel.showManHinh(cardName);
+
+            if(cardName.equals(AdminContentPanel_GUI.CARD_SAN_PHAM)) {
+                panel.getSanPhamMainGui().refreshTable();
+            }
 
             if(cardName.equals(AdminContentPanel_GUI.CARD_NHAP_HANG)){
                 panel.getNhapHangGUI().resetForm();
@@ -185,6 +216,20 @@ public class AdminMenuPanel_GUI extends JPanel {
             if( c instanceof  JButton) {
                 ((JButton)c).setEnabled(false);
             }
+        }
+    }
+    public void logOut(AdminFrame_GUI parent) {
+        int confirm = JOptionPane.showConfirmDialog(
+                parent,
+                "Bạn có muốn đăng xuất không?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION
+        );
+        if(confirm == JOptionPane.YES_OPTION) {
+            LoginForm_GUI  loginForm = new LoginForm_GUI();
+            loginForm.setLocationRelativeTo(parent);
+            loginForm.setVisible(true);
+            parent.dispose();
         }
     }
 

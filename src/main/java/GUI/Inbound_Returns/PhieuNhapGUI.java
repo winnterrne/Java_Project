@@ -2,12 +2,9 @@ package GUI.Inbound_Returns;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.FileChooserUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.rmi.server.ExportException;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import java.util.Locale;
 import BUS.PhieuNhap_BUS;
 import DAO.PhieuNhap_DAO;
 import DTO.PhieuNhap_DTO;
-import Utils.EportExcel;
+import Utils.ExportExcel;
 import com.toedter.calendar.JDateChooser;
 
 public class PhieuNhapGUI extends JPanel {
@@ -32,7 +29,7 @@ public class PhieuNhapGUI extends JPanel {
     PhieuNhap_BUS pnBUS = new PhieuNhap_BUS();
     PhieuNhap_DAO pnDAO = new PhieuNhap_DAO();
 
-    EportExcel ep = new EportExcel();
+    ExportExcel ep = new ExportExcel();
     public PhieuNhapGUI() {
         initGUI();
         loadPhieuNhap();

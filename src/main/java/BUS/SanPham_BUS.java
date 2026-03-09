@@ -31,7 +31,7 @@ public class SanPham_BUS {
 
     public ArrayList<SanPham_DTO> layDsSanPhamConTon() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
-        for (SanPham_DTO sp : getAllSanPham()) {
+        for (SanPham_DTO sp : getAllSanPhamAvavilable()) {
             if (sp.getSoLuongTon() > 0) {
                 list.add(sp);
             }
@@ -112,7 +112,7 @@ public class SanPham_BUS {
         String dinhDangSo = String.format ("%02d", soThuTu);
         String maSPMoi = "SP" + dinhDangSo;
 
-        // Kiểm tra nếu maSPMoi đã tồn tại (trường hợp gap do delete), tăng dần
+        
         while (spDAO.isMaSPExists(maSPMoi)) {
             soThuTu++;
             dinhDangSo = String.format("%02d", soThuTu);
@@ -145,9 +145,9 @@ public class SanPham_BUS {
         SanPham_DTO spTheoMa = getSanPhamByMaSP(tuKhoa);
 
         if (spTheoMa != null) {
-            ketQua.add(spTheoMa); // Ưu tiên tìm theo mã
+            ketQua.add(spTheoMa); 
         } else {
-            ArrayList<SanPham_DTO> dsTheoTen = timSanPhamTheoTen(tuKhoa); // Không có mã thì tìm theo tên
+            ArrayList<SanPham_DTO> dsTheoTen = timSanPhamTheoTen(tuKhoa); 
             if (dsTheoTen != null && !dsTheoTen.isEmpty()) {
                 ketQua.addAll(dsTheoTen);
             }

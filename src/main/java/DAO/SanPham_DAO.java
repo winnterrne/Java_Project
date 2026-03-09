@@ -32,6 +32,7 @@ public class SanPham_DAO {
                 sp.setMaDM(rs.getString("maDM"));
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
+                sp.setPath(rs.getString("Path"));
                 sp.setTrangThai(rs.getByte("trangThai"));
                 list.add(sp);
             }
@@ -40,7 +41,7 @@ public class SanPham_DAO {
         }
         return list;
     }
-    ///////////
+
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
@@ -71,10 +72,6 @@ public class SanPham_DAO {
         return list;
     }
 
-    //
-
-
-    //
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
         String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path FROM SanPham WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
@@ -132,7 +129,7 @@ public class SanPham_DAO {
 
     public boolean insertSanPham (SanPham_DTO sp){
         boolean result = false;
-        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

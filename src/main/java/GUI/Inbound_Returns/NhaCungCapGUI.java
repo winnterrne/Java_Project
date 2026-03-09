@@ -2,8 +2,7 @@ package GUI.Inbound_Returns;
 
 import BUS.NhaCungCap_BUS;
 import DTO.NhaCungCap_DTO;
-import DTO.PhieuNhap_DTO;
-import Utils.EportExcel;
+import Utils.ExportExcel;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -13,10 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class NhaCungCapGUI extends JPanel {
     JPanel topPanel, centerPanel, pTimKiem, pChucNang;
@@ -26,7 +22,7 @@ public class NhaCungCapGUI extends JPanel {
     DefaultTableModel dtmNCC;
     JScrollPane spNCC;
     NhaCungCap_BUS nccBUS = new NhaCungCap_BUS();
-    EportExcel export = new EportExcel();
+    ExportExcel export = new ExportExcel();
     public NhaCungCapGUI() {
         initGUI();
         loadTableNCC();
@@ -47,8 +43,6 @@ public class NhaCungCapGUI extends JPanel {
         tfTimKiem = new JTextField(20);
         pTimKiem.add(tfTimKiem);
         btnTimKiem = new JButton("Tìm kiếm");
-        btnTimKiem.setBackground(new Color(30, 144, 255));
-        btnTimKiem.setForeground(Color.WHITE);
         pTimKiem.add(btnTimKiem);
         btnLamMoi = new JButton("Làm mới");
 
@@ -58,25 +52,15 @@ public class NhaCungCapGUI extends JPanel {
 
         pChucNang = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
         btnThem = new JButton("Thêm");
-        btnThem.setBackground(new Color(76,175,80));
-        btnThem.setForeground(Color.WHITE);
         pChucNang.add(btnThem);
 
         btnXoa = new JButton("Xóa");
-        btnXoa.setBackground(new Color(244,67,54));
-        btnXoa.setForeground(Color.WHITE);
-
         pChucNang.add(btnXoa);
 
         btnSua = new JButton("Sửa");
-        btnSua.setBackground(new Color(255,193,7));
-        btnSua.setForeground(Color.BLACK);
         pChucNang.add(btnSua);
 
         btnXuatExcel = new JButton("Xuất Excel");
-        btnXuatExcel.setBackground(new Color(0,128,0));
-        btnXuatExcel.setForeground(Color.WHITE);
-
         pChucNang.add(btnXuatExcel);
         pChucNang.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED)
                 ,"Chức Năng"));

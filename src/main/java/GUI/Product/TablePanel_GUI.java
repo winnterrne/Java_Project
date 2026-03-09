@@ -88,7 +88,7 @@ public class TablePanel_GUI extends JPanel {
 
     public void loadSanPham() {
         model.setRowCount(0);
-        ArrayList<SanPham_DTO> list = bus.getAllSanPham();
+        ArrayList<SanPham_DTO> list = bus.getAllSanPhamAvavilable();
         for (SanPham_DTO sp : list) {
             String moTaShort = (sp.getMoTa() != null && sp.getMoTa().length() > 100)
                     ? sp.getMoTa().substring(0, 97) + "..." : sp.getMoTa();

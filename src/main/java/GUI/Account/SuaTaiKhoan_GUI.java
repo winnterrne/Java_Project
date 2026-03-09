@@ -37,10 +37,10 @@ public class SuaTaiKhoan_GUI extends JDialog {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // Panel tiêu đề
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // chiếm 2 cột
+        gbc.gridwidth = 2; 
         gbc.weightx = 1.0;
         gbc.weighty = 0.0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -54,24 +54,24 @@ public class SuaTaiKhoan_GUI extends JDialog {
         topPanel.add(lbTitle);
         add(topPanel, gbc);
 
-        // Reset lại cho các label + textfield
+        
         gbc.gridwidth = 1;
         gbc.weightx = 0;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.NONE;
-        gbc.anchor = GridBagConstraints.WEST; // label bám trái
+        gbc.anchor = GridBagConstraints.WEST; 
         gbc.insets = new Insets(5, 30, 5, 10);
 
-        // Mã Tai Khoan
+        
         gbc.gridx = 0; gbc.gridy = 1;
         add(createLabel("Mã tài khoản"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 1;
         tfMaTaiKhoan = new JTextField(20);
-        gbc.fill = GridBagConstraints.HORIZONTAL; // textfield giãn ngang
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
         add(tfMaTaiKhoan, gbc);
 
-        // Tên Tai Khoan
+        
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Tên tài khoản"), gbc);
@@ -81,7 +81,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfTenTaiKhoan, gbc);
 
-        // Email
+        
         gbc.gridx = 0; gbc.gridy = 3;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Email"), gbc);
@@ -91,7 +91,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfEmail, gbc);
 
-        // Vai tro
+        
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Vai Trò"), gbc);
@@ -101,7 +101,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfVaiTro, gbc);
 
-        // trang thai
+        
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Trạng thái"),gbc);
@@ -111,7 +111,7 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfTrangThai,gbc);
 
-        // ma nhanvien
+        
         gbc.gridx = 0; gbc.gridy = 6;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Mã nhân viên"),gbc);
@@ -121,9 +121,9 @@ public class SuaTaiKhoan_GUI extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfMaNhanVien,gbc);
 
-        // Panel nút bấm
+        
         gbc.gridx = 0; gbc.gridy = 7;
-        gbc.gridwidth = 2; // chiếm cả 2 cột
+        gbc.gridwidth = 2; 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(20, 0, 0, 0);

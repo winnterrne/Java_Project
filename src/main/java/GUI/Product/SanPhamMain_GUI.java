@@ -3,6 +3,7 @@ package GUI.Product;
 import BUS.SanPham_BUS;
 import BUS.ThongKe_BUS;
 import DTO.SanPham_DTO;
+import Utils.ExportExcel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -72,6 +73,12 @@ public class SanPhamMain_GUI extends JPanel {
         });
     }
 
+    public void refreshTable() {
+        if (tablePanel != null) {
+            tablePanel.loadSanPham();   
+        }
+    }
+
     private void themSanPham() {
         Window parent = SwingUtilities.getWindowAncestor(this);
         if (parent == null) {
@@ -79,7 +86,7 @@ public class SanPhamMain_GUI extends JPanel {
             return;
         }
 
-        // Sửa: truyền parent thay vì this
+        
         ThemSP_GUI dialog = new ThemSP_GUI((Frame) parent, sanPhamBus);
         dialog.setVisible(true);
         if (dialog.isSuccess()) {
@@ -118,7 +125,7 @@ public class SanPhamMain_GUI extends JPanel {
         Window parent = SwingUtilities.getWindowAncestor(this);
         if (parent == null) return;
 
-        new ChiTietSP_GUI((Frame) parent, sp);  // constructor này không có isSuccess
+        new ChiTietSP_GUI((Frame) parent, sp);  
     }
 
     private void xoaSanPham() {
@@ -143,19 +150,19 @@ public class SanPhamMain_GUI extends JPanel {
         System.out.println(">>> NÚT THỐNG KÊ ĐÃ ĐƯỢC NHẤN <<<");
 
         Container top = getTopLevelAncestor();
-        System.out.println("getTopLevelAncestor() trả về: " + top);  // debug quan trọng
+        System.out.println("getTopLevelAncestor() trả về: " + top);  
 
         Frame ownerFrame = null;
 
         if (top instanceof Frame) {
             ownerFrame = (Frame) top;
         } else if (top != null) {
-            // Nếu là Window khác (JDialog, ...) thì thử ép kiểu hoặc tìm frame cha
+            
             ownerFrame = (Frame) SwingUtilities.getWindowAncestor(top);
         }
 
         if (ownerFrame == null) {
-            // Fallback cuối: tìm tất cả frame đang mở và lấy cái visible/active
+            
             Frame[] allFrames = Frame.getFrames();
             for (Frame f : allFrames) {
                 if (f.isVisible() && f.isActive()) {
@@ -174,7 +181,7 @@ public class SanPhamMain_GUI extends JPanel {
             return;
         }
 
-        // Nếu đến đây → có ownerFrame → mở dialog
+        
         new ThongKeDoanhThu_GUI(ownerFrame, thongKeBus);
         System.out.println("Đã mở ThongKeDoanhThu_GUI với owner: " + ownerFrame.getTitle());
     }
@@ -213,7 +220,7 @@ public class SanPhamMain_GUI extends JPanel {
                 });
             }
             JTable tempTable = new JTable(tempModel);
-            Utils.EportExcel.exportTablePNToExcel(tempTable, filePath);
+            ExportExcel.exportTablePNToExcel(tempTable, filePath);
         }
     }
 

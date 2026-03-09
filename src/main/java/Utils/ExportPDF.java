@@ -28,7 +28,6 @@ public class ExportPDF {
             PDPageContentStream content =
                     new PDPageContentStream(document, page);
 
-            // Load font hỗ trợ tiếng Việt
             PDType0Font font = PDType0Font.load(
                     document,
                     new File("C:/Windows/Fonts/arial.ttf")
@@ -53,7 +52,6 @@ public class ExportPDF {
             content.showText("Tổng tiền: " + tongTien);
             content.endText();
 
-            // In bảng
             TableModel model = table.getModel();
 
             float yPosition = 650;
@@ -63,7 +61,6 @@ public class ExportPDF {
 
             float[] columnWidths = {80, 80, 200, 100, 100, 150};
 
-// ===== In Header =====
             float xPosition = margin;
 
             for (int col = 0; col < model.getColumnCount(); col++) {
@@ -79,7 +76,6 @@ public class ExportPDF {
 
             yPosition -= rowHeight;
 
-// ===== In Data =====
             for (int row = 0; row < model.getRowCount(); row++) {
 
                 xPosition = margin;

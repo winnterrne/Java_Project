@@ -33,7 +33,7 @@ public class TaiKhoan_DAO {
             e.printStackTrace();
         }
     }
-    // Ham lay het danh sach tai khoam
+    
     public ArrayList<TaiKhoan_DTO> getALL() {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if (openConnection()) {
@@ -46,8 +46,8 @@ public class TaiKhoan_DAO {
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setPassWord(rs.getString("matkhau"));
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setMaVaiTro(rs.getString("mavaitro"));
                     tk.setEmail(rs.getString("email"));
+                    tk.setMaVaiTro(rs.getString("mavaitro"));
                     tk.setTrangThai(rs.getBoolean("trangthai"));
                     tk.setMaNV(rs.getString("maNV"));
                     tk.setMaKH(rs.getString("maKH"));
@@ -86,7 +86,7 @@ public class TaiKhoan_DAO {
         }
         return list;
     }
-    // Ham kiem tra xem co ma tai khoan
+    
     public boolean isUsernameExist(String maTaikhoan) {
         boolean result = false;
         if(openConnection()) {
@@ -121,7 +121,7 @@ public class TaiKhoan_DAO {
         }
         return result;
     }
-    // Kiem tra ten dang nhap vao he thong
+    
     public boolean isTenDangNhap(String tentk) {
         boolean result = false;
         if (openConnection()) {
@@ -139,7 +139,7 @@ public class TaiKhoan_DAO {
         }
         return result;
     }
-    // Ham them tai khoan
+    
     public boolean addTaiKhoan(TaiKhoan_DTO taikhoan) {
         if(openConnection()) {
             try {
@@ -161,7 +161,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham xoa tai khoan
+    
     public boolean deleteTaiKhoan(String maTaikhoan) {
         if (openConnection()) {
             try {
@@ -177,7 +177,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham sua tai khoan
+    
     public boolean updateTaikhoan(TaiKhoan_DTO taikhoan) {
         if(openConnection()) {
             try {
@@ -197,7 +197,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham cap nhat mat khau
+    
     public boolean updatePasswordForgot(String matkhau, String email) {
         if (openConnection()) {
             try {
@@ -214,7 +214,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham cap nhat mat khau trong trang chinh
+    
     public boolean updatePassword(String tendangnhap, String matkhaucu, String matkhaumoi) {
         if(openConnection()) {
             try {
@@ -233,7 +233,7 @@ public class TaiKhoan_DAO {
         return false;
     }
 
-    // Phan dang nhap cho tai khoan
+    
     public TaiKhoan_DTO login (String tendangnhap, String matkhau) {
         TaiKhoan_DTO taikhoan= null;
         if (openConnection()) {
@@ -250,6 +250,7 @@ public class TaiKhoan_DAO {
                     taikhoan.setPassWord(rs.getString("matkhau"));
                     taikhoan.setMaVaiTro(rs.getString("mavaitro"));
                     taikhoan.setEmail(rs.getString("email"));
+                    taikhoan.setMaNV(rs.getString("maNV"));
                     taikhoan.setTrangThai(rs.getBoolean("trangthai"));
                     taikhoan.setHoTen(rs.getString("hoTenNV"));
                 }
@@ -261,7 +262,7 @@ public class TaiKhoan_DAO {
         }
         return taikhoan;
     }
-    // Ham luu ma OTP
+    
     public boolean updateOTPByEmail(String otp, String email) {
         if (openConnection()) {
             try {
@@ -278,7 +279,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham kiem tra ma OTP
+    
     public boolean checkOTP(String otp, String email) {
         if (openConnection()) {
             try {
@@ -311,7 +312,7 @@ public class TaiKhoan_DAO {
         }
         return false;
     }
-    // Ham tim kiem theo ten
+    
     public ArrayList<TaiKhoan_DTO> sortName(String name) {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if(openConnection()) {
