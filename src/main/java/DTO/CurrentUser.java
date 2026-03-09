@@ -1,4 +1,5 @@
 package DTO;
+import BUS.TaiKhoan_BUS;
 import DTO.VaiTro_DTO;
 
 import java.util.Locale;
@@ -6,6 +7,7 @@ import java.util.Locale;
 public class CurrentUser {
     private static final CurrentUser instance = new CurrentUser();
     private TaiKhoan_DTO tkhientai;
+    private TaiKhoan_BUS tkbus;
     public CurrentUser() {
 
     }
@@ -28,6 +30,21 @@ public class CurrentUser {
         String ma = tkhientai.getMaVaiTro().trim().toUpperCase();
         return ma;
     }
+    public String getTenNV() {
+        if(tkhientai == null) {
+            return " ";
+        }
+        String tennv = tkhientai.getHoTen().trim().toUpperCase();
+        return tennv;
+    }
+    public String getmaNV() {
+        if(tkhientai == null) {
+            return " ";
+        }
+        String manv = tkhientai.getMaNV().trim().toUpperCase();
+        return manv;
+    }
+
     public boolean isAdmin() {
         String ma = getMaQuyen();
         return "ADMIN".equals(ma);

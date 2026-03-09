@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import BUS.PhieuNhap_BUS;
 import DAO.PhieuNhap_DAO;
+import DTO.CurrentUser;
 import DTO.PhieuNhap_DTO;
 import Utils.ExportExcel;
 import com.toedter.calendar.JDateChooser;
@@ -138,7 +139,7 @@ public class PhieuNhapGUI extends JPanel {
                     stt++,
                     pn.getMaPhieuNhap(),
                     tenNCC,
-                    "admin",
+                    CurrentUser.getInstance().getTenNV(),
                     pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });
@@ -157,7 +158,7 @@ public class PhieuNhapGUI extends JPanel {
                     stt++,
                     pn.getMaPhieuNhap(),
                     tenNCC,
-                    "admin",
+                    CurrentUser.getInstance().getTenNV(),
                     pn.getNgayNhapHang().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tongTienFormatted
             });

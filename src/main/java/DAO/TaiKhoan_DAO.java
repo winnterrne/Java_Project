@@ -38,7 +38,7 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM TaiKhoan";
+                String sql = "SELECT * FROM TaiKhoan where trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -49,8 +49,8 @@ public class TaiKhoan_DAO {
                     tk.setMaVaiTro(rs.getString("mavaitro"));
                     tk.setEmail(rs.getString("email"));
                     tk.setTrangThai(rs.getBoolean("trangthai"));
-                    tk.setMaNV(rs.getString("manhanvien"));
-                    tk.setMaKH(rs.getString("makhachhang"));
+                    tk.setMaNV(rs.getString("maNV"));
+                    tk.setMaKH(rs.getString("maKH"));
                     list.add(tk);
                 }
             }catch (Exception e) {
@@ -65,13 +65,13 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if (openConnection()) {
             try {
-                String sql = "SELECT tk.mataikhoan, nv.hovaten, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.manhanvien = nv.manhanvien";
+                String sql = "SELECT tk.mataikhoan, nv.hoTenNV, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.maNV = nv.maNV where tk.trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     TaiKhoan_DTO tk = new TaiKhoan_DTO();
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setHoTen(rs.getString("hovaten"));
+                    tk.setHoTen(rs.getString("hoTenNV"));
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setEmail(rs.getString("email"));
                     tk.setMaVaiTro(rs.getString("mavaitro"));
@@ -143,7 +143,7 @@ public class TaiKhoan_DAO {
     public boolean addTaiKhoan(TaiKhoan_DTO taikhoan) {
         if(openConnection()) {
             try {
-                String sql = "INSERT INTO TaiKhoan(mataikhoan, tendangnhap, matkhau, mavaitro, email, trangthai, manhanvien)" + "VALUES(?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO TaiKhoan(mataikhoan, tendangnhap, matkhau, mavaitro, email, trangthai, maNV)" + "VALUES(?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,taikhoan.getMaTK());
                 ps.setString(2,taikhoan.getTenDangNhap());
@@ -165,7 +165,7 @@ public class TaiKhoan_DAO {
     public boolean deleteTaiKhoan(String maTaikhoan) {
         if (openConnection()) {
             try {
-                String sql = "DELETE from TaiKhoan where mataikhoan=?";
+                String sql = "UPDATE TaiKhoan SET trangthai = 0 where mataikhoan=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,maTaikhoan);
                 return ps.executeUpdate() > 0;
@@ -181,7 +181,7 @@ public class TaiKhoan_DAO {
     public boolean updateTaikhoan(TaiKhoan_DTO taikhoan) {
         if(openConnection()) {
             try {
-                String sql = "UPDATE TaiKhoan SET " + "tendangnhap=?, mavaitro=?, email=?, trangthai=?, otp = NULL, otp_expire = NULL" + "where mataikhoan=?";
+                String sql = "UPDATE TaiKhoan SET tendangnhap=?, mavaitro=?, email=?, trangthai=?, otp = NULL, otp_expire = NULL WHERE mataikhoan=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,taikhoan.getTenDangNhap());
                 ps.setString(2, taikhoan.getMaVaiTro());
@@ -238,7 +238,7 @@ public class TaiKhoan_DAO {
         TaiKhoan_DTO taikhoan= null;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM TaiKhoan WHERE tendangnhap=? AND matkhau=?";
+                String sql = "SELECT tk.*, nv.hoTenNV FROM TaiKhoan tk JOIN NhanVien nv on tk.maNV = nv.maNV WHERE tk.tendangnhap=? AND tk.matkhau=? AND tk.trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,tendangnhap);
                 ps.setString(2,matkhau);
@@ -251,6 +251,8 @@ public class TaiKhoan_DAO {
                     taikhoan.setMaVaiTro(rs.getString("mavaitro"));
                     taikhoan.setEmail(rs.getString("email"));
                     taikhoan.setTrangThai(rs.getBoolean("trangthai"));
+                    taikhoan.setHoTen(rs.getString("hoTenNV"));
+                    taikhoan.setMaNV(rs.getString("maNV"));
                 }
             }catch (Exception e) {
                 e.printStackTrace();
@@ -315,14 +317,14 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if(openConnection()) {
             try {
-                String sql =  "SELECT tk.mataikhoan, nv.hovaten, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.manhanvien = nv.manhanvien where tk.tendangnhap LIKE?";
+                String sql =  "SELECT tk.mataikhoan, nv.hoTenNV, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.maNV = nv.maNV where tk.tendangnhap LIKE? and tk.trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + name + "%");
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()) {
                     TaiKhoan_DTO tk = new TaiKhoan_DTO();
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setHoTen(rs.getString("hovaten"));
+                    tk.setHoTen(rs.getString("hoTenNV"));
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setEmail(rs.getString("email"));
                     tk.setMaVaiTro(rs.getString("mavaitro"));

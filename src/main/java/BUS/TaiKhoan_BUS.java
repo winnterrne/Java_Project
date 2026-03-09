@@ -20,6 +20,7 @@ public class TaiKhoan_BUS {
     public ArrayList<TaiKhoan_DTO> getALL() {
         return taikhoan.getALL();
     }
+
     public ArrayList<TaiKhoan_DTO> getToShowTable() {
         return taikhoan.getToShowTable();
     }

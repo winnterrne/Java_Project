@@ -142,10 +142,11 @@ public class SanPham_DAO {
             ps.setString(3, sp.getMoTa());
             ps.setDouble(4, sp.getGiaBan());
             ps.setString(5, sp.getDonVi());
-            ps.setInt(6, sp.getSoLuongTon());
+            ps.setInt(6, 0);
             ps.setString(7, sp.getMaDM());
             ps.setString(8, sp.getMaKhuyenMai());
             ps.setString(9, sp.getViTri());
+
 
             if (ps.executeUpdate() > 0) {
                 result = true;
@@ -273,17 +274,18 @@ public class SanPham_DAO {
     //     return null;
     // }
 
-    public String getMaxMaSP (){
-        String sql = "Select max (maSP) as maxMaSP from SanPham";
+    public String getMaxMaSP() {
+        String sql = "SELECT TOP 1 maSP FROM SanPham ORDER BY maSP DESC";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("maxMaSP");
+                    return rs.getString("maSP");
                 }
             }
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;

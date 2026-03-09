@@ -42,6 +42,8 @@ public class ThemSP_GUI extends JDialog {
         txtGiaBan  = new JTextField(15);
         txtDonVi   = new JTextField(10);
         txtSoLuong = new JTextField(10);
+        txtSoLuong.setEditable(false);
+        txtSoLuong.setText("0");
         txtMaKhuyenMai = new JTextField(10);
         txtViTri   = new JTextField(15);
 
