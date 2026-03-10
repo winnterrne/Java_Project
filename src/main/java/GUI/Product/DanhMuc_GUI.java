@@ -31,19 +31,16 @@ public class DanhMuc_GUI extends JPanel {
     private JButton btnXemDanhMucDaXoa;
     private JTextField txtSearch;
     private JButton btnExportExcel;
+    private JButton btnExportPDF;
 
     public DanhMuc_GUI() {
         super(new BorderLayout());
-        System.out.println(">>> DanhMuc_GUI khởi tạo - bắt đầu initComponents");
 
         initComponents();
-        System.out.println(">>> Đã initComponents xong, bắt đầu attachListeners");
 
         attachListeners();
-        System.out.println(">>> Đã attachListeners xong");
 
         loadDanhMuc();
-        System.out.println(">>> Đã loadDanhMuc xong");
     }
 
     private void initComponents() {
@@ -56,6 +53,7 @@ public class DanhMuc_GUI extends JPanel {
         btnChiTiet  = new JButton("Chi Tiết");
         btnXemDanhMucDaXoa = new JButton("Xem Danh Mục Đã Xóa");
         btnExportExcel = new JButton("Xuất Excel");
+        btnExportPDF = new JButton ("Xuất PDF");
 
 
         toolBar.add(btnThem);
@@ -66,6 +64,7 @@ public class DanhMuc_GUI extends JPanel {
         toolBar.add(btnXemDanhMucDaXoa);
         toolBar.addSeparator();
         toolBar.add(btnExportExcel);
+        toolBar.add(btnExportPDF);
 
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -104,7 +103,6 @@ public class DanhMuc_GUI extends JPanel {
     }
 
     private void attachListeners() {
-        System.out.println(">>> attachListeners được gọi - đang gắn listener cho btnXemDanhMucDaXoa");
 
         btnLamMoi.addActionListener(e -> loadDanhMuc());
         btnThem.addActionListener(e -> themDanhMuc());
@@ -112,10 +110,9 @@ public class DanhMuc_GUI extends JPanel {
         btnXoa.addActionListener(e -> xoaDanhMuc());
         btnChiTiet.addActionListener(e -> xemChiTiet());
         btnExportExcel.addActionListener(e -> exprtExcel());
-//        btnImportExcel.addActionListener(e -> new);
+        btnExportPDF.addActionListener(e -> exportPDF());
 
         btnXemDanhMucDaXoa.addActionListener(e -> {
-            System.out.println(">>> NÚT 'Xem Danh Mục Đã Xóa' ĐÃ ĐƯỢC NHẤN!");
             XemDanhMucDaXoa();
         });
 
@@ -283,23 +280,17 @@ public class DanhMuc_GUI extends JPanel {
     }
 
     public void XemDanhMucDaXoa() {
-        System.out.println(">>> Vào hàm XemDanhMucDaXoa");
-
         Window parent = SwingUtilities.getWindowAncestor(table);
         if (parent == null) {
             parent = SwingUtilities.getWindowAncestor(this);
         }
 
         if (parent == null) {
-            System.out.println(">>> Parent vẫn null!");
             JOptionPane.showMessageDialog(this, "Không tìm thấy cửa sổ cha để mở dialog!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        System.out.println(">>> Parent tìm thấy: " + parent.getClass().getName() + " - Title: " + ((Frame) parent).getTitle());
-
         new DanhMucXoa_GUI((Frame) parent, dmBus, this);
-        System.out.println(">>> Đã tạo DanhMucXoa_GUI");
     }
 
     private void exprtExcel() {
@@ -336,7 +327,7 @@ public class DanhMuc_GUI extends JPanel {
             if (!filePath.toLowerCase().endsWith(".pdf")) {
                 filePath += ".pdf";
             }
-            ExportPDFSP.exportTableToPDF(table, filePath, "Danh Mục Sản Phẩm");
+            ExportPDFSP.exportDanhMucToPDF(table, filePath, "Danh Mục Sản Phẩm");
         }
     }
 }

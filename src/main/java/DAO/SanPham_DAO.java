@@ -16,7 +16,7 @@ public class SanPham_DAO {
             SELECT *
             FROM SanPham
             where trangThai = 1
-            ORDER BY maDM ASC, maSP ASC
+            ORDER BY maSP ASC
             """;
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -41,13 +41,12 @@ public class SanPham_DAO {
         }
         return list;
     }
-    ///////////
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
             SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path
             FROM SanPham
-            ORDER BY maDM ASC, maSP ASC
+            ORDER BY maSP ASC
             """;
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -72,10 +71,6 @@ public class SanPham_DAO {
         return list;
     }
 
-    //
-
-
-    //
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
         String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path FROM SanPham WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
@@ -129,6 +124,35 @@ public class SanPham_DAO {
             e.printStackTrace();
         }
         return listSanPham;
+    }
+
+    public ArrayList<SanPham_DTO> getAllTenSP (){
+        ArrayList<SanPham_DTO> list = new ArrayList<>();
+
+        String sql = """
+                SELECT sp.TenSP, SUM(ct.soLuong) AS tongSoLuong
+                FROM HoaDon hd
+                JOIN ChiTietHoaDon ct ON hd.MaHD = ct.MaHD
+                JOIN SanPham sp ON sp.MaSP = ct.MaSP
+                WHERE MONTH(hd.NgayLapHD) = ? AND YEAR(hd.NgayLapHD) = ?
+                GROUP BY sp.TenSP
+                """;;
+
+        try (Connection con = databaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                SanPham_DTO sp = new SanPham_DTO();
+                sp.setTenSP(rs.getString("tenSP"));
+                list.add(sp);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public boolean insertSanPham (SanPham_DTO sp){

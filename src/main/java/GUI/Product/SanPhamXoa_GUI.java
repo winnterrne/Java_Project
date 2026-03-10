@@ -20,13 +20,13 @@ public class SanPhamXoa_GUI extends JDialog {
         setSize(900, 600);
         setLocationRelativeTo(owner);
 
-        
+
         String[] columns = {"Mã SP", "Tên SP", "Giá bán", "Số lượng tồn", "Danh mục"};
         model = new DefaultTableModel(columns, 0);
         tableDaXoa = new JTable(model);
         add(new JScrollPane(tableDaXoa), BorderLayout.CENTER);
 
-        
+
         JButton btnKhoiPhuc = new JButton("Khôi phục sản phẩm đã chọn");
         btnKhoiPhuc.addActionListener(e -> khoiPhucSanPham());
         JPanel bottom = new JPanel();
@@ -39,7 +39,7 @@ public class SanPhamXoa_GUI extends JDialog {
 
     private void loadDanhSachDaXoa() {
         model.setRowCount(0);
-        ArrayList<SanPham_DTO> list = sanPhamBus.getAllSanPhamDaXoa();  
+        ArrayList<SanPham_DTO> list = sanPhamBus.getAllSanPhamDaXoa();
         for (SanPham_DTO sp : list) {
             model.addRow(new Object[]{
                     sp.getMaSP(),
@@ -62,9 +62,6 @@ public class SanPhamXoa_GUI extends JDialog {
         if (sanPhamBus.restoreSanPham(maSP)) {
             JOptionPane.showMessageDialog(this, "Khôi phục thành công!");
             loadDanhSachDaXoa();
-            if (tablePanel != null) {
-                tablePanel.loadSanPham();  
-            }
         } else {
             JOptionPane.showMessageDialog(this, "Khôi phục thất bại!");
         }
