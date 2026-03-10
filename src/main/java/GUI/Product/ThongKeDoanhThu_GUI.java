@@ -5,17 +5,27 @@ import DTO.ThongKeDoanhThu_DTO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import org.knowm.xchart.PieChart;
+import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.style.Styler.ChartTheme;
+
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThongKeDoanhThu_GUI extends JDialog {
 
     private ThongKe_BUS thongKeBus;
+    private JComboBox<Integer> cbThang, cbNam;
+    private JPanel chartPanel;
 
     public ThongKeDoanhThu_GUI(Frame owner, ThongKe_BUS thongKeBus) {
         super(owner, "Thống kê doanh thu theo tháng", true);
         System.out.println(">>> Constructor ThongKeDoanhThu_GUI bắt đầu - owner: " + owner.getTitle());
         this.thongKeBus = thongKeBus;
+        this.cbThang = new JComboBox<>();
+        this.cbNam = new JComboBox<>();
 
         setSize(900, 650);
         setLocationRelativeTo(owner);
@@ -24,11 +34,9 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         JPanel selectPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         selectPanel.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
 
-        JComboBox<Integer> cbThang = new JComboBox<>();
         for (int i = 1; i <= 12; i++) cbThang.addItem(i);
         cbThang.setSelectedItem(java.time.LocalDate.now().getMonthValue());
 
-        JComboBox<Integer> cbNam = new JComboBox<>();
         for (int i = 2023; i <= 2026; i++) cbNam.addItem(i);
         cbNam.setSelectedItem(java.time.LocalDate.now().getYear());
 
@@ -57,6 +65,11 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         lblTong.setHorizontalAlignment(SwingConstants.CENTER);
         lblTong.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
 
+        chartPanel = new JPanel(new BorderLayout());
+        chartPanel.setPreferredSize(new Dimension(800, 350));
+        chartPanel.setBorder(BorderFactory.createTitledBorder("Biểu đồ bán hàng"));
+
+        resultPanel.add(chartPanel, BorderLayout.NORTH);
         resultPanel.add(scroll, BorderLayout.CENTER);
         resultPanel.add(lblTong, BorderLayout.SOUTH);
 
@@ -91,6 +104,7 @@ public class ThongKeDoanhThu_GUI extends JDialog {
                 lblTong.setText("TỔNG DOANH THU THÁNG " + thang + "/" + nam + ": "
                         + String.format("%,.0f ₫", tongDoanhThu));
 
+                chartThongKe();
                 
                 resultPanel.setVisible(true);
                 resultPanel.revalidate();   
@@ -128,9 +142,49 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         add(resultPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        System.out.println(">>> Đã set up xong layout, trước pack()");
         pack();
-        System.out.println(">>> Constructor ThongKeDoanhThu_GUI hoàn tất - dialog sẵn sàng hiển thị");
         setVisible(true);
+    }
+
+    public void chartThongKe() {
+        int thang = (int) cbThang.getSelectedItem();
+        int nam = (int) cbNam.getSelectedItem();
+
+        List<String> tenSP = new ArrayList<>();
+        List<Integer> soLuong = new ArrayList<>();
+
+        List<ThongKeDoanhThu_DTO> list = thongKeBus.getThongKeDoanhThu(thang, nam);
+
+        if (list == null || list.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Tháng này chưa được cập nhật,\nchưa có dữ liệu doanh thu.",
+                "Thông báo",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        for (ThongKeDoanhThu_DTO tk : list) {
+            tenSP.add(tk.getTenSP());
+            soLuong.add(tk.getSoLuong());
+        }
+
+        PieChart chart = new PieChartBuilder()
+            .width(800)
+            .height(350)
+            .title("Tỷ lệ bán theo sản phẩm")
+            .theme(ChartTheme.Matlab)
+            .build();
+
+        for (ThongKeDoanhThu_DTO tk : list) {
+            chart.addSeries(tk.getTenSP(), tk.getSoLuong());
+        }
+
+        chartPanel.removeAll();
+        chartPanel.add(new org.knowm.xchart.XChartPanel<>(chart), BorderLayout.CENTER);
+
+        chartPanel.revalidate();
+        chartPanel.repaint();
     }
 }
