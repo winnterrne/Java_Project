@@ -31,6 +31,7 @@ public class DanhMuc_GUI extends JPanel {
     private JButton btnXemDanhMucDaXoa;
     private JTextField txtSearch;
     private JButton btnExportExcel;
+    private JButton btnExportPDF;
 
     public DanhMuc_GUI() {
         super(new BorderLayout());
@@ -52,6 +53,7 @@ public class DanhMuc_GUI extends JPanel {
         btnChiTiet  = new JButton("Chi Tiết");
         btnXemDanhMucDaXoa = new JButton("Xem Danh Mục Đã Xóa");
         btnExportExcel = new JButton("Xuất Excel");
+        btnExportPDF = new JButton ("Xuất PDF");
 
 
         toolBar.add(btnThem);
@@ -62,6 +64,7 @@ public class DanhMuc_GUI extends JPanel {
         toolBar.add(btnXemDanhMucDaXoa);
         toolBar.addSeparator();
         toolBar.add(btnExportExcel);
+        toolBar.add(btnExportPDF);
 
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -107,6 +110,7 @@ public class DanhMuc_GUI extends JPanel {
         btnXoa.addActionListener(e -> xoaDanhMuc());
         btnChiTiet.addActionListener(e -> xemChiTiet());
         btnExportExcel.addActionListener(e -> exprtExcel());
+        btnExportPDF.addActionListener(e -> exportPDF());
 
         btnXemDanhMucDaXoa.addActionListener(e -> {
             XemDanhMucDaXoa();
@@ -323,7 +327,7 @@ public class DanhMuc_GUI extends JPanel {
             if (!filePath.toLowerCase().endsWith(".pdf")) {
                 filePath += ".pdf";
             }
-            ExportPDFSP.exportTableToPDF(table, filePath, "Danh Mục Sản Phẩm");
+            ExportPDFSP.exportDanhMucToPDF(table, filePath, "Danh Mục Sản Phẩm");
         }
     }
 }
