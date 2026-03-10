@@ -138,10 +138,6 @@ public class AdminMenuPanel_GUI extends JPanel {
                 panel.getDanhMucGui().loadDanhMuc();
             }
 
-            if(cardName.equals(AdminContentPanel_GUI.CARD_DANH_MUC_SAN_PHAM)) {
-                panel.getDanhMucGui().loadDanhMuc();
-            }
-
             if(cardName.equals(AdminContentPanel_GUI.CARD_NHAP_HANG)){
                 panel.getNhapHangGUI().resetForm();
                 panel.getNhapHangGUI().loadTableSanPham();

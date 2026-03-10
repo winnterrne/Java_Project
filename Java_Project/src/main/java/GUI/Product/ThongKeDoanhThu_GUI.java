@@ -33,11 +33,9 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         JPanel selectPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         selectPanel.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
 
-        JComboBox<Integer> cbThang = new JComboBox<>();
         for (int i = 1; i <= 12; i++) cbThang.addItem(i);
         cbThang.setSelectedItem(java.time.LocalDate.now().getMonthValue());
 
-        JComboBox<Integer> cbNam = new JComboBox<>();
         for (int i = 2023; i <= 2026; i++) cbNam.addItem(i);
         cbNam.setSelectedItem(java.time.LocalDate.now().getYear());
 
@@ -101,8 +99,6 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
                 chartThongKe();
 
-                chartThongKe();
-
                 resultPanel.setVisible(true);
                 resultPanel.revalidate();
                 resultPanel.repaint();
@@ -153,10 +149,10 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
         if (list == null || list.isEmpty()) {
             JOptionPane.showMessageDialog(
-                this,
-                "Tháng này chưa được cập nhật,\nchưa có dữ liệu doanh thu.",
-                "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE
+                    this,
+                    "Tháng này chưa được cập nhật,\nchưa có dữ liệu doanh thu.",
+                    "Thông báo",
+                    JOptionPane.INFORMATION_MESSAGE
             );
             return;
         }
@@ -167,11 +163,11 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         }
 
         PieChart chart = new PieChartBuilder()
-            .width(800)
-            .height(350)
-            .title("Tỷ lệ bán theo sản phẩm")
-            .theme(ChartTheme.Matlab)
-            .build();
+                .width(800)
+                .height(350)
+                .title("Tỷ lệ bán theo sản phẩm")
+                .theme(ChartTheme.Matlab)
+                .build();
 
         for (ThongKeDoanhThu_DTO tk : list) {
             chart.addSeries(tk.getTenSP(), tk.getSoLuong());

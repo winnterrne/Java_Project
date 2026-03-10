@@ -21,14 +21,14 @@ public class ExportPDFSP {
 
             PDType0Font font = PDType0Font.load(document, new File("C:/Windows/Fonts/arial.ttf"));
 
-            
+
             content.beginText();
             content.setFont(font, 16);
             content.newLineAtOffset(200, 800);
             content.showText(title);
             content.endText();
 
-            
+
             TableModel model = table.getModel();
             float yPosition = 750;
             float rowHeight = 25;

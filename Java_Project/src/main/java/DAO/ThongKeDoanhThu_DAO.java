@@ -93,34 +93,4 @@ public class ThongKeDoanhThu_DAO {
 
         return list;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

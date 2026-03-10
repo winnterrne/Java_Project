@@ -24,24 +24,23 @@ import java.util.Locale;
 
 public class ExportExcel {
     SanPham_BUS spBUS = new SanPham_BUS();
-
     public static void exportTablePNToExcel(JTable table, String filePath) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("DanhSachPhieuNhap");
 
         Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < table.getColumnCount(); i++) {
+        for(int i = 0; i < table.getColumnCount(); i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(table.getColumnName(i));
         }
 
-        for (int i = 0; i < table.getRowCount(); i++) {
+        for(int i = 0; i < table.getRowCount(); i++) {
             Row row = sheet.createRow(i + 1);
-            for (int j = 0; j < table.getColumnCount(); j++) {
+            for(int j = 0; j < table.getColumnCount(); j++) {
                 Object value = table.getValueAt(i, j);
                 Cell cell = row.createCell(j);
-                if (value != null) {
-                    if (j == 5) {
+                if(value != null) {
+                    if(j == 5) {
                         try {
                             NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
                             String numberStr = table.getValueAt(i, 5).toString();
@@ -134,7 +133,6 @@ public class ExportExcel {
         for (int i = 0; i < table.getColumnCount(); i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(table.getColumnName(i));
-            cell.setCellStyle(centerStyle);
             cell.setCellStyle(centerStyle);
         }
 
