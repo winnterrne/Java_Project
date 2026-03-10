@@ -189,6 +189,7 @@ public class AdminMenuPanel_GUI extends JPanel {
         boolean isAdmin = "ADMIN".equalsIgnoreCase(maVaiTro);
         boolean isNVBH = "NHANVIENBANHANG".equalsIgnoreCase(maVaiTro);
         boolean isKho = "KHO".equalsIgnoreCase(maVaiTro);
+        boolean isKH = "KHACHHANG".equalsIgnoreCase(maVaiTro);
 
         disableALL();
 
@@ -205,6 +206,20 @@ public class AdminMenuPanel_GUI extends JPanel {
             btnPhieuTra.setEnabled(true);
             btnTraHang.setEnabled(true);
             btnQuanLyNCC.setEnabled(true);
+        }
+        if(isKH) {
+            btnBanHang.setEnabled(true);
+            btnDangXuat.setEnabled(true);
+            btnQuanLySP.setVisible(false);
+            btnDanhMucSP.setVisible(false);
+            btnDanhSachHD.setVisible(false);
+            btnQuanLyNCC.setVisible(false);
+            btnPhieuNhap.setVisible(false);
+            btnNhapHang.setVisible(false);
+            btnPhieuTra.setVisible(false);
+            btnTraHang.setVisible(false);
+            btnQuanLyTK.setVisible(false);
+
         }
     }
     public void enableALL() {

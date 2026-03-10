@@ -12,6 +12,7 @@ import java.util.Properties;
 
 public class TaiKhoan_BUS {
     private TaiKhoan_DAO taikhoan;
+    KhachHang_BUS khbus = new KhachHang_BUS();
     NhanVien_BUS nvbus = new NhanVien_BUS();
     private static final String Default_Pass = "123456";
     public TaiKhoan_BUS () {
@@ -34,12 +35,12 @@ public class TaiKhoan_BUS {
         String email = tk.getEmail();
         String vaitro = tk.getMaVaiTro();
         String manv = tk.getMaNV();
+        String makh = tk.getMaKH();
 
         if(matk == null || matk.trim().isEmpty() ||
                 tendn == null || tendn.trim().isEmpty() ||
                 email == null || email.trim().isEmpty() ||
-                vaitro == null || vaitro.trim().isEmpty() ||
-                manv == null || manv.trim().isEmpty()) {
+                vaitro == null || vaitro.trim().isEmpty() ) {
             return "Vui lòng điền đầy đủ thông tin";
         }
         if(!tk.getEmail().matches("^[A-Za-z0-9+_.-]+@gmail\\.com$")) {
@@ -49,8 +50,8 @@ public class TaiKhoan_BUS {
             return "Trạng thái chỉ được 1 = hoạt động 2 = không hoạt động ";
         }
         vaitro = vaitro.trim().toUpperCase();
-        if(!vaitro.equals("ADMIN") && !vaitro.equals("KHO") && !vaitro.equals("NHANVIENBANHANG")) {
-            return "Vai trò chỉ được admin, kho hoặc, nv bán hàng ";
+        if(!vaitro.equals("ADMIN") && !vaitro.equals("KHO") && !vaitro.equals("NHANVIENBANHANG") && !vaitro.equals("KHACHHANG")) {
+            return "Vai trò chỉ được admin, kho , nv bán hàng, hoặc khách ";
         }
         if(isTenDangNhap(tk.getTenDangNhap())) {
             return "Tên đăng nhập đã tồn tại";
@@ -61,8 +62,15 @@ public class TaiKhoan_BUS {
         if(isMaTonTai(tk.getMaTK())) {
             return "Mã tài khoản đã tồn tại";
         }
-        if(!nvbus.isNhanVienExist(tk.getMaNV())) {
-            return "Mã nhân viên không tồn tại ";
+
+        if(vaitro.equals("KHACHHANG")) {
+            if(!khbus.isMaKH(makh)) {
+                return "Mã khách hàng k tồn tại";
+            }
+        }else {
+            if(!nvbus.isNhanVienExist(manv)) {
+                return "Mã nhân viên k tồn tại";
+            }
         }
         tk.setTrangThai(trangthai.equals("1"));
         tk.setPassWord(Default_Pass);

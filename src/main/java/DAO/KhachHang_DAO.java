@@ -9,16 +9,10 @@ import java.util.ArrayList;
 
 public class KhachHang_DAO {
 
-
-
-
-
-
     public ArrayList<KhachHang_DTO> layTatCaKH() {
         ArrayList<KhachHang_DTO> list = new ArrayList<>();
 
         String sql = "Select * from khachhang where trangThai = 1";
-
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -88,16 +82,25 @@ public class KhachHang_DAO {
         return isSuccess;
     }
 
-    public void deleteKhachHang(String maKH) {
-        String sql = "update khachhang set trangThai = ? where maKH = ?";
+    public boolean isMaKhachHang(String maKH) {
+        String sql = "SELECT * FROM KhachHang WHERE maKH = ?";
+
         try (Connection conn = databaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setInt(1,0);
-            ps.setString(2,maKH);
-            ps.executeUpdate();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, maKH);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return true;
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return false;
     }
 
     public boolean updateKhachHang(KhachHang_DTO dto) {
@@ -126,9 +129,6 @@ public class KhachHang_DAO {
 
         String sql = "Select top 1 maKH from KhachHang order by maKH desc";
 
-
-
-
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
@@ -143,4 +143,5 @@ public class KhachHang_DAO {
 
         return maMoiNhat;
     }
+
 }
