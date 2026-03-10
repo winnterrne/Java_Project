@@ -11,8 +11,11 @@ import java.awt.*;
 public class ThemTaiKhoan_GUI extends JDialog {
     JPanel topPanel, buttonPanel;
     JLabel lbTitle;
-    JTextField tfMaTaiKhoan, tfTenTaiKhoan, tfEmail, tfVaiTro, tfTrangThai, tfMaNhanVien;
+    JTextField tfMaTaiKhoan, tfTenTaiKhoan, tfEmail, tfMaNhanVien;
     JButton btnThem, btnHuy;
+    JRadioButton rdmaNV, rdmaKH;
+    ButtonGroup bg;
+    JComboBox<String> cbVaitro, cbTrangThai;
     TaiKhoan_BUS tkbus = new TaiKhoan_BUS();
     private boolean isSaved = false;
     public ThemTaiKhoan_GUI(Window frame) {
@@ -84,32 +87,49 @@ public class ThemTaiKhoan_GUI extends JDialog {
         add(createLabel("Vai trò"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4;
-        tfVaiTro = new JTextField(20);
+        String [] list = {"ADMIN" ,"KHO ","NHANVIENBANHANG " , "KHACHHANG" };
+        cbVaitro = new JComboBox<>(list);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(tfVaiTro, gbc);
+        add(cbVaitro, gbc);
         
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Trạng thái"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 5;
-        tfTrangThai = new JTextField(20);
+        String [] status = {"Hoạt động", "Không hoạt động"};
+        cbTrangThai = new JComboBox<>(status);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(tfTrangThai,gbc);
+        add(cbTrangThai,gbc);
 
-        
+        rdmaNV = new JRadioButton("mã nhân viên");
+        rdmaKH = new JRadioButton("mã khách hàng");
+        bg = new ButtonGroup();
+        bg.add(rdmaNV);
+        bg.add(rdmaKH);
+
         gbc.gridx = 0; gbc.gridy = 6;
         gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Ma nhan vien"),gbc);
+        add(createLabel("Loại tài khoản"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 6;
+        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        radioPanel.add(rdmaNV);
+        radioPanel.add(rdmaKH);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(radioPanel,gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 7;
+        add(createLabel("Mã"),gbc);
+
+        gbc.gridx = 1; gbc.gridy = 7;
         tfMaNhanVien = new JTextField(20);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tfMaNhanVien,gbc);
-        
-        gbc.gridx = 0; gbc.gridy = 7;
-        gbc.gridwidth = 2; 
-        gbc.fill = GridBagConstraints.NONE;
+
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(20, 0, 0, 0);
 
@@ -123,11 +143,17 @@ public class ThemTaiKhoan_GUI extends JDialog {
         setLocationRelativeTo(null);
         tfMaTaiKhoan.addActionListener(e -> tfTenTaiKhoan.requestFocus());
         tfTenTaiKhoan.addActionListener(e -> tfEmail.requestFocus());
-        tfEmail.addActionListener(e -> tfVaiTro.requestFocus());
-        tfVaiTro.addActionListener(e -> tfTrangThai.requestFocus());
-        tfTrangThai.addActionListener(e -> tfMaNhanVien.requestFocus());
         tfMaNhanVien.addActionListener(e -> themTaiKhoan());
         btnThem.addActionListener(e -> themTaiKhoan());
+
+        cbVaitro.addActionListener(e -> {
+            String vaitro = cbVaitro.getSelectedItem().toString();
+            if(vaitro.equalsIgnoreCase("KHACHHANG")) {
+                rdmaKH.setSelected(true);
+            }else {
+                rdmaNV.setSelected(true);
+            }
+        });
     }
     public JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
@@ -141,12 +167,11 @@ public class ThemTaiKhoan_GUI extends JDialog {
             tkdto.setMaTK(matk);
             tkdto.setTenDangNhap(tfTenTaiKhoan.getText().trim());
             tkdto.setEmail(tfEmail.getText().trim());
-            tkdto.setMaVaiTro(tfVaiTro.getText().trim());
-            tkdto.setMaNV(tfMaNhanVien.getText().trim());
-            tkdto.setMaVaiTro(tfVaiTro.getText().trim());
+            tkdto.setMaVaiTro(cbVaitro.getSelectedItem().toString());
 
-            String trangthai = tfTrangThai.getText().trim();
-            tkdto.setTrangThai(trangthai.equals("1"));
+
+            String trangthai = cbTrangThai.getSelectedItem().toString();
+            tkdto.setTrangThai(trangthai.equals("Hoạt động"));
             String result = tkbus.checkLogic(tkdto, trangthai);
             if(result.equals("Thành công")) {
                 JOptionPane.showMessageDialog(this,"Thêm tài khoản thành công");

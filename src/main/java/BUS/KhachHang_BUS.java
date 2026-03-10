@@ -1,9 +1,12 @@
 package BUS;
 
-import DAO.KhachHang_DAO;import DTO.KhachHang_DTO;import java.util.ArrayList;
+import DAO.KhachHang_DAO;
+import DAO.TaiKhoan_DAO;
+import DTO.KhachHang_DTO;import java.util.ArrayList;
 
 public class KhachHang_BUS {
     KhachHang_DAO khachHang = new  KhachHang_DAO();
+    TaiKhoan_DAO taikhoan = new TaiKhoan_DAO();
 
     public KhachHang_BUS() {
 
@@ -53,5 +56,9 @@ public class KhachHang_BUS {
         kh.setDiaChi(isDiaChiRong ? "Không có" : diaChiKH);
 
         return kh;
+
+    }
+    public boolean isMaKH(String maKH) {
+        return khachHang.isMaKhachHang(maKH);
     }
 }

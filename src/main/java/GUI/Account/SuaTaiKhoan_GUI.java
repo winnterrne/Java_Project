@@ -12,21 +12,22 @@ import java.awt.*;
 public class SuaTaiKhoan_GUI extends JDialog {
     JPanel topPanel, centerPanel, buttonPanel;
     JLabel lbTitle;
-    JTextField tfMaTaiKhoan, tfTenTaiKhoan, tfEmail, tfVaiTro, tfTrangThai, tfMaNhanVien;
+    JTextField tfMaTaiKhoan, tfTenTaiKhoan, tfEmail,  tfMaNhanVien;
     JButton btnThem, btnHuy;
     DefaultTableModel tm;
-
     int i;
+    JComboBox<String> cbVaiTro, cbTrangThai;
     public SuaTaiKhoan_GUI(Frame frame, DefaultTableModel tm, int i, String matk, String tendn, String email, String vaitro, String trangthai) {
         super(frame,"Sửa tài khoản",true);
         initGui();
         this.tm = tm;
         this.i = i;
         tfMaTaiKhoan.setText(matk);
+        tfMaTaiKhoan.setEditable(false);
         tfTenTaiKhoan.setText(tendn);
         tfEmail.setText(email);
-        tfVaiTro.setText(vaitro);
-        tfTrangThai.setText(trangthai);
+        cbVaiTro.setSelectedItem(vaitro);
+        cbTrangThai.setSelectedItem(trangthai);
 
     }
 
@@ -94,28 +95,21 @@ public class SuaTaiKhoan_GUI extends JDialog {
         add(createLabel("Vai Trò"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 4;
-        tfVaiTro = new JTextField(20);
+        String list[] = {"ADMIN", "KHO", "NHANVIENBANHANG", "KHACHHANG"};
+        cbVaiTro = new JComboBox<>(list);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(tfVaiTro, gbc);
+        add(cbVaiTro, gbc);
 
         gbc.gridx = 0; gbc.gridy = 5;
         gbc.fill = GridBagConstraints.NONE;
         add(createLabel("Trạng thái"),gbc);
 
         gbc.gridx = 1; gbc.gridy = 5;
-        tfTrangThai = new JTextField(20);
+        String [] status = {"Hoạt động", "Không hoạt động"};
+        cbTrangThai = new JComboBox<>(status);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(tfTrangThai,gbc);
+        add(cbTrangThai,gbc);
 
-
-        gbc.gridx = 0; gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.NONE;
-        add(createLabel("Mã nhân viên"),gbc);
-
-        gbc.gridx = 1; gbc.gridy = 6;
-        tfMaNhanVien = new JTextField(20);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(tfMaNhanVien,gbc);
 
         gbc.gridx = 0; gbc.gridy = 7;
         gbc.gridwidth = 2; 
@@ -142,8 +136,8 @@ public class SuaTaiKhoan_GUI extends JDialog {
         tm.setValueAt(tfMaTaiKhoan.getText(),i,0);
         tm.setValueAt(tfTenTaiKhoan.getText(),i,2);
         tm.setValueAt(tfEmail.getText(),i,3);
-        tm.setValueAt(tfVaiTro.getText(),i,4);
-        tm.setValueAt(tfTrangThai.getText(),i,5);
+        tm.setValueAt(cbVaiTro.getSelectedItem().toString(),i,4);
+        tm.setValueAt(cbTrangThai.getSelectedItem(),i,5);
         JOptionPane.showMessageDialog(this,"Đã sửa thành công");
         dispose();
     }

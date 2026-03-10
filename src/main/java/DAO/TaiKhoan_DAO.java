@@ -65,17 +65,23 @@ public class TaiKhoan_DAO {
         ArrayList<TaiKhoan_DTO> list = new ArrayList<>();
         if (openConnection()) {
             try {
-                String sql = "SELECT tk.mataikhoan, nv.hoTenNV, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk JOIN NhanVien nv ON tk.maNV = nv.maNV where tk.trangthai = 1";
+                String sql = "SELECT tk.mataikhoan, tk.maNV, tk.maKH , nv.hoTenNV, kh.hoTenKH, tk.tendangnhap, tk.email, tk.mavaitro, tk.trangthai FROM TaiKhoan tk LEFT JOIN NhanVien nv ON tk.maNV = nv.maNV LEFT JOIN KhachHang kh on tk.maKH = kh.maKH where tk.trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     TaiKhoan_DTO tk = new TaiKhoan_DTO();
                     tk.setMaTK(rs.getString("mataikhoan"));
-                    tk.setHoTen(rs.getString("hoTenNV"));
                     tk.setTenDangNhap(rs.getString("tendangnhap"));
                     tk.setEmail(rs.getString("email"));
                     tk.setMaVaiTro(rs.getString("mavaitro"));
                     tk.setTrangThai(rs.getBoolean("trangthai"));
+                    String maNV = rs.getString("maNV");
+                    String maKH = rs.getString("maKH");
+                    if(maNV != null) {
+                        tk.setHoTen(rs.getString("hoTenNV"));
+                    } else if (maKH != null) {
+                        tk.setHoTen(rs.getString("hoTenKH"));
+                    }
                     list.add(tk);
                 }
             }catch (Exception e) {
@@ -238,7 +244,7 @@ public class TaiKhoan_DAO {
         TaiKhoan_DTO taikhoan= null;
         if (openConnection()) {
             try {
-                String sql = "SELECT tk.*, nv.hoTenNV FROM TaiKhoan tk JOIN NhanVien nv on tk.maNV = nv.maNV WHERE tk.tendangnhap=? AND tk.matkhau=? AND tk.trangthai = 1";
+                String sql = "SELECT tk.*, nv.hoTenNV, kh.hoTenKH FROM TaiKhoan tk LEFT JOIN NhanVien nv on tk.maNV = nv.maNV LEFT JOIN KhachHang kh on tk.maKH = kh.maKH WHERE tk.tendangnhap=? AND tk.matkhau=? AND tk.trangthai = 1";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1,tendangnhap);
                 ps.setString(2,matkhau);
@@ -251,8 +257,16 @@ public class TaiKhoan_DAO {
                     taikhoan.setMaVaiTro(rs.getString("mavaitro"));
                     taikhoan.setEmail(rs.getString("email"));
                     taikhoan.setTrangThai(rs.getBoolean("trangthai"));
-                    taikhoan.setHoTen(rs.getString("hoTenNV"));
-                    taikhoan.setMaNV(rs.getString("maNV"));
+
+                    String maNV = rs.getString("maNV");
+                    String maKH = rs.getString("maKH");
+                    if(maNV != null) {
+                        taikhoan.setMaNV(rs.getString("maNV"));
+                        taikhoan.setHoTen(rs.getString("hoTenNV"));
+                    } else if (maKH != null){
+                        taikhoan.setMaKH(rs.getString("maKH"));
+                        taikhoan.setHoTen(rs.getString("hoTenKH"));
+                    }
                 }
             }catch (Exception e) {
                 e.printStackTrace();

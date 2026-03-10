@@ -41,7 +41,7 @@ public class CurrentUser {
         if(tkhientai == null) {
             return " ";
         }
-        String manv = tkhientai.getMaNV().trim().toUpperCase();
+        String manv = tkhientai.getMaNV();
         return manv;
     }
 
@@ -56,6 +56,10 @@ public class CurrentUser {
     public boolean isKho() {
         String ma = getMaQuyen();
         return "KHO".equals(ma);
+    }
+    public boolean isKhachHang() {
+        String ma = getMaQuyen();
+        return "KHACHHANG".equals(ma);
     }
 }
 
