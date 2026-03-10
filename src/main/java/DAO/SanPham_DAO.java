@@ -16,7 +16,7 @@ public class SanPham_DAO {
             SELECT *
             FROM SanPham
             where trangThai = 1
-            ORDER BY maDM ASC, maSP ASC
+            ORDER BY maSP ASC
             """;
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -41,13 +41,12 @@ public class SanPham_DAO {
         }
         return list;
     }
-    ///////////
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
             SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path
             FROM SanPham
-            ORDER BY maDM ASC, maSP ASC
+            ORDER BY maSP ASC
             """;
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
