@@ -33,9 +33,11 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         JPanel selectPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         selectPanel.setBorder(BorderFactory.createEmptyBorder(15, 10, 10, 10));
 
+        JComboBox<Integer> cbThang = new JComboBox<>();
         for (int i = 1; i <= 12; i++) cbThang.addItem(i);
         cbThang.setSelectedItem(java.time.LocalDate.now().getMonthValue());
 
+        JComboBox<Integer> cbNam = new JComboBox<>();
         for (int i = 2023; i <= 2026; i++) cbNam.addItem(i);
         cbNam.setSelectedItem(java.time.LocalDate.now().getYear());
 
@@ -98,12 +100,14 @@ public class ThongKeDoanhThu_GUI extends JDialog {
                         + String.format("%,.0f ₫", tongDoanhThu));
 
                 chartThongKe();
-                
-                resultPanel.setVisible(true);
-                resultPanel.revalidate();   
-                resultPanel.repaint();      
 
-                
+                chartThongKe();
+
+                resultPanel.setVisible(true);
+                resultPanel.revalidate();
+                resultPanel.repaint();
+
+
                 if (scroll != null) {
                     scroll.revalidate();
                     scroll.repaint();
@@ -111,10 +115,10 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
                 pack();
 
-                
+
                 setLocationRelativeTo(getOwner());
 
-                
+
                 revalidate();
                 repaint();
 

@@ -48,7 +48,7 @@ public class ExportPDFSP {
             columnWidths[6] = 80;
 
 
-            
+
             float x = margin;
             for (int col = 0; col < colCount; col++) {
                 content.beginText();
@@ -61,7 +61,7 @@ public class ExportPDFSP {
 
             yPosition -= rowHeight;
 
-            
+
             for (int row = 0; row < model.getRowCount(); row++) {
                 x = margin;
                 for (int col = 0; col < colCount; col++) {
@@ -148,9 +148,9 @@ public class ExportPDFSP {
             for (int row = 0; row < model.getRowCount(); row++) {
                 x = margin;
                 for (int col = 0; col < colCount; col++) {
-                    String text = model.getValueAt(row, col) != null 
-                                ? model.getValueAt(row, col).toString() 
-                                : "";
+                    String text = model.getValueAt(row, col) != null
+                            ? model.getValueAt(row, col).toString()
+                            : "";
 
                     content.beginText();
                     content.newLineAtOffset(x, yPosition);

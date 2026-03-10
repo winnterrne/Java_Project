@@ -34,8 +34,6 @@ public class SanPham_DAO {
                 sp.setViTri(rs.getString("viTri"));
                 sp.setTrangThai(rs.getByte("trangThai"));
                 sp.setPath(rs.getString("Path"));
-                sp.setNgaySX(rs.getDate("ngaySX"));
-                sp.setHanSD(rs.getDate("hanSD"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -43,10 +41,11 @@ public class SanPham_DAO {
         }
         return list;
     }
+    ///////////
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
-            SELECT *
+            SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path
             FROM SanPham
             ORDER BY maSP ASC
             """;
@@ -65,8 +64,6 @@ public class SanPham_DAO {
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setPath(rs.getString("Path"));
-                sp.setNgaySX(rs.getDate("ngaySX"));
-                sp.setHanSD(rs.getDate("hanSD"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -76,7 +73,7 @@ public class SanPham_DAO {
     }
 
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
-        String sql = "SELECT * FROM SanPham WHERE maSP = ?";
+        String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path FROM SanPham WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maSP);
@@ -93,8 +90,6 @@ public class SanPham_DAO {
                     sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                     sp.setViTri(rs.getString("viTri"));
                     sp.setPath(rs.getString("Path"));
-                    sp.setNgaySX(rs.getDate("ngaySX"));
-                    sp.setHanSD(rs.getDate("hanSD"));
                     return sp;
                 }
             }
@@ -132,38 +127,9 @@ public class SanPham_DAO {
         return listSanPham;
     }
 
-    public ArrayList<SanPham_DTO> getAllTenSP (){
-        ArrayList<SanPham_DTO> list = new ArrayList<>();
-
-        String sql = """
-                SELECT sp.TenSP, SUM(ct.soLuong) AS tongSoLuong
-                FROM HoaDon hd
-                JOIN ChiTietHoaDon ct ON hd.MaHD = ct.MaHD
-                JOIN SanPham sp ON sp.MaSP = ct.MaSP
-                WHERE MONTH(hd.NgayLapHD) = ? AND YEAR(hd.NgayLapHD) = ?
-                GROUP BY sp.TenSP
-                """;;
-
-        try (Connection con = databaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                SanPham_DTO sp = new SanPham_DTO();
-                sp.setTenSP(rs.getString("tenSP"));
-                list.add(sp);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
     public boolean insertSanPham (SanPham_DTO sp){
         boolean result = false;
-        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, Path, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -174,7 +140,7 @@ public class SanPham_DAO {
             ps.setString(5, sp.getDonVi());
             ps.setInt(6, 0);
             ps.setString(7, sp.getMaDM());
-            ps.setString(8, sp.getPath());
+            ps.setString(8, sp.getMaKhuyenMai());
             ps.setString(9, sp.getViTri());
 
 
@@ -413,11 +379,11 @@ public class SanPham_DAO {
             ps.setString(7, sp.getMaDM());
             ps.setString(8, sp.getMaKhuyenMai());
             ps.setString(9, sp.getViTri());
-            
-            String path = (sp.getPath() == null) ? "" : sp.getPath();
-            ps.setString(10, path); 
 
-            ps.setInt(11, 1); 
+            String path = (sp.getPath() == null) ? "" : sp.getPath();
+            ps.setString(10, path);
+
+            ps.setInt(11, 1);
 
             return ps.executeUpdate() > 0;
         }

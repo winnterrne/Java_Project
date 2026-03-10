@@ -133,7 +133,11 @@ public class ExportExcel {
         for (int i = 0; i < table.getColumnCount(); i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(table.getColumnName(i));
+<<<<<<< HEAD
             cell.setCellStyle(centerStyle); 
+=======
+            cell.setCellStyle(centerStyle);
+>>>>>>> 76ac876 (hoan thien do an)
         }
 
         for (int i = 0; i < table.getRowCount(); i++) {
@@ -176,4 +180,8 @@ public class ExportExcel {
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 76ac876 (hoan thien do an)
