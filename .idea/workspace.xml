@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm">
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/SanPham_DAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/ThemNhaCungCapGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Inbound_Returns/ThemNhaCungCapGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/SuaSP_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/SuaSP_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Product/ThemSP_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Product/ThemSP_GUI.java" afterDir="false" />
-    </list>
+    <list default="true" id="83413b02-0d2a-405e-bbc0-d480ca294131" name="Changes" comment="xong r dmm" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
