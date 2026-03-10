@@ -22,7 +22,6 @@ public class KhachHang_DAO {
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setHoTenKH(rs.getString("hoTenKH"));
                     dto.setSoDT(rs.getString("soDT"));
-                    dto.setEmail(rs.getString("email"));
                     dto.setDiaChi(rs.getString("diaChi"));
                     dto.setDiemTichLuy(rs.getDouble("diemTichLuy"));
                     list.add(dto);
@@ -143,17 +142,6 @@ public class KhachHang_DAO {
         }
 
         return maMoiNhat;
-    }
-
-    public void deleteKH(String maKH) {
-        String sql = "update into khachhang trangThai = 0 where maKH = ?";
-        try (Connection conn = databaseConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, maKH);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 }
