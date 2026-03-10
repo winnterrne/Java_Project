@@ -22,7 +22,6 @@ public class ThongKeDoanhThu_GUI extends JDialog {
 
     public ThongKeDoanhThu_GUI(Frame owner, ThongKe_BUS thongKeBus) {
         super(owner, "Thống kê doanh thu theo tháng", true);
-        System.out.println(">>> Constructor ThongKeDoanhThu_GUI bắt đầu - owner: " + owner.getTitle());
         this.thongKeBus = thongKeBus;
         this.cbThang = new JComboBox<>();
         this.cbNam = new JComboBox<>();
@@ -76,19 +75,13 @@ public class ThongKeDoanhThu_GUI extends JDialog {
         resultPanel.setVisible(false);
 
         btnXem.addActionListener(e -> {
-            System.out.println(">>> NÚT 'XEM THỐNG KÊ' ĐÃ ĐƯỢC NHẤN <<<");
 
             try {
                 int thang = (int) cbThang.getSelectedItem();
                 int nam = (int) cbNam.getSelectedItem();
 
-                System.out.println("Đang truy vấn dữ liệu cho tháng: " + thang + "/" + nam);
-
                 List<ThongKeDoanhThu_DTO> list = thongKeBus.getThongKeDoanhThu(thang, nam);
                 double tongDoanhThu = thongKeBus.tongDoanhThuTheoThang(thang, nam);
-
-                System.out.println("Số sản phẩm tìm thấy: " + list.size());
-                System.out.println("Tổng doanh thu: " + tongDoanhThu);
 
                 model.setRowCount(0);
 
@@ -125,7 +118,6 @@ public class ThongKeDoanhThu_GUI extends JDialog {
                 revalidate();
                 repaint();
 
-                System.out.println(">>> ĐÃ CẬP NHẬT BẢNG VÀ TỔNG DOANH THU <<<");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);

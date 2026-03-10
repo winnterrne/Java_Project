@@ -62,9 +62,6 @@ public class SanPhamXoa_GUI extends JDialog {
         if (sanPhamBus.restoreSanPham(maSP)) {
             JOptionPane.showMessageDialog(this, "Khôi phục thành công!");
             loadDanhSachDaXoa();
-            if (tablePanel != null) {
-                tablePanel.loadSanPham();  
-            }
         } else {
             JOptionPane.showMessageDialog(this, "Khôi phục thất bại!");
         }
