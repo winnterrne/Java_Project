@@ -15,4 +15,8 @@ public class ThongKe_BUS {
     public double tongDoanhThuTheoThang (int thang, int nam){
         return dao.tongDoanhThuTheoThang(thang, nam);
     }
+
+    public List<Integer> getTongSoLuongBanTheoThang(int thang, int nam) {
+        return dao.tongSoLuongBanTheoThang(thang, nam);
+    }
 }
