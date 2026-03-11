@@ -158,4 +158,25 @@ public class SanPham_BUS {
         }
         return ketQua;
     }
+
+    public boolean luuSanPham(SanPham_DTO sp){
+        if(sp == null) return false;
+
+        if(sp.getTenSP() == null || sp.getTenSP().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Tên sản phẩm không được rỗng");
+            return false;
+        }
+
+        if(sp.getGiaBan() <= 0){
+            JOptionPane.showMessageDialog(null,"Giá bán phải > 0");
+            return false;
+        }
+
+        if(spDAO.isMaSPExists(sp.getMaSP())){
+            JOptionPane.showMessageDialog(null,"Mã sản phẩm đã tồn tại");
+            return false;
+        }
+
+        return spDAO.luuSanPham(sp);
+    }
 }

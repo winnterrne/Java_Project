@@ -157,7 +157,7 @@ public class SanPham_DAO {
 
     public boolean insertSanPham (SanPham_DTO sp){
         boolean result = false;
-        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        String sql = "insert into SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, Path, viTri, trangThai) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -168,7 +168,7 @@ public class SanPham_DAO {
             ps.setString(5, sp.getDonVi());
             ps.setInt(6, 0);
             ps.setString(7, sp.getMaDM());
-            ps.setString(8, sp.getMaKhuyenMai());
+            ps.setString(8, sp.getPath());
             ps.setString(9, sp.getViTri());
 
 
@@ -392,5 +392,37 @@ public class SanPham_DAO {
         return  soLuongTon;
     }
 
+    public boolean luuSanPham(SanPham_DTO sp) {
+        // Đảm bảo SQL có đúng 11 dấu chấm hỏi nếu bạn muốn set trạng thái từ Java
+        String sql = "INSERT INTO SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection con = databaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, sp.getMaSP());
+            ps.setString(2, sp.getTenSP());
+            ps.setString(3, sp.getMoTa());
+            ps.setDouble(4, sp.getGiaBan());
+            ps.setString(5, sp.getDonVi());
+            ps.setInt(6, sp.getSoLuongTon());
+            ps.setString(7, sp.getMaDM());
+            ps.setString(8, sp.getMaKhuyenMai());
+            ps.setString(9, sp.getViTri());
+            
+            // KIỂM TRA KỸ DÒNG 10 NÀY:
+            // Nếu Path null, ta gán chuỗi rỗng hoặc một đường dẫn mặc định
+            String path = (sp.getPath() == null) ? "" : sp.getPath();
+            ps.setString(10, path); 
+
+            // Dòng 11: Trạng thái
+            ps.setInt(11, 1); 
+
+            return ps.executeUpdate() > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

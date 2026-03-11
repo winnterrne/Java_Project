@@ -100,7 +100,8 @@ public class TablePanel_GUI extends JPanel {
                     sp.getGiaBan(),
                     sp.getSoLuongTon(),
                     sp.getMaDM(),
-                    sp.getViTri()
+                    sp.getViTri(),
+                    sp.getPath()
             });
         }
 
