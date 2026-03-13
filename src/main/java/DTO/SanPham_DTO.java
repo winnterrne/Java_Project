@@ -1,5 +1,7 @@
 package DTO;
 
+import java.sql.Date;
+
 public class SanPham_DTO {
     private String maSP;
     private String tenSP;
@@ -12,11 +14,13 @@ public class SanPham_DTO {
     private String viTri;
     private String Path;
     private byte trangThai;
+    private Date ngaySX;
+    private Date hanSD;
 
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, byte trangThai) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, byte trangThai, Date ngaySX, Date hanSD) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
@@ -25,6 +29,8 @@ public class SanPham_DTO {
         this.trangThai = trangThai;
         this.soLuongTon = soLuongTon;
         this.maDM = maDM;
+        this.ngaySX = ngaySX;
+        this.hanSD = hanSD;
     }
 
     public String getMaSP() {
@@ -113,5 +119,21 @@ public class SanPham_DTO {
 
     public void setTrangThai(byte trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public Date getNgaySX (){
+        return ngaySX;
+    }
+    
+    public void setNgaySX (Date ngaySX){
+        this.ngaySX = ngaySX;
+    }
+
+    public Date getHanSD (){
+        return hanSD;
+    }
+
+    public void setHanSD (Date hanSD){
+        this.hanSD = hanSD;
     }
 }

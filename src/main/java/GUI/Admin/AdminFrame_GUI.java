@@ -8,7 +8,7 @@ public class AdminFrame_GUI extends JFrame {
     private AdminMenuPanel_GUI menupanel = new AdminMenuPanel_GUI(contentpanel);
     private AdminHeaderPanel_GUI headerpanel = new AdminHeaderPanel_GUI();
     public AdminFrame_GUI() {
-        setTitle("Quản lý siêu thị Độ KiKi - Admin");
+        setTitle("Quản lý siêu thị Độ Mini - Admin");
         setSize(1250, 800);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());

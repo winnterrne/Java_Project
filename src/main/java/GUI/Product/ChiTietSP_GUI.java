@@ -27,7 +27,9 @@ public class ChiTietSP_GUI extends JDialog {
                 "Đơn vị:         " + sp.getDonVi() + "\n\n" +
                 "Tồn kho:        " + sp.getSoLuongTon() + "\n\n" +
                 "Mã danh mục:    " + sp.getMaDM() + "\n\n" +
-                "Vị trí:         " + sp.getViTri();
+                "Vị trí:         " + sp.getViTri() + "\n\n" +
+                "Ngày sản xuất:  " + sp.getNgaySX() + "\n\n" +
+                "Hạn sử dụng:    " + sp.getHanSD();
 
         txtInfo.setText(info);
         txtInfo.setFocusable(false);
@@ -65,22 +67,34 @@ public class ChiTietSP_GUI extends JDialog {
         setVisible(true);
     }
 
-    private ImageIcon loadAnh(String path) {
+    private ImageIcon loadAnh(String dbPath) {
         try {
-            if (path != null && !path.trim().isEmpty()) {
+            if (dbPath == null || dbPath.trim().isEmpty()) {
+                return null;
+            }
 
-                String fullPath = System.getProperty("user.dir") + "/" + path;
+            String cleanedPath = dbPath.replace("\\", "/").trim();
 
-                ImageIcon icon = new ImageIcon(fullPath);
+            String lowerPath = cleanedPath.toLowerCase();
+            if (lowerPath.startsWith("image/")) {
+                cleanedPath = cleanedPath.substring(6);
+            }
 
-                int size = 150;
-                Image scaledImg = icon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            String resourcePath = "Image/" + cleanedPath;
 
+            java.net.URL url = getClass().getResource("/" + resourcePath);
+
+            if (url != null) {
+                ImageIcon icon = new ImageIcon(url);
+                int targetWidth = 180;
+                Image scaledImg = icon.getImage().getScaledInstance(targetWidth, -1, Image.SCALE_SMOOTH);
                 return new ImageIcon(scaledImg);
+            } else {
+                return null;
             }
         } catch (Exception e) {
-            System.out.println("Lỗi tải ảnh: " + path);
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 }
