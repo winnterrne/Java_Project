@@ -34,6 +34,8 @@ public class SanPham_DAO {
                 sp.setViTri(rs.getString("viTri"));
                 sp.setTrangThai(rs.getByte("trangThai"));
                 sp.setPath(rs.getString("Path"));
+                sp.setNgaySX(rs.getDate("ngaySX"));
+                sp.setHanSD(rs.getDate("hanSD"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -44,7 +46,7 @@ public class SanPham_DAO {
     public ArrayList<SanPham_DTO> getAllSanPham() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
         String sql = """
-            SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path
+            SELECT *
             FROM SanPham
             ORDER BY maSP ASC
             """;
@@ -63,6 +65,8 @@ public class SanPham_DAO {
                 sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setPath(rs.getString("Path"));
+                sp.setNgaySX(rs.getDate("ngaySX"));
+                sp.setHanSD(rs.getDate("hanSD"));
                 list.add(sp);
             }
         } catch (SQLException e) {
@@ -72,7 +76,7 @@ public class SanPham_DAO {
     }
 
     public SanPham_DTO getSanPhamByMaSP (String maSP) {
-        String sql = "SELECT maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path FROM SanPham WHERE maSP = ?";
+        String sql = "SELECT * FROM SanPham WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, maSP);
@@ -89,6 +93,8 @@ public class SanPham_DAO {
                     sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
                     sp.setViTri(rs.getString("viTri"));
                     sp.setPath(rs.getString("Path"));
+                    sp.setNgaySX(rs.getDate("ngaySX"));
+                    sp.setHanSD(rs.getDate("hanSD"));
                     return sp;
                 }
             }
@@ -393,7 +399,6 @@ public class SanPham_DAO {
     }
 
     public boolean luuSanPham(SanPham_DTO sp) {
-        // Đảm bảo SQL có đúng 11 dấu chấm hỏi nếu bạn muốn set trạng thái từ Java
         String sql = "INSERT INTO SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = databaseConnection.getConnection();
@@ -409,12 +414,9 @@ public class SanPham_DAO {
             ps.setString(8, sp.getMaKhuyenMai());
             ps.setString(9, sp.getViTri());
             
-            // KIỂM TRA KỸ DÒNG 10 NÀY:
-            // Nếu Path null, ta gán chuỗi rỗng hoặc một đường dẫn mặc định
             String path = (sp.getPath() == null) ? "" : sp.getPath();
             ps.setString(10, path); 
 
-            // Dòng 11: Trạng thái
             ps.setInt(11, 1); 
 
             return ps.executeUpdate() > 0;
