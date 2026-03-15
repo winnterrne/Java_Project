@@ -30,14 +30,14 @@ public class SuaSP_GUI extends JDialog {
         txtGiaBan  = new JTextField(String.valueOf(sp.getGiaBan()), 15);
         txtSoLuong = new JTextField(String.valueOf(sp.getSoLuongTon()), 10);
         txtMoTa   = new JTextField(sp.getMoTa(), 50);
-        txtMaKM   = new JTextField(sp.getMaKhuyenMai(), 20);
+        txtMaKM   = new JTextField(String.valueOf(sp.getKhuyenMai()), 20);
         txtViTri  = new JTextField(sp.getViTri(), 20);
 
         formPanel.add(new JLabel("Tên SP:"));    formPanel.add(txtTenSP);
         formPanel.add(new JLabel("Giá bán:"));   formPanel.add(txtGiaBan);
         formPanel.add(new JLabel("Tồn kho:"));   formPanel.add(txtSoLuong);
         formPanel.add(new JLabel("Mô tả:"));     formPanel.add(txtMoTa);
-        formPanel.add(new JLabel("Mã KM:"));     formPanel.add(txtMaKM);
+        formPanel.add(new JLabel("Khuyến mãi:"));     formPanel.add(txtMaKM);
         formPanel.add(new JLabel("Vị trí:"));     formPanel.add(txtViTri);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -62,7 +62,7 @@ public class SuaSP_GUI extends JDialog {
             sp.setGiaBan(Double.parseDouble(txtGiaBan.getText().trim()));
             sp.setSoLuongTon(Integer.parseInt(txtSoLuong.getText().trim()));
             sp.setMoTa(txtMoTa.getText().trim());
-            sp.setMaKhuyenMai(txtMaKM.getText().trim());
+            sp.setKhuyenMai(Integer.parseInt(txtMaKM.getText().trim()));
             sp.setViTri(txtViTri.getText().trim());
 
             if (bus.updateSanPham(sp)) {

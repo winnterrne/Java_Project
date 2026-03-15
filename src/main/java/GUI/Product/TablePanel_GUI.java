@@ -17,7 +17,7 @@ public class TablePanel_GUI extends JPanel {
         this.bus = bus;
         setLayout(new BorderLayout());
 
-        String[] columns = {"Mã SP", "Tên sản phẩm", "Mô tả", "Giá bán", "Tồn kho", "Mã DM", "Vị trí"};
+        String[] columns = {"Mã SP", "Tên sản phẩm", "Mô tả", "Giá bán gốc", "Tồn kho", "Mã DM", "Vị trí"};
         model = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {

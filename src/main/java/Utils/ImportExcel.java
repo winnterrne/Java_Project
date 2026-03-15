@@ -52,7 +52,7 @@ public class ImportExcel {
 
 
 
-                    sp.setMaKhuyenMai(getCellValue(row.getCell(8)));
+                    sp.setKhuyenMai(Integer.parseInt(getCellValue(row.getCell(8))));
                     sp.setViTri(getCellValue(row.getCell(9)));
                     sp.setTrangThai((byte) 1);
 

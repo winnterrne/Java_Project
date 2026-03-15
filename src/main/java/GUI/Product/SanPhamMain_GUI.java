@@ -58,6 +58,7 @@ public class SanPhamMain_GUI extends JPanel {
         toolBar.getBtnExportExcel().addActionListener(e -> xuatExcel());
         toolBar.getBtnExportPDF().addActionListener(e -> xuatPDF());
         toolBar.getBtnThongKe().addActionListener(e -> moThongKeDoanhThu());
+        toolBar.getBtnXemSLTon().addActionListener (e -> moThongKeTonKho());
         toolBar.getBtnXemSPXoa().addActionListener(e -> xemSPDaXoa());
         toolBar.getBtnImportExcel().addActionListener(e -> {
             ImportExcel.importExcelData();
@@ -182,6 +183,21 @@ public class SanPhamMain_GUI extends JPanel {
         new ThongKeDoanhThu_GUI(ownerFrame, thongKeBus);
     }
 
+    private void moThongKeTonKho() {
+        Frame owner = null;
+        Window top = SwingUtilities.getWindowAncestor(this);
+        if (top instanceof Frame) {
+            owner = (Frame) top;
+        }
+
+        if (owner == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy frame cha để mở thống kê tồn kho.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        new ThongKeTonKho_GUI(owner, sanPhamBus);
+    }
+
     private void xuatExcel() {
         ArrayList<SanPham_DTO> list = sanPhamBus.getAllSanPham();
         if (list.isEmpty()) {
@@ -210,7 +226,7 @@ public class SanPhamMain_GUI extends JPanel {
                         sp.getDonVi(),
                         sp.getSoLuongTon(),
                         sp.getMaDM(),
-                        sp.getMaKhuyenMai(),
+                        sp.getKhuyenMai(),
                         sp.getViTri()
                 });
             }

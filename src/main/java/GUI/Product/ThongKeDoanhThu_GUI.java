@@ -169,6 +169,7 @@ public class ThongKeDoanhThu_GUI extends JDialog {
             .theme(ChartTheme.Matlab)
             .build();
 
+        chart.getStyler().setLabelsVisible(false);
         for (ThongKeDoanhThu_DTO tk : list) {
             chart.addSeries(tk.getTenSP(), tk.getSoLuong());
         }

@@ -54,4 +54,50 @@ public class KhachHang_BUS {
 
         return kh;
     }
+
+    public ArrayList<KhachHang_DTO> boLocTimKiemKH(String maKH, String tenKH, String sdt) {
+        ArrayList<KhachHang_DTO> danhSachGoc = layTatCaKH();
+        ArrayList<KhachHang_DTO> ketQua = new ArrayList<>();
+
+        // Nếu danh sách rỗng hoặc bị lỗi thì trả về danh sách rỗng luôn
+        if (danhSachGoc == null || danhSachGoc.isEmpty()) {
+            return ketQua;
+        }
+
+        for (KhachHang_DTO kh : danhSachGoc) {
+            boolean thongManMaKH = true;
+            boolean thongManTenKH = true;
+            boolean thongManSDT = true;
+
+            // Kiểm tra khớp Mã KH (Tìm kiếm tương đối - chứa chuỗi)
+            if (maKH != null && !maKH.trim().isEmpty()) {
+                thongManMaKH = kh.getMaKH().toLowerCase().contains(maKH.toLowerCase().trim());
+            }
+
+            // Kiểm tra khớp Tên KH (Không phân biệt hoa thường)
+            if (tenKH != null && !tenKH.trim().isEmpty()) {
+                if (kh.getHoTenKH() != null) {
+                    thongManTenKH = kh.getHoTenKH().toLowerCase().contains(tenKH.toLowerCase().trim());
+                } else {
+                    thongManTenKH = false;
+                }
+            }
+
+            // Kiểm tra khớp Số điện thoại
+            if (sdt != null && !sdt.trim().isEmpty()) {
+                if (kh.getSoDT() != null) {
+                    thongManSDT = kh.getSoDT().contains(sdt.trim());
+                } else {
+                    thongManSDT = false;
+                }
+            }
+
+            // Nếu khách hàng thỏa mãn TẤT CẢ các điều kiện đã nhập thì đưa vào kết quả
+            if (thongManMaKH && thongManTenKH && thongManSDT) {
+                ketQua.add(kh);
+            }
+        }
+
+        return ketQua;
+    }
 }
