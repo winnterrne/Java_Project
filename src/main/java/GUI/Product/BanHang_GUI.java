@@ -357,24 +357,35 @@ public class BanHang_GUI extends JPanel {
         return duLieuBang;
     }
 
-    private Object loadAnh(String path) {
+    private ImageIcon loadAnh(String dbPath) {
         try {
-            if(path != null && !path.isEmpty()) {
-                java.net.URL imgURL = getClass().getResource("/Image/images.jpeg");
-                if (imgURL != null) {
-                    ImageIcon icon = new ImageIcon(imgURL);
-                    int maxH = 80;
-                    int imgW = icon.getIconWidth();
-                    int imgH = icon.getIconHeight();
-                    int newW = (imgW * maxH) / imgH;
-                    Image scaledImg = icon.getImage().getScaledInstance(newW, maxH, Image.SCALE_SMOOTH);
-                    return new ImageIcon(scaledImg);
-                }
+            if (dbPath == null || dbPath.trim().isEmpty()) {
+                return null;
+            }
+
+            String cleanedPath = dbPath.replace("\\", "/").trim();
+
+            String lowerPath = cleanedPath.toLowerCase();
+            if (lowerPath.startsWith("image/")) {
+                cleanedPath = cleanedPath.substring(6);
+            }
+
+            String resourcePath = "Image/" + cleanedPath;
+
+            java.net.URL url = getClass().getResource("/" + resourcePath);
+
+            if (url != null) {
+                ImageIcon icon = new ImageIcon(url);
+                int targetWidth = 180;
+                Image scaledImg = icon.getImage().getScaledInstance(targetWidth, -1, Image.SCALE_SMOOTH);
+                return new ImageIcon(scaledImg);
+            } else {
+                return null;
             }
         } catch (Exception e) {
-            System.out.println("Lỗi tải ảnh: " + path);
+            e.printStackTrace();
+            return null;
         }
-        return "No Image";
     }
 
     public void updateTongTien(String text) {
