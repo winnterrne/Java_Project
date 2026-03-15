@@ -28,10 +28,13 @@ public class SanPham_BUS {
         }
         return spDAO.getAllSanPhamByMaDM(maDM);
     }
-
-    public ArrayList<SanPham_DTO> getAllTenSP() {
-        return spDAO.getAllTenSP();
-    }
+//    public ArrayList<SanPham_DTO> getAllTenSP() {
+//        return spDAO.getAllTenSP();
+//    }
+//
+//    public ArrayList<SanPham_DTO> getAllTenSP() {
+//        return spDAO.getAllTenSP();
+//    }
 
     public ArrayList<SanPham_DTO> layDsSanPhamConTon() {
         ArrayList<SanPham_DTO> list = new ArrayList<>();
