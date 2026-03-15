@@ -12,11 +12,6 @@ import java.util.ArrayList;
 
 public class ChiTietHoaDon_DAO {
 
-
-
-
-
-
     public ArrayList<ChiTietHoaDon_DTO> getChiTietHoaDon(String maHD) {
         ArrayList<ChiTietHoaDon_DTO> list = new ArrayList<>();
         String sql = "select * from chitiethoadon where maHD = ?";
@@ -30,6 +25,7 @@ public class ChiTietHoaDon_DAO {
                     dto.setDonGia(rs.getFloat("donGia"));
                     dto.setMaSP(rs.getString("maSP"));
                     dto.setSoLuongMua(rs.getInt("soLuong"));
+                    dto.setKhuyenMai(rs.getInt("khuyenMai"));
                     dto.setThanhTien(rs.getFloat("thanhTien"));
                     list.add(dto);
                 }
@@ -42,7 +38,7 @@ public class ChiTietHoaDon_DAO {
     }
 
     public boolean insertChiTietHoaDon(ChiTietHoaDon_DTO chiTietHoaDonDto) {
-        String sql = "INSERT INTO chitiethoadon (maHD, maSP, donGia, soLuong, thanhTien) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO chitiethoadon (maHD, maSP, donGia, soLuong, khuyenMai, thanhTien) VALUES (?, ?, ?,?, ?, ?)";
         boolean isSuccess = false;
 
         try (Connection conn = databaseConnection.getConnection();
@@ -51,7 +47,8 @@ public class ChiTietHoaDon_DAO {
             ps.setObject(2, chiTietHoaDonDto.getMaSP());
             ps.setString(3, Float.toString(chiTietHoaDonDto.getDonGia()));
             ps.setString(4, Integer.toString(chiTietHoaDonDto.getSoLuongMua()));
-            ps.setString(5, Double.toString(chiTietHoaDonDto.getThanhTien()));
+            ps.setInt(5, chiTietHoaDonDto.getKhuyenMai());
+            ps.setString(6, Double.toString(chiTietHoaDonDto.getThanhTien()));
             int i = ps.executeUpdate();
 
         } catch (SQLException e) {

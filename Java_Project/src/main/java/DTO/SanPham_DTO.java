@@ -125,7 +125,7 @@ public class SanPham_DTO {
     public Date getNgaySX (){
         return ngaySX;
     }
-    
+
     public void setNgaySX (Date ngaySX){
         this.ngaySX = ngaySX;
     }

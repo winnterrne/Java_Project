@@ -31,7 +31,7 @@ public class ThanhToanGUI extends JPanel {
     ArrayList<ChiTietHoaDon_DTO> dsCTHD;
 
     private double tongTienHangVal = 0, phaiTraVal = 0, khuyenMaiVal = 0;
-    private Vector<String> columnsName = new Vector<>(Arrays.asList("STT", "Tên SP", "Số lượng", "Đơn giá", "Thành tiền"));
+    private Vector<String> columnsName = new Vector<>(Arrays.asList("STT", "Tên SP", "Số lượng", "Đơn giá", "Khuyến mãi", "Thành tiền"));
 
     public ThanhToanGUI(BanHang_GUI mainPanel) {
         this.main = mainPanel;
@@ -75,7 +75,7 @@ public class ThanhToanGUI extends JPanel {
         pnlKhachHang.add(new JLabel("Địa chỉ:") {{ setFont(fontLabel); }}); pnlKhachHang.add(lblDiaChi);
 
         JPanel pnlHoaDon = new JPanel(new BorderLayout(5, 5));
-        pnlHoaDon.setBorder(BorderFactory.createTitledBorder("Thông tin hóa đơn"));
+        pnlHoaDon.setBorder(BorderFactory.createTitledBorder("Thông thư hóa đơn"));
         JPanel pnlMaHD = new JPanel();
         pnlMaHD.setLayout(new BoxLayout(pnlMaHD, BoxLayout.Y_AXIS));
 
@@ -143,14 +143,13 @@ public class ThanhToanGUI extends JPanel {
 
         pnlHuy.add(btnHuy);
         add(pnlHuy, BorderLayout.SOUTH);
-
-
     }
 
     public void capNhatThongTin(KhachHang_DTO khachHang, ArrayList<ChiTietHoaDon_DTO> gioHang) {
         this.kh = khachHang;
         dsCTHD = new ArrayList<>(gioHang);
 
+        // Hiển thị thông tin khách hàng hoặc để mặc định là Khách lẻ
         String ten = (kh != null && kh.getHoTenKH() != null && !kh.getHoTenKH().isEmpty()) ? kh.getHoTenKH() : "Khách lẻ";
         String sdt = (kh != null && kh.getSoDT() != null && !kh.getSoDT().isEmpty()) ? kh.getSoDT() : "Không có";
         String diaChi = (kh != null && kh.getDiaChi() != null && !kh.getDiaChi().isEmpty()) ? kh.getDiaChi() : "Không có";
@@ -166,24 +165,32 @@ public class ThanhToanGUI extends JPanel {
         lblNgayLapHD.setText(ngayLapHD.toString());
 
         modelSanPham.setRowCount(0);
+
         tongTienHangVal = 0;
+        khuyenMaiVal = 0;
 
         if (dsCTHD != null) {
             int i = 1;
             for (ChiTietHoaDon_DTO cthd : dsCTHD) {
                 SanPham_DTO sp = spBus.getSanPhamByMaSP(cthd.getMaSP());
+
+                // Tính tiền hàng chưa giảm giá của sản phẩm hiện tại
+                double tienHangCuaSP = cthd.getDonGia() * cthd.getSoLuongMua();
+
                 modelSanPham.addRow(new Object[]{
                         i++,
                         sp.getTenSP(),
                         cthd.getSoLuongMua(),
                         String.format("%,.0f đ", cthd.getDonGia()),
+                        String.format("%d %%", cthd.getKhuyenMai()), // Định dạng an toàn tránh crash app
                         String.format("%,.0f đ", cthd.getThanhTien())
                 });
-                tongTienHangVal += cthd.getThanhTien();
+
+                tongTienHangVal += tienHangCuaSP;
+                khuyenMaiVal += (tienHangCuaSP - cthd.getThanhTien());
             }
         }
 
-        khuyenMaiVal = 0;
         phaiTraVal = tongTienHangVal - khuyenMaiVal;
         hoaDon.setTongTien(phaiTraVal);
 
@@ -195,19 +202,21 @@ public class ThanhToanGUI extends JPanel {
     }
 
     public void canChinhDoRongCot() {
-        if (tblSanPham.getColumnModel().getColumnCount() == 5) {
+        if (tblSanPham.getColumnModel().getColumnCount() == 6) { // Kiểm tra đúng 6 cột
             tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(40);
             tblSanPham.getColumnModel().getColumn(0).setMaxWidth(40);
             tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(180);
             tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(70);
             tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(120);
 
             DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
             rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
             tblSanPham.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
             tblSanPham.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
             tblSanPham.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+            tblSanPham.getColumnModel().getColumn(5).setCellRenderer(rightRenderer); // Căn phải Thành tiền
 
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -232,10 +241,7 @@ public class ThanhToanGUI extends JPanel {
         }
     }
 
-
     private void hoanTatThanhToan(JDialog dialog) {
-
-
         boolean thanhCong = hoaDonBus.thanhToanGiaoDich(hoaDon, kh, dsCTHD, "NV01");
 
         if (thanhCong) {
@@ -315,8 +321,6 @@ public class ThanhToanGUI extends JPanel {
                     JOptionPane.showMessageDialog(dialog, "Khách đưa chưa đủ tiền!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
-
                 hoanTatThanhToan(dialog);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(dialog, "Vui lòng nhập số tiền hợp lệ!");
@@ -363,10 +367,7 @@ public class ThanhToanGUI extends JPanel {
         btnXacNhan.setForeground(Color.WHITE);
         btnXacNhan.setFont(new Font("Arial", Font.BOLD, 16));
 
-        btnXacNhan.addActionListener(event -> {
-
-            hoanTatThanhToan(dialog);
-        });
+        btnXacNhan.addActionListener(event -> hoanTatThanhToan(dialog));
 
         dialog.add(pnlInfo, BorderLayout.NORTH);
         dialog.add(lblQR, BorderLayout.CENTER);

@@ -215,7 +215,7 @@ public class ThemSP_GUI extends JDialog {
         if(result){
             success = true;
             JOptionPane.showMessageDialog(this,"Thêm sản phẩm thành công!");
-            
+
             dispose();
         }else{
             JOptionPane.showMessageDialog(this,"Thêm sản phẩm thất bại!");

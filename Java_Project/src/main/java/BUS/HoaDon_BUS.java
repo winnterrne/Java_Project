@@ -53,16 +53,21 @@ public class HoaDon_BUS {
 
         ChiTietHoaDon_DTO cthdTonTai = kiemTra(gioHang, sanPham);
 
+        
+        
+        double tyLeGia = (100 - sanPham.getKhuyenMai()) / 100.0;
+
         if (cthdTonTai != null) {
             int soLuongMoi = cthdTonTai.getSoLuongMua() + soLuongThem;
-
 
             if (soLuongMoi > sanPham.getSoLuongTon()) {
                 throw new IllegalArgumentException("Số lượng mua vượt quá số lượng tồn kho (" + sanPham.getSoLuongTon() + ")!");
             }
 
             cthdTonTai.setSoLuongMua(soLuongMoi);
-            cthdTonTai.setThanhTien(soLuongMoi * sanPham.getGiaBan());
+            
+            cthdTonTai.setThanhTien(soLuongMoi * sanPham.getGiaBan() * tyLeGia);
+
         } else {
 
             if (soLuongThem > sanPham.getSoLuongTon()) {
@@ -73,14 +78,14 @@ public class HoaDon_BUS {
             cthdMoi.setMaSP(sanPham.getMaSP());
             cthdMoi.setSoLuongMua(soLuongThem);
             cthdMoi.setDonGia((float) sanPham.getGiaBan());
-            cthdMoi.setThanhTien(soLuongThem * sanPham.getGiaBan());
+            cthdMoi.setKhuyenMai(sanPham.getKhuyenMai());
+            cthdMoi.setThanhTien(soLuongThem * sanPham.getGiaBan() * tyLeGia);
             gioHang.add(cthdMoi);
         }
     }
 
     public void capNhatSoLuongMoi(ArrayList<ChiTietHoaDon_DTO> gioHang, SanPham_DTO sanPham, int soLuongMoi) {
         if (sanPham == null || gioHang == null) return;
-
 
         if (soLuongMoi > sanPham.getSoLuongTon()) {
             throw new IllegalArgumentException("Số lượng nhập vào vượt quá tồn kho (" + sanPham.getSoLuongTon() + ")!");
@@ -94,7 +99,11 @@ public class HoaDon_BUS {
                     iterator.remove();
                 } else {
                     cthd.setSoLuongMua(soLuongMoi);
-                    cthd.setThanhTien(soLuongMoi * sanPham.getGiaBan());
+                    cthd.setKhuyenMai(sanPham.getKhuyenMai());
+
+                    
+                    double tyLeGia = (100 - sanPham.getKhuyenMai()) / 100.0;
+                    cthd.setThanhTien(soLuongMoi * sanPham.getGiaBan() * tyLeGia);
                 }
                 break;
             }

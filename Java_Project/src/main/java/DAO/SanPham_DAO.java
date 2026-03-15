@@ -287,22 +287,22 @@ public class SanPham_DAO {
         return list;
     }
 
-    
-    
-    
-    
+    // public String getMaxMaSPByMaDM (String maDM){
+    //     String sql = "Select max (maSP) as maxMaSP from SanPham where maDM = ?";
+    //     try (Connection con = databaseConnection.getConnection();
+    //          PreparedStatement ps = con.prepareStatement(sql)) {
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //         ps.setString(1, maDM);
+    //         try (ResultSet rs = ps.executeQuery()) {
+    //             if (rs.next()) {
+    //                 return rs.getString("maxMaSP");
+    //             }
+    //         }
+    //     }catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public String getMaxMaSP() {
         String sql = "SELECT TOP 1 maSP FROM SanPham ORDER BY maSP DESC";

@@ -4,12 +4,15 @@ public class ChiTietHoaDon_DTO {
     private String maHD;
     private String maSP;
     private int soLuongMua;
+    private int khuyenMai;
     private double thanhTien;
     private float donGia;
 
     public ChiTietHoaDon_DTO() {
 
     }
+
+
     public ChiTietHoaDon_DTO(String maHD, String maSP, int soLuong, float donGia) {
         this.maHD = maHD;
         this.maSP = maSP;
@@ -17,7 +20,13 @@ public class ChiTietHoaDon_DTO {
         this.donGia = donGia;
         this.thanhTien = soLuongMua*donGia;
     }
+    public int getKhuyenMai() {
+        return khuyenMai;
+    }
 
+    public void setKhuyenMai(int khuyenMai) {
+        this.khuyenMai = khuyenMai;
+    }
     public String getMaHD() {
         return maHD;
     }

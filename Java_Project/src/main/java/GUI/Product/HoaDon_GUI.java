@@ -30,7 +30,7 @@ public class HoaDon_GUI extends JPanel {
     private NhanVien_BUS nvBus = new NhanVien_BUS();
 
     ArrayList<HoaDon_DTO> hoaDon = hoaDonBus.layTatCaHD();
-    Vector<String> colChiTiet = new Vector<>(Arrays.asList("Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá", "Thành Tiền"));
+    Vector<String> colChiTiet = new Vector<>(Arrays.asList("Mã SP", "Tên SP", "Số Lượng Mua", "Đơn Giá", "Khuyến Mãi", "Thành Tiền"));
     Vector<String> columnsName = new Vector<>(Arrays.asList("Mã Hóa Đơn", "Ngày Lập", "Khách Hàng", "Nhân viên", "Tổng Tiền (VNĐ)"));
 
     JTextField txtTimMaHD, txtTimMaKH;
@@ -328,6 +328,7 @@ public class HoaDon_GUI extends JPanel {
 
                 hang.add(hd.getSoLuongMua());
                 hang.add(String.format("%,.0f", hd.getDonGia()));
+                hang.add(String.format("%,.0f đ", hd.getKhuyenMai()));
                 hang.add(String.format("%,.0f", hd.getThanhTien()));
                 duLieuBang.add(hang);
             }

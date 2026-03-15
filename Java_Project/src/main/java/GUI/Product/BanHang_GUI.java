@@ -33,7 +33,7 @@ public class BanHang_GUI extends JPanel {
     JTable tableLeft;
     JTable tableRight;
     Vector<String> columnsLeft = new Vector<>(Arrays.asList("Ảnh SP", "Mã SP", "Tên SP", "Đơn giá", "Tồn kho"));
-    Vector<String> columnsRight = new Vector<>(Arrays.asList("Ảnh", "Mã SP", "Tên SP", "SL", "Đơn giá", "Thành tiền"));
+    Vector<String> columnsRight = new Vector<>(Arrays.asList("Ảnh", "Mã SP", "Tên SP", "SL", "Đơn giá", "Khuyến mãi", "Thành tiền"));
 
     CardLayout cardLayout;
     private ThanhToanGUI ttG;
@@ -350,6 +350,7 @@ public class BanHang_GUI extends JPanel {
                 hang.add(sanPhamGoc.getTenSP());
                 hang.add(cthd.getSoLuongMua());
                 hang.add(cthd.getDonGia());
+                hang.add(sanPhamGoc.getKhuyenMai());
                 hang.add(cthd.getThanhTien());
                 duLieuBang.add(hang);
             }
