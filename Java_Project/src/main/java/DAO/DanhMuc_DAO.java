@@ -10,7 +10,7 @@ public class DanhMuc_DAO {
     /*public static Connection getConnectionSQL() {
         Connection con = null;
         try {
-            String url = "jdbc:sqlserver://localhost:1433;" +
+            String url = "jdbc:sqlserver:
                          "databaseName=SieuThiMini;" +
                          "encrypt=true;" +
                          "trustServerCertificate=true";
@@ -164,29 +164,29 @@ public class DanhMuc_DAO {
         }
     }
 
-    // public boolean deleteDanhMuc(String maDM) {
-    //     String checkSQL = "SELECT COUNT(*) FROM SanPham WHERE maDM = ?";
-    //     String deleteSQL = "UPDATE DanhMuc SET trangThai = 0 WHERE maDM = ?";
+    
+    
+    
 
-    //     try (Connection con = databaseConnection.getConnection();
-    //          PreparedStatement check = con.prepareStatement(checkSQL);
-    //          PreparedStatement delete = con.prepareStatement(deleteSQL)) {
+    
+    
+    
 
-    //         check.setString(1, maDM);
-    //         ResultSet rs = check.executeQuery();
-    //         if (rs.next() && rs.getInt(1) > 0) {
-    //             System.out.println("Không thể xóa: Danh mục còn sản phẩm!");
-    //             return false;
-    //         }
+    
+    
+    
+    
+    
+    
 
-    //         delete.setString(1, maDM);
-    //         return delete.executeUpdate() > 0;
+    
+    
 
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         return false;
-    //     }
-    // }
+    
+    
+    
+    
+    
 
     public boolean isMaDMExists(String maDM) {
         String sql = "SELECT COUNT(*) FROM DanhMuc WHERE maDM = ? and trangThai = 1";

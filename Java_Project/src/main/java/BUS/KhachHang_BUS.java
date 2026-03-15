@@ -28,7 +28,7 @@ public class KhachHang_BUS {
     }
 
     public void  deleteKhachHang(KhachHang_DTO kh) {
-
+        khachHang.deleteKH(kh.getMaKH());
     }
 
     public String layMaKHmoiNhat() {
@@ -60,5 +60,49 @@ public class KhachHang_BUS {
     }
     public boolean isMaKH(String maKH) {
         return khachHang.isMaKhachHang(maKH);
+    }
+
+    public ArrayList<KhachHang_DTO> boLocTimKiemKH(String maKH, String tenKH, String sdt) {
+        ArrayList<KhachHang_DTO> danhSachGoc = layTatCaKH();
+        ArrayList<KhachHang_DTO> ketQua = new ArrayList<>();
+
+        
+        if (danhSachGoc == null || danhSachGoc.isEmpty()) {
+            return ketQua;
+        }
+
+        for (KhachHang_DTO kh : danhSachGoc) {
+            boolean thongManMaKH = true;
+            boolean thongManTenKH = true;
+            boolean thongManSDT = true;
+
+            
+            if (maKH != null && !maKH.trim().isEmpty()) {
+                thongManMaKH = kh.getMaKH().toLowerCase().contains(maKH.toLowerCase().trim());
+            }
+
+            
+            if (tenKH != null && !tenKH.trim().isEmpty()) {
+                if (kh.getHoTenKH() != null) {
+                    thongManTenKH = kh.getHoTenKH().toLowerCase().contains(tenKH.toLowerCase().trim());
+                } else {
+                    thongManTenKH = false;
+                }
+            }
+            
+            if (sdt != null && !sdt.trim().isEmpty()) {
+                if (kh.getSoDT() != null) {
+                    thongManSDT = kh.getSoDT().contains(sdt.trim());
+                } else {
+                    thongManSDT = false;
+                }
+            }
+            
+            if (thongManMaKH && thongManTenKH && thongManSDT) {
+                ketQua.add(kh);
+            }
+        }
+
+        return ketQua;
     }
 }

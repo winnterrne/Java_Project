@@ -94,33 +94,33 @@ public class ThongKeDoanhThu_DAO {
         return list;
     }
 
-    public List<Integer> tongSoLuongBanTheoThang(int thang, int nam){
-        List<Integer> list = new ArrayList<>();
 
-        String sql = """
-            SELECT ct.MaSP, SUM(ct.soLuong) AS tongSoLuong
-            FROM HoaDon hd
-            JOIN ChiTietHoaDon ct ON hd.MaHD = ct.MaHD
-            WHERE MONTH(hd.NgayLapHD) = ? AND YEAR(hd.NgayLapHD) = ?
-            GROUP BY ct.MaSP
-            """;
 
-        try (Connection con = databaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, thang);
-            ps.setInt(2, nam);
 
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                list.add(rs.getInt("tongSoLuong"));
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        return list;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
