@@ -23,10 +23,11 @@ public class ChiTietSP_GUI extends JDialog {
         String info = "Mã SP:          " + sp.getMaSP() + "\n\n" +
                 "Tên SP:         " + sp.getTenSP() + "\n\n" +
                 "Mô tả:          " + (sp.getMoTa() != null ? sp.getMoTa() : "Không có") + "\n\n" +
-                "Giá bán:        " + String.format("%,.0f ₫", sp.getGiaBan()) + "\n\n" +
+                "Giá bán:        " + String.format("%,.0f ₫", sp.getGiaBan() * ( 1 - (double)sp.getKhuyenMai()/100)) + "\n\n" +
                 "Đơn vị:         " + sp.getDonVi() + "\n\n" +
                 "Tồn kho:        " + sp.getSoLuongTon() + "\n\n" +
                 "Mã danh mục:    " + sp.getMaDM() + "\n\n" +
+                "Khuyến mãi:     " + sp.getKhuyenMai() + "%\n\n" +
                 "Vị trí:         " + sp.getViTri() + "\n\n" +
                 "Ngày sản xuất:  " + sp.getNgaySX() + "\n\n" +
                 "Hạn sử dụng:    " + sp.getHanSD();

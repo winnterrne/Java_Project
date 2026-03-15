@@ -10,7 +10,7 @@ public class SanPham_DTO {
     private String donVi;
     private int soLuongTon;
     private String maDM;
-    private String maKhuyenMai;
+    private int khuyenMai;
     private String viTri;
     private String Path;
     private byte trangThai;
@@ -20,7 +20,7 @@ public class SanPham_DTO {
     public SanPham_DTO() {
 
     }
-    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, byte trangThai, Date ngaySX, Date hanSD) {
+    public SanPham_DTO(String maSP, String tenSP, String moTa, double giaBan, String donVi, int soLuongTon, String maDM, int khuyenMai, byte trangThai, Date ngaySX, Date hanSD) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.moTa = moTa;
@@ -29,6 +29,7 @@ public class SanPham_DTO {
         this.trangThai = trangThai;
         this.soLuongTon = soLuongTon;
         this.maDM = maDM;
+        this.khuyenMai = khuyenMai;
         this.ngaySX = ngaySX;
         this.hanSD = hanSD;
     }
@@ -89,12 +90,12 @@ public class SanPham_DTO {
         this.maDM = maDM;
     }
 
-    public String getMaKhuyenMai() {
-        return maKhuyenMai;
+    public int getKhuyenMai() {
+        return khuyenMai;
     }
 
-    public void setMaKhuyenMai(String maKhuyenMai) {
-        this.maKhuyenMai = maKhuyenMai;
+    public void setKhuyenMai(int khuyenMai) {
+        this.khuyenMai = khuyenMai;
     }
 
     public String getViTri() {

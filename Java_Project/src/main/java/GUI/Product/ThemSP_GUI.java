@@ -83,7 +83,7 @@ public class ThemSP_GUI extends JDialog {
         formPanel.add(new JLabel("Đơn vị:"));    formPanel.add(txtDonVi);
         formPanel.add(new JLabel("Tồn kho:"));   formPanel.add(txtSoLuong);
         formPanel.add(new JLabel("Mã DM:"));     formPanel.add(cbMaDM);
-        formPanel.add(new JLabel("Mã khuyến mãi:")); formPanel.add(txtMaKhuyenMai);
+        formPanel.add(new JLabel("Khuyến mãi:")); formPanel.add(txtMaKhuyenMai);
         formPanel.add(new JLabel("Vị trí:"));    formPanel.add(txtViTri);
 
         JPanel pnlHinhAnh = new JPanel();
@@ -193,7 +193,7 @@ public class ThemSP_GUI extends JDialog {
         sp.setTenSP(txtTenSP.getText().trim());
         sp.setMoTa(txtMoTa.getText().trim());
         sp.setDonVi(txtDonVi.getText().trim());
-        sp.setMaKhuyenMai(txtMaKhuyenMai.getText().trim());
+        sp.setKhuyenMai(Integer.parseInt(txtMaKhuyenMai.getText().trim()));
         sp.setViTri(txtViTri.getText().trim());
         sp.setPath(duongDanAnhDatabase);
 

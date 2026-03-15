@@ -30,7 +30,7 @@ public class SanPham_DAO {
                 sp.setDonVi(rs.getString("donVi"));
                 sp.setSoLuongTon(rs.getInt("soLuongTon"));
                 sp.setMaDM(rs.getString("maDM"));
-                sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+                sp.setKhuyenMai(rs.getInt("khuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setTrangThai(rs.getByte("trangThai"));
                 sp.setPath(rs.getString("Path"));
@@ -62,7 +62,7 @@ public class SanPham_DAO {
                 sp.setDonVi(rs.getString("donVi"));
                 sp.setSoLuongTon(rs.getInt("soLuongTon"));
                 sp.setMaDM(rs.getString("maDM"));
-                sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+                sp.setKhuyenMai(rs.getInt("khuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setPath(rs.getString("Path"));
                 sp.setNgaySX(rs.getDate("ngaySX"));
@@ -90,7 +90,7 @@ public class SanPham_DAO {
                     sp.setDonVi(rs.getString("donVi"));
                     sp.setSoLuongTon(rs.getInt("soLuongTon"));
                     sp.setMaDM(rs.getString("maDM"));
-                    sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+                    sp.setKhuyenMai(rs.getInt("khuyenMai"));
                     sp.setViTri(rs.getString("viTri"));
                     sp.setPath(rs.getString("Path"));
                     sp.setNgaySX(rs.getDate("ngaySX"));
@@ -221,7 +221,7 @@ public class SanPham_DAO {
 
     public boolean updateSanPham(SanPham_DTO sp) {
         boolean result = false;
-        String sql = "UPDATE SanPham SET tenSP = ?, moTa = ?, giaBan = ?, donVi = ?, soLuongTon = ?, maDM = ?, maKhuyenMai = ?, viTri = ? WHERE maSP = ?";
+        String sql = "UPDATE SanPham SET tenSP = ?, moTa = ?, giaBan = ?, donVi = ?, soLuongTon = ?, maDM = ?, khuyenMai = ?, viTri = ? WHERE maSP = ?";
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, sp.getTenSP());
@@ -230,7 +230,7 @@ public class SanPham_DAO {
             ps.setString(4, sp.getDonVi());
             ps.setInt(5, sp.getSoLuongTon());
             ps.setString(6, sp.getMaDM());
-            ps.setString(7, sp.getMaKhuyenMai());
+            ps.setInt(7, sp.getKhuyenMai());
             ps.setString(8, sp.getViTri());
             ps.setString(9, sp.getMaSP());
 
@@ -276,7 +276,7 @@ public class SanPham_DAO {
                 sp.setDonVi(rs.getString("donVi"));
                 sp.setSoLuongTon(rs.getInt("soLuongTon"));
                 sp.setMaDM(rs.getString("maDM"));
-                sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+                sp.setKhuyenMai(rs.getInt("khuyenMai"));
                 sp.setViTri(rs.getString("viTri"));
                 sp.setPath(rs.getString("Path"));
                 list.add(sp);
@@ -346,7 +346,7 @@ public class SanPham_DAO {
         sp.setDonVi(rs.getString("donVi"));
         sp.setSoLuongTon(rs.getInt("soLuongTon"));
         sp.setMaDM(rs.getString("maDM"));
-        sp.setMaKhuyenMai(rs.getString("maKhuyenMai"));
+        sp.setKhuyenMai(rs.getInt("khuyenMai"));
         sp.setViTri(rs.getString("viTri"));
         sp.setTrangThai(rs.getByte("trangThai"));
         return sp;
@@ -399,7 +399,7 @@ public class SanPham_DAO {
     }
 
     public boolean luuSanPham(SanPham_DTO sp) {
-        String sql = "INSERT INTO SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, maKhuyenMai, viTri, Path, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham (maSP, tenSP, moTa, giaBan, donVi, soLuongTon, maDM, khuyenMai, viTri, Path, trangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = databaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -411,7 +411,7 @@ public class SanPham_DAO {
             ps.setString(5, sp.getDonVi());
             ps.setInt(6, sp.getSoLuongTon());
             ps.setString(7, sp.getMaDM());
-            ps.setString(8, sp.getMaKhuyenMai());
+            ps.setInt(8, sp.getKhuyenMai());
             ps.setString(9, sp.getViTri());
 
             String path = (sp.getPath() == null) ? "" : sp.getPath();
@@ -426,5 +426,6 @@ public class SanPham_DAO {
             return false;
         }
     }
+
 
 }
