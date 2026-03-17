@@ -20,7 +20,7 @@ public class KhachHangGUI extends JPanel {
 
     private ArrayList<KhachHang_DTO> dsKhachHang = khBus.layTatCaKH();
 
-    // Đã cập nhật: Thêm Email, Điểm tích lũy, Trạng thái vào danh sách cột
+    
     private Vector<String> columnsName = new Vector<>(Arrays.asList(
             "Mã KH", "Họ Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ", "Email", "Điểm Tích Lũy"
     ));
@@ -70,14 +70,11 @@ public class KhachHangGUI extends JPanel {
         JButton btnTimKiem = new JButton("Tìm kiếm");
         btnTimKiem.setPreferredSize(new Dimension(100, 25));
 
-        JButton btnThemMoi = new JButton("Thêm mới");
-        btnThemMoi.setPreferredSize(new Dimension(100, 25));
 
         JButton btnLamMoi = new JButton("Làm mới");
         btnLamMoi.setPreferredSize(new Dimension(100, 25));
 
         pnlButtons.add(btnTimKiem);
-        pnlButtons.add(btnThemMoi);
         pnlButtons.add(btnLamMoi);
 
         pnlSearch.add(pnlInput, BorderLayout.CENTER);
@@ -114,21 +111,8 @@ public class KhachHangGUI extends JPanel {
             modelKhachHang.setDataVector(renderKhachHang(ketQuaLoc), columnsName);
         });
 
-        btnThemMoi.addActionListener(e -> {
-//            JOptionPane.showMessageDialog(this, "Hiển thị Form thêm Khách Hàng mới!");
-        });
 
         tableKhachHang.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
-                    int selectedRow = tableKhachHang.getSelectedRow();
-                    if (selectedRow != -1) {
-                        String maKH = tableKhachHang.getValueAt(selectedRow, 0).toString();
-//                        hienThiGiaoDienChiTiet(maKH);
-                    }
-                }
-            }
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -144,7 +128,7 @@ public class KhachHangGUI extends JPanel {
         });
     }
 
-    // Đã cập nhật: Thêm các thuộc tính mới vào Vector để đẩy lên bảng
+    
     private Vector<Vector<Object>> renderKhachHang(ArrayList<KhachHang_DTO> danhSach) {
         Vector<Vector<Object>> duLieuBang = new Vector<>();
         if (danhSach == null || danhSach.isEmpty()) {
@@ -158,9 +142,9 @@ public class KhachHangGUI extends JPanel {
             hang.add(kh.getSoDT() != null ? kh.getSoDT() : "");
             hang.add(kh.getDiaChi() != null ? kh.getDiaChi() : "");
 
-            // Xử lý các thuộc tính mới, kiểm tra null để tránh lỗi NullPointerException
+            
             hang.add(kh.getEmail() != null ? kh.getEmail() : "Không có");
-            hang.add(kh.getDiemTichLuy()); // Giả định trả về kiểu double/float/int
+            hang.add(kh.getDiemTichLuy()); 
 
             duLieuBang.add(hang);
         }
@@ -181,7 +165,7 @@ public class KhachHangGUI extends JPanel {
         JMenuItem itemXoa = new JMenuItem("Xóa Khách Hàng");
 
         itemSua.addActionListener(event -> {
-            //hienThiGiaoDienChiTiet(maKH);
+            hienThiDialogSuaKhachHang(maKH);
         });
 
         itemXoa.addActionListener(event -> {
@@ -203,5 +187,101 @@ public class KhachHangGUI extends JPanel {
         popupMenu.addSeparator();
         popupMenu.add(itemXoa);
         popupMenu.show(e.getComponent(), e.getX(), e.getY());
+    }
+
+    private void hienThiDialogSuaKhachHang(String maKH) {
+        
+        KhachHang_DTO kh = khBus.layKHTheoMaKH(maKH);
+        if (kh == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        Window window = SwingUtilities.getWindowAncestor(this);
+        JDialog dialog = new JDialog((Frame) window, "Sửa Thông Tin Khách Hàng", true);
+        dialog.setSize(400, 350);
+        dialog.setLocationRelativeTo(this);
+        dialog.setLayout(new BorderLayout());
+
+        
+        JPanel pnlForm = new JPanel(new GridLayout(6, 2, 10, 15));
+        pnlForm.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        
+        pnlForm.add(new JLabel("Mã KH:"));
+        JTextField txtMaKH = new JTextField(kh.getMaKH());
+        txtMaKH.setEditable(false); 
+        txtMaKH.setFocusable(false);
+        pnlForm.add(txtMaKH);
+
+        pnlForm.add(new JLabel("Họ tên:"));
+        JTextField txtHoTen = new JTextField(kh.getHoTenKH());
+        pnlForm.add(txtHoTen);
+
+        pnlForm.add(new JLabel("Số điện thoại:"));
+        JTextField txtSDT = new JTextField(kh.getSoDT());
+        pnlForm.add(txtSDT);
+
+        pnlForm.add(new JLabel("Địa chỉ:"));
+        JTextField txtDiaChi = new JTextField(kh.getDiaChi());
+        pnlForm.add(txtDiaChi);
+
+        pnlForm.add(new JLabel("Email:"));
+        JTextField txtEmail = new JTextField(kh.getEmail());
+        pnlForm.add(txtEmail);
+
+        pnlForm.add(new JLabel("Điểm tích lũy:"));
+        JTextField txtDiem = new JTextField(String.valueOf(kh.getDiemTichLuy()));
+        txtDiem.setEditable(false); 
+        txtDiem.setFocusable(false);
+        pnlForm.add(txtDiem);
+
+        dialog.add(pnlForm, BorderLayout.CENTER);
+
+        
+        JPanel pnlButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton btnLuu = new JButton("Lưu thay đổi");
+        JButton btnHuy = new JButton("Hủy bỏ");
+
+        pnlButtons.add(btnLuu);
+        pnlButtons.add(btnHuy);
+        dialog.add(pnlButtons, BorderLayout.SOUTH);
+
+        
+        btnHuy.addActionListener(e -> dialog.dispose());
+
+        btnLuu.addActionListener(e -> {
+            
+            String tenMoi = txtHoTen.getText().trim();
+            String sdtMoi = txtSDT.getText().trim();
+            String diaChiMoi = txtDiaChi.getText().trim();
+            String emailMoi = txtEmail.getText().trim();
+
+            if (tenMoi.isEmpty() || sdtMoi.isEmpty()) {
+                JOptionPane.showMessageDialog(dialog, "Vui lòng nhập đủ Họ tên và Số điện thoại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            
+            kh.setHoTenKH(tenMoi);
+            kh.setSoDT(sdtMoi);
+            kh.setDiaChi(diaChiMoi);
+            kh.setEmail(emailMoi);
+
+            
+            boolean thanhCong = khBus.updateKhachHang(kh); 
+
+            if (thanhCong) {
+                JOptionPane.showMessageDialog(dialog, "Cập nhật thành công!");
+                dialog.dispose();
+                refresh(); 
+            } else {
+                JOptionPane.showMessageDialog(dialog, "Cập nhật thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        
+        dialog.setVisible(true);
     }
 }

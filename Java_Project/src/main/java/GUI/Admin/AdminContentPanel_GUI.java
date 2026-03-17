@@ -24,6 +24,7 @@ public class AdminContentPanel_GUI extends JPanel {
     public static final String CARD_PHIEU_TRA = "Phiếu Trả";
     public static final String CARD_TRA_HANG = "Trả Hàng";
     public static final String CARD_TRONG = "Panel trong";
+    public static final String CARD_KHACH_HANG = "Quản lí khách hàng";
     private SanPham_BUS spbus = new SanPham_BUS();
     private ThongKe_BUS tkbus = new ThongKe_BUS();
     private NhapHangGUI nhapHangGUI;
@@ -34,7 +35,7 @@ public class AdminContentPanel_GUI extends JPanel {
     private HoaDon_GUI hoaDonGUI;
     private SanPhamMain_GUI sanPhamMainGui;
     private DanhMuc_GUI danhMucGui;
-
+    private KhachHangGUI khachHangGUI;
 
     public AdminContentPanel_GUI() {
         card = new CardLayout();
@@ -61,6 +62,8 @@ public class AdminContentPanel_GUI extends JPanel {
         phieuTraGUI = new PhieuTraGUI();
         add(phieuTraGUI, CARD_PHIEU_TRA);
         add(new TaiKhoan_GUI(), CARD_TAI_KHOAN);
+        khachHangGUI = new  KhachHangGUI();
+        add(khachHangGUI, CARD_KHACH_HANG);
 
     }
 
@@ -98,5 +101,9 @@ public class AdminContentPanel_GUI extends JPanel {
 
     public DanhMuc_GUI getDanhMucGui() {
         return danhMucGui;
+    }
+
+    public KhachHangGUI getKhachHangGUI() {
+        return khachHangGUI;
     }
 }

@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 public class AdminMenuPanel_GUI extends JPanel {
     private JButton activeButton = null;
     private AdminContentPanel_GUI panel;
-    private JButton btnBanHang, btnQuanLySP, btnDanhMucSP, btnDanhSachHD, btnQuanLyNCC, btnPhieuNhap, btnNhapHang, btnPhieuTra, btnTraHang, btnQuanLyTK, btnDangXuat;
+    private JButton btnKhachHang, btnBanHang, btnQuanLySP, btnDanhMucSP, btnDanhSachHD, btnQuanLyNCC, btnPhieuNhap, btnNhapHang, btnPhieuTra, btnTraHang, btnQuanLyTK, btnDangXuat;
 
     public AdminMenuPanel_GUI(AdminContentPanel_GUI contentpanel) {
         panel = contentpanel;
@@ -67,6 +67,10 @@ public class AdminMenuPanel_GUI extends JPanel {
 
         btnQuanLyTK = createMenuButton("Quản Lý Tài Khoản", AdminContentPanel_GUI.CARD_TAI_KHOAN);
         add(btnQuanLyTK);
+        add(Box.createVerticalStrut(10));
+
+        btnKhachHang = createMenuButton("Quản lí khách hàng",  AdminContentPanel_GUI.CARD_KHACH_HANG);
+        add(btnKhachHang);
         add(Box.createVerticalStrut(10));
 
         btnDangXuat = creatLogOutButton("Đăng xuất");
@@ -162,6 +166,9 @@ public class AdminMenuPanel_GUI extends JPanel {
             if (cardName.equals(AdminContentPanel_GUI.CARD_HOA_DON)) {
                 panel.getHoaDonGUI().refresh();
             }
+            if(cardName.equals(AdminContentPanel_GUI.CARD_KHACH_HANG)) {
+                panel.getKhachHangGUI().refresh();
+            }
         });
 
         btn.addMouseListener(new MouseAdapter() {
@@ -218,7 +225,7 @@ public class AdminMenuPanel_GUI extends JPanel {
             btnPhieuTra.setVisible(false);
             btnTraHang.setVisible(false);
             btnQuanLyTK.setVisible(false);
-
+            btnKhachHang.setVisible(false);
         }
     }
     public void enableALL() {

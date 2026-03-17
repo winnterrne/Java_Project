@@ -23,8 +23,8 @@ public class KhachHang_BUS {
         khachHang.insertKH(kh);
     }
 
-    public void updateKhachHang(KhachHang_DTO kh) {
-        khachHang.updateKhachHang(kh);
+    public boolean updateKhachHang(KhachHang_DTO kh) {
+        return khachHang.updateKhachHang(kh);
     }
 
     public void  deleteKhachHang(KhachHang_DTO kh) {

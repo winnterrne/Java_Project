@@ -328,7 +328,7 @@ public class HoaDon_GUI extends JPanel {
 
                 hang.add(hd.getSoLuongMua());
                 hang.add(String.format("%,.0f", hd.getDonGia()));
-                hang.add(String.format("%,.0f đ", hd.getKhuyenMai()));
+                hang.add(String.format("%,d%%", hd.getKhuyenMai()));
                 hang.add(String.format("%,.0f", hd.getThanhTien()));
                 duLieuBang.add(hang);
             }
