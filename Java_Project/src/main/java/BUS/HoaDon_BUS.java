@@ -166,10 +166,11 @@ public class HoaDon_BUS {
 
     public boolean thanhToanGiaoDich(HoaDon_DTO hoaDon, KhachHang_DTO kh, ArrayList<ChiTietHoaDon_DTO> dsCTHD, String maNV) {
         try {
-
             if (kh != null) {
                 KhachHang_BUS khBus = new KhachHang_BUS();
-                khBus.insertKH(kh);
+                if (khBus.layKHTheoMaKH(kh.getMaKH()) == null) {
+                    khBus.insertKH(kh);
+                }
                 hoaDon.setMaKH(kh.getMaKH());
             } else {
                 hoaDon.setMaKH("KH000");

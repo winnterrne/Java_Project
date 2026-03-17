@@ -46,7 +46,13 @@ public class KhachHang_BUS {
             return null; 
         }
 
-        
+        KhachHang_DTO khachHang = new KhachHang_DAO().timKH(sdtKH);
+
+        if (khachHang != null) {
+            return khachHang;
+        }
+
+
         KhachHang_DTO kh = new KhachHang_DTO();
         kh.setMaKH(layMaKHmoiNhat()); 
 

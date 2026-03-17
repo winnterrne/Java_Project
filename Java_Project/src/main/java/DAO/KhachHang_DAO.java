@@ -36,24 +36,32 @@ public class KhachHang_DAO {
 
 
     public KhachHang_DTO layKHTheoMaKH(String maKH) {
-        KhachHang_DTO dto = new KhachHang_DTO();
-        String sql = "Select * from khachhang where maKH = ? and trangThai = 1";
+        KhachHang_DTO dto = null;
+        String sql = "SELECT * FROM khachhang WHERE maKH = ? AND trangThai = 1";
+
+        // Đã bỏ dấu ';' thừa ở cuối
         try (Connection con = databaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setString(1,maKH);
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, maKH);
+
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
+                // Thay while bằng if và CHỈ khởi tạo dto khi thực sự có dữ liệu
+                if (rs.next()) {
+                    dto = new KhachHang_DTO();
                     dto.setMaKH(rs.getString("maKH"));
                     dto.setHoTenKH(rs.getString("hoTenKH"));
                     dto.setSoDT(rs.getString("soDT"));
                     dto.setDiaChi(rs.getString("diaChi"));
+                    dto.setEmail(rs.getString("email")); // Đã bổ sung email
                     dto.setDiemTichLuy(rs.getDouble("diemTichLuy"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dto;
+
+        return dto; // Trả về null nếu không tìm thấy, ngược lại trả về object chứa dữ liệu
     }
 
 
@@ -105,7 +113,7 @@ public class KhachHang_DAO {
     }
 
     public boolean updateKhachHang(KhachHang_DTO dto) {
-        String sql = "UPDATE KhachHang SET hoTenKH = ?, soDT = ?, diaChi = ?,email= ?, diemTichLuy = ? WHERE maKH = ?";
+        String sql = "UPDATE KhachHang SET hoTenKH = ?, soDT = ?, diaChi = ?,email= ?, diemTichLuy = ? WHERE maKH = ? and trangThai = 1";
 
         try (Connection conn = databaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -154,6 +162,28 @@ public class KhachHang_DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public KhachHang_DTO timKH(String sdt) {
+        String sql = "select * from khachhang where soDT = ? and trangThai = 1";
+        KhachHang_DTO dto = null;
+        try (Connection conn = databaseConnection.getConnection();
+        PreparedStatement pst = conn.prepareStatement(sql);){
+            pst.setString(1, sdt);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                dto = new KhachHang_DTO();
+                dto.setMaKH(rs.getString("maKH"));
+                dto.setHoTenKH(rs.getString("hoTenKH"));
+                dto.setSoDT(rs.getString("soDT"));
+                dto.setDiaChi(rs.getString("diaChi"));
+                dto.setEmail(rs.getString("email"));
+                dto.setDiemTichLuy(rs.getDouble("diemTichLuy"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dto;
     }
 
 }
